@@ -32,9 +32,9 @@
     </licenses>
 
     <scm>
-        <connection>scm:svn:https://arcanum.svn.sourceforge.net/svnroot/arcanum/trunk</connection>
-        <developerConnection>scm:svn:https://arcanum.svn.sourceforge.net/svnroot/arcanum/trunk</developerConnection>
-        <url>http://arcanum.svn.sourceforge.net/viewvc/arcanum/trunk/</url>
+        <connection>cm:git:git@github.com:adecaro/arcanum.git</connection>
+        <url>scm:git:git@github.com:adecaro/arcanum.git</url>
+        <developerConnection>scm:git:git@github.com:adecaro/arcanum.git</developerConnection>
     </scm>
 
     <modules>
