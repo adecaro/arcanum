@@ -1,7 +1,7 @@
 package org.arcanum.mm.clt13;
 
+import org.arcanum.pairing.mm.clt13.engine.CTL13MMEngine;
 import org.arcanum.pairing.mm.clt13.engine.CTL13MMInstance;
-import org.arcanum.pairing.mm.clt13.engine.MultiThreadCTL13MMInstance;
 import org.arcanum.pairing.mm.clt13.generators.CTL13MMPublicParameterGenerator;
 import org.arcanum.pairing.mm.clt13.parameters.CTL13MMSystemParameters;
 import org.junit.Before;
@@ -50,7 +50,7 @@ public abstract class AbstractCTL13MMTest {
 
     @Before
     public void before() {
-        instance = new MultiThreadCTL13MMInstance(
+        instance = new CTL13MMEngine(
                 random,
                 new CTL13MMPublicParameterGenerator(random, instanceParameters).generate()
         );

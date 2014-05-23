@@ -19,7 +19,7 @@ import static org.arcanum.util.math.BigIntegerUtils.modNear;
  * @author Angelo De Caro (arcanumlib@gmail.com)
  * @since 2.0.0
  */
-public class MultiThreadCTL13MMInstance implements CTL13MMInstance {
+public class CTL13MMEngine implements CTL13MMInstance {
 
     protected SecureRandom random;
     protected CTL13MMPublicParameters values;
@@ -30,7 +30,7 @@ public class MultiThreadCTL13MMInstance implements CTL13MMInstance {
 
     protected long isZeroBound;
 
-    public MultiThreadCTL13MMInstance(SecureRandom random, Parameters parameters) {
+    public CTL13MMEngine(SecureRandom random, Parameters parameters) {
         this.random = random;
         this.values = new CTL13MMPublicParameters(parameters);
 

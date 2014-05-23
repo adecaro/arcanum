@@ -4,8 +4,8 @@ import org.arcanum.*;
 import org.arcanum.pairing.accumulator.PairingAccumulator;
 import org.arcanum.pairing.accumulator.PairingAccumulatorFactory;
 import org.arcanum.pairing.map.DefaultPairingPreProcessing;
+import org.arcanum.pairing.mm.clt13.engine.CTL13MMEngine;
 import org.arcanum.pairing.mm.clt13.engine.CTL13MMInstance;
-import org.arcanum.pairing.mm.clt13.engine.MultiThreadCTL13MMInstance;
 import org.arcanum.pairing.mm.clt13.generators.CTL13MMPublicParameterGenerator;
 
 import java.math.BigInteger;
@@ -121,7 +121,7 @@ public class CTL13MMPairing implements Pairing {
 
 
     protected CTL13MMInstance initInstance(Parameters parameters) {
-        return new MultiThreadCTL13MMInstance(random,
+        return new CTL13MMEngine(random,
                 new CTL13MMPublicParameterGenerator(
                         random,
                         parameters
