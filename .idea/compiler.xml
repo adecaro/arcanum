@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <option name="DEFAULT_COMPILER" value="Javac" />
+    <resourceExtensions />
+    <wildcardResourcePatterns>
+      <entry name="!?*.java" />
+      <entry name="!?*.form" />
+      <entry name="!?*.class" />
+      <entry name="!?*.groovy" />
+      <entry name="!?*.scala" />
+      <entry name="!?*.flex" />
+      <entry name="!?*.kt" />
+      <entry name="!?*.clj" />
+    </wildcardResourcePatterns>
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="false">
+        <processorPath useClasspath="true" />
+      </profile>
+      <profile default="false" name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="arcanum-algebra" />
+        <module name="arcanum-api" />
+        <module name="arcanum-crypto" />
+        <module name="arcanum-jlbc" />
+        <module name="arcanum-lattice" />
+        <module name="arcanum-mm" />
+        <module name="arcanum-pairing" />
+        <module name="arcanum-pbc" />
+        <module name="arcanum-plaf" />
+        <module name="arcanum-schemes" />
+        <module name="arcanum-site-skin" />
+        <module name="arcanum-support" />
+        <module name="arcanum-test" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="arcanum" target="1.5" />
+      <module name="arcanum-algebra" target="1.5" />
+      <module name="arcanum-api" target="1.5" />
+      <module name="arcanum-crypto" target="1.5" />
+      <module name="arcanum-jlbc" target="1.5" />
+      <module name="arcanum-lattice" target="1.5" />
+      <module name="arcanum-mm" target="1.5" />
+      <module name="arcanum-pairing" target="1.5" />
+      <module name="arcanum-pbc" target="1.5" />
+      <module name="arcanum-plaf" target="1.5" />
+      <module name="arcanum-schemes" target="1.5" />
+      <module name="arcanum-site-skin" target="1.5" />
+      <module name="arcanum-support" target="1.5" />
+      <module name="arcanum-test" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
+
