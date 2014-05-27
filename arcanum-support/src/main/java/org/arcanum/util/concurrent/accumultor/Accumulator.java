@@ -6,7 +6,7 @@ import java.util.concurrent.Callable;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface Accumulator<T> extends Pool<T> {
 

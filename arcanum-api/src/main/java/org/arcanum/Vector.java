@@ -5,7 +5,7 @@ package org.arcanum;
  * TODO: finish javadocs.
  *
  * @author Angelo De Caro (arcanumlib@gmail.com)
- * @since 1.2.0
+ * @since 1.0.0
  * @see Element
  * @see Polynomial
  * @see Point
@@ -16,7 +16,7 @@ public interface Vector<E extends Element> extends Element {
      * Returns the size of this vector.
      *
      * @return the size of this vector.
-     * @since 1.2.0
+     * @since 1.0.0
      */
     int getSize();
 
@@ -25,7 +25,7 @@ public interface Vector<E extends Element> extends Element {
      *
      * @param index the index of the requested coordinate.
      * @return the element at the specified coordinate.
-     * @since 1.2.0
+     * @since 1.0.0
      */
     E getAt(int index);
 

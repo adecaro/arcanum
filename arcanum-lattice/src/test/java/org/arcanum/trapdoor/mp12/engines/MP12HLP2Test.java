@@ -1,6 +1,7 @@
 package org.arcanum.trapdoor.mp12.engines;
 
 import org.arcanum.Element;
+import org.arcanum.ElementCipher;
 import org.arcanum.Field;
 import org.arcanum.Matrix;
 import org.arcanum.field.vector.MatrixElement;
@@ -8,7 +9,6 @@ import org.arcanum.field.vector.MatrixField;
 import org.arcanum.field.vector.VectorField;
 import org.arcanum.trapdoor.mp12.generators.MP12HLP2KeyPairGenerator;
 import org.arcanum.trapdoor.mp12.params.*;
-import org.arcanum.util.cipher.engine.ElementCipher;
 import org.arcanum.util.cipher.params.ElementKeyPairParameters;
 import org.junit.Assert;
 import org.junit.Before;

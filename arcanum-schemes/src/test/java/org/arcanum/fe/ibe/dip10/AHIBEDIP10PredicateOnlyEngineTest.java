@@ -1,6 +1,6 @@
 package org.arcanum.fe.ibe.dip10;
 
-import org.arcanum.AbstractJPBCCryptoTest;
+import org.arcanum.AbstractArcanumCryptoTest;
 import org.arcanum.Element;
 import org.arcanum.Pairing;
 import org.arcanum.fe.PredicateOnlyEncryptionScheme;
@@ -20,7 +20,7 @@ import static org.junit.Assert.fail;
 /**
  * @author Angelo De Caro
  */
-public class AHIBEDIP10PredicateOnlyEngineTest extends AbstractJPBCCryptoTest {
+public class AHIBEDIP10PredicateOnlyEngineTest extends AbstractArcanumCryptoTest {
 
 
     public AHIBEDIP10PredicateOnlyEngineTest(boolean usePBC, String curvePath) {

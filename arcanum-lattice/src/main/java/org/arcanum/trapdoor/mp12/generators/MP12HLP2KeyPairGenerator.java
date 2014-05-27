@@ -6,6 +6,7 @@ import org.arcanum.Matrix;
 import org.arcanum.Sampler;
 import org.arcanum.field.vector.MatrixField;
 import org.arcanum.field.vector.VectorField;
+import org.arcanum.sampler.SamplerFactory;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2KeyPairGenerationParameters;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2PrivateKeyParameters;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2PublicKeyParameters;
@@ -16,6 +17,8 @@ import org.arcanum.util.cipher.params.ElementKeyPairParameters;
 import java.math.BigInteger;
 
 /**
+ * Computational instantiation.
+ *
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
 public class MP12HLP2KeyPairGenerator extends MP12PLP2KeyPairGenerator {
@@ -38,7 +41,10 @@ public class MP12HLP2KeyPairGenerator extends MP12PLP2KeyPairGenerator {
         this.inputField = new VectorField<Field>(params.getRandom(), Zq, n);
         this.outputField = new VectorField<Field>(params.getRandom(), Zq, m);
 
-        this.hlZSampler = MP12P2Utils.getLWENoiseSampler(random, n);
+        this.hlZSampler = SamplerFactory.getInstance().getDiscreteGaussianSampler(
+                random,
+                MP12P2Utils.getLWENoiseParameter(n, params.getParameters().getRandomizedRoundingParameter())
+        );
     }
 
     public ElementKeyPairParameters generateKeyPair() {
@@ -69,7 +75,8 @@ public class MP12HLP2KeyPairGenerator extends MP12PLP2KeyPairGenerator {
 
         return new ElementKeyPairParameters(
                 new MP12HLP2PublicKeyParameters(
-                        params.getParameters(), k, m,
+                        params.getParameters(),
+                        k, m, barM, w,
                         discreteGaussianSampler,
                         G,
                         syndromeField, Zq, preimageField,

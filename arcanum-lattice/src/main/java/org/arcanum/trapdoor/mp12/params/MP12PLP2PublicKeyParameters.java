@@ -1,11 +1,9 @@
 package org.arcanum.trapdoor.mp12.params;
 
+import org.apfloat.Apfloat;
 import org.arcanum.Field;
 import org.arcanum.Matrix;
-import org.arcanum.Sampler;
 import org.arcanum.field.vector.VectorField;
-
-import java.math.BigInteger;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
@@ -13,19 +11,15 @@ import java.math.BigInteger;
 public class MP12PLP2PublicKeyParameters extends MP12KeyParameters {
 
     protected int k;
-    protected Sampler<BigInteger> discreteGaussianSampler;
-
     protected Matrix G; // parity-check matrix
 
     protected Field syndromeField;
-
     protected Field Zq;
     protected VectorField<Field> preimageField;
 
 
     public MP12PLP2PublicKeyParameters(MP12Parameters parameters,
                                        int k,
-                                       Sampler<BigInteger> discreteGaussianSampler,
                                        Matrix G,
                                        Field syndromeField,
                                        Field Zq,
@@ -33,7 +27,6 @@ public class MP12PLP2PublicKeyParameters extends MP12KeyParameters {
         super(false, parameters);
 
         this.k = k;
-        this.discreteGaussianSampler = discreteGaussianSampler;
         this.G = G;
         this.syndromeField = syndromeField;
         this.Zq = Zq;
@@ -44,8 +37,8 @@ public class MP12PLP2PublicKeyParameters extends MP12KeyParameters {
         return k;
     }
 
-    public Sampler<BigInteger> getDiscreteGaussianSampler() {
-        return discreteGaussianSampler;
+    public Apfloat getRandomizedRoundingParameter() {
+        return getParameters().getRandomizedRoundingParameter();
     }
 
     public Matrix getG() {

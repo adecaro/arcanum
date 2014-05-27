@@ -5,7 +5,7 @@ package org.arcanum;
  *
  * @author Angelo De Caro (arcanumlib@gmail.com)
  * @see Element
- * @since 2.1.0
+ * @since 1.0.0
  */
 public interface Matrix <E extends Element> extends Element {
 

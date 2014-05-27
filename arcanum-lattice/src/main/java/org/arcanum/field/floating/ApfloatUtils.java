@@ -16,6 +16,7 @@ public class ApfloatUtils {
     public final static Apint IZERO = new Apint(0, radix);
     public final static Apint IONE = new Apint(1, radix);
     public final static Apint ITWO = new Apint(2, radix);
+    public static Apfloat SQRT_TWO_PI = ApfloatMath.sqrt(pi().multiply(ITWO));
     public static final Apint IFOUR = new Apint(4, radix);
     public static final Apint IFIVE = new Apint(5, radix);
     public static final Apint ISIX = new Apint(6, radix);
@@ -25,6 +26,7 @@ public class ApfloatUtils {
 
     public final static Apfloat ONE = new Apfloat(1, precision, radix);
     public final static Apfloat TWO = new Apfloat(2, precision, radix);
+    public static Apfloat SQRT_TWO = ApfloatMath.sqrt(TWO);
     public static final Apfloat FIVE = new Apfloat(5, precision, radix);
     public static final Apfloat ZERO = new Apfloat(0, precision, radix);
 

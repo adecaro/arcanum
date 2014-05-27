@@ -14,7 +14,7 @@ public interface PreProcessing {
      * Converts the object to bytes.
      *
      * @return the bytes written.
-     * @since 1.2.0
+     * @since 1.0.0
      */
     byte[] toBytes();
 

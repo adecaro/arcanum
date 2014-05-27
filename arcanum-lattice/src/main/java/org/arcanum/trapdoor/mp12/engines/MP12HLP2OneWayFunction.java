@@ -1,11 +1,11 @@
 package org.arcanum.trapdoor.mp12.engines;
 
 import org.arcanum.Element;
+import org.arcanum.ElementCipher;
+import org.arcanum.ElementCipherParameters;
 import org.arcanum.Vector;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2OneWayFunctionParameters;
 import org.arcanum.util.cipher.engine.AbstractElementCipher;
-import org.arcanum.util.cipher.engine.ElementCipher;
-import org.arcanum.util.cipher.params.ElementCipherParameters;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

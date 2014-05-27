@@ -9,7 +9,7 @@ import java.util.concurrent.Executor;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
- * @since 2.0.0
+ * @since 1.0.0
  */
 public abstract class AbstractAccumulator<T> extends PoolExecutor<T> implements Accumulator<T> {
 

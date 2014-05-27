@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface Sector {
 

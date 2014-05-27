@@ -5,7 +5,7 @@ import org.bouncycastle.crypto.InvalidCipherTextException;
 
 /**
  * @author Angelo De Caro (angelo.decaro@gmail.com)
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface PredicateOnlyEncryptionScheme extends AsymmetricBlockCipher {
 

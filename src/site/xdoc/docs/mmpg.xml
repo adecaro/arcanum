@@ -3,7 +3,7 @@
         "http://maven.apache.org/dtd/xdoc_1_0.dtd">
 <document>
     <properties>
-        <title>Java Pairing-Based Cryptography Library : Docs - Multilinear Maps</title>
+        <title>Java Pairing and Lattice Based Cryptography Library : Docs - Multilinear Maps</title>
         <author email="arcanumlib@gmail.com">Angelo De Caro</author>
     </properties>
 
@@ -32,7 +32,7 @@
             <a name="ctl13"/>
             <subsection name="CTL13">
                 <p>
-                JPBC provides an implementation of <span class="em">Multilinear Maps</span>
+                Arcanum provides an implementation of <span class="em">Multilinear Maps</span>
                 based on the paper
                 <a href="http://eprint.iacr.org/2013/183.pdf"><span class="em">Practical Multilinear Maps over the Integers</span></a>
                 by <span class="em">Coron, Lepoint, and Tibouchi</span> (henceforth CTL).
@@ -47,7 +47,7 @@
                     They govern the security and the correctness of the multilinear map.
                     They must be set carefully to satisfy the constraints described in the CTL paper,
                     Section 3.1.
-                    In JPBC, the class <code>CTL13MMSystemParameters</code>
+                    In Arcanum, the class <code>CTL13MMSystemParameters</code>
                     models the system parameters which can be set in two different
                     ways. The first is by passing the parameters to one
                     of the constructors of the class as follows:
@@ -75,7 +75,7 @@
                         PairingFactory.getInstance().loadParameters("./params/mm/ctl13/toy.properties")
                         );</source>
                 <p>
-                    JPBC provides a set of predefined system parameters that
+                    Arcanum provides a set of predefined system parameters that
                     can be found in the <code>params/mm/ctl13</code> folder
                     of the distro package.
                 </p>
@@ -85,7 +85,7 @@
                     multilinear map defined by the given system parameters.
                 </p>
                 <p>
-                    JPBC provides single and multithreaded generators
+                    Arcanum provides single and multithreaded generators
                     that take in input the system parameters and generate the public parameters
                     which are then saved in a file whose name is related to the system parameters
                     used. For example, for <code>CTL13MMSystemParameters.TOY</code> the
@@ -96,7 +96,7 @@
                 </p>
 
                 <source>import
-                    org.arcanum.dia.gas.plaf.jpbc.mm.clt13.generators.CTL13MMMultiThreadPublicParameterGenerator;
+                    org.arcanum.dia.gas.plaf.arcanum.mm.clt13.generators.CTL13MMMultiThreadPublicParameterGenerator;
                     import CTL13MMPublicParameterGenerator;
                     import CTL13MMSystemParameters;
 

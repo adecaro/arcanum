@@ -3,7 +3,7 @@
         "http://maven.apache.org/dtd/xdoc_1_0.dtd">
 <document>
     <properties>
-        <title>Java Pairing-Based Cryptography Library : FAQ</title>
+        <title>Java Pairing and Lattice Based Cryptography Library : FAQ</title>
         <author email="arcanumlib@gmail.com">Angelo De Caro</author>
     </properties>
 
@@ -11,7 +11,7 @@
         <section name="FAQ">
             <ol type="1">
                 <li>
-                    <a href="#htujpbc">How to use JPBC?</a>
+                    <a href="#htuarcanum">How to use Arcanum?</a>
                 </li>
                 <li>
                     <a href="#witmep">Which is the main entry point?</a>
@@ -26,20 +26,20 @@
         </section>
 
 
-        <a name="htujpbc"/>
-        <subsection name="How to use JPBC?">
+        <a name="htuarcanum"/>
+        <subsection name="How to use Arcanum?">
             <p>
-                To use JPBC, add to your classpath the following jars:
-                        <span class="em"><code>jpbc_2.0.0-api.jar</code></span>
+                To use Arcanum, add to your classpath the following jars:
+                        <span class="em"><code>arcanum_2.0.0-api.jar</code></span>
                         and
-                        <span class="em"><code>jpbc_2.0.0-plaf.jar</code></span>.
+                        <span class="em"><code>arcanum_2.0.0-plaf.jar</code></span>.
             </p>
             <p>
                 To use the PBC Wrapper, a shared C library must be compiled
                 and installed properly as shown
                 <a href="http://crypto.stanford.edu/pbc/manual/ch08s03.html">here</a>.
                 Then, to use the wrapper, include the following jars:
-                    <span class="em"><code>jpbc_2.0.0-pbc.jar</code></span>
+                    <span class="em"><code>arcanum_2.0.0-pbc.jar</code></span>
                     and
                     <span class="em"><code>jna-3.1.0.jar</code></span>.
             </p>
@@ -47,14 +47,14 @@
                 To use the
                 <a href="docs/pairing.html">Multilinear Maps</a>,
                 include the following jar:
-                    <span class="em"><code>jpbc_2.0.0-mm.jar</code></span>.
+                    <span class="em"><code>arcanum_2.0.0-mm.jar</code></span>.
             </p>
             <p>
                 To use the
                 <a href="schemes/schemes.html">cryptosystems</a>
-                provided by JPBC
+                provided by Arcanum
                 include the following jars:
-                    <span class="em"><code>jpbc-crypto-2.0.0.jar</code></span>
+                    <span class="em"><code>arcanum-crypto-2.0.0.jar</code></span>
                     and
                     <span class="em"><code>bcprov-jdk16-1.46</code></span>.
             </p>
@@ -65,7 +65,7 @@
         <subsection name="Which is the main entry point?">
             <p>
                 The main entry point is the
-                <a href="../java-docs/api/it/unisa/dia/gas/jpbc/Pairing.html"><code>Pairing</code></a>
+                <a href="../java-docs/api/it/unisa/dia/gas/arcanum/Pairing.html"><code>Pairing</code></a>
                 interface that provides access to the algebraic structures underlying the pairing computation
                 and the pairing function.
             </p>
@@ -75,8 +75,8 @@
         <subsection name="How do I get an instance of the Pairing interface?">
             <p>
                 The easiest way to obtain an instance of the
-                <a href="../java-docs/api/it/unisa/dia/gas/jpbc/Pairing.html"><code>Pairing</code></a>
-                interface is by using the factory provided by JPBC.
+                <a href="../java-docs/api/it/unisa/dia/gas/arcanum/Pairing.html"><code>Pairing</code></a>
+                interface is by using the factory provided by Arcanum.
                 The factory takes in input the pairing parameters
                 and instantiates the appropriate classes.
                 To generate the pairing parameters look at this
@@ -93,7 +93,7 @@
                 Then, the following code instantiate the appropriate class implementing
                 the <code>Pairing</code> interface.
             </p>
-            <source>import org.arcanum.dia.gas.jpbc.*;
+            <source>import org.arcanum.dia.gas.arcanum.*;
                 import PairingFactory;
 
                 Pairing pairing = PairingFactory.getPairing("params.properties");
@@ -111,8 +111,8 @@
                 the <code>getPairing</code> method.
             </p>
             <p>
-                Moreover, if PBC and the JPBC wrapper are not installed properly then
-                the factory will resort to the JPBC pairing implementation.
+                Moreover, if PBC and the Arcanum wrapper are not installed properly then
+                the factory will resort to the Arcanum pairing implementation.
                 <br/>
                 The instructions to properly setup the PBC wrapper are <a href="./docs/pbcwrapper.html">here</a>.
             </p>
@@ -121,7 +121,7 @@
         <a name="wiae"/>
         <subsection name="What an Element is?">
             <p>
-                The <a href="../java-docs/api/it/unisa/dia/gas/jpbc/Element.html">
+                The <a href="../java-docs/api/it/unisa/dia/gas/arcanum/Element.html">
                     <code>Element</code>
                 </a>
                 interface represents

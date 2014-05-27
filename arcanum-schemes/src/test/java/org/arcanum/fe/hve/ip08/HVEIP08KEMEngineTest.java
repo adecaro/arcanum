@@ -1,6 +1,6 @@
 package org.arcanum.fe.hve.ip08;
 
-import org.arcanum.AbstractJPBCCryptoTest;
+import org.arcanum.AbstractArcanumCryptoTest;
 import org.arcanum.fe.hve.ip08.engines.HVEIP08KEMEngine;
 import org.arcanum.fe.hve.ip08.generators.HVEIP08KeyPairGenerator;
 import org.arcanum.fe.hve.ip08.generators.HVEIP08ParametersGenerator;
@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 /**
  * @author Angelo De Caro
  */
-public class HVEIP08KEMEngineTest extends AbstractJPBCCryptoTest {
+public class HVEIP08KEMEngineTest extends AbstractArcanumCryptoTest {
 
 
     public HVEIP08KEMEngineTest(boolean usePBC, String curvePath) {

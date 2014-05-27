@@ -89,7 +89,6 @@ public class Cholesky {
         }
 
         // cleanup
-
         for (int i = offsetRow; i < offsetRow + N; i++) {
             for (int j = offsetCol; j < offsetCol + N; j++) {
                 if (j > i)

@@ -1,13 +1,13 @@
 package org.arcanum.fe.abe.gvw13.params;
 
+import org.arcanum.ElementCipher;
+import org.arcanum.ElementCipherParameters;
 import org.arcanum.Field;
 import org.arcanum.tor.gvw13.params.TORGVW13PublicKeyParameters;
 import org.arcanum.tor.gvw13.params.TORGVW13ReKeyGenerationParameters;
 import org.arcanum.tor.gvw13.params.TORGVW13SecretKeyParameters;
-import org.arcanum.util.cipher.engine.ElementCipher;
 import org.arcanum.util.cipher.generators.ElementKeyGenerator;
 import org.arcanum.util.cipher.generators.ElementKeyPairGenerator;
-import org.arcanum.util.cipher.params.ElementCipherParameters;
 import org.arcanum.util.cipher.params.ElementKeyGenerationParameters;
 import org.bouncycastle.crypto.CipherParameters;
 

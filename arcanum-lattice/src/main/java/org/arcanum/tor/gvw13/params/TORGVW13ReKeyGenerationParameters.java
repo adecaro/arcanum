@@ -21,7 +21,7 @@ public class TORGVW13ReKeyGenerationParameters extends ElementKeyGenerationParam
                                              TORGVW13SecretKeyParameters leftSk,
                                              TORGVW13PublicKeyParameters rightPk,
                                              TORGVW13PublicKeyParameters targetPk) {
-        super(random, strength);
+        super(random);
 
         this.leftPk = leftPk;
         this.rightPk = rightPk;
@@ -35,7 +35,7 @@ public class TORGVW13ReKeyGenerationParameters extends ElementKeyGenerationParam
                                              TORGVW13PublicKeyParameters rightPk,
                                              TORGVW13SecretKeyParameters rightSk,
                                              TORGVW13PublicKeyParameters targetPk) {
-        super(random, strength);
+        super(random);
 
         this.leftPk = leftPk;
         this.rightPk = rightPk;

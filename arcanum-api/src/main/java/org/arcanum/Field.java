@@ -45,7 +45,7 @@ public interface Field<E extends Element> {
      *
      * @param e the element whose value is copied.
      * @return a new element whose value is copied from the passed element.
-     * @since 2.0.0
+     * @since 1.0.0
      */
     E newElement(E e);
 
@@ -57,7 +57,7 @@ public interface Field<E extends Element> {
      * @param offset the starting offset.
      * @param length the number of bytes to be used.
      * @return this element modified.
-     * @since 2.0.0
+     * @since 1.0.0
      */
     E newElementFromHash(byte[] source, int offset, int length);
 
@@ -66,7 +66,7 @@ public interface Field<E extends Element> {
      *
      * @param source the source of bytes.
      * @return the number of bytes read.
-     * @since 2.0.0
+     * @since 1.0.0
      */
     E newElementFromBytes(byte[] source);
 
@@ -76,7 +76,7 @@ public interface Field<E extends Element> {
      * @param source the source of bytes.
      * @param offset the starting offset.
      * @return the number of bytes read.
-     * @since 2.0.0
+     * @since 1.0.0
      */
     E newElementFromBytes(byte[] source, int offset);
 
@@ -85,7 +85,7 @@ public interface Field<E extends Element> {
      *
      * @param value the value of the new element.
      * @return a new element whose value is passed as parameter.
-     * @since 2.1.0
+     * @since 1.0.0
      */
     E newElement(Object value);
 
@@ -127,7 +127,7 @@ public interface Field<E extends Element> {
      *
      * @return <tt>true></tt> if the order is odd,
      * false otherwise.
-     * @since 1.2.0
+     * @since 1.0.0
      */
     boolean isOrderOdd();
 
@@ -159,7 +159,7 @@ public interface Field<E extends Element> {
      * Returns the length in bytes needed to canonical represent an element of this Field.
      *
      * @return the length in bytes needed to canonical represent an element of this Field.
-     * @since 2.0.0
+     * @since 1.0.0
      */
     int getCanonicalRepresentationLengthInBytes();
 
@@ -168,7 +168,7 @@ public interface Field<E extends Element> {
      *
      * @param elements the vector of elements to be twiced.
      * @return elements twiced.
-     * @since 1.1.0
+     * @since 1.0.0
      */
     Element[] twice(Element[] elements);
 
@@ -178,7 +178,7 @@ public interface Field<E extends Element> {
      * @param a an array of elements of the field
      * @param b another array of elements of the field to be added to a
      * @return the vector a modified by adding b.
-     * @since 1.1.0
+     * @since 1.0.0
      */
     Element[] add(Element[] a, Element[] b);
 
@@ -187,7 +187,7 @@ public interface Field<E extends Element> {
      *
      * @param source the source of bytes.
      * @return the ElementPowPreProcessing instance.
-     * @since 1.2.0
+     * @since 1.0.0
      */
     ElementPowPreProcessing getElementPowPreProcessingFromBytes(byte[] source);
 
@@ -197,7 +197,7 @@ public interface Field<E extends Element> {
      * @param source the source of bytes.
      * @param offset the starting offset.
      * @return the ElementPowPreProcessing instance.
-     * @since 1.2.0
+     * @since 1.0.0
      */
     ElementPowPreProcessing getElementPowPreProcessingFromBytes(byte[] source, int offset);
 

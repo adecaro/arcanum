@@ -1,6 +1,6 @@
 package org.arcanum.pairing;
 
-import org.arcanum.AbstractJPBCTest;
+import org.arcanum.AbstractArcanumTest;
 import org.arcanum.Element;
 import org.arcanum.PairingPreProcessing;
 import org.junit.Test;
@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class PairingTest extends AbstractJPBCTest {
+public class PairingTest extends AbstractArcanumTest {
 
     public PairingTest(boolean usePBC, String curvePath) {
         super(usePBC, curvePath);

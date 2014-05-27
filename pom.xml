@@ -32,8 +32,8 @@
     </licenses>
 
     <scm>
-        <connection>cm:git:git@github.com:adecaro/arcanum.git</connection>
-        <url>scm:git:git@github.com:adecaro/arcanum.git</url>
+        <connection>scm:git:git@github.com:adecaro/arcanum.git</connection>
+        <url>scm:git:https://github.com/adecaro/arcanum</url>
         <developerConnection>scm:git:git@github.com:adecaro/arcanum.git</developerConnection>
     </scm>
 
@@ -156,7 +156,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3</version>
+                <version>3.1</version>
                 <configuration>
                     <source>1.5</source>
                     <target>1.5</target>
@@ -164,7 +164,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.0.4</version>
+                <version>2.2.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -177,7 +177,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.2</version>
+                <version>2.4</version>
                 <executions>
                     <execution>
                         <goals>
@@ -194,7 +194,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.7</version>
                 <reportSets>
                     <reportSet>
                         <reports>

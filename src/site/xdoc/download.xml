@@ -3,15 +3,15 @@
         "http://maven.apache.org/dtd/xdoc_1_0.dtd">
 <document>
     <properties>
-        <title>Java Pairing-Based Cryptography Library - Download</title>
+        <title>Java Pairing and Lattice Based Cryptography Library - Download</title>
         <author email="arcanumlib@gmail.com">Angelo De Caro</author>
     </properties>
 
     <body>
-        <section name="Download JPBC">
+        <section name="Download Arcanum">
 
             <p>
-                JPBC comes in the form of a
+                Arcanum comes in the form of a
                 <span class="em">distro package</span>
                 that contains the jars and the source code
                 of the library.
@@ -36,12 +36,12 @@
                     </tr>
 
                     <tr valign="top">
-                        <td>JPBC</td>
+                        <td>Arcanum</td>
                         <td>2.0.0</td>
                         <td>Stable</td>
                         <td>
                             <em>
-                                <a href="https://sourceforge.net/projects/jpbc/files/jpbc_2_0_0/">
+                                <a href="https://sourceforge.net/projects/arcanum/files/arcanum_2_0_0/">
                                     Download
                                 </a>
                             </em>
@@ -53,13 +53,13 @@
 
             <p>
                 <span class="em">
-                    <a href="http://prdownloads.sourceforge.net/jpbc/?sort_by=date&amp;sort=desc">Browse all JPBC downloads</a>
+                    <a href="http://prdownloads.sourceforge.net/arcanum/?sort_by=date&amp;sort=desc">Browse all Arcanum downloads</a>
                 </span>
             </p>
         </section>
 
 
-        <section name="Use JPBC">
+        <section name="Use Arcanum">
             <p>
                 Notice that, all the jars files can be found under the <code>jars</code> folder.
             </p>
@@ -80,16 +80,16 @@
             </subsection>
 
             <a name="usage"/>
-            <subsection name="JPBC Usage">
+            <subsection name="Arcanum Usage">
                 <p>
-                    To use JPBC, add to your classpath the following jars:
+                    To use Arcanum, add to your classpath the following jars:
                     <ol type="1">
                         <li>
-                            <span class="em"><code>jpbc_2.0.0-api.jar</code></span>
+                            <span class="em"><code>arcanum_2.0.0-api.jar</code></span>
                             and
                         </li>
                         <li>
-                            <span class="em"><code>jpbc_2.0.0-plaf.jar</code></span>.
+                            <span class="em"><code>arcanum_2.0.0-plaf.jar</code></span>.
                         </li>
                     </ol>
                 </p>
@@ -105,7 +105,7 @@
                 </p>
                 <ol>
                     <li>
-                        <span class="em"><code>jpbc_2.0.0-pbc.jar</code></span>
+                        <span class="em"><code>arcanum_2.0.0-pbc.jar</code></span>
                         and
                     </li>
                     <li>
@@ -122,7 +122,7 @@
                 </p>
                 <ol>
                     <li>
-                        <span class="em"><code>jpbc_2.0.0-mm.jar</code></span>.
+                        <span class="em"><code>arcanum_2.0.0-mm.jar</code></span>.
                     </li>
                 </ol>
             </subsection>
@@ -131,12 +131,12 @@
                 <p>
                     To use the
                     <a href="schemes/schemes.html">cryptosystems</a>
-                    provided by JPBC
+                    provided by Arcanum
                     include the following jars:
                 </p>
                 <ol>
                     <li>
-                        <span class="em"><code>jpbc-crypto-2.0.0.jar</code></span>
+                        <span class="em"><code>arcanum-crypto-2.0.0.jar</code></span>
                         and
                     </li>
                     <li>

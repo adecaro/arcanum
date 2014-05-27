@@ -1,11 +1,13 @@
 package org.arcanum.util.cipher.params;
 
+import org.arcanum.ElementCipherParameters;
+
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
 public class ElementKeyPairParameters {
 
-    private ElementCipherParameters    publicParam;
+    private ElementCipherParameters publicParam;
     private ElementCipherParameters    privateParam;
 
     /**

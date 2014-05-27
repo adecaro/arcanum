@@ -1,6 +1,6 @@
 package org.arcanum.field.curve;
 
-import org.arcanum.AbstractJPBCTest;
+import org.arcanum.AbstractArcanumTest;
 import org.arcanum.Element;
 import org.junit.Test;
 
@@ -11,7 +11,7 @@ import static org.junit.Assume.assumeTrue;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class CurveFieldTest extends AbstractJPBCTest {
+public class CurveFieldTest extends AbstractArcanumTest {
 
 
     public CurveFieldTest(boolean usePBC, String curvePath) {

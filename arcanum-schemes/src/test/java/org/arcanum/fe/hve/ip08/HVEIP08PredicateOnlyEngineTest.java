@@ -1,6 +1,6 @@
 package org.arcanum.fe.hve.ip08;
 
-import org.arcanum.AbstractJPBCCryptoTest;
+import org.arcanum.AbstractArcanumCryptoTest;
 import org.arcanum.fe.PredicateOnlyEncryptionScheme;
 import org.arcanum.fe.hve.ip08.engines.HVEIP08PredicateOnlyEngine;
 import org.arcanum.fe.hve.ip08.generators.HVEIP08KeyPairGenerator;
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Angelo De Caro
  */
-public class HVEIP08PredicateOnlyEngineTest extends AbstractJPBCCryptoTest {
+public class HVEIP08PredicateOnlyEngineTest extends AbstractArcanumCryptoTest {
 
 
     public HVEIP08PredicateOnlyEngineTest(boolean usePBC, String curvePath) {

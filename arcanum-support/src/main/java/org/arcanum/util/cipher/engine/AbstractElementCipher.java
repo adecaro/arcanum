@@ -1,7 +1,8 @@
 package org.arcanum.util.cipher.engine;
 
 import org.arcanum.Element;
-import org.arcanum.util.cipher.params.ElementCipherParameters;
+import org.arcanum.ElementCipher;
+import org.arcanum.ElementCipherParameters;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

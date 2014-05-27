@@ -101,7 +101,7 @@ public interface Element extends ElementPow, Comparable  {
      * Converts this to a BigInteger if such operation makes sense.
      *
      * @return a BigInteger which represents this element.
-     * @since 2.2.0
+     * @since 1.0.0
      */
     BigInteger toCanonicalBigInteger();
 
@@ -110,7 +110,7 @@ public interface Element extends ElementPow, Comparable  {
      *
      * @param value the new value of this element.
      * @return this element set to value.
-     * @since 2.1.0
+     * @since 1.0.0
      */
     Element setFromObject(Object value);
 
@@ -167,7 +167,7 @@ public interface Element extends ElementPow, Comparable  {
      * is the same as that of the #toBytes method.
      *
      * @return the canonical representation of this element.
-     * @since 2.0.0
+     * @since 1.0.0
      */
     byte[] toCanonicalRepresentation();
 

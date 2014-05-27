@@ -11,6 +11,7 @@ import org.arcanum.trapdoor.mp12.utils.MP12P2Utils;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
+import static org.arcanum.field.floating.ApfloatUtils.convert;
 import static org.arcanum.field.floating.ApfloatUtils.newApfloat;
 
 /**
@@ -25,7 +26,7 @@ public class ZGaussianTester {
         int mm = 10;
         BigInteger q = BigInteger.ONE.shiftLeft(k);
 
-        Apfloat gaussianParameter = MP12P2Utils.RRP;
+        Apfloat gaussianParameter = convert(new Apfloat("4.5"));
         GaussianSampler<BigInteger> sampler = new DiscreteGaussianLazyRSSampler(random, gaussianParameter);
         sampler.setCenter(newApfloat("0.000002456"));
         MatrixField<Field> RField = new MatrixField<Field>(random, new SymmetricZrField(q), nn, mm);

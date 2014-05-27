@@ -1,7 +1,7 @@
 package org.arcanum.pairing.accumulator;
 
 
-import org.arcanum.AbstractJPBCTest;
+import org.arcanum.AbstractArcanumTest;
 import org.arcanum.Element;
 import org.arcanum.util.concurrent.recursive.RecursiveMultiplier;
 import org.junit.Test;
@@ -17,12 +17,12 @@ import static org.junit.Assert.assertEquals;
  * @author Angelo De Caro (arcanumlib@gmail.com)
  * @since 1.0.0
  */
-public class RecursiveMultiplierTest extends AbstractJPBCTest {
+public class RecursiveMultiplierTest extends AbstractArcanumTest {
 
     @Parameterized.Parameters
     public static Collection parameters() {
         Object[][] data = {
-                {false, "it/unisa/dia/gas/plaf/jpbc/pairing/a/a_181_603.properties"},
+                {false, "it/unisa/dia/gas/plaf/arcanum/pairing/a/a_181_603.properties"},
         };
 
         return Arrays.asList(data);

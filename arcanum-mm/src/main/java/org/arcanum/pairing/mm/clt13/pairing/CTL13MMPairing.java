@@ -13,7 +13,7 @@ import java.security.SecureRandom;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class CTL13MMPairing implements Pairing {
 

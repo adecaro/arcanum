@@ -1,8 +1,8 @@
 package org.arcanum.fe.abe.gvw13.params;
 
+import org.arcanum.ElementCipherParameters;
 import org.arcanum.Field;
 import org.arcanum.circuit.BooleanCircuit;
-import org.arcanum.util.cipher.params.ElementCipherParameters;
 
 import java.util.Map;
 

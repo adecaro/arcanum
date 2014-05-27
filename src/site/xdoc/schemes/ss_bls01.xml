@@ -3,7 +3,7 @@
         "http://maven.apache.org/dtd/xdoc_1_0.dtd">
 <document>
     <properties>
-        <title>Java Pairing-Based Cryptography Library : Schemes - Short signatures from the Weil pairing</title>
+        <title>Java Pairing and Lattice Based Cryptography Library : Schemes - Short signatures from the Weil pairing</title>
         <author email="arcanumlib@gmail.com">Angelo De Caro</author>
     </properties>
 
@@ -31,13 +31,13 @@
         <section name="Usage">
 <pre>
 
-<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">it.unisa.dia.gas.crypto.jpbc.signature.bls01;
+<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">it.unisa.dia.gas.crypto.arcanum.signature.bls01;
 <a name="l2"><span class="ln">2    </span></a>
-<a name="l3"><span class="ln">3    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.jpbc.signature.bls01.engines.BLS01Signer;
-<a name="l4"><span class="ln">4    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.jpbc.signature.bls01.generators.BLS01KeyPairGenerator;
-<a name="l5"><span class="ln">5    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.jpbc.signature.bls01.generators.BLS01ParametersGenerator;
-<a name="l6"><span class="ln">6    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.jpbc.signature.bls01.params.BLS01KeyGenerationParameters;
-<a name="l7"><span class="ln">7    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.jpbc.signature.bls01.params.BLS01Parameters;
+<a name="l3"><span class="ln">3    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.arcanum.signature.bls01.engines.BLS01Signer;
+<a name="l4"><span class="ln">4    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.arcanum.signature.bls01.generators.BLS01KeyPairGenerator;
+<a name="l5"><span class="ln">5    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.arcanum.signature.bls01.generators.BLS01ParametersGenerator;
+<a name="l6"><span class="ln">6    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.arcanum.signature.bls01.params.BLS01KeyGenerationParameters;
+<a name="l7"><span class="ln">7    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.arcanum.signature.bls01.params.BLS01Parameters;
 <a name="l8"><span class="ln">8    </span></a></span><span class="s0">import </span><span class="s1">PairingFactory;
 <a name="l9"><span class="ln">9    </span></a></span><span class="s0">import </span><span class="s1">org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 <a name="l10"><span class="ln">10   </span></a></span><span class="s0">import </span><span class="s1">org.bouncycastle.crypto.CipherParameters;

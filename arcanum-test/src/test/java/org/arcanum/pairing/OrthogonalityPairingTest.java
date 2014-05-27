@@ -1,6 +1,6 @@
 package org.arcanum.pairing;
 
-import org.arcanum.AbstractJPBCTest;
+import org.arcanum.AbstractArcanumTest;
 import org.arcanum.Element;
 import org.arcanum.Parameters;
 import org.junit.Before;
@@ -19,13 +19,13 @@ import static org.junit.Assume.assumeTrue;
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
 @RunWith(value = Parameterized.class)
-public class OrthogonalityPairingTest extends AbstractJPBCTest {
+public class OrthogonalityPairingTest extends AbstractArcanumTest {
 
     @Parameterized.Parameters
     public static Collection parameters() {
         Object[][] data = {
-                {false, "it/unisa/dia/gas/plaf/jpbc/pairing/a1/a1_3primes.properties"},
-                {true, "it/unisa/dia/gas/plaf/jpbc/pairing/a1/a1_3primes.properties"},
+                {false, "it/unisa/dia/gas/plaf/arcanum/pairing/a1/a1_3primes.properties"},
+                {true, "it/unisa/dia/gas/plaf/arcanum/pairing/a1/a1_3primes.properties"},
         };
 
         return Arrays.asList(data);

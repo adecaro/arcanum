@@ -3,7 +3,7 @@
         "http://maven.apache.org/dtd/xdoc_1_0.dtd">
 <document>
     <properties>
-        <title>Java Pairing-Based Cryptography Library : Docs - Element Functions</title>
+        <title>Java Pairing and Lattice Based Cryptography Library : Docs - Element Functions</title>
         <author email="arcanumlib@gmail.com">Angelo De Caro</author>
     </properties>
 
@@ -11,7 +11,7 @@
         <section name="Elements">
             <p>
                 Elements belonging to an algebraic structure (groups, rings and fields) are accessible through the
-                <a href="../java-docs/api/it/unisa/dia/gas/jpbc/Element.html">
+                <a href="../java-docs/api/it/unisa/dia/gas/arcanum/Element.html">
                     <code>Element</code>
                 </a>
                 interface that represents a
@@ -178,7 +178,7 @@ e.powZn(z);
                     If it knows in advance that a particular value will be raised several times
                     then time can be saved in the long run by first calling the preprocessing function.
                     The
-                    <a href="../java-docs/api/it/unisa/dia/gas/jpbc/ElementPowPreProcessing.html"><code>ElementPowPreProcessing</code></a>
+                    <a href="../java-docs/api/it/unisa/dia/gas/arcanum/ElementPowPreProcessing.html"><code>ElementPowPreProcessing</code></a>
                     interface will do the job.
                 </p>
 

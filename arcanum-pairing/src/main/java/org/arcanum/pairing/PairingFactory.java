@@ -204,7 +204,7 @@ public class PairingFactory {
         private Throwable pbcPairingFailure;
 
         public EllipticCurvesPairingCreator() {
-            // Try to load jpbc-pbc factory
+            // Try to load arcanum-pbc factory
             try {
                 Class pbcPairingFactoryClass = Class.forName("org.arcanum.pbc.PBCPairingFactory");
                 Method isPBCAvailable = pbcPairingFactoryClass.getMethod("isPBCAvailable", null);

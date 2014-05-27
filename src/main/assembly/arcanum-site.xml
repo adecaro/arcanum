@@ -14,16 +14,10 @@
         </fileSet>
 
         <fileSet>
-            <directory>jpbc-api/target/site/apidocs</directory>
+            <directory>arcanum-api/target/site/apidocs</directory>
             <outputDirectory>site/java-docs/api</outputDirectory>
             <includes/>
         </fileSet>
     </fileSets>
 
-    <files>
-        <file>
-            <source>jpbc-android/target/jpbc-android.apk</source>
-            <outputDirectory>./site/android/</outputDirectory>
-        </file>
-    </files>
 </assembly>

@@ -1,6 +1,6 @@
 package org.arcanum.util.cipher.generators;
 
-import org.arcanum.util.cipher.params.ElementCipherParameters;
+import org.arcanum.ElementCipherParameters;
 import org.arcanum.util.cipher.params.ElementKeyGenerationParameters;
 
 /**

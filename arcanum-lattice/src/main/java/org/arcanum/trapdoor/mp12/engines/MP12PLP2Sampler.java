@@ -1,15 +1,15 @@
 package org.arcanum.trapdoor.mp12.engines;
 
-import org.arcanum.Element;
-import org.arcanum.Vector;
+import org.arcanum.*;
+import org.arcanum.sampler.SamplerFactory;
 import org.arcanum.trapdoor.mp12.params.MP12PLP2PublicKeyParameters;
 import org.arcanum.util.cipher.engine.AbstractElementCipher;
-import org.arcanum.util.cipher.engine.ElementCipher;
-import org.arcanum.util.cipher.params.ElementCipherParameters;
 
 import java.math.BigInteger;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
+
+import static org.arcanum.field.floating.ApfloatUtils.ITWO;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
@@ -18,6 +18,8 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
 
     protected MP12PLP2PublicKeyParameters parameters;
     protected int n, k;
+
+    protected Sampler<BigInteger> sampler;
     protected Queue<BigInteger> zero, one;
 
 
@@ -26,6 +28,10 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
 
         this.n = parameters.getParameters().getN();
         this.k = parameters.getK();
+        this.sampler = SamplerFactory.getInstance().getDiscreteGaussianSampler(
+                parameters.getParameters().getRandom(),
+                parameters.getRandomizedRoundingParameter().multiply(ITWO)
+        );
         this.zero = new ConcurrentLinkedDeque<BigInteger>();
         this.one = new ConcurrentLinkedDeque<BigInteger>();
 
@@ -67,7 +73,7 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
 
         if (value == null) {
             while (true) {
-                BigInteger x = parameters.getDiscreteGaussianSampler().sample();
+                BigInteger x = sampler.sample();
                 boolean xLSB = x.testBit(0);
                 if (xLSB == uLSB) {
                     value = x;

@@ -1,7 +1,7 @@
 package org.arcanum.pairing.immutable;
 
 import junit.framework.Assert;
-import org.arcanum.AbstractJPBCTest;
+import org.arcanum.AbstractArcanumTest;
 import org.arcanum.Element;
 import org.arcanum.Field;
 import org.arcanum.Point;
@@ -18,26 +18,26 @@ import static org.junit.Assert.fail;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
- * @since 2.0.0
+ * @since 1.0.0
  */
-public class ImmutablePairingTest extends AbstractJPBCTest {
+public class ImmutablePairingTest extends AbstractArcanumTest {
 
     @Parameterized.Parameters
     public static Collection parameters() {
         Object[][] data = {
-                {false, "it/unisa/dia/gas/plaf/jpbc/pairing/a/a_181_603.properties"},
-                {false, "it/unisa/dia/gas/plaf/jpbc/pairing/a1/a1_3primes.properties"},
-                {false, "it/unisa/dia/gas/plaf/jpbc/pairing/d/d_9563.properties"},
-                {false, "it/unisa/dia/gas/plaf/jpbc/pairing/e/e.properties"},
-                {false, "it/unisa/dia/gas/plaf/jpbc/pairing/f/f.properties"},
-                {false, "it/unisa/dia/gas/plaf/jpbc/pairing/g/g149.properties"},
-                {true, "it/unisa/dia/gas/plaf/jpbc/pairing/a/a_181_603.properties"},
-                {true, "it/unisa/dia/gas/plaf/jpbc/pairing/a1/a1_3primes.properties"},
-                {true, "it/unisa/dia/gas/plaf/jpbc/pairing/d/d_9563.properties"},
-                {true, "it/unisa/dia/gas/plaf/jpbc/pairing/e/e.properties"},
-                {true, "it/unisa/dia/gas/plaf/jpbc/pairing/f/f.properties"},
-                {true, "it/unisa/dia/gas/plaf/jpbc/pairing/g/g149.properties"},
-                {false, "it/unisa/dia/gas/plaf/jpbc/pairing/mm/ctl13/toy.properties"}
+                {false, "it/unisa/dia/gas/plaf/arcanum/pairing/a/a_181_603.properties"},
+                {false, "it/unisa/dia/gas/plaf/arcanum/pairing/a1/a1_3primes.properties"},
+                {false, "it/unisa/dia/gas/plaf/arcanum/pairing/d/d_9563.properties"},
+                {false, "it/unisa/dia/gas/plaf/arcanum/pairing/e/e.properties"},
+                {false, "it/unisa/dia/gas/plaf/arcanum/pairing/f/f.properties"},
+                {false, "it/unisa/dia/gas/plaf/arcanum/pairing/g/g149.properties"},
+                {true, "it/unisa/dia/gas/plaf/arcanum/pairing/a/a_181_603.properties"},
+                {true, "it/unisa/dia/gas/plaf/arcanum/pairing/a1/a1_3primes.properties"},
+                {true, "it/unisa/dia/gas/plaf/arcanum/pairing/d/d_9563.properties"},
+                {true, "it/unisa/dia/gas/plaf/arcanum/pairing/e/e.properties"},
+                {true, "it/unisa/dia/gas/plaf/arcanum/pairing/f/f.properties"},
+                {true, "it/unisa/dia/gas/plaf/arcanum/pairing/g/g149.properties"},
+                {false, "it/unisa/dia/gas/plaf/arcanum/pairing/mm/ctl13/toy.properties"}
         };
 
         return Arrays.asList(data);

@@ -1,6 +1,7 @@
 package org.arcanum.fe.abe.gvw13.engines;
 
 import org.arcanum.Element;
+import org.arcanum.ElementCipher;
 import org.arcanum.circuit.BooleanCircuit;
 import org.arcanum.circuit.BooleanGate;
 import org.arcanum.fe.abe.gvw13.params.GVW13EncryptionParameters;
@@ -8,7 +9,6 @@ import org.arcanum.fe.abe.gvw13.params.GVW13PublicKeyParameters;
 import org.arcanum.fe.abe.gvw13.params.GVW13SecretKeyParameters;
 import org.arcanum.kem.AbstractKeyEncapsulationMechanism;
 import org.arcanum.tor.gvw13.params.TORGVW13PublicKeyParameters;
-import org.arcanum.util.cipher.engine.ElementCipher;
 import org.arcanum.util.io.ElementStreamReader;
 import org.arcanum.util.io.PairingStreamWriter;
 

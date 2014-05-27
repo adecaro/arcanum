@@ -1,6 +1,6 @@
 package org.arcanum.fe.rl.w12;
 
-import org.arcanum.AbstractJPBCCryptoTest;
+import org.arcanum.AbstractArcanumCryptoTest;
 import org.arcanum.dfa.DFA;
 import org.arcanum.dfa.DefaultDFA;
 import org.arcanum.fe.rl.w12.engines.RLW12KEMEngine;
@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
 /**
  * @author Angelo De Caro
  */
-public class RLW12KEMEngineTest extends AbstractJPBCCryptoTest {
+public class RLW12KEMEngineTest extends AbstractArcanumCryptoTest {
 
 
     public RLW12KEMEngineTest(boolean usePBC, String curvePath) {

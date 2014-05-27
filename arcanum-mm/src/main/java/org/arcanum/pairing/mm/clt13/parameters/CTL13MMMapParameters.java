@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class CTL13MMMapParameters extends MapParameters {
 
@@ -133,6 +133,7 @@ public class CTL13MMMapParameters extends MapParameters {
 
 
     public String toFileName() {
+        // Use HASH
         return String.format(
                 "CTL13MM_eta_%d_n_%d_alpha_%d_ell_%d_rho_%d_delta_%d_kappa_%d_beta_%d_theta_%d_bound_%d.dat",
                 parameters.getEta(), parameters.getN(), parameters.getAlpha(), parameters.getEll(),

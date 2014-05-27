@@ -3,7 +3,7 @@
         "http://maven.apache.org/dtd/xdoc_1_0.dtd">
 <document>
     <properties>
-        <title>Java Pairing-Based Cryptography Library : Schemes - Functional Encryption for Regular Languages</title>
+        <title>Java Pairing and Lattice Based Cryptography Library : Schemes - Functional Encryption for Regular Languages</title>
         <author email="arcanumlib@gmail.com">Angelo De Caro</author>
     </properties>
 
@@ -39,15 +39,15 @@
         <section name="Usage">
 <pre>
 
-<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">it.unisa.dia.gas.crypto.jpbc.fe.rl.w12;
+<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">it.unisa.dia.gas.crypto.arcanum.fe.rl.w12;
 <a name="l2"><span class="ln">2    </span></a>
 <a name="l3"><span class="ln">3    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.dfa.DFA;
 <a name="l4"><span class="ln">4    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.dfa.DefaultDFA;
-<a name="l5"><span class="ln">5    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.jpbc.fe.rl.w12.engines.RLW12KEMEngine;
-<a name="l6"><span class="ln">6    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.jpbc.fe.rl.w12.generators.RLW12KeyPairGenerator;
-<a name="l7"><span class="ln">7    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.jpbc.fe.rl.w12.generators.RLW12ParametersGenerator;
-<a name="l8"><span class="ln">8    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.jpbc.fe.rl.w12.generators.RLW12SecretKeyGenerator;
-<a name="l9"><span class="ln">9    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.jpbc.fe.rl.w12.params.*;
+<a name="l5"><span class="ln">5    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.arcanum.fe.rl.w12.engines.RLW12KEMEngine;
+<a name="l6"><span class="ln">6    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.arcanum.fe.rl.w12.generators.RLW12KeyPairGenerator;
+<a name="l7"><span class="ln">7    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.arcanum.fe.rl.w12.generators.RLW12ParametersGenerator;
+<a name="l8"><span class="ln">8    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.arcanum.fe.rl.w12.generators.RLW12SecretKeyGenerator;
+<a name="l9"><span class="ln">9    </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.arcanum.fe.rl.w12.params.*;
 <a name="l10"><span class="ln">10   </span></a></span><span class="s0">import </span><span class="s1">it.unisa.dia.gas.crypto.kem.KeyEncapsulationMechanism;
 <a name="l11"><span class="ln">11   </span></a></span><span class="s0">import </span><span class="s1">PairingFactory;
 <a name="l12"><span class="ln">12   </span></a></span><span class="s0">import </span><span class="s1">org.bouncycastle.crypto.AsymmetricCipherKeyPair;

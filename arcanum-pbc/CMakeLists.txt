@@ -1,6 +1,6 @@
 #==========================
 #
-# JPBC-PBC build system
+# ARCANUM-PBC build system
 #
 # Main input file for CMake
 #
@@ -20,7 +20,7 @@ endif(COMMAND cmake_policy)
 # Set the project's name
 #=======================
 
-	project( JPBC-PBC )
+	project( ARCANUM-PBC )
     set(CMAKE_MODULE_PATH .)
 
 #========
@@ -46,8 +46,8 @@ endif(COMMAND cmake_policy)
 # Collect all source files recursively to be compiled
 #====================================================
 
-	file( GLOB_RECURSE jpbc-pbc-source src/main/c/*.h )
-	file( GLOB_RECURSE jpbc-pbc-source src/main/c/*.c )
+	file( GLOB_RECURSE arcanum-pbc-source src/main/c/*.h )
+	file( GLOB_RECURSE arcanum-pbc-source src/main/c/*.c )
 
 #============================================================
 # Add include and library directories for the compiler/linker
@@ -71,5 +71,5 @@ endif(COMMAND cmake_policy)
 # Build target
 #=============
 
-    add_library( jpbc-pbc SHARED ${jpbc-pbc-source})
-    target_link_libraries(jpbc-pbc gmp pbc)
+    add_library( arcanum-pbc SHARED ${arcanum-pbc-source})
+    target_link_libraries(arcanum-pbc gmp pbc)

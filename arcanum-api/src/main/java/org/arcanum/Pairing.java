@@ -30,7 +30,7 @@ public interface Pairing {
      * the degree of linearity supported.
      *
      * @return the degree of the pairing.
-     * @since 2.0.0
+     * @since 1.0.0
      */
     int getDegree();
 
@@ -72,7 +72,7 @@ public interface Pairing {
      * G2 has index 2 and GT has index 3.
      *
      * @return Returns the field at level <tt>index</tt>
-     * @since 2.0.0
+     * @since 1.0.0
      */
     Field getFieldAt(int index);
 
@@ -84,7 +84,7 @@ public interface Pairing {
      * @return the index of the field if it belongs
      * to this pairing, otherwise it returns Unknown.
      * @see #getFieldAt(int)
-     * @since 2.0.0
+     * @since 1.0.0
      */
     int getFieldIndex(Field field);
 
@@ -110,7 +110,7 @@ public interface Pairing {
      * @return <tt>true</tt> if optimized
      * product of pairing is supported,
      * <tt>false</tt> otherwise.
-     * @since 2.0.0
+     * @since 1.0.0
      * @see #pairing(Element[], Element[])
      */
     boolean isProductPairingSupported();
@@ -122,7 +122,7 @@ public interface Pairing {
      * @param in1 must have at least 'n' elements belonging to the groups G1
      * @param in2 must have at least 'n' elements belonging to the groups G2
      * @return the product of pairings, that is 'e'('in1'[0], 'in2'[0]) ... 'e'('in1'[n-1], 'in2'[n-1]). 
-     * @since 1.1.0
+     * @since 1.0.0
      */
     Element pairing(Element[] in1, Element[] in2);
 
@@ -130,7 +130,7 @@ public interface Pairing {
      * Returns the length in bytes needed to represent a PairingPreProcessing structure.
      *
      * @return the length in bytes needed to represent a PairingPreProcessing structure.
-     * @since 1.2.0
+     * @since 1.0.0
      * @see #getPairingPreProcessingFromBytes(byte[])
      * @see #getPairingPreProcessingFromElement(Element)
      * @see PairingPreProcessing
@@ -151,7 +151,7 @@ public interface Pairing {
      *
      * @param source the source of bytes.
      * @return the PairingPreProcessing instance.
-     * @since 1.2.0
+     * @since 1.0.0
      */
     PairingPreProcessing getPairingPreProcessingFromBytes(byte[] source);
 
@@ -161,7 +161,7 @@ public interface Pairing {
      * @param source the source of bytes.
      * @param offset the starting offset.
      * @return the PairingPreProcessing instance.
-     * @since 1.2.0
+     * @since 1.0.0
      */
     PairingPreProcessing getPairingPreProcessingFromBytes(byte[] source, int offset);
 

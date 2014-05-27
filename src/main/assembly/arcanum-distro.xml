@@ -15,9 +15,9 @@
     <moduleSets>
         <moduleSet>
             <includes>
-                <include>org.arcanum.dia.gas:jpbc-pbc</include>
-                <include>org.arcanum.dia.gas:jpbc-crypto</include>
-                <include>org.arcanum.dia.gas:jpbc-benchmark</include>
+                <include>org.arcanum.dia.gas:arcanum-pbc</include>
+                <include>org.arcanum.dia.gas:arcanum-crypto</include>
+                <include>org.arcanum.dia.gas:arcanum-benchmark</include>
             </includes>
             <binaries>
                 <outputDirectory>jars</outputDirectory>
@@ -28,15 +28,15 @@
 
         <moduleSet>
             <includes>
-                <include>org.arcanum.dia.gas:jpbc-android</include>
-                <include>org.arcanum.dia.gas:jpbc-benchmark</include>
-                <include>org.arcanum.dia.gas:jpbc-api</include>
-                <include>org.arcanum.dia.gas:jpbc-plaf</include>
-                <include>org.arcanum.dia.gas:jpbc-mm</include>
-                <include>org.arcanum.dia.gas:jpbc-pbc</include>
-                <include>org.arcanum.dia.gas:jpbc-crypto</include>
-                <include>org.arcanum.dia.gas:jpbc-site-skin</include>
-                <include>org.arcanum.dia.gas:jpbc-test</include>
+                <include>org.arcanum.dia.gas:arcanum-android</include>
+                <include>org.arcanum.dia.gas:arcanum-benchmark</include>
+                <include>org.arcanum.dia.gas:arcanum-api</include>
+                <include>org.arcanum.dia.gas:arcanum-plaf</include>
+                <include>org.arcanum.dia.gas:arcanum-mm</include>
+                <include>org.arcanum.dia.gas:arcanum-pbc</include>
+                <include>org.arcanum.dia.gas:arcanum-crypto</include>
+                <include>org.arcanum.dia.gas:arcanum-site-skin</include>
+                <include>org.arcanum.dia.gas:arcanum-test</include>
             </includes>
             <sources>
                 <fileSets>
@@ -74,7 +74,7 @@
         </fileSet>
 
         <fileSet>
-            <directory>jpbc-test/target</directory>
+            <directory>arcanum-test/target</directory>
             <outputDirectory>jars/test</outputDirectory>
             <includes>
                 <include>*tests.jar</include>
@@ -82,8 +82,8 @@
         </fileSet>
 
         <fileSet>
-            <directory>jpbc-android</directory>
-            <outputDirectory>jpbc-android</outputDirectory>
+            <directory>arcanum-android</directory>
+            <outputDirectory>arcanum-android</outputDirectory>
         </fileSet>
 
         <fileSet>
@@ -96,7 +96,7 @@
 
     <files>
         <file>
-            <source>jpbc.xml</source>
+            <source>arcanum.xml</source>
             <outputDirectory>.</outputDirectory>
         </file>
         <file>

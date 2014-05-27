@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface Circuit<C extends Gate> extends Iterable<C> {
 

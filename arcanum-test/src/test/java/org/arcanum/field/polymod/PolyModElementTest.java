@@ -25,7 +25,7 @@ public class PolyModElementTest extends TestCase {
     }
 
     protected Parameters getParameters() {
-        return PairingFactory.getInstance().loadParameters("it/unisa/dia/gas/plaf/jpbc/pairing/d/d_9563.properties");
+        return PairingFactory.getInstance().loadParameters("it/unisa/dia/gas/plaf/arcanum/pairing/d/d_9563.properties");
     }
 
 

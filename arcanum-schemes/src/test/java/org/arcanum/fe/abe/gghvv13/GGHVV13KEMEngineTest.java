@@ -1,6 +1,6 @@
 package org.arcanum.fe.abe.gghvv13;
 
-import org.arcanum.AbstractJPBCCryptoTest;
+import org.arcanum.AbstractArcanumCryptoTest;
 import org.arcanum.Pairing;
 import org.arcanum.circuit.BooleanCircuit;
 import org.arcanum.fe.abe.gghvv13.engines.GGHVV13KEMEngine;
@@ -27,12 +27,12 @@ import static org.junit.Assert.*;
 /**
  * @author Angelo De Caro
  */
-public class GGHVV13KEMEngineTest extends AbstractJPBCCryptoTest {
+public class GGHVV13KEMEngineTest extends AbstractArcanumCryptoTest {
 
     @Parameterized.Parameters
     public static Collection parameters() {
         Object[][] data = {
-                {false, "it/unisa/dia/gas/plaf/jpbc/crypto/ctl13_toy.properties"}
+                {false, "it/unisa/dia/gas/plaf/arcanum/crypto/ctl13_toy.properties"}
         };
 
         return Arrays.asList(data);

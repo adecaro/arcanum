@@ -3,6 +3,7 @@ package org.arcanum.trapdoor.mp12.params;
 import org.arcanum.Field;
 import org.arcanum.Sampler;
 import org.arcanum.field.vector.VectorField;
+import org.arcanum.sampler.SamplerFactory;
 import org.arcanum.trapdoor.mp12.utils.MP12P2Utils;
 import org.arcanum.util.cipher.params.ElementKeyParameter;
 
@@ -22,9 +23,11 @@ public class MP12HLP2OneWayFunctionParameters extends ElementKeyParameter {
         super(false);
 
         this.pk = pk;
-        this.sampler = MP12P2Utils.getLWENoiseSampler(pk.getParameters().getRandom(), pk.getParameters().getN());
-
-        MP12P2Utils.testLWENoiseSampler(pk.getParameters().getN(), pk.getK());
+        this.sampler = SamplerFactory.getInstance().getDiscreteGaussianSampler(
+                pk.getParameters().getRandom(),
+                MP12P2Utils.getLWENoiseParameter(pk.getParameters().getN(),
+                        pk.getRandomizedRoundingParameter())
+        );
 
         this.inputField = new VectorField<Field>(
                 pk.getParameters().getRandom(),

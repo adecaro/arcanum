@@ -1,6 +1,7 @@
 package org.arcanum.tor.gvw13.generators;
 
 import org.arcanum.Element;
+import org.arcanum.ElementCipherParameters;
 import org.arcanum.Field;
 import org.arcanum.field.vector.MatrixElement;
 import org.arcanum.field.vector.MatrixField;
@@ -11,7 +12,6 @@ import org.arcanum.trapdoor.mp12.engines.MP12HLP2Sampler;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2PublicKeyParameters;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2SampleParameters;
 import org.arcanum.util.cipher.generators.ElementKeyGenerator;
-import org.arcanum.util.cipher.params.ElementCipherParameters;
 import org.arcanum.util.cipher.params.ElementKeyGenerationParameters;
 
 /**
@@ -36,12 +36,13 @@ public class TORGVW13RecKeyGenerator implements ElementKeyGenerator {
                 latticePk.getM()
         );
 
-        Element R0, R1;
+        Element R0 = null, R1 = null;
         if (params.isLeft()) {
             // b = 0
 
             // Sample R1 from D_Z,s
-            R1 = RField.newElementFromSampler(latticePk.getDiscreteGaussianSampler());
+            // TODO: The s here is that of SampleD
+//            R1 = RField.newElementFromSampler(latticePk.getDiscreteGaussianSampler());
 
             // Compute U
             MatrixElement U = (MatrixElement) ((MP12HLP2PublicKeyParameters) params.getTargetPk().getPublicKeyParameters()).getA().duplicate().sub(
@@ -55,7 +56,8 @@ public class TORGVW13RecKeyGenerator implements ElementKeyGenerator {
         } else {
             // b = 1
             // Sample R0 from D_Z,s
-            R0 = RField.newElementFromSampler(latticePk.getDiscreteGaussianSampler());
+            // TODO: The s here is that of SampleD
+//            R0 = RField.newElementFromSampler(latticePk.getDiscreteGaussianSampler());
 
             // Compute U
             MatrixElement U = (MatrixElement) ((MP12HLP2PublicKeyParameters) params.getTargetPk().getPublicKeyParameters()).getA().duplicate().sub(

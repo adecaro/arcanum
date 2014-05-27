@@ -3,16 +3,16 @@
         "http://maven.apache.org/dtd/xdoc_1_0.dtd">
 <document>
     <properties>
-        <title>Java Pairing-Based Cryptography Library : Introduction</title>
+        <title>Java Pairing and Lattice Based Cryptography Library : Introduction</title>
         <author email="adecaro@users.sourceforge.net">Angelo De Caro</author>
     </properties>
 
     <body>
         <div id="downloadbox">
-            <h5>Get JPBC 2.0.0 Now!!!</h5>
+            <h5>Get Arcanum 1.0.0 Now!!!</h5>
 
             <p>
-                <a href="download.html">JPBC 2.0.0</a>
+                <a href="download.html">Arcanum 1.0.0</a>
             </p>
 
             <ul>
@@ -20,7 +20,7 @@
                     <a href="download.html#requirements">System Requirements</a>
                 </li>
                 <li>
-                    <a href="download.html#usage">JPBC Usage</a>
+                    <a href="download.html#usage">Arcanum Usage</a>
                 </li>
                 <li>
                     <a href="license.html">License (LGPL)</a>
@@ -50,7 +50,7 @@
 
         <section name="Introduction">
             <p>
-            The Java Pairing-Based Cryptography Library (JPBC) provides:
+            Arcanum - The Java Pairing and Lattice Based Cryptography Library provides:
             </p>
             <ul>
                 <li>
@@ -83,28 +83,28 @@
             </ul>
         </section>
 
-        <section name="Who Uses JPBC?">
+        <section name="Who Uses Arcanum?">
             <p>
-            If your project uses the JPBC library and you don’t mind it appearing here please
+            If your project uses the Arcanum library and you don’t mind it appearing here please
             <a href="./contact.html">contact</a>
             me.
             </p>
         </section>
 
-        <section name="What is the appropriate way to cite JPBC in an academic context?">
+        <section name="What is the appropriate way to cite Arcanum in an academic context?">
             <p>
                 If you use Bibtex for your citations, we recommend that
                 you add the following entry in your bibtex database:
             </p>
             <source>@inproceedings{ISCC:DecIov11,
     author    = {Angelo {De Caro} and Vincenzo Iovino},
-    title     = {jPBC: Java pairing based cryptography},
+    title     = {aRCANUM: Java pairing based cryptography},
     year      = {2011},
     pages     = {850-855},
     booktitle = {Proceedings of the 16th IEEE Symposium on Computers and Communications, ISCC 2011},
     address   = {Kerkyra, Corfu, Greece, June 28 - July 1}
     publisher = {IEEE},
-    url       = {\url{http://gas.dia.unisa.it/projects/jpbc/}},
+    url       = {\url{http://gas.dia.unisa.it/projects/arcanum/}},
 }
             </source>
 

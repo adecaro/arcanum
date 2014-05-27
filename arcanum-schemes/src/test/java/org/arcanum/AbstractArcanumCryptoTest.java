@@ -14,7 +14,7 @@ import static org.junit.Assume.assumeTrue;
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
 @RunWith(value = Parameterized.class)
-public abstract class AbstractJPBCCryptoTest {
+public abstract class AbstractArcanumCryptoTest {
 
     static {
         PairingFactory.getInstance().setReuseInstance(false);
@@ -23,8 +23,8 @@ public abstract class AbstractJPBCCryptoTest {
     @Parameterized.Parameters
     public static Collection parameters() {
         Object[][] data = {
-                {false, "it/unisa/dia/gas/plaf/jpbc/crypto/a_181_603.properties"},
-                {true, "it/unisa/dia/gas/plaf/jpbc/crypto/a_181_603.properties"},
+                {false, "it/unisa/dia/gas/plaf/arcanum/crypto/a_181_603.properties"},
+                {true, "it/unisa/dia/gas/plaf/arcanum/crypto/a_181_603.properties"},
         };
 
         return Arrays.asList(data);
@@ -36,7 +36,7 @@ public abstract class AbstractJPBCCryptoTest {
 
     protected Parameters parameters;
 
-    public AbstractJPBCCryptoTest(boolean usePBC, String parametersPath) {
+    public AbstractArcanumCryptoTest(boolean usePBC, String parametersPath) {
         this.usePBC = usePBC;
         this.parametersPath = parametersPath;
     }

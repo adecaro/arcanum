@@ -1,6 +1,6 @@
 package org.arcanum.fe.ip.lostw10;
 
-import org.arcanum.AbstractJPBCCryptoTest;
+import org.arcanum.AbstractArcanumCryptoTest;
 import org.arcanum.Element;
 import org.arcanum.Pairing;
 import org.arcanum.fe.ip.lostw10.engines.IPLOSTW10KEMEngine;
@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 /**
  * @author Angelo De Caro
  */
-public class IPLOSTW10KEMEngineTest extends AbstractJPBCCryptoTest {
+public class IPLOSTW10KEMEngineTest extends AbstractArcanumCryptoTest {
 
 
     public IPLOSTW10KEMEngineTest(boolean usePBC, String curvePath) {

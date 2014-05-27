@@ -11,7 +11,7 @@ public class WrapperLibraryProvider {
 
     static {
         try {
-            wrapperLibrary = (WrapperLibrary) Native.loadLibrary("jpbc-pbc", WrapperLibrary.class);
+            wrapperLibrary = (WrapperLibrary) Native.loadLibrary("arcanum-pbc", WrapperLibrary.class);
         } catch (Throwable e) {
 //            e.printStackTrace();
         }

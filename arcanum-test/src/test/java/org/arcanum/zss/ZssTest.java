@@ -1,6 +1,6 @@
 package org.arcanum.zss;
 
-import org.arcanum.AbstractJPBCTest;
+import org.arcanum.AbstractArcanumTest;
 import org.arcanum.Element;
 import org.junit.Test;
 import org.junit.runners.Parameterized;
@@ -13,13 +13,13 @@ import static org.junit.Assert.assertTrue;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class ZssTest extends AbstractJPBCTest {
+public class ZssTest extends AbstractArcanumTest {
 
     @Parameterized.Parameters
     public static Collection parameters() {
         Object[][] data = {
-                {false, "it/unisa/dia/gas/plaf/jpbc/pairing/a/a_181_603.properties"},
-                {true, "it/unisa/dia/gas/plaf/jpbc/pairing/a/a_181_603.properties"},
+                {false, "it/unisa/dia/gas/plaf/arcanum/pairing/a/a_181_603.properties"},
+                {true, "it/unisa/dia/gas/plaf/arcanum/pairing/a/a_181_603.properties"},
         };
 
         return Arrays.asList(data);

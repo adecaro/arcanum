@@ -1,10 +1,8 @@
 package org.arcanum.trapdoor.mp12.params;
 
-import org.arcanum.Sampler;
-import org.arcanum.trapdoor.mp12.utils.MP12P2Utils;
+import org.arcanum.Parameters;
 import org.arcanum.util.cipher.params.ElementKeyGenerationParameters;
 
-import java.math.BigInteger;
 import java.security.SecureRandom;
 
 /**
@@ -14,26 +12,33 @@ public class MP12PLP2KeyPairGenerationParameters extends ElementKeyGenerationPar
 
     private MP12Parameters params;
     private int k;
-    private Sampler<BigInteger> discreteGaussianSampler;
     private int extraM;
 
+
+    public MP12PLP2KeyPairGenerationParameters(SecureRandom random, Parameters parameters) {
+        super(random);
+
+        this.params = new MP12Parameters(random, parameters.getInt("n"));
+        this.k = parameters.getInt("k");
+        this.extraM = 0;
+    }
+
     public MP12PLP2KeyPairGenerationParameters(SecureRandom random, int n, int k) {
-        super(random, 100);
+        super(random);
 
         this.params = new MP12Parameters(random, n);
         this.k = k;
-        this.discreteGaussianSampler = MP12P2Utils.getPrimitiveDiscreteGaussianSampler(params.getRandom());
         this.extraM = 0;
     }
 
     public MP12PLP2KeyPairGenerationParameters(SecureRandom random, int n, int k, int extraM) {
-        super(random, 100);
+        super(random);
 
         this.params = new MP12Parameters(random, n);
         this.k = k;
-        this.discreteGaussianSampler = MP12P2Utils.getPrimitiveDiscreteGaussianSampler(params.getRandom());
         this.extraM = extraM;
     }
+
 
     public MP12Parameters getParameters() {
         return params;
@@ -43,11 +48,8 @@ public class MP12PLP2KeyPairGenerationParameters extends ElementKeyGenerationPar
         return k;
     }
 
-    public Sampler<BigInteger> getDiscreteGaussianSampler() {
-        return discreteGaussianSampler;
-    }
-
     public int getExtraM() {
         return extraM;
     }
+
 }

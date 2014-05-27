@@ -234,36 +234,8 @@
         #end
 
         #if( $poweredBy.isEmpty() )
-          <div id="customPoweredBy">
-                <!-- Piwik -->
-                <script type="text/javascript">
-                var pkBaseURL = (("https:" == document.location.protocol) ? "https://sourceforge.net/apps/piwik/jpbc/" : "http://sourceforge.net/apps/piwik/jpbc/");
-                document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
-                </script><script type="text/javascript">
-                piwik_action_name = '';
-                piwik_idsite = 2;
-                piwik_url = pkBaseURL + "piwik.php";
-                piwik_log(piwik_action_name, piwik_idsite, piwik_url);
-                </script>
-                <object><noscript><p><img src="http://sourceforge.net/apps/piwik/jpbc/piwik.php?idsite=2" alt="piwik"/></p></noscript></object>
-                <!-- End Piwik Tag -->
-          </div>
         #end
     #else
-        <div id="customPoweredBy">
-            <!-- Piwik -->
-            <script type="text/javascript">
-            var pkBaseURL = (("https:" == document.location.protocol) ? "https://sourceforge.net/apps/piwik/jpbc/" : "http://sourceforge.net/apps/piwik/jpbc/");
-            document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
-            </script><script type="text/javascript">
-            piwik_action_name = '';
-            piwik_idsite = 2;
-            piwik_url = pkBaseURL + "piwik.php";
-            piwik_log(piwik_action_name, piwik_idsite, piwik_url);
-            </script>
-            <object><noscript><p><img src="http://sourceforge.net/apps/piwik/jpbc/piwik.php?idsite=2" alt="piwik"/></p></noscript></object>
-            <!-- End Piwik Tag -->
-        </div>
     #end
 #end
 
@@ -280,7 +252,7 @@
       <meta name="author" content="$author" />
     #end
     <meta http-equiv="Content-Type" content="text/html; charset=${outputEncoding}" />
-    <meta name="keywords" content="jpbc, pbc, pairing, multilinear maps, bilinear maps" />
+    <meta name="keywords" content="arcanum, jpbc, pbc, pairing, lattice, multilinear maps, bilinear maps" />
     #if ( $decoration.body.head )
       #foreach( $item in $decoration.body.head.getChildren() )
         #if ( $item.name == "script" )
@@ -293,8 +265,8 @@
   </head>
   <body class="composite">
 <!--    <div id="banner">
-        <a href="http://gas.dia.unisa.it/projects/jpbc/" id="bannerLeft">
-            <img id="bannerImage" src="http://gas.dia.unisa.it/projects/jpbc/images/banners/banner_4.jpg" alt="" width="1124"/>
+        <a href="http://gas.dia.unisa.it/projects/arcanum/" id="bannerLeft">
+            <img id="bannerImage" src="http://gas.dia.unisa.it/projects/arcanum/images/banners/banner_4.jpg" alt="" width="1124"/>
         </a>
         <div class="clear">
         <hr/>
@@ -303,24 +275,10 @@
     <div id="breadcrumbs">
       #publishDate( "left" $decoration.publishDate $decoration.version )
       <div class="xright">
-          <a href="http://gas.dia.unisa.it/projects/jlbc/">JLBC</a>
-          | #links( $decoration.body.links )
-          | <a href="http://gas.dia.unisa.it/">GAS Lab</a>
-          | <!-- AddThis Button BEGIN -->
-<!-- AddThis Button BEGIN -->
-<div class="addthis_toolbox addthis_default_style addthis_16x16_style"  style="width:150px; float: right;">
-<a class="addthis_button_facebook"></a>
-<a class="addthis_button_twitter"></a>
-<a class="addthis_button_google_plusone_share"></a>
-<a class="addthis_button_linkedin"></a>
-<a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
-</div>
-<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5296a13d495f9bda"></script>
-<!-- AddThis Button END -->
+          #links( $decoration.body.links )
       </div>
         <div class="xcenter">
-          The Java Pairing Based Cryptography Library (JPBC)
+          Java Pairing and Lattice Based Cryptography Library (Arcanum)
         </div>
       <div class="clear">
         <hr/>

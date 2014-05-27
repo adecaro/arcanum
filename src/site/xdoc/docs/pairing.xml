@@ -3,7 +3,7 @@
         "http://maven.apache.org/dtd/xdoc_1_0.dtd">
 <document>
     <properties>
-        <title>Java Pairing-Based Cryptography Library : Docs - Pairing Functions</title>
+        <title>Java Pairing and Lattice Based Cryptography Library : Docs - Pairing Functions</title>
         <author email="arcanumlib@gmail.com">Angelo De Caro</author>
     </properties>
 
@@ -285,15 +285,15 @@ $e(g^x,g^y)$
             <subsection name="Initializing Pairings">
                 <p>
                     The
-                    <a href="../java-docs/api/it/unisa/dia/gas/jpbc/Pairing.html"><code>Pairing</code></a>
+                    <a href="../java-docs/api/it/unisa/dia/gas/arcanum/Pairing.html"><code>Pairing</code></a>
                     interface provides access to the algebraic structures underlying the pairing computation
                     and the pairing function.
                 </p>
 
                 <p>
                     The easiest way to obtain an instance of the
-                    <a href="../java-docs/api/it/unisa/dia/gas/jpbc/Pairing.html"><code>Pairing</code></a>
-                    interface is by using the factory provided by JPBC.
+                    <a href="../java-docs/api/it/unisa/dia/gas/arcanum/Pairing.html"><code>Pairing</code></a>
+                    interface is by using the factory provided by Arcanum.
                     The factory takes in input the pairing parameters
                     and instantiates the appropriate classes.
                     To generate the pairing parameters look at this
@@ -310,7 +310,7 @@ $e(g^x,g^y)$
                     Then, the following code instantiate the appropriate class implementing
                     the <code>Pairing</code> interface.
                 </p>
-<source>import org.arcanum.dia.gas.jpbc.*;
+<source>import org.arcanum.dia.gas.arcanum.*;
     import PairingFactory;
 
     Pairing pairing = PairingFactory.getPairing("params.properties");
@@ -328,8 +328,8 @@ $e(g^x,g^y)$
                     the <code>getPairing</code> method.
                 </p>
                 <p>
-                    Moreover, if PBC and the JPBC wrapper are not installed properly then
-                    the factory will resort to the JPBC pairing implementation.
+                    Moreover, if PBC and the Arcanum wrapper are not installed properly then
+                    the factory will resort to the Arcanum pairing implementation.
                     <br/>
                     The instructions to properly setup the PBC wrapper are <a href="./pbcwrapper.html">here</a>.
                 </p>
@@ -338,7 +338,7 @@ $e(g^x,g^y)$
             <a name="accessing"/>
             <subsection name="Accessing Algebraic Structures">
             <p>
-                The <a href="../java-docs/api/it/unisa/dia/gas/jpbc/Pairing.html"><code>Pairing</code></a>
+                The <a href="../java-docs/api/it/unisa/dia/gas/arcanum/Pairing.html"><code>Pairing</code></a>
                 interface provides methods to access the algebraic structures
                 involved in the pairing computation.
                 Here are the methods:
@@ -401,7 +401,7 @@ Field GT = pairing.getFieldAt(3);
             <a name="applying"/>
             <subsection name="Applying pairings">
                 <p>
-                    The <a href="../java-docs/api/it/unisa/dia/gas/jpbc/Pairing.html"><code>Pairing</code></a>
+                    The <a href="../java-docs/api/it/unisa/dia/gas/arcanum/Pairing.html"><code>Pairing</code></a>
                     interface provides methods to apply the pairing function.
 
                     Given two elements <code>Element in1, in2</code>, belonging
@@ -413,7 +413,7 @@ Field GT = pairing.getFieldAt(3);
 <source>Element out = pairing.pairing(in1, in2);</source>
 
                 <p>
-                    Furthermore, the <a href="../java-docs/api/it/unisa/dia/gas/jpbc/Pairing.html"><code>Pairing</code></a>
+                    Furthermore, the <a href="../java-docs/api/it/unisa/dia/gas/arcanum/Pairing.html"><code>Pairing</code></a>
                     interface let us compute the product of pairings.
                     Given two vectors of the same length <code>Element[] in1, in2</code>
                     of elements belonging to the appropriate algebraic structures,

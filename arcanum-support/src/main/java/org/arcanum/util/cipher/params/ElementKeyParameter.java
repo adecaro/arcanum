@@ -1,6 +1,8 @@
 package org.arcanum.util.cipher.params;
 
 
+import org.arcanum.ElementCipherParameters;
+
 public class ElementKeyParameter
     implements ElementCipherParameters
 {

@@ -13,7 +13,7 @@ public class TORGVW13KeyPairGenerationParameters extends ElementKeyGenerationPar
 
 
     public TORGVW13KeyPairGenerationParameters(SecureRandom random, int strength, TORGVW13Parameters parameters) {
-        super(random, strength);
+        super(random);
 
         this.parameters = parameters;
     }

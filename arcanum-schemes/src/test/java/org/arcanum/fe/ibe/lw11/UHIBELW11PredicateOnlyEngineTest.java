@@ -1,6 +1,6 @@
 package org.arcanum.fe.ibe.lw11;
 
-import org.arcanum.AbstractJPBCCryptoTest;
+import org.arcanum.AbstractArcanumCryptoTest;
 import org.arcanum.Element;
 import org.arcanum.Pairing;
 import org.arcanum.fe.PredicateOnlyEncryptionScheme;
@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 /**
  * @author Angelo De Caro
  */
-public class UHIBELW11PredicateOnlyEngineTest extends AbstractJPBCCryptoTest {
+public class UHIBELW11PredicateOnlyEngineTest extends AbstractArcanumCryptoTest {
 
 
     public UHIBELW11PredicateOnlyEngineTest(boolean usePBC, String curvePath) {

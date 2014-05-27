@@ -14,19 +14,22 @@ import java.math.BigInteger;
 public class MP12HLP2PublicKeyParameters extends MP12PLP2PublicKeyParameters {
 
     protected Element A;
-    protected int m, mInBytes;
+    protected int m, mInBytes, barM, w;
 
 
-    public MP12HLP2PublicKeyParameters(MP12Parameters parameters, int k, int m,
+    public MP12HLP2PublicKeyParameters(MP12Parameters parameters,
+                                       int k, int m, int barM, int w,
                                        Sampler<BigInteger> sampler,
                                        Matrix G,
                                        Field syndromeField, Field Zq,
                                        VectorField<Field> preimageField,
                                        Element A) {
-        super(parameters, k, sampler, G, syndromeField, Zq, preimageField);
+        super(parameters, k, G, syndromeField, Zq, preimageField);
 
         this.A = A;
         this.m = m;
+        this.barM = barM;
+        this.w = w;
         this.mInBytes = (m + 7) / 8;
     }
 
@@ -36,6 +39,14 @@ public class MP12HLP2PublicKeyParameters extends MP12PLP2PublicKeyParameters {
 
     public int getM() {
         return m;
+    }
+
+    public int getBarM() {
+        return barM;
+    }
+
+    public int getW() {
+        return w;
     }
 
     public int getmInBytes() {

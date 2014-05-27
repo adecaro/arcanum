@@ -3,17 +3,17 @@
         "http://maven.apache.org/dtd/xdoc_1_0.dtd">
 <document>
     <properties>
-        <title>Java Pairing-Based Cryptography Library : Docs - Curve Generators</title>
+        <title>Java Pairing and Lattice Based Cryptography Library : Docs - Curve Generators</title>
         <author email="arcanumlib@gmail.com">Angelo De Caro</author>
     </properties>
 
     <body>
         <section name="Pairing Parameters Generators">
             <p>
-                JPBC provides a set of interfaces and classes
+                Arcanum provides a set of interfaces and classes
                 to generate and manage the parameters that describe a pairing setting.
                 The
-                <a href="../java-docs/api/it/unisa/dia/gas/jpbc/PairingParametersGenerator.html">
+                <a href="../java-docs/api/it/unisa/dia/gas/arcanum/PairingParametersGenerator.html">
                     <code>PairingParametersGenerator</code>
                 </a>
                 interface is the starting point. Once an instance of such
@@ -34,7 +34,7 @@ PairingParameters params = parametersGenerator.generate();
 
             <p>
                 The <code>generate</code> method returns an instance of the
-                <code><a href="../java-docs/api/it/unisa/dia/gas/jpbc/PairingParameters.html">PairingParameters</a></code>
+                <code><a href="../java-docs/api/it/unisa/dia/gas/arcanum/PairingParameters.html">PairingParameters</a></code>
                 interface that maps the pairing parameters to specific values that can be accessed
                 by calling specialized methods.
                 <br/>
@@ -44,13 +44,13 @@ PairingParameters params = parametersGenerator.generate();
                 <br/>
                 <br/>
                 Once the parameters are generated, an instance of
-                <code><a href="../java-docs/api/it/unisa/dia/gas/jpbc/Pairing.html">Pairing</a></code>
+                <code><a href="../java-docs/api/it/unisa/dia/gas/arcanum/Pairing.html">Pairing</a></code>
                 interface can be obtained as shown
                 <a href="./pairing.html#initializing">here</a>.
             </p>
 
             <p>
-                JPBC provides pairing parameters generators for
+                Arcanum provides pairing parameters generators for
                 <a href="./ecpg.html#initializing">bilinear</a> (based on elliptic curves) and
                 <a href="./mmpg.html#initializing">multilinear</a> maps.
                 <br/>

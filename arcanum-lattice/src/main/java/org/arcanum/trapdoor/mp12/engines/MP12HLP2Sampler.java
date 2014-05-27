@@ -1,18 +1,14 @@
 package org.arcanum.trapdoor.mp12.engines;
 
-import org.arcanum.Element;
-import org.arcanum.Matrix;
-import org.arcanum.Sampler;
-import org.arcanum.Vector;
+import org.apfloat.Apfloat;
+import org.arcanum.*;
+import org.arcanum.field.floating.ApfloatUtils;
 import org.arcanum.field.floating.FloatingField;
 import org.arcanum.field.vector.MatrixField;
 import org.arcanum.sampler.DiscreteGaussianCOVSampler;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2PrivateKeyParameters;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2PublicKeyParameters;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2SampleParameters;
-import org.arcanum.trapdoor.mp12.utils.MP12P2Utils;
-import org.arcanum.util.cipher.engine.ElementCipher;
-import org.arcanum.util.cipher.params.ElementCipherParameters;
 import org.arcanum.util.cipher.params.ElementKeyPairParameters;
 import org.arcanum.util.concurrent.PoolExecutor;
 import org.arcanum.util.math.Cholesky;
@@ -21,7 +17,8 @@ import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.arcanum.trapdoor.mp12.utils.MP12P2Utils.getSSquare;
+import static org.apfloat.ApfloatMath.sqrt;
+import static org.arcanum.field.floating.ApfloatUtils.*;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
@@ -34,7 +31,7 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
     protected MP12HLP2PublicKeyParameters pk;
     protected MP12HLP2PrivateKeyParameters sk;
 
-    protected Sampler<Vector> offlineSampler;
+    protected Sampler<? extends Element> perturbationSampler;
 
 
     public ElementCipher init(ElementCipherParameters param) {
@@ -47,17 +44,14 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
         super.init(pk);
 
         // Init offline sampler
-        SecureRandom random = sk.getParameters().getRandom();
-        Matrix cov = covs.get(sk);
-        if (cov == null) {
-            cov = computeCovarianceMatrix(random, 2 * n, n * k);
-            covs.put(sk, cov);
-        }
-
-        offlineSampler = new DiscreteGaussianCOVSampler(random, cov, sk.getR().getTargetField(), MP12P2Utils.RRP);
+        perturbationSampler = new DiscreteGaussianCOVSampler(
+                sk.getParameters().getRandom(),
+                computeCoviarianceMatrix(),
+                sk.getR().getTargetField(),
+                pk.getRandomizedRoundingParameter()
+        );
 
         return this;
-
     }
 
     public Element processElements(Element... input) {
@@ -79,29 +73,57 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
         return ((Vector) p).add(z1, z2);
     }
 
+
     protected Element[] samplePerturbation() {
-        Element p = offlineSampler.sample();
+        Element p = perturbationSampler.sample();
         Element o = pk.getA().mul(p);
 
         return new Element[]{p, o};
     }
 
-    protected Matrix computeCovarianceMatrix(SecureRandom random, int n, final int m) {
-        // Compute covariance matrix COV
-        MatrixField<FloatingField> ff = new MatrixField<FloatingField>(random, new FloatingField(random), n + m);
 
-        Element sSquare = ff.getTargetField().newElement(getSSquare(n, m));
-        Element rSquare = ff.getTargetField().newElement(MP12P2Utils.TWO_RRP_SQUARE);
-        Element aSquare = ff.getTargetField().newElement(MP12P2Utils.RRP_SQUARE);
+    protected Matrix computeCoviarianceMatrix() {
+        SecureRandom random = sk.getParameters().getRandom();
+
+        Matrix cov = covs.get(sk);
+        if (cov == null) {
+            cov = computeCovarianceMatrix(random, pk.getBarM(), pk.getW());
+            covs.put(sk, cov);
+        }
+        return cov;
+    }
+
+    protected Matrix computeCovarianceMatrix(SecureRandom random, int n, final int m) {
+        // Setup parameters: compute gaussian parameter s
+        Apfloat rrp = pk.getRandomizedRoundingParameter();
+        Apfloat rrpSquare = square(rrp);
+        Apfloat tworrpSquare = rrpSquare.multiply(IFOUR);
+
+        Apfloat lweNoisParameter = SQRT_TWO.multiply(
+                ITWO.multiply(sqrt(newApfloat(n)))
+        ).multiply(rrpSquare).multiply(rrp);
+
+        Apfloat sq = square(
+                lweNoisParameter.multiply(
+                        ApfloatUtils.sqrt(n).add(ApfloatUtils.sqrt(m)).add(ApfloatUtils.IONE)
+                ).divide(SQRT_TWO_PI)
+        ).add(IONE).multiply(ISIX).multiply(rrpSquare);
+
+        FloatingField ff = new FloatingField(random);
+        MatrixField<FloatingField> mff = new MatrixField<FloatingField>(random, ff, n + m);
+
+        Element sSquare = ff.newElement(sq);
+        Element rSquare = ff.newElement(tworrpSquare);
+        Element aSquare = ff.newElement(rrpSquare);
 
         Element b = sSquare.duplicate().sub(rSquare).sub(aSquare);
         final Element sqrtB = b.duplicate().sqrt();
         final Element rSquarePlusOneOverB = rSquare.duplicate().add(b.duplicate().invert());
         final Element sSquareMinusASquare = sSquare.duplicate().sub(aSquare);
-
         final Element sqrtBInverse = sqrtB.duplicate().invert();
 
-        final Matrix cov = ff.newElement();
+        // Compute covariance matrix COV
+        final Matrix cov = mff.newElement();
         new PoolExecutor().submit(new Runnable() {
             public void run() {
                 cov.setSubMatrixToIdentityAt(0, 0, m, sqrtB);
@@ -132,5 +154,6 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
 
         return cov;
     }
+
 
 }

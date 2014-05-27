@@ -1,18 +1,18 @@
 package org.arcanum.tor.gvw13.engines;
 
 import org.arcanum.Element;
+import org.arcanum.ElementCipher;
 import org.arcanum.Pairing;
 import org.arcanum.pairing.PairingFactory;
 import org.arcanum.tor.gvw13.params.WTORGVW13KeyParameters;
 import org.arcanum.tor.gvw13.params.WTORGVW13PublicKeyParameters;
 import org.arcanum.tor.gvw13.params.WTORGVW13RecodeParameters;
 import org.arcanum.util.cipher.engine.AbstractElementCipher;
-import org.arcanum.util.cipher.engine.ElementCipher;
 import org.bouncycastle.crypto.CipherParameters;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class WTORGVW13Engine extends AbstractElementCipher {
 

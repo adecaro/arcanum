@@ -7,6 +7,7 @@ import org.arcanum.Vector;
 import org.arcanum.field.vector.MatrixField;
 import org.arcanum.field.vector.VectorField;
 import org.arcanum.field.z.ZFieldSelector;
+import org.arcanum.sampler.SamplerFactory;
 import org.arcanum.trapdoor.mp12.params.MP12PLP2KeyPairGenerationParameters;
 import org.arcanum.trapdoor.mp12.params.MP12PLP2PublicKeyParameters;
 import org.arcanum.util.cipher.generators.ElementKeyPairGenerator;
@@ -15,6 +16,8 @@ import org.arcanum.util.cipher.params.ElementKeyPairParameters;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+
+import static org.arcanum.field.floating.ApfloatUtils.ITWO;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
@@ -43,7 +46,10 @@ public class MP12PLP2KeyPairGenerator implements ElementKeyPairGenerator {
         this.n = params.getParameters().getN();
         this.k = params.getK();
         int m = n * k + params.getExtraM();
-        this.discreteGaussianSampler = params.getDiscreteGaussianSampler();
+        this.discreteGaussianSampler = SamplerFactory.getInstance().getDiscreteGaussianSampler(
+                random,
+                params.getParameters().getRandomizedRoundingParameter().multiply(ITWO)
+        );
 
         SecureRandom random = params.getRandom();
 
@@ -64,10 +70,8 @@ public class MP12PLP2KeyPairGenerator implements ElementKeyPairGenerator {
 
         this.keyPair = new ElementKeyPairParameters(
                 new MP12PLP2PublicKeyParameters(
-                        params.getParameters(),
-                        k, discreteGaussianSampler,
-                        G,
-                        syndromeField, Zq, preimageField
+                        params.getParameters(), k,
+                        G, syndromeField, Zq, preimageField
                 ),
                 null
         );
