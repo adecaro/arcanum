@@ -4,7 +4,6 @@ import org.arcanum.Element;
 import org.arcanum.ElementCipher;
 import org.arcanum.Field;
 import org.arcanum.Matrix;
-import org.arcanum.field.vector.MatrixElement;
 import org.arcanum.field.vector.MatrixField;
 import org.arcanum.field.vector.VectorField;
 import org.arcanum.trapdoor.mp12.generators.MP12HLP2KeyPairGenerator;
@@ -79,7 +78,7 @@ public class MP12HLP2Test {
     public void testSampleDMatrix() throws Exception {
         MatrixField<Field> RField = new MatrixField<Field>(pk.getParameters().getRandom(), pk.getZq(), pk.getM());
         // Compute U
-        MatrixElement U = (MatrixElement) pk.getA().getField().newRandomElement();
+        Matrix U = (Matrix) pk.getA().getField().newRandomElement();
 
 //        System.out.println("U = " + U);
 
@@ -95,7 +94,7 @@ public class MP12HLP2Test {
         MP12HLP2Decoder decoder = new MP12HLP2Decoder();
         decoder.init(keyPair.getPublic());
 
-        MatrixElement U1 = U.getField().newElement();
+        Matrix U1 = (Matrix) U.getField().newElement();
         for (int i = 0; i < pk.getM(); i++) {
             Element sample = R0.columnAt(i);
 //            System.out.println("sample = " + sample);

@@ -20,7 +20,8 @@ public class MP12HLP2LeftSampler extends MP12HLP2Sampler {
 
         // TODO: set the right parameter
         this.sampler = SamplerFactory.getInstance().getDiscreteGaussianSampler(
-                parameters.getParameters().getRandom(), MP12P2Utils.TWICE_RRP
+                parameters.getParameters().getRandom(),
+                MP12P2Utils.TWICE_RRP
         );
 
         return this;

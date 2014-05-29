@@ -3,6 +3,7 @@ package org.arcanum.field.base;
 import org.arcanum.Element;
 import org.arcanum.ElementPowPreProcessing;
 import org.arcanum.Field;
+import org.arcanum.Sampler;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -89,6 +90,10 @@ public abstract class AbstractField<E extends Element> implements Field<E> {
         e.setToRandom();
 
         return e;
+    }
+
+    public E newElementFromSampler(Sampler<BigInteger> sampler) {
+        return newElement(sampler.sample());
     }
 
     public boolean isOrderOdd() {

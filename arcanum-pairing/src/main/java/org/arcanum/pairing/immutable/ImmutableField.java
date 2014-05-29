@@ -3,6 +3,7 @@ package org.arcanum.pairing.immutable;
 import org.arcanum.Element;
 import org.arcanum.ElementPowPreProcessing;
 import org.arcanum.Field;
+import org.arcanum.Sampler;
 import org.arcanum.field.util.ElementUtils;
 
 import java.math.BigInteger;
@@ -11,7 +12,7 @@ import java.math.BigInteger;
  * @author Angelo De Caro (arcanumlib@gmail.com)
  * @since 1.0.0
  */
-public class ImmutableField implements Field {
+public class ImmutableField implements Field<Element> {
 
     protected Field field;
 
@@ -59,6 +60,10 @@ public class ImmutableField implements Field {
 
     public Element newRandomElement() {
         return field.newRandomElement().getImmutable();
+    }
+
+    public Element newElementFromSampler(Sampler<BigInteger> sampler) {
+        return newElement(sampler.sample());
     }
 
     public Element newElement(Object value) {

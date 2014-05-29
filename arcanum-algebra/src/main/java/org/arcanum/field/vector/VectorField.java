@@ -20,7 +20,6 @@ public class VectorField<F extends Field> extends AbstractFieldOver<F, VectorEle
     }
 
 
-
     protected final int n, lenInBytes;
 
     public VectorField(SecureRandom random, F targetField, int n) {
@@ -39,18 +38,6 @@ public class VectorField<F extends Field> extends AbstractFieldOver<F, VectorEle
         return new VectorElement(this, sampler);
     }
 
-    public VectorElement newPrimitiveElement() {
-        VectorElement g = newElement();
-
-        BigInteger value = BigInteger.ONE;
-        for (int i = 0; i < n; i++) {
-            g.getAt(i).set(value);
-            value = value.shiftLeft(1);
-        }
-
-        return g;
-    }
-
     public BigInteger getOrder() {
         throw new IllegalStateException("Not implemented yet!!!");
     }
@@ -61,6 +48,19 @@ public class VectorField<F extends Field> extends AbstractFieldOver<F, VectorEle
 
     public int getLengthInBytes() {
         return lenInBytes;
+    }
+
+
+    public VectorElement newPrimitiveElement() {
+        VectorElement g = newElement();
+
+        BigInteger value = BigInteger.ONE;
+        for (int i = 0; i < n; i++) {
+            g.getAt(i).set(value);
+            value = value.shiftLeft(1);
+        }
+
+        return g;
     }
 
     public int getN() {

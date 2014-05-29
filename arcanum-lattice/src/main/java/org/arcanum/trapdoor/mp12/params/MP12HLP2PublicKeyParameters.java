@@ -3,10 +3,7 @@ package org.arcanum.trapdoor.mp12.params;
 import org.arcanum.Element;
 import org.arcanum.Field;
 import org.arcanum.Matrix;
-import org.arcanum.Sampler;
 import org.arcanum.field.vector.VectorField;
-
-import java.math.BigInteger;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
@@ -14,12 +11,11 @@ import java.math.BigInteger;
 public class MP12HLP2PublicKeyParameters extends MP12PLP2PublicKeyParameters {
 
     protected Element A;
-    protected int m, mInBytes, barM, w;
+    protected int m, mInBytes;
 
 
     public MP12HLP2PublicKeyParameters(MP12Parameters parameters,
-                                       int k, int m, int barM, int w,
-                                       Sampler<BigInteger> sampler,
+                                       int k, int m,
                                        Matrix G,
                                        Field syndromeField, Field Zq,
                                        VectorField<Field> preimageField,
@@ -28,8 +24,6 @@ public class MP12HLP2PublicKeyParameters extends MP12PLP2PublicKeyParameters {
 
         this.A = A;
         this.m = m;
-        this.barM = barM;
-        this.w = w;
         this.mInBytes = (m + 7) / 8;
     }
 
@@ -39,14 +33,6 @@ public class MP12HLP2PublicKeyParameters extends MP12PLP2PublicKeyParameters {
 
     public int getM() {
         return m;
-    }
-
-    public int getBarM() {
-        return barM;
-    }
-
-    public int getW() {
-        return w;
     }
 
     public int getmInBytes() {

@@ -2,6 +2,7 @@ package org.arcanum.field.vector;
 
 import org.arcanum.Element;
 import org.arcanum.ElementPowPreProcessing;
+import org.arcanum.Matrix;
 import org.arcanum.Sampler;
 import org.arcanum.field.base.AbstractVectorElement;
 
@@ -212,18 +213,18 @@ public class VectorElement<E extends Element> extends AbstractVectorElement<E, V
     }
 
     public Element mul(Element e) {
-        if (e instanceof MatrixElement) {
-            MatrixElement me = (MatrixElement) e;
+        if (e instanceof Matrix) {
+            Matrix me = (Matrix) e;
 
-            if (field.getTargetField().equals(me.getField().getTargetField())) {
+            if (field.getTargetField().equals(me.getTargetField())) {
                 // Check dimensions
 
-                if (this.getSize() == me.getField().m) {
+                if (this.getSize() == me.getM()) {
                     throw new IllegalStateException("Not Implemented yet!!!");
-                } else if (this.getSize() == me.getField().n) {
+                } else if (this.getSize() == me.getN()) {
                     // Consider transpose
 
-                    VectorField f = new VectorField(field.getRandom(), field.getTargetField(), me.getField().m);
+                    VectorField f = new VectorField(field.getRandom(), field.getTargetField(), me.getM());
                     VectorElement r = f.newElement();
 
                     for (int i = 0; i < f.n; i++) {

@@ -9,7 +9,7 @@ import java.security.SecureRandom;
 /**
  * @author Angelo De Caro (angelo.decaro@gmail.com)
  */
-public class MatrixField<F extends Field> extends AbstractMatrixField<F, MatrixElement> {
+public class MatrixField<F extends Field> extends AbstractMatrixField<F, AbstractMatrixElement> {
 
 
     public static Matrix newElementFromSampler(MatrixField field, int n, int m, Sampler<BigInteger> sampler) {
@@ -25,7 +25,7 @@ public class MatrixField<F extends Field> extends AbstractMatrixField<F, MatrixE
                 a1.getField().n,
                 a1.getField().m + b1.getField().m);
 
-        MatrixElement c = f.newElement();
+        Matrix c = f.newElement();
         for (int i = 0; i < f.n; i++) {
             for (int j = 0; j < a1.getField().m; j++) {
                 if (a1.isZeroAt(i, j))
@@ -57,7 +57,7 @@ public class MatrixField<F extends Field> extends AbstractMatrixField<F, MatrixE
                 a1.getField().m
         );
 
-        MatrixElement c = f.newElement();
+        Matrix c = f.newElement();
         for (int i = 0; i < f.m; i++) {
 
             for (int j = 0; j < a1.getField().n; j++) {
@@ -97,8 +97,12 @@ public class MatrixField<F extends Field> extends AbstractMatrixField<F, MatrixE
     }
 
 
-    public MatrixElement newElement() {
-        return new MatrixElement(this);
+    public AbstractMatrixElement newElement() {
+        return new ArrayMatrixElement(this);
+    }
+
+    public AbstractMatrixElement newElementFromSampler(Sampler<BigInteger> sampler) {
+        return new ArrayMatrixElement(this, sampler);
     }
 
     public BigInteger getOrder() {
@@ -109,16 +113,13 @@ public class MatrixField<F extends Field> extends AbstractMatrixField<F, MatrixE
         return lenInBytes;
     }
 
-    public MatrixElement getNqr() {
+    public AbstractMatrixElement getNqr() {
         throw new IllegalStateException("Not implemented yet!!!");
     }
 
-    public MatrixElement newElementFromSampler(Sampler<BigInteger> sampler) {
-        return new MatrixElement(this, sampler);
-    }
 
-    public MatrixElement newIdentity() {
-        MatrixElement m = newElement();
+    public Matrix newIdentity() {
+        Matrix m = newElement();
         for (int i = 0; i < n; i++)
             m.getAt(i, i).setToOne();
         return m;

@@ -11,4 +11,7 @@ public class MP12HLP2KeyPairGenerationParameters extends MP12PLP2KeyPairGenerati
         super(random, n, k);
     }
 
+    public MP12HLP2KeyPairGenerationParameters(SecureRandom random, int n, int k, int extraM) {
+        super(random, n, k, extraM);
+    }
 }

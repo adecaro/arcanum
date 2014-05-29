@@ -3,7 +3,7 @@ package org.arcanum.tor.gvw13.generators;
 import org.arcanum.Element;
 import org.arcanum.ElementCipherParameters;
 import org.arcanum.Field;
-import org.arcanum.field.vector.MatrixElement;
+import org.arcanum.Matrix;
 import org.arcanum.field.vector.MatrixField;
 import org.arcanum.tor.gvw13.params.TORGVW13ReKeyGenerationParameters;
 import org.arcanum.tor.gvw13.params.TORGVW13RecodeParameters;
@@ -45,7 +45,7 @@ public class TORGVW13RecKeyGenerator implements ElementKeyGenerator {
 //            R1 = RField.newElementFromSampler(latticePk.getDiscreteGaussianSampler());
 
             // Compute U
-            MatrixElement U = (MatrixElement) ((MP12HLP2PublicKeyParameters) params.getTargetPk().getPublicKeyParameters()).getA().duplicate().sub(
+            Matrix U = (Matrix) ((MP12HLP2PublicKeyParameters) params.getTargetPk().getPublicKeyParameters()).getA().duplicate().sub(
                     ((MP12HLP2PublicKeyParameters) params.getRightPk().getPublicKeyParameters()).getA().mul(R1)
             );
 
@@ -60,7 +60,7 @@ public class TORGVW13RecKeyGenerator implements ElementKeyGenerator {
 //            R0 = RField.newElementFromSampler(latticePk.getDiscreteGaussianSampler());
 
             // Compute U
-            MatrixElement U = (MatrixElement) ((MP12HLP2PublicKeyParameters) params.getTargetPk().getPublicKeyParameters()).getA().duplicate().sub(
+            Matrix U = (Matrix) ((MP12HLP2PublicKeyParameters) params.getTargetPk().getPublicKeyParameters()).getA().duplicate().sub(
                     ((MP12HLP2PublicKeyParameters) params.getLeftPk().getPublicKeyParameters()).getA().mul(R0)
             );
 

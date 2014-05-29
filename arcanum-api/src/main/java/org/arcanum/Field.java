@@ -114,6 +114,15 @@ public interface Field<E extends Element> {
     E newRandomElement();
 
     /**
+     * TODO
+     *
+     * @param sampler
+     * @return
+     * @since 1.0.0
+     */
+    E newElementFromSampler(Sampler<BigInteger> sampler);
+
+    /**
      * Returns the order of this field.
      *
      * @return the order of this field. Returns 0 for infinite order.

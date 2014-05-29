@@ -7,9 +7,9 @@ import java.math.BigInteger;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class ImmutableMatrixElement<E extends Element> extends MatrixElement<E> {
+public class ImmutableArrayMatrixElement<E extends Element> extends ArrayMatrixElement<E> {
 
-    public ImmutableMatrixElement(MatrixElement element) {
+    public ImmutableArrayMatrixElement(ArrayMatrixElement element) {
         super(element.getField());
 
         this.matrix = new Element[field.n][field.m];
@@ -23,47 +23,47 @@ public class ImmutableMatrixElement<E extends Element> extends MatrixElement<E> 
     }
 
     @Override
-    public MatrixElement<E> duplicate() {
+    public ArrayMatrixElement<E> duplicate() {
         return super.duplicate();
     }
 
     @Override
-    public MatrixElement<E> getImmutable() {
+    public ArrayMatrixElement<E> getImmutable() {
         return this;
     }
 
     @Override
-    public MatrixElement set(Element e) {
+    public ArrayMatrixElement set(Element e) {
         throw new IllegalStateException("Invalid call on an immutable element");
     }
 
     @Override
-    public MatrixElement set(int value) {
+    public ArrayMatrixElement set(int value) {
         throw new IllegalStateException("Invalid call on an immutable element");
     }
 
     @Override
-    public MatrixElement set(BigInteger value) {
+    public ArrayMatrixElement set(BigInteger value) {
         throw new IllegalStateException("Invalid call on an immutable element");
     }
 
     @Override
-    public MatrixElement twice() {
-        return (MatrixElement) duplicate().twice().getImmutable();
+    public ArrayMatrixElement twice() {
+        return (ArrayMatrixElement) duplicate().twice().getImmutable();
     }
 
     @Override
-    public MatrixElement setToZero() {
+    public ArrayMatrixElement setToZero() {
         throw new IllegalStateException("Invalid call on an immutable element");
     }
 
     @Override
-    public MatrixElement setToOne() {
+    public ArrayMatrixElement setToOne() {
         throw new IllegalStateException("Invalid call on an immutable element");
     }
 
     @Override
-    public MatrixElement setToRandom() {
+    public ArrayMatrixElement setToRandom() {
         throw new IllegalStateException("Invalid call on an immutable element");
     }
 
@@ -73,47 +73,47 @@ public class ImmutableMatrixElement<E extends Element> extends MatrixElement<E> 
     }
 
     @Override
-    public MatrixElement square() {
-        return (MatrixElement) duplicate().square().getImmutable();
+    public ArrayMatrixElement square() {
+        return (ArrayMatrixElement) duplicate().square().getImmutable();
     }
 
     @Override
-    public MatrixElement invert() {
-        return (MatrixElement) duplicate().invert().getImmutable();
+    public ArrayMatrixElement invert() {
+        return (ArrayMatrixElement) duplicate().invert().getImmutable();
     }
 
     @Override
-    public MatrixElement negate() {
-        return (MatrixElement) duplicate().negate().getImmutable();
+    public ArrayMatrixElement negate() {
+        return (ArrayMatrixElement) duplicate().negate().getImmutable();
     }
 
     @Override
-    public MatrixElement add(Element e) {
-        return (MatrixElement) duplicate().add(e).getImmutable();
+    public ArrayMatrixElement add(Element e) {
+        return (ArrayMatrixElement) duplicate().add(e).getImmutable();
     }
 
     @Override
-    public MatrixElement mul(Element e) {
-        return (MatrixElement) duplicate().mul(e).getImmutable();
+    public ArrayMatrixElement mul(Element e) {
+        return (ArrayMatrixElement) duplicate().mul(e).getImmutable();
     }
 
     @Override
-    public MatrixElement mul(BigInteger n) {
-        return (MatrixElement) duplicate().mul(n).getImmutable();
+    public ArrayMatrixElement mul(BigInteger n) {
+        return (ArrayMatrixElement) duplicate().mul(n).getImmutable();
     }
 
     @Override
-    public MatrixElement mulZn(Element e) {
-        return (MatrixElement) duplicate().mulZn(e).getImmutable();
+    public ArrayMatrixElement mulZn(Element e) {
+        return (ArrayMatrixElement) duplicate().mulZn(e).getImmutable();
     }
 
     @Override
-    public MatrixElement powZn(Element e) {
-        return (MatrixElement) duplicate().powZn(e).getImmutable();
+    public ArrayMatrixElement powZn(Element e) {
+        return (ArrayMatrixElement) duplicate().powZn(e).getImmutable();
     }
 
     @Override
-    public MatrixElement setFromHash(byte[] source, int offset, int length) {
+    public ArrayMatrixElement setFromHash(byte[] source, int offset, int length) {
         throw new IllegalStateException("Invalid call on an immutable element");
     }
 
@@ -133,8 +133,8 @@ public class ImmutableMatrixElement<E extends Element> extends MatrixElement<E> 
     }
 
     @Override
-    public MatrixElement sub(Element element) {
-        return (MatrixElement) duplicate().sub(element).getImmutable();
+    public ArrayMatrixElement sub(Element element) {
+        return (ArrayMatrixElement) duplicate().sub(element).getImmutable();
     }
 
     @Override
@@ -143,13 +143,13 @@ public class ImmutableMatrixElement<E extends Element> extends MatrixElement<E> 
     }
 
     @Override
-    public MatrixElement mul(int z) {
-        return (MatrixElement) duplicate().mul(z).getImmutable();
+    public ArrayMatrixElement mul(int z) {
+        return (ArrayMatrixElement) duplicate().mul(z).getImmutable();
     }
 
     @Override
-    public MatrixElement sqrt() {
-        return (MatrixElement) duplicate().sqrt().getImmutable();
+    public ArrayMatrixElement sqrt() {
+        return (ArrayMatrixElement) duplicate().sqrt().getImmutable();
     }
 
 }

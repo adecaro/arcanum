@@ -3,6 +3,7 @@ package org.arcanum.pairing.mm.clt13.pairing;
 import org.arcanum.Element;
 import org.arcanum.ElementPowPreProcessing;
 import org.arcanum.Field;
+import org.arcanum.Sampler;
 import org.arcanum.pairing.mm.clt13.engine.CTL13MMInstance;
 
 import java.math.BigInteger;
@@ -96,6 +97,10 @@ public class CTL13MMField implements Field<CTL13MMElement> {
 
     public CTL13MMElement newRandomElement() {
         return new CTL13MMElement(this, instance.encodeAt(instance.sampleAtZero(), 0, index), index);
+    }
+
+    public CTL13MMElement newElementFromSampler(Sampler<BigInteger> sampler) {
+        return newElement(sampler.sample());
     }
 
     public CTL13MMElement newElement(Object value) {

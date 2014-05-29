@@ -55,15 +55,17 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
     }
 
     public Element processElements(Element... input) {
-        // Online phase
-        Element u = input[0];
-
+        // Offline phase
         // sample perturbation
         Element[] perturbation = samplePerturbation();
         Element p = perturbation[0];
         Element offset = perturbation[1];
 
+        // Online phase
+        Element u = input[0];
+
         // Compute syndrome w
+        // offset.negateThenAdd(u)
         Element v = u.duplicate().sub(offset);
 
         // Compute x
@@ -76,25 +78,26 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
 
     protected Element[] samplePerturbation() {
         Element p = perturbationSampler.sample();
-        Element o = pk.getA().mul(p);
+        Element offset = pk.getA().mul(p);
 
-        return new Element[]{p, o};
+        return new Element[]{p, offset};
     }
 
 
     protected Matrix computeCoviarianceMatrix() {
-        SecureRandom random = sk.getParameters().getRandom();
-
         Matrix cov = covs.get(sk);
         if (cov == null) {
-            cov = computeCovarianceMatrix(random, pk.getBarM(), pk.getW());
+            cov = computeCovarianceMatrixInternal();
             covs.put(sk, cov);
         }
         return cov;
     }
 
-    protected Matrix computeCovarianceMatrix(SecureRandom random, int n, final int m) {
+    protected Matrix computeCovarianceMatrixInternal() {
         // Setup parameters: compute gaussian parameter s
+        int n = sk.getR().getN(); final int m = sk.getR().getM();
+        SecureRandom random = sk.getParameters().getRandom();
+
         Apfloat rrp = pk.getRandomizedRoundingParameter();
         Apfloat rrpSquare = square(rrp);
         Apfloat tworrpSquare = rrpSquare.multiply(IFOUR);
@@ -109,6 +112,7 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
                 ).divide(SQRT_TWO_PI)
         ).add(IONE).multiply(ISIX).multiply(rrpSquare);
 
+//        n+=n;
         FloatingField ff = new FloatingField(random);
         MatrixField<FloatingField> mff = new MatrixField<FloatingField>(random, ff, n + m);
 
@@ -148,6 +152,18 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
                       }
                   }
         ).awaitTermination();
+
+//        cov.transform(new Matrix.Transformer() {
+//            public void transform(int row, int col, Element e) {
+//                if (row >= m && col >=m){
+//                    if (row == col)
+//                        e.add(sSquareMinusASquare);
+//                }
+//
+//            }
+//        });
+
+//        System.out.println("cov = " + cov);
 
         // Compute Cholesky decomposition
         Cholesky.choleskyAt(cov, m, m);

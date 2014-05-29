@@ -77,7 +77,7 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
             executor.awaitTermination();
 
             return r;
-        }  else if (e instanceof AbstractMatrixElement) {
+        } else if (e instanceof Matrix) {
 /*            final AbstractMatrixElement me = (AbstractMatrixElement) e;
 
             if (field.getTargetField().equals(me.getField().getTargetField())) {
@@ -135,6 +135,20 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
         return result;
     }
 
+    @Override
+    public Element div(Element element) {
+        if (field.getTargetField().equals(element.getField())) {
+            for (int i = 0; i < field.n; i++) {
+                for (int j = 0; j < field.m; j++) {
+                    getAt(i,j).div(element);
+                }
+            }
+
+            return this;
+        } else
+            throw new IllegalArgumentException("Not implemented yet!!!");
+
+    }
 
     public Field getTargetField() {
         return field.getTargetField();
@@ -169,59 +183,135 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
     }
 
     public Vector<E> rowAt(int row) {
-        throw new IllegalStateException("Not implemented yet!!!");
+        VectorField<Field> f = new VectorField<Field>(field.getRandom(), field.getTargetField(), field.m);
+        VectorElement r = f.newElement();
+
+        for (int i = 0; i < f.n; i++) {
+            r.getAt(i).set(getAt(row, i));
+        }
+
+        return r;
     }
 
     public Vector<E> columnAt(int col) {
         VectorField<Field> f = new VectorField<Field>(field.getRandom(), field.getTargetField(), field.n);
         VectorElement r = f.newElement();
 
-        for (int i = 0; i < f.n; i++)
-            if (!isZeroAt(i, col))
-                r.getAt(i).set(getAt(i, col));
+        for (int i = 0; i < f.n; i++) {
+            r.getAt(i).set(getAt(i, col));
+        }
 
         return r;
     }
 
     public Matrix<E> setRowAt(int row, Element rowElement) {
-        throw new IllegalStateException("Not implemented yet!!!");
+        Vector r = (Vector) rowElement;
+
+        for (int i = 0; i < field.m; i++) {
+            getAt(row, i).set(r.getAt(i));
+        }
+
+        return this;
     }
 
     public Matrix<E> setColAt(int col, Element colElement) {
-        throw new IllegalStateException("Not implemented yet!!!");
+        Vector r = (Vector) colElement;
+
+        for (int i = 0; i < field.n; i++) {
+            getAt(i, col).set(r.getAt(i));
+        }
+
+        return this;
     }
 
     public Matrix<E> setSubMatrixToIdentityAt(int row, int col, int n) {
-        throw new IllegalStateException("Not implemented yet!!!");
-    }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j)
+                    getAt(row + i, col + j).setToOne();
+                else
+                    getAt(row + i, col + j).setToZero();
+            }
+        }
 
-    public Matrix<E> setSubMatrixFromMatrixAt(int row, int col, Element e) {
-        throw new IllegalStateException("Not implemented yet!!!");
-    }
-
-    public Matrix<E> setSubMatrixFromMatrixAt(int row, int col, Element e, Transformer transformer) {
-        throw new IllegalStateException("Not implemented yet!!!");
-    }
-
-    public Matrix<E> setSubMatrixFromMatrixTransposeAt(int row, int col, Element e) {
-        throw new IllegalStateException("Not implemented yet!!!");
+        return this;
     }
 
     public Matrix<E> setSubMatrixToIdentityAt(int row, int col, int n, Element e) {
-        throw new IllegalStateException("Not implemented yet!!!");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j)
+                    getAt(row + i, col + j).set(e);
+                else
+                    getAt(row + i, col + j).setToZero();
+            }
+        }
+
+        return this;
+    }
+
+    public Matrix<E> setSubMatrixFromMatrixAt(int row, int col, Element e) {
+        // TODO: check the lengths
+
+        Matrix eMatrix = (Matrix) e;
+        for (int i = 0, n = eMatrix.getN(); i < n; i++) {
+            for (int j = 0, m = eMatrix.getM(); j < m; j++) {
+                getAt(row + i, col + j).set(eMatrix.getAt(i, j));
+            }
+        }
+
+        return this;
+    }
+
+    public Matrix<E> setSubMatrixFromMatrixAt(final int row, final int col, Element e, final Transformer transformer) {
+        // TODO: check the lengths
+
+        final Matrix eMatrix = (Matrix) e;
+
+        PoolExecutor pool = new PoolExecutor();
+        for (int i = 0, n = eMatrix.getN(); i < n; i++) {
+
+            final int finalI = i;
+            pool.submit(new Runnable() {
+                public void run() {
+                    for (int j = 0, m = eMatrix.getM(); j < m; j++) {
+                        getAt(row + finalI, col + j).set(eMatrix.getAt(finalI, j));
+                        transformer.transform(row + finalI, col + j, getAt(row + finalI, col + j));
+                    }
+                }
+            });
+
+        }
+        pool.awaitTermination();
+
+        return this;
+    }
+
+    public Matrix<E> setSubMatrixFromMatrixTransposeAt(int row, int col, Element e) {
+        // TODO: check the lengths
+
+        Matrix eMatrix = (Matrix) e;
+        for (int i = 0, n = eMatrix.getN(); i < n; i++) {
+            for (int j = 0, m = eMatrix.getM(); j < m; j++) {
+                getAt(row + i, col + j).set(eMatrix.getAt(j, i));
+            }
+        }
+
+        return this;
     }
 
     public Matrix<E> transform(Transformer transformer) {
-        throw new IllegalStateException("Not implemented yet!!!");
-    }
+        for (int i = 0; i < field.n; i++)
+            for (int j = 0; j < field.m; j++)
+                transformer.transform(i, j, getAt(i, j));
 
-    public boolean isSymmetric() {
-        throw new IllegalStateException("Not implemented yet!!!");
+        return this;
     }
 
     public boolean isSquare() {
-        throw new IllegalStateException("Not implemented yet!!!");
+        return field.n == field.m;
     }
+
 
     public boolean isZeroAt(int row, int col) {
         throw new IllegalStateException("Not implemented yet!!!");
@@ -296,7 +386,12 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
     }
 
     public Element setToRandom() {
-        throw new IllegalStateException("Not implemented yet!!!");
+        for (int i = 0; i < field.n; i++)
+            for (int j = 0; j < field.m; j++)
+                getAt(i, j).setToRandom();
+
+        return this;
+
     }
 
     public Element setFromHash(byte[] source, int offset, int length) {
@@ -350,12 +445,39 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
         throw new IllegalStateException("Not implemented yet!!!");
     }
 
+    @Override
+    public Element sub(Element element) {
+        Matrix m = (Matrix) element;
+
+        for (int i = 0; i < field.n; i++) {
+            for (int j = 0; j < field.m; j++) {
+                getAt(i, j).sub(m.getAt(i, j));
+            }
+        }
+
+        return this;
+    }
+
     public Element negate() {
-        throw new IllegalStateException("Not implemented yet!!!");
+        for (int i = 0; i < field.n; i++)
+            for (int j = 0; j < field.m; j++)
+                getAt(i, j).negate();
+
+        return this;
     }
 
     public Element add(Element element) {
-        throw new IllegalStateException("Not implemented yet!!!");
+        AbstractMatrixElement m = (AbstractMatrixElement) element;
+
+        for (int i = 0; i < field.n; i++) {
+            for (int j = 0; j < field.m; j++) {
+                if (!m.isZeroAt(i, j))
+                    getAt(i, j).add(m.getAt(i, j));
+            }
+
+        }
+
+        return this;
     }
 
     public Element mul(BigInteger n) {
@@ -363,6 +485,17 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
             for (int j = 0; j < field.m; j++) {
                 if (!isZeroAt(i, j))
                     getAt(i, j).mul(n);
+            }
+        }
+
+        return this;
+    }
+
+    @Override
+    public Element mul(int z) {
+        for (int i = 0; i < field.n; i++) {
+            for (int j = 0; j < field.m; j++) {
+                getAt(i, j).mul(z);
             }
         }
 
@@ -417,7 +550,7 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
                     // Check dimensions
 
                     if (ve.getSize() == field.m) {
-                        VectorField f = new VectorField(field.getRandom(), field.getTargetField(), field.n);
+                        VectorField<Field> f = new VectorField<Field>(field.getRandom(), field.getTargetField(), field.n);
                         final VectorElement r = f.newElement();
 
                         PoolExecutor executor = new PoolExecutor();
@@ -477,12 +610,12 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
                 }
             }
             throw new IllegalStateException("Not Implemented yet!!!");
-        } else if (e instanceof MatrixElement) {
-            final MatrixElement me = (MatrixElement) e;
+        } else if (e instanceof Matrix) {
+            final Matrix me = (Matrix) e;
 
-            if (field.getTargetField().equals(me.getField().getTargetField())) {
-                final MatrixField f = new MatrixField<Field>(field.getRandom(), field.getTargetField(), field.n, me.getField().m);
-                final MatrixElement r = f.newElement();
+            if (field.getTargetField().equals(me.getTargetField())) {
+                final MatrixField f = new MatrixField<Field>(field.getRandom(), field.getTargetField(), field.n, me.getM());
+                final Matrix r = f.newElement();
 
                 PoolExecutor executor = new PoolExecutor();
                 for (int i = 0; i < f.n; i++) {
@@ -513,4 +646,7 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
         throw new IllegalStateException("Not Implemented yet!!!");
     }
 
+    public boolean isSymmetric() {
+        throw new IllegalStateException("Not implemented yet!!!");
+    }
 }
