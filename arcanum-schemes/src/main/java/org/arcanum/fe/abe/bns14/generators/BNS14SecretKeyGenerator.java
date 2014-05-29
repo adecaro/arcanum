@@ -91,7 +91,12 @@ public class BNS14SecretKeyGenerator {
         // SampleLeft
 
         MP12HLP2MatrixLeftSampler sampler = new MP12HLP2MatrixLeftSampler();
-        sampler.init(new MP12HLP2SampleLeftParameters(pk.getLatticePk(), msk.getLatticeSk()));
+        sampler.init(new MP12HLP2SampleLeftParameters(
+                        pk.getLatticePk(),
+                        msk.getLatticeSk(),
+                        pk.getLatticePk().getM()
+                )
+        );
 
         Element skC = sampler.processElements(
                 keys.get(circuit.getOutputGate().getIndex()),

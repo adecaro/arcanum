@@ -30,15 +30,23 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
 
     protected MP12HLP2PublicKeyParameters pk;
     protected MP12HLP2PrivateKeyParameters sk;
+    protected Element A;
 
     protected Sampler<? extends Element> perturbationSampler;
+    protected int matrixExtensionLength;
+
+
+    public MP12HLP2Sampler() {
+        this.matrixExtensionLength = 0;
+    }
 
 
     public ElementCipher init(ElementCipherParameters param) {
         ElementKeyPairParameters keyPair = ((MP12HLP2SampleParameters) param).getKeyPair();
 
-        pk = (MP12HLP2PublicKeyParameters) keyPair.getPublic();
-        sk = (MP12HLP2PrivateKeyParameters) keyPair.getPrivate();
+        this.pk = (MP12HLP2PublicKeyParameters) keyPair.getPublic();
+        this.sk = (MP12HLP2PrivateKeyParameters) keyPair.getPrivate();
+        this.A = pk.getA();
 
         // Init the Primitive Lattice Sampler
         super.init(pk);
@@ -76,13 +84,16 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
     }
 
 
+    public void setMatrixExtensionLength(int matrixExtensionLength) {
+        this.matrixExtensionLength = matrixExtensionLength;
+    }
+
     protected Element[] samplePerturbation() {
         Element p = perturbationSampler.sample();
-        Element offset = pk.getA().mul(p);
+        Element offset = A.mul(p);
 
         return new Element[]{p, offset};
     }
-
 
     protected Matrix computeCoviarianceMatrix() {
         Matrix cov = covs.get(sk);
@@ -95,7 +106,8 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
 
     protected Matrix computeCovarianceMatrixInternal() {
         // Setup parameters: compute gaussian parameter s
-        int n = sk.getR().getN(); final int m = sk.getR().getM();
+        int n = sk.getR().getN();
+        final int m = sk.getR().getM();
         SecureRandom random = sk.getParameters().getRandom();
 
         Apfloat rrp = pk.getRandomizedRoundingParameter();
@@ -112,7 +124,8 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
                 ).divide(SQRT_TWO_PI)
         ).add(IONE).multiply(ISIX).multiply(rrpSquare);
 
-//        n+=n;
+        if (matrixExtensionLength > 0)
+            n += matrixExtensionLength;
         FloatingField ff = new FloatingField(random);
         MatrixField<FloatingField> mff = new MatrixField<FloatingField>(random, ff, n + m);
 
@@ -149,21 +162,16 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
                                       e.add(sSquareMinusASquare);
                               }
                           });
+                          if (matrixExtensionLength > 0)
+                              cov.transformDiagonal(new Matrix.Transformer() {
+                                  public void transform(int row, int col, Element e) {
+                                      if (row >= m)
+                                          e.add(sSquareMinusASquare);
+                                  }
+                              });
                       }
                   }
         ).awaitTermination();
-
-//        cov.transform(new Matrix.Transformer() {
-//            public void transform(int row, int col, Element e) {
-//                if (row >= m && col >=m){
-//                    if (row == col)
-//                        e.add(sSquareMinusASquare);
-//                }
-//
-//            }
-//        });
-
-//        System.out.println("cov = " + cov);
 
         // Compute Cholesky decomposition
         Cholesky.choleskyAt(cov, m, m);

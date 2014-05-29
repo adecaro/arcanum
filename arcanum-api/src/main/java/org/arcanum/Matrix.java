@@ -51,6 +51,7 @@ public interface Matrix <E extends Element> extends Element {
 
     Matrix<E> transform(Transformer transformer);
 
+    Matrix<E> transformDiagonal(Transformer transformer);
 
     public boolean isSymmetric();
 

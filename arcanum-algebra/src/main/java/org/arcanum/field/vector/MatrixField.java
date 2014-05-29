@@ -105,19 +105,6 @@ public class MatrixField<F extends Field> extends AbstractMatrixField<F, Abstrac
         return new ArrayMatrixElement(this, sampler);
     }
 
-    public BigInteger getOrder() {
-        throw new IllegalStateException("Not implemented yet!!!");
-    }
-
-    public int getLengthInBytes() {
-        return lenInBytes;
-    }
-
-    public AbstractMatrixElement getNqr() {
-        throw new IllegalStateException("Not implemented yet!!!");
-    }
-
-
     public Matrix newIdentity() {
         Matrix m = newElement();
         for (int i = 0; i < n; i++)
@@ -143,5 +130,22 @@ public class MatrixField<F extends Field> extends AbstractMatrixField<F, Abstrac
 
         throw new IllegalArgumentException("Not implemented yet!!!");
     }
+
+    public Matrix newTwoByColElement(Element A, Element B) {
+        return new TwoByColumnMatrixElement(this, (AbstractMatrixElement) A, (AbstractMatrixElement) B);
+    }
+
+    public BigInteger getOrder() {
+        throw new IllegalStateException("Not implemented yet!!!");
+    }
+
+    public int getLengthInBytes() {
+        return lenInBytes;
+    }
+
+    public AbstractMatrixElement getNqr() {
+        throw new IllegalStateException("Not implemented yet!!!");
+    }
+
 
 }

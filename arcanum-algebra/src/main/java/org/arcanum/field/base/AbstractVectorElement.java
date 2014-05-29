@@ -37,6 +37,12 @@ public abstract class AbstractVectorElement<E extends Element, F extends Abstrac
         return v;
     }
 
+    public Vector<E> setZeroAt(int index) {
+        coeff.get(index).setToZero();
+
+        return this;
+    }
+
     public Vector<E> subVectorTo(int end) {
         Vector v = new VectorField<Field>(field.getRandom(), field.getTargetField(), end).newElement();
 

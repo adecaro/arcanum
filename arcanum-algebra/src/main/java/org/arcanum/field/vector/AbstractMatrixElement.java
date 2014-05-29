@@ -197,7 +197,10 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
         Vector r = f.newElement();
 
         for (int i = 0; i < f.n; i++) {
-            r.getAt(i).set(getAt(i, col));
+            if (isZeroAt(i, col))
+                r.setZeroAt(i);
+            else
+                r.getAt(i).set(getAt(i, col));
         }
 
         return r;
@@ -303,6 +306,13 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
         for (int i = 0; i < field.n; i++)
             for (int j = 0; j < field.m; j++)
                 transformer.transform(i, j, getAt(i, j));
+
+        return this;
+    }
+
+    public Matrix<E> transformDiagonal(Transformer transformer) {
+        for (int i = 0, len = Math.min(field.n, field.m); i < len; i++)
+            transformer.transform(i, i, getAt(i, i));
 
         return this;
     }

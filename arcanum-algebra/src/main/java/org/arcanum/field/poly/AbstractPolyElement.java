@@ -57,4 +57,7 @@ public abstract class AbstractPolyElement<E extends Element, F extends AbstractF
         throw new IllegalStateException("Not Implemented yet!");
     }
 
+    public Vector setZeroAt(int index) {
+        throw new IllegalStateException("Not Implemented yet!");
+    }
 }

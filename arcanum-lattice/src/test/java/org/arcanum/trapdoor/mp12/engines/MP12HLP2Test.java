@@ -164,7 +164,7 @@ public class MP12HLP2Test {
     @Test
     public void testLeftSampler() throws Exception {
         MP12HLP2LeftSampler sampler = new MP12HLP2LeftSampler();
-        sampler.init(new MP12HLP2SampleLeftParameters(keyPair));
+        sampler.init(new MP12HLP2SampleLeftParameters(keyPair, pk.getM()));
 
         Element A1 = pk.getA().getField().newRandomElement();
         Element u = VectorField.newRandomElement(pk.getZq(), pk.getParameters().getN());
@@ -180,7 +180,7 @@ public class MP12HLP2Test {
     @Test
     public void testMatrixLeftSampler() throws Exception {
         MP12HLP2MatrixLeftSampler sampler = new MP12HLP2MatrixLeftSampler();
-        sampler.init(new MP12HLP2SampleLeftParameters(keyPair));
+        sampler.init(new MP12HLP2SampleLeftParameters(keyPair, pk.getM()));
 
         Element A1 = pk.getA().getField().newRandomElement();
         Element U = new MatrixField<Field>(pk.getParameters().getRandom(), pk.getZq(), pk.getParameters().getN(), pk.getM()).newRandomElement();

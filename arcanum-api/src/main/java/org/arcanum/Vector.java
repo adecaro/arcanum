@@ -35,4 +35,6 @@ public interface Vector<E extends Element> extends Element {
     Vector<E> subVectorTo(int end);
 
     Vector<E> subVectorFrom(int start);
+
+    Vector<E> setZeroAt(int index);
 }
