@@ -48,21 +48,14 @@ public class ArrayMatrixElement<E extends Element> extends AbstractMatrixElement
     }
 
 
-    public byte[] toBytes() {
-        byte[] buffer = new byte[field.getLengthInBytes()];
-
-        int counter = 0;
-        for (int i = 0; i < field.n; i++) {
-            for (int j = 0; j < field.m; j++) {
-                byte[] bytes = matrix[i][j].toBytes();
-
-                System.arraycopy(bytes, 0, buffer, counter, bytes.length);
-                counter += bytes.length;
-            }
-        }
-
-        return buffer;
+    public ArrayMatrixElement duplicate() {
+        return new ArrayMatrixElement(this);
     }
+
+    public ArrayMatrixElement getImmutable() {
+        return new ImmutableArrayMatrixElement<E>(this);
+    }
+
 
     public E getAt(int row, int col) {
         return (E) matrix[row][col];
@@ -90,30 +83,8 @@ public class ArrayMatrixElement<E extends Element> extends AbstractMatrixElement
         return matrix[row][col].isZero();
     }
 
-    public boolean isSymmetric() {
-        // TODO: generalize
-        int n = matrix.length;
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < i; j++) {
-                if (!matrix[i][j].equals(matrix[j][i]))
-                    return false;
-            }
-        }
-
-        return true;
-    }
-
     public MatrixField getField() {
         return super.getField();
-    }
-
-    public ArrayMatrixElement duplicate() {
-        return new ArrayMatrixElement(this);
-    }
-
-    public ArrayMatrixElement getImmutable() {
-        return new ImmutableArrayMatrixElement<E>(this);
     }
 
     public boolean equals(Object obj) {

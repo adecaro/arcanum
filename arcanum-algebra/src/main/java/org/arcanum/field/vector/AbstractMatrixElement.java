@@ -53,7 +53,7 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
             // Consider transpose
 
             VectorField f = new VectorField<Field>(field.getRandom(), field.getTargetField(), field.m);
-            final VectorElement r = f.newElement();
+            final Vector r = f.newElement();
 
             PoolExecutor executor = new PoolExecutor();
 
@@ -135,7 +135,6 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
         return result;
     }
 
-    @Override
     public Element div(Element element) {
         if (field.getTargetField().equals(element.getField())) {
             for (int i = 0; i < field.n; i++) {
@@ -184,7 +183,7 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
 
     public Vector<E> rowAt(int row) {
         VectorField<Field> f = new VectorField<Field>(field.getRandom(), field.getTargetField(), field.m);
-        VectorElement r = f.newElement();
+        Vector r = f.newElement();
 
         for (int i = 0; i < f.n; i++) {
             r.getAt(i).set(getAt(row, i));
@@ -195,7 +194,7 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
 
     public Vector<E> columnAt(int col) {
         VectorField<Field> f = new VectorField<Field>(field.getRandom(), field.getTargetField(), field.n);
-        VectorElement r = f.newElement();
+        Vector r = f.newElement();
 
         for (int i = 0; i < f.n; i++) {
             r.getAt(i).set(getAt(i, col));
@@ -445,7 +444,6 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
         throw new IllegalStateException("Not implemented yet!!!");
     }
 
-    @Override
     public Element sub(Element element) {
         Matrix m = (Matrix) element;
 
@@ -491,7 +489,6 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
         return this;
     }
 
-    @Override
     public Element mul(int z) {
         for (int i = 0; i < field.n; i++) {
             for (int j = 0; j < field.m; j++) {
@@ -551,7 +548,7 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
 
                     if (ve.getSize() == field.m) {
                         VectorField<Field> f = new VectorField<Field>(field.getRandom(), field.getTargetField(), field.n);
-                        final VectorElement r = f.newElement();
+                        final Vector r = f.newElement();
 
                         PoolExecutor executor = new PoolExecutor();
 
@@ -582,7 +579,7 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
                         // Consider transpose
 
                         VectorField f = new VectorField(field.getRandom(), field.getTargetField(), field.m);
-                        final VectorElement r = f.newElement();
+                        final Vector r = f.newElement();
 
                         PoolExecutor executor = new PoolExecutor();
 
@@ -647,6 +644,37 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
     }
 
     public boolean isSymmetric() {
-        throw new IllegalStateException("Not implemented yet!!!");
+        if (!isSquare())
+            throw new IllegalStateException("The matrix is not square.");
+
+        int n = field.n;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (!getAt(i, j).equals(getAt(j,i)))
+                    return false;
+            }
+        }
+
+        return true;
     }
+
+    public byte[] toBytes() {
+        byte[] buffer = new byte[field.getLengthInBytes()];
+
+        int counter = 0;
+        for (int i = 0; i < field.n; i++) {
+            for (int j = 0; j < field.m; j++) {
+                byte[] bytes = getAt(i, j).toBytes();
+
+                System.arraycopy(bytes, 0, buffer, counter, bytes.length);
+                counter += bytes.length;
+            }
+        }
+
+        return buffer;
+    }
+
+
+
 }

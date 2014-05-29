@@ -16,14 +16,14 @@ public class VectorElement<E extends Element> extends AbstractVectorElement<E, V
 
 
     public VectorElement(VectorField field) {
-        super(field);
+        super(field, field.n);
 
         for (int i = 0; i < field.n; i++)
             coeff.add((E) field.getTargetField().newElement());
     }
 
     public VectorElement(VectorElement element) {
-        super(element.getField());
+        super(element.getField(), element.getField().n);
 
         for (int i = 0; i < field.n; i++)
             coeff.add((E) element.getAt(i).duplicate());
@@ -31,7 +31,7 @@ public class VectorElement<E extends Element> extends AbstractVectorElement<E, V
 
 
     public VectorElement(VectorField field, List<E> coeff) {
-        super(field);
+        super(field, -1);
 
         this.coeff = coeff;
     }

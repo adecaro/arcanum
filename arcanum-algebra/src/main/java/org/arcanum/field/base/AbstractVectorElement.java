@@ -13,13 +13,14 @@ import java.util.List;
  */
 public abstract class AbstractVectorElement<E extends Element, F extends AbstractFieldOver> extends AbstractElement<F> implements Vector<E> {
 
-    // TODO: use directly array??
     protected List<E> coeff;
 
-    protected AbstractVectorElement(F field) {
+
+    protected AbstractVectorElement(F field, int size) {
         super(field);
 
-        this.coeff = new ArrayList<E>();
+        if (size > 0)
+            this.coeff = new ArrayList<E>(size);
     }
 
 
