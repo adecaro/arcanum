@@ -39,7 +39,7 @@ public class MP12HLP2LeftSampler extends MP12HLP2Sampler {
         Element u = input[1].duplicate();
 
         // Extend matrix A with M
-        this.A = extendedAField.newTwoByColElement(pk.getA(), M);
+        this.A = extendedAField.newTwoByColMatrix(pk.getA(), M);
 
         // Process u
         return super.processElements(u);

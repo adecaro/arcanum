@@ -179,7 +179,7 @@ public class ElementUtils {
     }
 
     public static Element newDiagonalPrimitiveMatrix(SecureRandom random, Field targetField, int n, int k) {
-        return new MatrixField<Field>(random, targetField, n, n * k).newDiagonalElement(
+        return new MatrixField<Field>(random, targetField, n, n * k).newElementIdentity(
                 new VectorField<Field>(random, targetField, k).newPrimitiveElement()
         );
     }

@@ -1,9 +1,6 @@
 package org.arcanum.util.concurrent;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.CompletionService;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.*;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
@@ -24,6 +21,11 @@ public class PoolExecutor<T> implements Pool<T> {
         this.counter = 0;
     }
 
+    public Future<T> submitFuture(Callable<T> callable) {
+        counter++;
+
+        return pool.submit(callable);
+    }
 
     public Pool<T> submit(Callable<T> callable) {
         counter++;

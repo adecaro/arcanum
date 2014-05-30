@@ -55,7 +55,7 @@ public class MP12HLP2KeyPairGenerator extends MP12PLP2KeyPairGenerator {
         // 1. Choose barA random in Z_q[n x barM]
         MatrixField<Field> hatAField = new MatrixField<Field>(random, Zq, n);
         Matrix hatA = hatAField.newRandomElement();
-        Matrix barA = MatrixField.unionByCol(hatAField.newIdentity(), hatA);
+        Matrix barA = MatrixField.unionByCol(hatAField.newElementIdentity(), hatA);
 
         // 2. Sample R from Z[barM x w] using distribution D
         Matrix R = MatrixField.newElementFromSampler(hatAField, barM, w, hlZSampler);

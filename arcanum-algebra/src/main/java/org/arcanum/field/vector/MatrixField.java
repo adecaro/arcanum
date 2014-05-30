@@ -6,6 +6,8 @@ import org.arcanum.*;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
+import static org.arcanum.Matrix.Transformer;
+
 /**
  * @author Angelo De Caro (angelo.decaro@gmail.com)
  */
@@ -105,14 +107,14 @@ public class MatrixField<F extends Field> extends AbstractMatrixField<F, Abstrac
         return new ArrayMatrixElement(this, sampler);
     }
 
-    public Matrix newIdentity() {
+    public Matrix newElementIdentity() {
         Matrix m = newElement();
         for (int i = 0; i < n; i++)
             m.getAt(i, i).setToOne();
         return m;
     }
 
-    public Matrix newDiagonalElement(Element g) {
+    public Matrix newElementIdentity(Element g) {
         if (g instanceof Vector) {
             return new DiagonalMatrixElement(this, (Vector) g);
 
@@ -131,21 +133,70 @@ public class MatrixField<F extends Field> extends AbstractMatrixField<F, Abstrac
         throw new IllegalArgumentException("Not implemented yet!!!");
     }
 
-    public Matrix newTwoByColElement(Element A, Element B) {
-        return new TwoByColumnMatrixElement(this, (AbstractMatrixElement) A, (AbstractMatrixElement) B);
+
+    public Matrix newIdentityMatrix(int n, Element element) {
+        return new IdentityMatrixElement<Element>(new MatrixField<F>(random, targetField, n), element);
     }
 
-    public BigInteger getOrder() {
-        throw new IllegalStateException("Not implemented yet!!!");
+    public Matrix newNullMatrix(int n, int m) {
+        return new ZeroMatrixElement<Element>(new MatrixField<F>(random, targetField, n, m));
     }
+
+    public Matrix newSquareMatrix(int n) {
+        return new ArrayMatrixElement(new MatrixField<F>(random, targetField, n));
+    }
+
+    public Matrix newSquareMatrix(int n, Matrix matrix, Transformer transformer) {
+        return new ArrayMatrixElement(
+                new MatrixField<F>(random, targetField, n),
+                matrix,
+                transformer
+        );
+    }
+
+    public Matrix newMatrix(int n, int m, Matrix matrix, Transformer transformer) {
+        return new ArrayMatrixElement(
+                new MatrixField<F>(random, targetField, n, m),
+                matrix,
+                transformer
+        );
+    }
+
+    public Matrix newMatrix(Matrix matrix, Transformer transformer) {
+        return new ArrayMatrixElement(
+                new MatrixField<F>(random, targetField, matrix.getN(), matrix.getM()),
+                matrix,
+                transformer);
+    }
+
+
+    public Matrix newTwoByColMatrix(Element A, Element B) {
+        // TODO: check field dimension
+        return new TwoByColumnMatrixElement(
+                this,
+                (AbstractMatrixElement) A, (AbstractMatrixElement) B
+        );
+    }
+
+    public Matrix newTwoByRowMatrix(Matrix A, Matrix B) {
+        // TODO: check field dimension
+        return new TwoByRowMatrixElement(
+                new MatrixField<F>(random, targetField, A.getN() + B.getN(), A.getM()),
+                (AbstractMatrixElement) A,
+                (AbstractMatrixElement) B);
+    }
+
+    public Matrix newTwoByTwoElement(Element A, Element B, Element C, Element D) {
+        // TODO: check field dimension
+        return new TwoByTwoMatrixElement(this,
+                (AbstractMatrixElement) A, (AbstractMatrixElement) B,
+                (AbstractMatrixElement) C, (AbstractMatrixElement) D
+        );
+    }
+
 
     public int getLengthInBytes() {
         return lenInBytes;
     }
-
-    public AbstractMatrixElement getNqr() {
-        throw new IllegalStateException("Not implemented yet!!!");
-    }
-
 
 }

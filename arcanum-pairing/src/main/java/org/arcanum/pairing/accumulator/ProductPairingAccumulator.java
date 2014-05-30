@@ -7,6 +7,7 @@ import org.arcanum.util.concurrent.Pool;
 import org.arcanum.util.concurrent.accumultor.Accumulator;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
@@ -41,6 +42,11 @@ public class ProductPairingAccumulator implements PairingAccumulator {
 
     public Element getResult() {
         return result;
+    }
+
+
+    public Future<Element> submitFuture(Callable<Element> callable) {
+        throw new IllegalStateException("Not supported!!!");
     }
 
     public Pool<Element> submit(Callable<Element> callable) {

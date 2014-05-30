@@ -47,6 +47,23 @@ public class ArrayMatrixElement<E extends Element> extends AbstractMatrixElement
         }
     }
 
+    public ArrayMatrixElement(MatrixField field, Matrix m, Transformer transformer) {
+        super(field);
+
+        this.matrix = new Element[field.n][field.m];
+        for (int i = 0; i < field.n; i++) {
+            for (int j = 0; j < field.m; j++) {
+
+                if (m.isZeroAt(i, j))
+                    matrix[i][j] = getTargetField().newZeroElement();
+                else
+                    matrix[i][j] = getTargetField().newElement(m.getAt(i, j));
+
+                transformer.transform(i, j, matrix[i][j]);
+            }
+        }
+    }
+
 
     public ArrayMatrixElement duplicate() {
         return new ArrayMatrixElement(this);
@@ -57,7 +74,7 @@ public class ArrayMatrixElement<E extends Element> extends AbstractMatrixElement
     }
 
 
-    public E getAt(int row, int col) {
+    public final E getAt(int row, int col) {
         return (E) matrix[row][col];
     }
 
@@ -80,6 +97,9 @@ public class ArrayMatrixElement<E extends Element> extends AbstractMatrixElement
     }
 
     public boolean isZeroAt(int row, int col) {
+        if (row >= field.n || col >= field.m)
+            return true;
+
         return matrix[row][col].isZero();
     }
 

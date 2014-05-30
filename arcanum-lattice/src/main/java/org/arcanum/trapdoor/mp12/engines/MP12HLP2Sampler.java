@@ -16,6 +16,8 @@ import org.arcanum.util.math.Cholesky;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
 import static org.apfloat.ApfloatMath.sqrt;
 import static org.arcanum.field.floating.ApfloatUtils.*;
@@ -127,7 +129,7 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
         if (matrixExtensionLength > 0)
             n += matrixExtensionLength;
         FloatingField ff = new FloatingField(random);
-        MatrixField<FloatingField> mff = new MatrixField<FloatingField>(random, ff, n + m);
+        final MatrixField<FloatingField> mff = new MatrixField<FloatingField>(random, ff, n + m);
 
         Element sSquare = ff.newElement(sq);
         Element rSquare = ff.newElement(tworrpSquare);
@@ -140,6 +142,62 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
         final Element sqrtBInverse = sqrtB.duplicate().invert();
 
         // Compute covariance matrix COV
+        final int finalN = n;
+
+        PoolExecutor<Matrix> executor = new PoolExecutor<Matrix>();
+        Future<Matrix> C = executor.submitFuture(new Callable<Matrix>() {
+            public Matrix call() throws Exception {
+                if (matrixExtensionLength > 0) {
+                    return mff.newTwoByRowMatrix(
+                            mff.newMatrix(sk.getR(), new Matrix.Transformer() {
+                                public void transform(int row, int col, Element e) {
+                                    e.mul(sqrtBInverse);
+                                }
+                            }),
+                            mff.newNullMatrix(matrixExtensionLength, m)
+                    );
+
+                } else
+                    return mff.newMatrix(sk.getR(), new Matrix.Transformer() {
+                        public void transform(int row, int col, Element e) {
+                            e.mul(sqrtBInverse);
+                        }
+                    });
+            }
+        });
+        Future<Matrix> D = executor.submitFuture(new Callable<Matrix>() {
+            public Matrix call() throws Exception {
+                Matrix rightBottomPart = mff.newSquareMatrix(finalN);
+                sk.getR().mulByTransposeTo(rightBottomPart, 0, 0, new Matrix.Transformer() {
+                    public void transform(int row, int col, Element e) {
+                        e.mul(rSquarePlusOneOverB).negate();
+                        if (row == col)
+                            e.add(sSquareMinusASquare);
+                    }
+                });
+                if (matrixExtensionLength > 0)
+                    rightBottomPart.transformDiagonal(new Matrix.Transformer() {
+                        public void transform(int row, int col, Element e) {
+                            if (row >= (finalN - matrixExtensionLength))
+                                e.add(sSquareMinusASquare);
+                        }
+                    });
+
+                return rightBottomPart;
+            }
+        });
+
+        Matrix cov = null;
+        try {
+            cov = mff.newTwoByTwoElement(
+                    mff.newIdentityMatrix(m, sqrtB), mff.newNullMatrix(m, n),
+                    C.get(), D.get()
+            );
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        /*
         final Matrix cov = mff.newElement();
         new PoolExecutor().submit(new Runnable() {
             public void run() {
@@ -165,13 +223,14 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
                           if (matrixExtensionLength > 0)
                               cov.transformDiagonal(new Matrix.Transformer() {
                                   public void transform(int row, int col, Element e) {
-                                      if (row >= m)
+                                      if (row >= m + (finalN - matrixExtensionLength))
                                           e.add(sSquareMinusASquare);
                                   }
                               });
                       }
                   }
         ).awaitTermination();
+           */
 
         // Compute Cholesky decomposition
         Cholesky.choleskyAt(cov, m, m);

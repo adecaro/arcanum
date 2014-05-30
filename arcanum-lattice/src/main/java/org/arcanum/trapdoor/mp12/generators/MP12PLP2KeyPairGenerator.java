@@ -66,7 +66,7 @@ public class MP12PLP2KeyPairGenerator implements ElementKeyPairGenerator {
             value = value.shiftLeft(1);
         }
 
-        this.G = new MatrixField<Field>(random, Zq, n, m).newDiagonalElement(g);
+        this.G = new MatrixField<Field>(random, Zq, n, m).newElementIdentity(g);
 
         this.keyPair = new ElementKeyPairParameters(
                 new MP12PLP2PublicKeyParameters(
