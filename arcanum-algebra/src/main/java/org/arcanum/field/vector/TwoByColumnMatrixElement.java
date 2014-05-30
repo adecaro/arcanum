@@ -1,17 +1,18 @@
 package org.arcanum.field.vector;
 
 import org.arcanum.Element;
+import org.arcanum.Matrix;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
 public class TwoByColumnMatrixElement<E extends Element> extends AbstractMatrixElement<E, MatrixField> {
 
-    protected AbstractMatrixElement A, B;
+    protected Matrix A, B;
     protected int Am;
 
 
-    public TwoByColumnMatrixElement(MatrixField field, AbstractMatrixElement A, AbstractMatrixElement B) {
+    public TwoByColumnMatrixElement(MatrixField field, Matrix A, Matrix B) {
         super(field);
 
         this.A = A;
