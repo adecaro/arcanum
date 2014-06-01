@@ -2,6 +2,7 @@ package org.arcanum.sampler;
 
 import org.apfloat.Apfloat;
 import org.arcanum.Sampler;
+import org.arcanum.field.floating.ApfloatUtils;
 import org.arcanum.trapdoor.mp12.utils.MP12P2Utils;
 
 import java.math.BigInteger;
@@ -35,7 +36,7 @@ public class DiscreteGaussianRSSampler implements GaussianSampler<BigInteger> {
 
         this.h = ONE.divide(TWO.multiply(square(sigma))).negate();
         this.sigmaTau = sigma.multiply(MP12P2Utils.iTAU);
-        this.uniform = new UniformSampler(random);
+        this.uniform = new UniformSampler(random, ApfloatUtils.precision);
 
         setCenter(center);
     }

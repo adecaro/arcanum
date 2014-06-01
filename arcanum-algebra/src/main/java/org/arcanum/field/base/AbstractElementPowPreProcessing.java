@@ -3,8 +3,8 @@ package org.arcanum.field.base;
 import org.arcanum.Element;
 import org.arcanum.ElementPowPreProcessing;
 import org.arcanum.Field;
+import org.arcanum.util.io.ElementStreamWriter;
 import org.arcanum.util.io.FieldStreamReader;
-import org.arcanum.util.io.PairingStreamWriter;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -53,7 +53,7 @@ public class AbstractElementPowPreProcessing implements ElementPowPreProcessing 
 
     public byte[] toBytes() {
         try {
-            PairingStreamWriter out = new PairingStreamWriter(field.getLengthInBytes() * table.length * table[0].length);
+            ElementStreamWriter out = new ElementStreamWriter(field.getLengthInBytes() * table.length * table[0].length);
             for (Element[] row : table) 
                 for (Element element : row) 
                     out.write(element);

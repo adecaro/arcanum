@@ -103,6 +103,10 @@ public class CTL13MMField implements Field<CTL13MMElement> {
         return newElement(sampler.sample());
     }
 
+    public CTL13MMElement newElementFromObjectSampler(Sampler<Object> sampler) {
+        return newElement(sampler.sample());
+    }
+
     public CTL13MMElement newElement(Object value) {
         throw new IllegalStateException("Not implemented yet!!!");
     }

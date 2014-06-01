@@ -12,7 +12,7 @@ import org.arcanum.kem.AbstractKeyEncapsulationMechanism;
 import org.arcanum.trapdoor.mp12.engines.MP12HLP2ErrorTolerantOneTimePad;
 import org.arcanum.trapdoor.mp12.engines.MP12PLP2MatrixSolver;
 import org.arcanum.util.io.ElementStreamReader;
-import org.arcanum.util.io.PairingStreamWriter;
+import org.arcanum.util.io.ElementStreamWriter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -146,7 +146,7 @@ public class BNS14KEMEngine extends AbstractKeyEncapsulationMechanism {
             BNS14EncryptionParameters encKey = (BNS14EncryptionParameters) key;
             BNS14PublicKeyParameters publicKey = encKey.getPublicKey();
 
-            PairingStreamWriter writer = new PairingStreamWriter(getOutputBlockSize());
+            ElementStreamWriter writer = new ElementStreamWriter(getOutputBlockSize());
             try {
                 // choose random bit string
                 byte[] bytes = new byte[publicKey.getKeyLengthInBytes()];

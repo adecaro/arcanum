@@ -20,6 +20,7 @@ public class ContinuousGaussianSamplerVectorSampler implements Sampler<Vector> {
     protected VectorField<FloatingField> vf;
     protected FloatingField ff;
 
+
     public ContinuousGaussianSamplerVectorSampler(SecureRandom random, int precision, int n) {
         if (random == null)
             random = new SecureRandom();

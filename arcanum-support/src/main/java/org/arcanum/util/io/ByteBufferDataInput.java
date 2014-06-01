@@ -12,9 +12,11 @@ public class ByteBufferDataInput implements DataInput {
 
     private ByteBuffer byteBuffer;
 
+
     public ByteBufferDataInput(ByteBuffer byteBuffer) {
         this.byteBuffer = byteBuffer;
     }
+
 
     public void readFully(byte[] b) throws IOException {
         byteBuffer.get(b);

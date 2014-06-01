@@ -25,8 +25,10 @@ public class MP12HLP2OneWayFunctionParameters extends ElementKeyParameter {
         this.pk = pk;
         this.sampler = SamplerFactory.getInstance().getDiscreteGaussianSampler(
                 pk.getParameters().getRandom(),
-                MP12P2Utils.getLWENoiseParameter(pk.getParameters().getN(),
-                        pk.getRandomizedRoundingParameter())
+                MP12P2Utils.getLWENoiseParameter(
+                        pk.getParameters().getN(),
+                        pk.getRandomizedRoundingParameter()
+                )
         );
 
         this.inputField = new VectorField<Field>(

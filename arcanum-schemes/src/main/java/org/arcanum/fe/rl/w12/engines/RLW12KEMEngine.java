@@ -10,8 +10,8 @@ import org.arcanum.kem.PairingKeyEncapsulationMechanism;
 import org.arcanum.pairing.PairingFactory;
 import org.arcanum.pairing.accumulator.PairingAccumulator;
 import org.arcanum.pairing.accumulator.PairingAccumulatorFactory;
+import org.arcanum.util.io.ElementStreamWriter;
 import org.arcanum.util.io.PairingStreamReader;
-import org.arcanum.util.io.PairingStreamWriter;
 
 import java.io.IOException;
 
@@ -87,7 +87,7 @@ public class RLW12KEMEngine extends PairingKeyEncapsulationMechanism {
             RLW12PublicKeyParameters publicKey = encKey.getPublicKey();
             String w = encKey.getW();
 
-            PairingStreamWriter writer = new PairingStreamWriter(getOutputBlockSize());
+            ElementStreamWriter writer = new ElementStreamWriter(getOutputBlockSize());
             try {
                 // Store M
                 writer.write(M);

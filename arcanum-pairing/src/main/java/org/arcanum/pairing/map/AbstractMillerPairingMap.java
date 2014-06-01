@@ -1,8 +1,8 @@
 package org.arcanum.pairing.map;
 
 import org.arcanum.*;
+import org.arcanum.util.io.ElementStreamWriter;
 import org.arcanum.util.io.PairingStreamReader;
-import org.arcanum.util.io.PairingStreamWriter;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -406,7 +406,7 @@ public abstract class AbstractMillerPairingMap<E extends Element> extends Abstra
 
         public byte[] toBytes() {
             try {
-                PairingStreamWriter out = new PairingStreamWriter(table[0][0].getField().getLengthInBytes() * numRow * 3 + 4);
+                ElementStreamWriter out = new ElementStreamWriter(table[0][0].getField().getLengthInBytes() * numRow * 3 + 4);
 
                 out.writeInt(numRow);
                 for (int i = 0; i < numRow; i++)  {

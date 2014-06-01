@@ -123,6 +123,15 @@ public interface Field<E extends Element> {
     E newElementFromSampler(Sampler<BigInteger> sampler);
 
     /**
+     * TODO
+     *
+     * @param sampler
+     * @return
+     * @since 1.0.0
+     */
+    E newElementFromObjectSampler(Sampler<Object> sampler);
+
+    /**
      * Returns the order of this field.
      *
      * @return the order of this field. Returns 0 for infinite order.

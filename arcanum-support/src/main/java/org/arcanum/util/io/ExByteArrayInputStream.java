@@ -8,6 +8,7 @@ import java.io.ByteArrayInputStream;
  */
 public class ExByteArrayInputStream extends ByteArrayInputStream {
 
+
     public ExByteArrayInputStream(byte[] buf) {
         super(buf);
     }
@@ -16,9 +17,9 @@ public class ExByteArrayInputStream extends ByteArrayInputStream {
         super(buf, offset, length);
     }
 
+
     public int getPos() {
         return pos;
     }
-
 
 }

@@ -96,6 +96,10 @@ public abstract class AbstractField<E extends Element> implements Field<E> {
         return newElement(sampler.sample());
     }
 
+    public E newElementFromObjectSampler(Sampler<Object> sampler) {
+        return newElement(sampler.sample());
+    }
+
     public boolean isOrderOdd() {
         return orderIsOdd;
     }

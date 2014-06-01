@@ -12,6 +12,7 @@ public class ByteBufferDataOutput implements DataOutput {
 
     private ByteBuffer buffer;
 
+
     public ByteBufferDataOutput(ByteBuffer buffer) {
         this.buffer = buffer;
     }

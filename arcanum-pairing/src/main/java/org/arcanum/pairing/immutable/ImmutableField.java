@@ -66,6 +66,10 @@ public class ImmutableField implements Field<Element> {
         return newElement(sampler.sample());
     }
 
+    public Element newElementFromObjectSampler(Sampler<Object> sampler) {
+        return newElement(sampler.sample());
+    }
+
     public Element newElement(Object value) {
         return field.newElement(value).getImmutable();
     }

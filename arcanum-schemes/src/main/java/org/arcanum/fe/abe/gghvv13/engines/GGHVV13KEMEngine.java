@@ -8,8 +8,8 @@ import org.arcanum.fe.abe.gghvv13.params.GGHVV13KeyParameters;
 import org.arcanum.fe.abe.gghvv13.params.GGHVV13PublicKeyParameters;
 import org.arcanum.fe.abe.gghvv13.params.GGHVV13SecretKeyParameters;
 import org.arcanum.kem.PairingKeyEncapsulationMechanism;
+import org.arcanum.util.io.ElementStreamWriter;
 import org.arcanum.util.io.PairingStreamReader;
-import org.arcanum.util.io.PairingStreamWriter;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -148,7 +148,7 @@ public class GGHVV13KEMEngine extends PairingKeyEncapsulationMechanism {
             GGHVV13PublicKeyParameters publicKey = encKey.getPublicKey();
             String assignment = encKey.getAssignment();
 
-            PairingStreamWriter writer = new PairingStreamWriter(getOutputBlockSize());
+            ElementStreamWriter writer = new ElementStreamWriter(getOutputBlockSize());
             try {
                 // Sample the randomness
                 Element s = pairing.getZr().newRandomElement().getImmutable();

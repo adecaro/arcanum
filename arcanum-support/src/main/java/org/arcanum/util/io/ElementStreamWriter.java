@@ -10,13 +10,13 @@ import java.io.IOException;
  * @author Angelo De Caro (arcanumlib@gmail.com)
  * @since 1.0.0
  */
-public class PairingStreamWriter {
+public class ElementStreamWriter {
 
     private ByteArrayOutputStream baos;
     private DataOutputStream dos;
 
 
-    public PairingStreamWriter(int size) {
+    public ElementStreamWriter(int size) {
         this.baos = new ByteArrayOutputStream(size);
         this.dos = new DataOutputStream(baos);
     }
@@ -27,7 +27,6 @@ public class PairingStreamWriter {
     }
 
     public void write(Element element) throws IOException {
-//        System.out.println("WRITE e = " + element);
         dos.write(element.toBytes());
     }
 

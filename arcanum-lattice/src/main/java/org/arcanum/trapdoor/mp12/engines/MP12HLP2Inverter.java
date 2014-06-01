@@ -23,17 +23,10 @@ public class MP12HLP2Inverter extends MP12PLP2Inverter {
 
     public Element processElements(Element... input) {
         Vector b = (Vector) input[0];
-
         Vector hatB = (Vector) parameters.getSk().getR().mul(b.subVectorTo(n * 2));
-
-        for (int i = 0; i < n * k; i++) {
+        for (int i = 0; i < n * k; i++)
             hatB.getAt(i).add(b.getAt(2 * n + i));
-        }
 
-        System.out.println("hatB = " + hatB);
-
-        Element s = super.processElements(hatB);
-
-        return s;
+        return super.processElements(hatB);
     }
 }

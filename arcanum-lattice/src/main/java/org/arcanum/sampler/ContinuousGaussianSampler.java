@@ -14,18 +14,6 @@ public class ContinuousGaussianSampler implements Sampler<Apfloat> {
     protected int precision;
 
 
-    public ContinuousGaussianSampler(int precision) {
-        this(new SecureRandom(), precision);
-    }
-
-    public ContinuousGaussianSampler() {
-        this(new SecureRandom(), 128);
-    }
-
-    public ContinuousGaussianSampler(SecureRandom random) {
-        this(random, 128);
-    }
-
     public ContinuousGaussianSampler(SecureRandom random, int precision) {
         if (random == null)
             random = new SecureRandom();

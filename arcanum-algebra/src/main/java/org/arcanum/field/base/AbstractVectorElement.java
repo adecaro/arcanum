@@ -44,6 +44,7 @@ public abstract class AbstractVectorElement<E extends Element, F extends Abstrac
     }
 
     public Vector<E> subVectorTo(int end) {
+        // TODO: create a view?
         Vector v = new VectorField<Field>(field.getRandom(), field.getTargetField(), end).newElement();
 
         for (int i = 0; i < end; i++)

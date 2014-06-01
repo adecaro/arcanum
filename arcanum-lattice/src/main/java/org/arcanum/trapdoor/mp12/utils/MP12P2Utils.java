@@ -86,33 +86,11 @@ public class MP12P2Utils {
      */
     public static Apfloat RRP = convert(new Apfloat("4.5"));
     public static Apfloat RRP_SQUARE = square(RRP);
-    public static Apfloat TWICE_RRP = convert(new Apfloat("9"));
-
-    public static Apfloat TWO_RRP = RRP.multiply(ITWO);
-    public static Apfloat TWO_RRP_SQUARE = square(TWO_RRP);
 
 
     public static Sampler<BigInteger> getLWENoiseSampler(SecureRandom random, int n) {
         return SamplerFactory.getInstance().getDiscreteGaussianSampler(random, getLWENoiseParameter(n));
     }
-
-    public static Sampler<BigInteger> getPrimitiveDiscreteGaussianSampler(SecureRandom random) {
-        return SamplerFactory.getInstance().getDiscreteGaussianSampler(random, TWO_RRP);
-    }
-
-
-    public static Apfloat getS1R(Apfloat gaussianParamenter, int n, int m) {
-        return gaussianParamenter.multiply(
-                ApfloatUtils.sqrt(n).add(ApfloatUtils.sqrt(m)).add(ApfloatUtils.IONE)
-        ).divide(SQRT_TWO_PI);
-    }
-
-    public static Apfloat getSSquare(int n, int m) {
-        Apfloat s1R = getS1R(n, m);
-        Apfloat s1Rsquare = square(s1R);
-        return s1Rsquare.add(IONE).multiply(ISIX).multiply(RRP_SQUARE);
-    }
-
 
     protected static Apfloat getLWENoiseParameter(int n) {
         return SQRT_TWO.multiply(
@@ -127,14 +105,15 @@ public class MP12P2Utils {
     }
 
 
-    protected static Apfloat getS1R(int n, int m) {
-        return getS1R(getLWENoiseParameter(n), n, m);
+    public static Apfloat getS1R(Apfloat gaussianParamenter, int n, int m) {
+        return gaussianParamenter.multiply(
+                ApfloatUtils.sqrt(n).add(ApfloatUtils.sqrt(m)).add(ApfloatUtils.IONE)
+        ).divide(SQRT_TWO_PI);
     }
 
     protected static Apfloat getSqrtS1RSquarePlusOne(int n, int m) {
         return sqrt(square(getS1R(getLWENoiseParameter(n), n, m)).add(IONE));
     }
-
 
     public static void testLWENoiseSampler(int n, int k) {
         int barM = 2 * n;
@@ -163,5 +142,4 @@ public class MP12P2Utils {
 //        getS1R()
 //        ONE.divide(alpha)
     }
-
 }

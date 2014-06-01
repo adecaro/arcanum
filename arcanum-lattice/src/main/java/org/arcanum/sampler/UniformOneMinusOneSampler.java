@@ -21,6 +21,7 @@ public class UniformOneMinusOneSampler implements Sampler<BigInteger> {
     }
 
     public BigInteger sample() {
+        // TODO: use something more efficient than nextBoolean
         return (random.nextBoolean()) ? ONE : MINUS_ONE;
     }
 

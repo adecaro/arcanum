@@ -29,12 +29,36 @@ public interface Vector<E extends Element> extends Element {
      */
     E getAt(int index);
 
+    /**
+     *
+     * @param index
+     * @return
+     * @since 1.0.0
+     */
+    Vector<E> setZeroAt(int index);
+
+    /**
+     *
+     * @param index
+     * @return
+     * @since 1.0.0
+     */
     Vector<E> add(Element... es);
 
-
+    /**
+     *
+     * @param index
+     * @return
+     * @since 1.0.0
+     */
     Vector<E> subVectorTo(int end);
 
+    /**
+     *
+     * @param index
+     * @return
+     * @since 1.0.0
+     */
     Vector<E> subVectorFrom(int start);
 
-    Vector<E> setZeroAt(int index);
 }

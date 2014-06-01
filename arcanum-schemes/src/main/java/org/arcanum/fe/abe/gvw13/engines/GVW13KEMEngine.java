@@ -10,7 +10,7 @@ import org.arcanum.fe.abe.gvw13.params.GVW13SecretKeyParameters;
 import org.arcanum.kem.AbstractKeyEncapsulationMechanism;
 import org.arcanum.tor.gvw13.params.TORGVW13PublicKeyParameters;
 import org.arcanum.util.io.ElementStreamReader;
-import org.arcanum.util.io.PairingStreamWriter;
+import org.arcanum.util.io.ElementStreamWriter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -100,7 +100,7 @@ public class GVW13KEMEngine extends AbstractKeyEncapsulationMechanism {
             ElementCipher tor = publicKey.getParameters().getTor();
             String assignment = encKey.getAssignment();
 
-            PairingStreamWriter writer = new PairingStreamWriter(getOutputBlockSize());
+            ElementStreamWriter writer = new ElementStreamWriter(getOutputBlockSize());
             try {
                 Element s = publicKey.getParameters().getRandomnessField().newRandomElement();
 
