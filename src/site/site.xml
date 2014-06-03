@@ -19,21 +19,13 @@
             <item name="Download" href="download.html"/>
             <item name="Build HowTo" href="buildHowto.html"/>
             <item name="Contact" href="contact.html"/>
-            <item name="Benchmark" href="benchmark.html"/>
-            <item name="Who Uses Arcanum?" href="who.html"/>
+            <!--<item name="Benchmark" href="benchmark.html"/>-->
+            <!--<item name="Who Uses Arcanum?" href="who.html"/>-->
             <item name="FAQ" href="faq.html"/>
+            <item name="Java Docs" href="/java-docs/api/index.html"/>
         </menu>
 
-        <menu name="Documentation">
-
-            <item name="Java Docs" href="/java-docs/api/index.html"/>
-
-            <item name="Pairing" href="/docs/pairing.html">
-                <item name="Initializing" href="/docs/pairing.html#initializing"/>
-                <item name="Applying" href="/docs/pairing.html#applying"/>
-                <item name="Preprocessing" href="/docs/pairing.html#preprocessing"/>
-            </item>
-
+        <menu name="Basic Concepts" ref="docs/basics.html">
             <item name="Field" href="/docs/field.html"/>
 
             <item name="Element" href="/docs/element.html">
@@ -46,6 +38,14 @@
                 <item name="Immutable" href="/docs/element.html#immutable"/>
                 <item name="Preprocessing" href="/docs/element.html#preprocessing"/>
             </item>
+        </menu>
+
+
+        <menu name="Pairing">
+
+            <item name="Initializing" href="/docs/pairing.html#initializing"/>
+            <item name="Applying" href="/docs/pairing.html#applying"/>
+            <item name="Preprocessing" href="/docs/pairing.html#preprocessing"/>
 
             <item name="Parameter Generators" href="/docs/pg.html">
                 <item name="Bilinear Maps" href="/docs/ecpg.html">
@@ -62,7 +62,13 @@
             </item>
 
             <item name="PBC Wrapper" href="/docs/pbcwrapper.html"/>
+
         </menu>
+
+        <menu name="Lattice">
+            <item name="Trapdoors [MP'12]" href="docs/lattice/mp12.html"/>
+        </menu>
+
 
         <menu name="Schemes">
             <item name="Functional Encryption" href="/schemes/schemes.html#fe">

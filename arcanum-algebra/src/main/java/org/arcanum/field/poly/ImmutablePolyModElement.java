@@ -14,7 +14,7 @@ public class ImmutablePolyModElement<E extends Element> extends PolyModElement<E
 
         coefficients.clear();
         for (int i = 0; i < field.n; i++) {
-            coefficients.add((E) element.getCoefficient(i).getImmutable());
+            coefficients.add((E) element.getAt(i).getImmutable());
         }
         this.immutable = true;
     }

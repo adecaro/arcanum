@@ -25,19 +25,19 @@ public class ImmutablePairingTest extends AbstractArcanumTest {
     @Parameterized.Parameters
     public static Collection parameters() {
         Object[][] data = {
-                {false, "it/unisa/dia/gas/plaf/arcanum/pairing/a/a_181_603.properties"},
-                {false, "it/unisa/dia/gas/plaf/arcanum/pairing/a1/a1_3primes.properties"},
-                {false, "it/unisa/dia/gas/plaf/arcanum/pairing/d/d_9563.properties"},
-                {false, "it/unisa/dia/gas/plaf/arcanum/pairing/e/e.properties"},
-                {false, "it/unisa/dia/gas/plaf/arcanum/pairing/f/f.properties"},
-                {false, "it/unisa/dia/gas/plaf/arcanum/pairing/g/g149.properties"},
-                {true, "it/unisa/dia/gas/plaf/arcanum/pairing/a/a_181_603.properties"},
-                {true, "it/unisa/dia/gas/plaf/arcanum/pairing/a1/a1_3primes.properties"},
-                {true, "it/unisa/dia/gas/plaf/arcanum/pairing/d/d_9563.properties"},
-                {true, "it/unisa/dia/gas/plaf/arcanum/pairing/e/e.properties"},
-                {true, "it/unisa/dia/gas/plaf/arcanum/pairing/f/f.properties"},
-                {true, "it/unisa/dia/gas/plaf/arcanum/pairing/g/g149.properties"},
-                {false, "it/unisa/dia/gas/plaf/arcanum/pairing/mm/ctl13/toy.properties"}
+                {false, "org/arcanum/pairing/a/a_181_603.properties"},
+                {false, "org/arcanum/pairing/a1/a1_3primes.properties"},
+                {false, "org/arcanum/pairing/d/d_9563.properties"},
+                {false, "org/arcanum/pairing/e/e.properties"},
+                {false, "org/arcanum/pairing/f/f.properties"},
+                {false, "org/arcanum/pairing/g/g149.properties"},
+                {true, "org/arcanum/pairing/a/a_181_603.properties"},
+                {true, "org/arcanum/pairing/a1/a1_3primes.properties"},
+                {true, "org/arcanum/pairing/d/d_9563.properties"},
+                {true, "org/arcanum/pairing/e/e.properties"},
+                {true, "org/arcanum/pairing/f/f.properties"},
+                {true, "org/arcanum/pairing/g/g149.properties"},
+                {false, "org/arcanum/pairing/mm/ctl13/toy.properties"}
         };
 
         return Arrays.asList(data);

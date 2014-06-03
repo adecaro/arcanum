@@ -1,6 +1,7 @@
 package org.arcanum.field.base;
 
 import org.arcanum.Element;
+import org.arcanum.Field;
 import org.arcanum.Point;
 import org.arcanum.Vector;
 
@@ -16,6 +17,9 @@ public abstract class AbstractPointElement<E extends Element, F extends Abstract
         super(field);
     }
 
+    public Field getTargetField() {
+        return field.getTargetField();
+    }
 
     public int getSize() {
         return 2;
@@ -23,6 +27,10 @@ public abstract class AbstractPointElement<E extends Element, F extends Abstract
 
     public E getAt(int index) {
         return (index == 0) ? x : y;
+    }
+
+    public Vector<E> setAt(int index, E element) {
+        throw new IllegalStateException("Not Implemented yet!");
     }
 
     public E getX() {

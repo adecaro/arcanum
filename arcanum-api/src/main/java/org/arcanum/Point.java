@@ -9,7 +9,7 @@ package org.arcanum;
  * @see Element
  * @see Vector
  */
-public interface Point<E extends Element> extends Element, Vector<E> {
+public interface Point<E extends Element> extends Element {
 
     /**              
      * Returns the x-coordinate.

@@ -4,7 +4,7 @@ import org.arcanum.Element;
 import org.arcanum.Field;
 import org.arcanum.Sampler;
 import org.arcanum.field.base.AbstractField;
-import org.arcanum.field.base.AbstractFieldOver;
+import org.arcanum.field.base.AbstractVectorField;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -12,7 +12,7 @@ import java.security.SecureRandom;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class VectorField<F extends Field> extends AbstractFieldOver<F, VectorElement> {
+public class VectorField<F extends Field> extends AbstractVectorField<F, VectorElement> {
 
 
     public static Element newRandomElement(Field targetField, int n) {
@@ -20,13 +20,8 @@ public class VectorField<F extends Field> extends AbstractFieldOver<F, VectorEle
     }
 
 
-    protected final int n, lenInBytes;
-
     public VectorField(SecureRandom random, F targetField, int n) {
-        super(random, targetField);
-
-        this.n = n;
-        this.lenInBytes = n * targetField.getLengthInBytes();
+        super(random, targetField, n);
     }
 
 
@@ -38,18 +33,11 @@ public class VectorField<F extends Field> extends AbstractFieldOver<F, VectorEle
         return new VectorElement(this, sampler);
     }
 
-    public BigInteger getOrder() {
-        throw new IllegalStateException("Not implemented yet!!!");
-    }
 
-    public VectorElement getNqr() {
-        throw new IllegalStateException("Not implemented yet!!!");
-    }
 
-    public int getLengthInBytes() {
-        return lenInBytes;
+    public VectorField<F> newField(int n) {
+        return new VectorField<F>(random, targetField, n);
     }
-
 
     public VectorElement newPrimitiveElement() {
         VectorElement g = newElement();
@@ -61,10 +49,6 @@ public class VectorField<F extends Field> extends AbstractFieldOver<F, VectorEle
         }
 
         return g;
-    }
-
-    public int getN() {
-        return n;
     }
 
 }

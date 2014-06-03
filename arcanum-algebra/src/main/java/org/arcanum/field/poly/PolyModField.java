@@ -2,10 +2,12 @@ package org.arcanum.field.poly;
 
 import org.arcanum.Element;
 import org.arcanum.Field;
+import org.arcanum.Vector;
 import org.arcanum.field.base.AbstractFieldOver;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,14 +27,14 @@ public class PolyModField<F extends Field> extends AbstractFieldOver<F, PolyModE
         super(random, targetField);
 
         PolyField polyField = new PolyField(random, targetField);
-        irreduciblePoly = polyField.newElement();
 
-        List<Element> coefficients = irreduciblePoly.getCoefficients();
+        List<Element> coefficients = new ArrayList<Element>();
         coefficients.add(polyField.getTargetField().newElement().setToOne());
         for (int i = 1; i < cyclotomicPolyDegree; i++) {
             coefficients.add(polyField.getTargetField().newZeroElement());
         }
         coefficients.add(polyField.getTargetField().newElement().setToOne());
+        irreduciblePoly = (PolyElement) polyField.newElement(coefficients);
 
         init(null);
     }
@@ -55,7 +57,7 @@ public class PolyModField<F extends Field> extends AbstractFieldOver<F, PolyModE
         this.order = targetField.getOrder().pow(irreduciblePoly.getDegree());
         if (nqr != null) {
             this.nqr = newElement();
-            this.nqr.getCoefficient(0).set(nqr);
+            this.nqr.getAt(0).set(nqr);
         }
 
 //        if (order.compareTo(BigInteger.ZERO) != 0)
@@ -105,15 +107,15 @@ public class PolyModField<F extends Field> extends AbstractFieldOver<F, PolyModE
         PolyModElement p0 = newElement();
 
         for (int i = 1; i < n; i++) {
-            List<Element> coeff = xpwr[i - 1].getCoefficients();
-            List<Element> coeff1 = xpwr[i].getCoefficients();
+            Vector<Element> coeff = xpwr[i - 1];
+            Vector<Element> coeff1 = xpwr[i];
 
-            coeff1.get(0).setToZero();
+            coeff1.getAt(0).setToZero();
 
             for (int j = 1; j < n; j++) {
-                coeff1.get(j).set(coeff.get(j - 1));
+                coeff1.getAt(j).set(coeff.getAt(j - 1));
             }
-            p0.set(xpwr[0]).polymodConstMul(coeff.get(n - 1));
+            p0.set(xpwr[0]).polymodConstMul(coeff.getAt(n - 1));
 
             xpwr[i].add(p0);
         }

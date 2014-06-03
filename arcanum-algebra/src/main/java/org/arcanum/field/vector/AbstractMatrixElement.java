@@ -21,6 +21,187 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
         return field;
     }
 
+
+    public Field getTargetField() {
+        return field.getTargetField();
+    }
+
+    public int getN() {
+        return field.n;
+    }
+
+    public int getM() {
+        return field.m;
+    }
+
+
+    public boolean isSquare() {
+        return field.n == field.m;
+    }
+
+    public boolean isSymmetric() {
+        if (!isSquare())
+            throw new IllegalStateException("The matrix is not square.");
+
+        int n = field.n;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (!getAt(i, j).equals(getAt(j, i)))
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean isZeroAt(int row, int col) {
+        throw new IllegalStateException("Not implemented yet!!!");
+    }
+
+    public E getAt(int row, int col) {
+        throw new IllegalStateException("Not implemented yet!!!");
+    }
+
+    public Matrix<E> setAt(int row, int col, E e) {
+        getAt(row, col).set(e);
+
+        return this;
+    }
+
+    public Matrix<E> setZeroAt(int row, int col) {
+        getAt(row, col).setToZero();
+
+        return this;
+    }
+
+    public Matrix<E> setOneAt(int row, int col) {
+        getAt(row, col).setToOne();
+
+        return this;
+    }
+
+    public Vector<E> getRowAt(int row) {
+        VectorField<Field> f = new VectorField<Field>(field.getRandom(), field.getTargetField(), field.m);
+        Vector r = f.newElement();
+
+        for (int i = 0; i < field.m; i++) {
+            r.getAt(i).set(getAt(row, i));
+        }
+
+        return r;
+    }
+
+    public Vector<E> getColumnAt(int col) {
+        VectorField<Field> f = new VectorField<Field>(field.getRandom(), field.getTargetField(), field.n);
+        Vector r = f.newElement();
+
+        for (int i = 0; i < field.n; i++) {
+            if (isZeroAt(i, col))
+                r.setZeroAt(i);
+            else
+                r.getAt(i).set(getAt(i, col));
+        }
+
+        return r;
+    }
+
+    public Matrix<E> setRowAt(int row, Element rowElement) {
+        Vector r = (Vector) rowElement;
+
+        for (int i = 0; i < field.m; i++) {
+            getAt(row, i).set(r.getAt(i));
+        }
+
+        return this;
+    }
+
+    public Matrix<E> setColAt(int col, Element colElement) {
+        Vector r = (Vector) colElement;
+
+        for (int i = 0; i < field.n; i++) {
+            getAt(i, col).set(r.getAt(i));
+        }
+
+        return this;
+    }
+
+    public Matrix<E> setIdentityAt(int row, int col, int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j)
+                    getAt(row + i, col + j).setToOne();
+                else
+                    getAt(row + i, col + j).setToZero();
+            }
+        }
+
+        return this;
+    }
+
+    public Matrix<E> setIdentityAt(int row, int col, int n, Element e) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j)
+                    getAt(row + i, col + j).set(e);
+                else
+                    getAt(row + i, col + j).setToZero();
+            }
+        }
+
+        return this;
+    }
+
+    public Matrix<E> setMatrixAt(int row, int col, Matrix e) {
+        // TODO: check the lengths
+
+        for (int i = 0, n = e.getN(); i < n; i++) {
+            for (int j = 0, m = e.getM(); j < m; j++) {
+                getAt(row + i, col + j).set(e.getAt(i, j));
+            }
+        }
+
+        return this;
+    }
+
+    public Matrix<E> setMatrixAt(final int row, final int col, Element e, final Transformer transformer) {
+        // TODO: check the lengths
+
+        final Matrix eMatrix = (Matrix) e;
+
+        PoolExecutor pool = new PoolExecutor();
+        for (int i = 0, n = eMatrix.getN(); i < n; i++) {
+
+            final int finalI = i;
+            pool.submit(new Runnable() {
+                public void run() {
+                    for (int j = 0, m = eMatrix.getM(); j < m; j++) {
+                        getAt(row + finalI, col + j).set(eMatrix.getAt(finalI, j));
+                        transformer.transform(row + finalI, col + j, getAt(row + finalI, col + j));
+                    }
+                }
+            });
+
+        }
+        pool.awaitTermination();
+
+        return this;
+    }
+
+    public Matrix<E> setTransposeAt(int row, int col, Element e) {
+        // TODO: check the lengths
+
+        Matrix eMatrix = (Matrix) e;
+        for (int i = 0, n = eMatrix.getN(); i < n; i++) {
+            for (int j = 0, m = eMatrix.getM(); j < m; j++) {
+                getAt(row + i, col + j).set(eMatrix.getAt(j, i));
+            }
+        }
+
+        return this;
+    }
+
+
     public Matrix<E> mulByTransposeTo(final Matrix matrix, final int offsetRow, final int offsetCol, final Transformer transformer) {
         PoolExecutor executor = new PoolExecutor();
 
@@ -57,7 +238,7 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
 
             PoolExecutor executor = new PoolExecutor();
 
-            for (int i = 0; i < f.n; i++) {
+            for (int i = 0; i < field.m; i++) {
 
                 final int finalI = i;
                 executor.submit(new Runnable() {
@@ -135,177 +316,78 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
         return result;
     }
 
-    public Element div(Element element) {
-        if (field.getTargetField().equals(element.getField())) {
-            for (int i = 0; i < field.n; i++) {
-                for (int j = 0; j < field.m; j++) {
-                    getAt(i,j).div(element);
-                }
-            }
+    public Element mulTo(Element e, Element to) {
+        if (e instanceof Vector) {
+            final Vector ve = (Vector) e;
 
-            return this;
-        } else
-            throw new IllegalArgumentException("Not implemented yet!!!");
 
-    }
+            if (field.getTargetField().equals(((FieldOver) ve.getField()).getTargetField())) {
+                if (ve.getSize() == 1) {
+                    throw new IllegalArgumentException("Cannot multiply this way.");
+                } else {
+                    // Check dimensions
 
-    public Field getTargetField() {
-        return field.getTargetField();
-    }
+                    if (ve.getSize() == field.m) {
+                        final Vector r = (Vector) to;
 
-    public int getN() {
-        return field.n;
-    }
+                        PoolExecutor executor = new PoolExecutor();
 
-    public int getM() {
-        return field.m;
-    }
+                        for (int i = 0; i < field.n; i++) {
 
-    public int sign() {
-        throw new IllegalStateException("Not implemented yet!!!");
-    }
+                            // row \times column
 
-    public E getAt(int row, int col) {
-        throw new IllegalStateException("Not implemented yet!!!");
-    }
+                            final int finalI = i;
+                            executor.submit(new Runnable() {
+                                public void run() {
+                                    for (int j = 0; j < 1; j++) {
+                                        Element temp = field.getTargetField().newElement();
+                                        for (int k = 0; k < field.m; k++) {
+                                            if (isZeroAt(finalI, k))
+                                                continue;
 
-    public Matrix<E> setAt(int row, int col, E e) {
-        getAt(row, col).set(e);
+                                            temp.add(getAt(finalI, k).duplicate().mul(ve.getAt(k)));
+                                        }
+                                        r.getAt(finalI).set(temp);
+                                    }
+                                }
+                            });
+                        }
+                        executor.awaitTermination();
 
-        return this;
-    }
+                        return r;
+                    } else if (ve.getSize() == field.n) {
+                        // Consider transpose
 
-    public Matrix<E> setZeroAt(int row, int col) {
-        getAt(row, col).setToZero();
+                        final Vector r = (Vector) to;
 
-        return this;
-    }
+                        PoolExecutor executor = new PoolExecutor();
 
-    public Matrix<E> setOneAt(int row, int col) {
-        getAt(row, col).setToOne();
+                        for (int i = 0; i < field.m; i++) {
 
-        return this;
-    }
+                            final int finalI = i;
+                            executor.submit(new Runnable() {
+                                public void run() {
+                                    // column \times row
+                                    Element temp = field.getTargetField().newElement();
+                                    for (int k = 0; k < field.n; k++) {
+                                        if (isZeroAt(k, finalI))
+                                            continue;
 
-    public Vector<E> rowAt(int row) {
-        VectorField<Field> f = new VectorField<Field>(field.getRandom(), field.getTargetField(), field.m);
-        Vector r = f.newElement();
+                                        temp.add(getAt(k, finalI).duplicate().mul(ve.getAt(k)));
+                                    }
+                                    r.getAt(finalI).set(temp);
+                                }
+                            });
+                        }
+                        executor.awaitTermination();
 
-        for (int i = 0; i < f.n; i++) {
-            r.getAt(i).set(getAt(row, i));
-        }
-
-        return r;
-    }
-
-    public Vector<E> columnAt(int col) {
-        VectorField<Field> f = new VectorField<Field>(field.getRandom(), field.getTargetField(), field.n);
-        Vector r = f.newElement();
-
-        for (int i = 0; i < f.n; i++) {
-            if (isZeroAt(i, col))
-                r.setZeroAt(i);
-            else
-                r.getAt(i).set(getAt(i, col));
-        }
-
-        return r;
-    }
-
-    public Matrix<E> setRowAt(int row, Element rowElement) {
-        Vector r = (Vector) rowElement;
-
-        for (int i = 0; i < field.m; i++) {
-            getAt(row, i).set(r.getAt(i));
-        }
-
-        return this;
-    }
-
-    public Matrix<E> setColAt(int col, Element colElement) {
-        Vector r = (Vector) colElement;
-
-        for (int i = 0; i < field.n; i++) {
-            getAt(i, col).set(r.getAt(i));
-        }
-
-        return this;
-    }
-
-    public Matrix<E> setSubMatrixToIdentityAt(int row, int col, int n) {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (i == j)
-                    getAt(row + i, col + j).setToOne();
-                else
-                    getAt(row + i, col + j).setToZero();
-            }
-        }
-
-        return this;
-    }
-
-    public Matrix<E> setSubMatrixToIdentityAt(int row, int col, int n, Element e) {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (i == j)
-                    getAt(row + i, col + j).set(e);
-                else
-                    getAt(row + i, col + j).setToZero();
-            }
-        }
-
-        return this;
-    }
-
-    public Matrix<E> setSubMatrixFromMatrixAt(int row, int col, Element e) {
-        // TODO: check the lengths
-
-        Matrix eMatrix = (Matrix) e;
-        for (int i = 0, n = eMatrix.getN(); i < n; i++) {
-            for (int j = 0, m = eMatrix.getM(); j < m; j++) {
-                getAt(row + i, col + j).set(eMatrix.getAt(i, j));
-            }
-        }
-
-        return this;
-    }
-
-    public Matrix<E> setSubMatrixFromMatrixAt(final int row, final int col, Element e, final Transformer transformer) {
-        // TODO: check the lengths
-
-        final Matrix eMatrix = (Matrix) e;
-
-        PoolExecutor pool = new PoolExecutor();
-        for (int i = 0, n = eMatrix.getN(); i < n; i++) {
-
-            final int finalI = i;
-            pool.submit(new Runnable() {
-                public void run() {
-                    for (int j = 0, m = eMatrix.getM(); j < m; j++) {
-                        getAt(row + finalI, col + j).set(eMatrix.getAt(finalI, j));
-                        transformer.transform(row + finalI, col + j, getAt(row + finalI, col + j));
+                        return r;
                     }
                 }
-            });
-
-        }
-        pool.awaitTermination();
-
-        return this;
-    }
-
-    public Matrix<E> setSubMatrixFromMatrixTransposeAt(int row, int col, Element e) {
-        // TODO: check the lengths
-
-        Matrix eMatrix = (Matrix) e;
-        for (int i = 0, n = eMatrix.getN(); i < n; i++) {
-            for (int j = 0, m = eMatrix.getM(); j < m; j++) {
-                getAt(row + i, col + j).set(eMatrix.getAt(j, i));
             }
         }
 
-        return this;
+        throw new IllegalStateException("Not Implemented yet!!!");
     }
 
     public Matrix<E> transform(Transformer transformer) {
@@ -323,16 +405,17 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
         return this;
     }
 
-    public boolean isSquare() {
-        return field.n == field.m;
+
+    public Matrix<E> getRowsViewAt(int start, int end) {
+        return new ViewbyRowsMatrixElement(field, this, start, end);
+
     }
 
-
-    public boolean isZeroAt(int row, int col) {
-        throw new IllegalStateException("Not implemented yet!!!");
+    public Vector<E> getRowViewAt(int row) {
+        return new ViewMatrixRowVectorElement<E>(field, this, row);
     }
 
-    public String toStringSubMatrix(int startRow, int startCol) {
+    public String rowsToString(int startRow, int startCol) {
         StringBuffer sb = new StringBuffer();
         sb.append("[\n");
         for (int i = startRow; i < field.n; i++) {
@@ -354,6 +437,33 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
         return "MatrixElement{" +
                 "matrix=\n" + sb.toString() +
                 '}';
+    }
+
+    public Matrix<E> setRowsToRandom(int start, int end) {
+        for (int i = start; i < end; i++)
+            for (int j = 0; j < field.m; j++)
+                getAt(i, j).setToRandom();
+
+        return this;
+    }
+
+
+    public Element div(Element element) {
+        if (field.getTargetField().equals(element.getField())) {
+            for (int i = 0; i < field.n; i++) {
+                for (int j = 0; j < field.m; j++) {
+                    getAt(i, j).div(element);
+                }
+            }
+
+            return this;
+        } else
+            throw new IllegalArgumentException("Not implemented yet!!!");
+
+    }
+
+    public int sign() {
+        throw new IllegalStateException("Not implemented yet!!!");
     }
 
     public String toString() {
@@ -481,15 +591,21 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
     }
 
     public Element add(Element element) {
-        AbstractMatrixElement m = (AbstractMatrixElement) element;
+        final AbstractMatrixElement m = (AbstractMatrixElement) element;
 
+        PoolExecutor executor = new PoolExecutor();
         for (int i = 0; i < field.n; i++) {
-            for (int j = 0; j < field.m; j++) {
-                if (!m.isZeroAt(i, j))
-                    getAt(i, j).add(m.getAt(i, j));
-            }
-
+            final int finalI = i;
+            executor.submit(new Runnable() {
+                public void run() {
+                    for (int j = 0; j < field.m; j++) {
+                        if (!m.isZeroAt(finalI, j))
+                            getAt(finalI, j).add(m.getAt(finalI, j));
+                    }
+                }
+            });
         }
+        executor.awaitTermination();
 
         return this;
     }
@@ -568,7 +684,7 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
 
                         PoolExecutor executor = new PoolExecutor();
 
-                        for (int i = 0; i < f.n; i++) {
+                        for (int i = 0; i < field.n; i++) {
 
                             // row \times column
 
@@ -599,7 +715,7 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
 
                         PoolExecutor executor = new PoolExecutor();
 
-                        for (int i = 0; i < f.n; i++) {
+                        for (int i = 0; i < field.m; i++) {
 
                             final int finalI = i;
                             executor.submit(new Runnable() {
@@ -659,22 +775,6 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
         throw new IllegalStateException("Not Implemented yet!!!");
     }
 
-    public boolean isSymmetric() {
-        if (!isSquare())
-            throw new IllegalStateException("The matrix is not square.");
-
-        int n = field.n;
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < i; j++) {
-                if (!getAt(i, j).equals(getAt(j,i)))
-                    return false;
-            }
-        }
-
-        return true;
-    }
-
     public byte[] toBytes() {
         byte[] buffer = new byte[field.getLengthInBytes()];
 
@@ -690,7 +790,5 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
 
         return buffer;
     }
-
-
 
 }

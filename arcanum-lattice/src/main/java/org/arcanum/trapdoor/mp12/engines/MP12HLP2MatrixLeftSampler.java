@@ -47,7 +47,7 @@ public class MP12HLP2MatrixLeftSampler extends MP12HLP2LeftSampler {
             final int finalI = i;
             pool.submit(new Runnable() {
                 public void run() {
-                    result.setColAt(finalI, MP12HLP2MatrixLeftSampler.super.processElements(M, U.columnAt(finalI)));
+                    result.setColAt(finalI, MP12HLP2MatrixLeftSampler.super.processElements(M, U.getColumnAt(finalI)));
                 }
             });
         }

@@ -175,8 +175,8 @@ public class PairingFactory {
 
         public CTL13MultilinearPairingCreator() {
             try {
-                Class pbcPairingFactoryClass = Class.forName("org.arcanum.pairing.mm.clt13.pairing.CTL13MMPairingFactory");
-                getPairingMethod = pbcPairingFactoryClass.getMethod("getPairing", SecureRandom.class, Parameters.class);
+                Class factoryClass = Class.forName("org.arcanum.pairing.mm.clt13.pairing.CTL13MMPairingFactory");
+                getPairingMethod = factoryClass.getMethod("getPairing", SecureRandom.class, Parameters.class);
             } catch (Exception e) {
                 throwable = e;
             }
@@ -206,7 +206,7 @@ public class PairingFactory {
         public EllipticCurvesPairingCreator() {
             // Try to load arcanum-pbc factory
             try {
-                Class pbcPairingFactoryClass = Class.forName("org.arcanum.pbc.PBCPairingFactory");
+                Class pbcPairingFactoryClass = Class.forName("org.arcanum.pairing.pbc.PBCPairingFactory");
                 Method isPBCAvailable = pbcPairingFactoryClass.getMethod("isPBCAvailable", null);
 
                 pbcAvailable = ((Boolean) isPBCAvailable.invoke(null));

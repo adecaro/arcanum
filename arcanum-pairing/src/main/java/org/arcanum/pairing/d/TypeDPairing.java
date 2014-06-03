@@ -15,6 +15,7 @@ import org.arcanum.util.parameters.PropertiesParameters;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -105,12 +106,12 @@ public class TypeDPairing extends AbstractPairing {
         // Init the irreducible polynomial
         int d = k / 2;
 
-        PolyElement<Element> irreduciblePoly = polyField.newElement();
-        List<Element> irreduciblePolyCoeff = irreduciblePoly.getCoefficients();
+        List<Element> irreduciblePolyCoeff = new ArrayList<Element>();
         for (int i = 0; i < d; i++) {
             irreduciblePolyCoeff.add(polyField.getTargetField().newElement().set(curveParams.getBigIntegerAt("coeff", i)));
         }
         irreduciblePolyCoeff.add(polyField.getTargetField().newElement().setToOne());
+        PolyElement<Element> irreduciblePoly = (PolyElement<Element>) polyField.newElement(irreduciblePolyCoeff);
 
         // init Fqd
         Fqd  = initPolyMod(irreduciblePoly);
@@ -123,7 +124,7 @@ public class TypeDPairing extends AbstractPairing {
             phikOnr = q.multiply(q).subtract(q).add(BigInteger.ONE).divide(r);
 
             PolyModElement polyModElement = Fqd.newElement();
-            polyModElement.getCoefficient(1).setToOne();
+            polyModElement.getAt(1).setToOne();
 
             polyModElement.pow(q);
 

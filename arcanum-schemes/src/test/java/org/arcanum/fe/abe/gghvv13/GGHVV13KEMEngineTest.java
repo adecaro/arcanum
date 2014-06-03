@@ -32,7 +32,7 @@ public class GGHVV13KEMEngineTest extends AbstractArcanumCryptoTest {
     @Parameterized.Parameters
     public static Collection parameters() {
         Object[][] data = {
-                {false, "it/unisa/dia/gas/plaf/arcanum/crypto/ctl13_toy.properties"}
+                {false, "org/arcanum/params/ctl13_toy.properties"}
         };
 
         return Arrays.asList(data);

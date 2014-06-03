@@ -1,6 +1,7 @@
 package org.arcanum.field.poly;
 
 import org.arcanum.Element;
+import org.arcanum.Field;
 import org.arcanum.Polynomial;
 import org.arcanum.Vector;
 import org.arcanum.field.base.AbstractElement;
@@ -24,6 +25,9 @@ public abstract class AbstractPolyElement<E extends Element, F extends AbstractF
         this.coefficients = new ArrayList<E>();
     }
 
+    public Field getTargetField() {
+        return field.getTargetField();
+    }
 
     public int getSize() {
         return coefficients.size();
@@ -33,12 +37,10 @@ public abstract class AbstractPolyElement<E extends Element, F extends AbstractF
         return coefficients.get(index);
     }
 
-    public List<E> getCoefficients() {
-        return coefficients;
-    }
+    public Vector setAt(int index, Element element) {
+        coefficients.get(index).set(element);
 
-    public E getCoefficient(int index) {
-        return coefficients.get(index);
+        return this;
     }
 
     public int getDegree() {

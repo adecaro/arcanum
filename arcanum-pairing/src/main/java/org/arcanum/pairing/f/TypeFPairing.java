@@ -17,6 +17,7 @@ import org.arcanum.util.math.BigIntegerUtils;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -95,12 +96,12 @@ public class TypeFPairing extends AbstractPairing {
         tmp.getY().set(alpha1);
         negAlpha = tmp;
 
-        PolyElement irreduciblePoly = (PolyElement) Fq2x.newElement();
-        List<Element> irreduciblePolyCoeff = irreduciblePoly.getCoefficients();
+        List<Element> irreduciblePolyCoeff = new ArrayList<Element>();
         irreduciblePolyCoeff.add(negAlpha.duplicate());
         for (int i = 1; i < 6; i++)
             irreduciblePolyCoeff.add(Fq2.newElement());
         irreduciblePolyCoeff.add(Fq2.newOneElement());
+        PolyElement irreduciblePoly = (PolyElement) Fq2x.newElement(irreduciblePolyCoeff);
 
         // init Fq12
         Fq12 = initPolyMod(irreduciblePoly);
@@ -131,18 +132,18 @@ public class TypeFPairing extends AbstractPairing {
         tateExp = q.multiply(q).subtract(BigInteger.ONE).multiply(q).multiply(q).add(BigInteger.ONE).divide(r);
 
         PolyModElement polyModElement = Fq12.newElement();
-        polyModElement.getCoefficient(1).setToOne();
+        polyModElement.getAt(1).setToOne();
         polyModElement.pow(q);
         polyModElement.pow(q);
-        xPowq2 = polyModElement.getCoefficient(1).duplicate();
+        xPowq2 = polyModElement.getAt(1).duplicate();
         polyModElement.pow(q);
         polyModElement.pow(q);
         polyModElement.pow(q);
         polyModElement.pow(q);
-        xPowq6 = polyModElement.getCoefficient(1).duplicate();
+        xPowq6 = polyModElement.getAt(1).duplicate();
         polyModElement.pow(q);
         polyModElement.pow(q);
-        xPowq8 = polyModElement.getCoefficient(1).duplicate();
+        xPowq8 = polyModElement.getAt(1).duplicate();
 
         // Init G1, G2, GT
         G1 = Eq;

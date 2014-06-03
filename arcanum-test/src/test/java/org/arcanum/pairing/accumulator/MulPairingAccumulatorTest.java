@@ -20,7 +20,7 @@ public class MulPairingAccumulatorTest extends AbstractArcanumTest {
     @Parameterized.Parameters
     public static Collection parameters() {
         Object[][] data = {
-                {false, "it/unisa/dia/gas/plaf/arcanum/pairing/a/a_181_603.properties"},
+                {false, "org/arcanum/pairing/a/a_181_603.properties"},
         };
 
         return Arrays.asList(data);

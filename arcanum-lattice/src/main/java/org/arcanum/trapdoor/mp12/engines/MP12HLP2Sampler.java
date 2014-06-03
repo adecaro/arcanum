@@ -201,11 +201,11 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
         final Matrix cov = mff.newElement();
         new PoolExecutor().submit(new Runnable() {
             public void run() {
-                cov.setSubMatrixToIdentityAt(0, 0, m, sqrtB);
+                cov.setIdentityAt(0, 0, m, sqrtB);
             }
         }).submit(new Runnable() {
             public void run() {
-                cov.setSubMatrixFromMatrixAt(m, 0, sk.getR(), new Matrix.Transformer() {
+                cov.setMatrixAt(m, 0, sk.getR(), new Matrix.Transformer() {
                     public void transform(int row, int col, Element e) {
                         e.mul(sqrtBInverse);
                     }

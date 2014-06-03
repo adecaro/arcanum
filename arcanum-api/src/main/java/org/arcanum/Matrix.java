@@ -15,6 +15,14 @@ public interface Matrix <E extends Element> extends Element {
 
     int getM();
 
+
+    boolean isSymmetric();
+
+    boolean isSquare();
+
+    boolean isZeroAt(int row, int col);
+
+
     E getAt(int row, int col);
 
     Matrix<E> setAt(int row, int col, E e);
@@ -24,24 +32,28 @@ public interface Matrix <E extends Element> extends Element {
     Matrix<E> setOneAt(int row, int col);
 
 
-    Vector<E> rowAt(int row);
+    Vector<E> getRowAt(int row);
 
-    Vector<E> columnAt(int col);
+    Vector<E> getColumnAt(int col);
 
     Matrix<E> setRowAt(int row, Element rowElement);
+
+    Matrix<E> setRowsToRandom(int start, int end);
 
     Matrix<E> setColAt(int col, Element colElement);
 
 
-    Matrix<E> setSubMatrixToIdentityAt(int row, int col, int n);
+    Matrix<E> setIdentityAt(int row, int col, int n);
 
-    Matrix<E> setSubMatrixToIdentityAt(int row, int col, int n, Element e);
+    Matrix<E> setIdentityAt(int row, int col, int n, Element e);
 
-    Matrix<E> setSubMatrixFromMatrixAt(int row, int col, Element e);
+    Matrix<E> setMatrixAt(int row, int col, Matrix e);
 
-    Matrix<E> setSubMatrixFromMatrixAt(int row, int col, Element e, Transformer transformer);
+    Matrix<E> setMatrixAt(int row, int col, Element e, Transformer transformer);
 
-    Matrix<E> setSubMatrixFromMatrixTransposeAt(int row, int col, Element e);
+    Matrix<E> setTransposeAt(int row, int col, Element e);
+
+
 
     Matrix<E> mulByTranspose();
 
@@ -49,18 +61,20 @@ public interface Matrix <E extends Element> extends Element {
 
     Element mulFromTranspose(Element e);
 
+    Element mulTo(Element e, Element to);
+
+
     Matrix<E> transform(Transformer transformer);
 
     Matrix<E> transformDiagonal(Transformer transformer);
 
-    public boolean isSymmetric();
 
-    public boolean isSquare();
+    Matrix<E> getRowsViewAt(int start, int end);
 
-    public boolean isZeroAt(int row, int col);
+    Vector<E> getRowViewAt(int row);
 
 
-    String toStringSubMatrix(int startRow, int startCol);
+    String rowsToString(int startRow, int startCol);
 
 
     public static interface Transformer {

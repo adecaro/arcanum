@@ -3,6 +3,7 @@ package org.arcanum.field.poly;
 import org.arcanum.Element;
 import org.arcanum.Field;
 import org.arcanum.Polynomial;
+import org.arcanum.Vector;
 import org.arcanum.util.math.BigIntegerUtils;
 
 import java.math.BigInteger;
@@ -25,7 +26,7 @@ public class PolyModElement<E extends Element> extends AbstractPolyElement<E, Po
         super(source.getField());
 
         for (int i = 0, n = source.getSize(); i < n; i++)
-            coefficients.add((E) source.getCoefficient(i).duplicate());
+            coefficients.add((E) source.getAt(i).duplicate());
     }
 
 
@@ -225,7 +226,7 @@ public class PolyModElement<E extends Element> extends AbstractPolyElement<E, Po
                 Element c3 = field.getTargetField().newElement();
                 Element c4 = field.getTargetField().newElement();
 
-                kar_poly_2(coefficients, c3, c4, coefficients, element.getCoefficients(), p0.coefficients);
+                kar_poly_2(this, c3, c4, this, element, p0);
 
                 p0.set(field.xpwr[0]).polymodConstMul(c3);
                 add(p0);
@@ -322,11 +323,11 @@ public class PolyModElement<E extends Element> extends AbstractPolyElement<E, Po
 
                     int j = 0;
                     for (; j < ni; j++) {
-                        c0.set(coefficients.get(i)).mul(element.getCoefficient(j));
+                        c0.set(coefficients.get(i)).mul(element.getAt(j));
                         prod.coefficients.get(i + j).add(c0);
                     }
                     for (; j < field.n; j++) {
-                        c0.set(coefficients.get(i)).mul(element.getCoefficient(j));
+                        c0.set(coefficients.get(i)).mul(element.getAt(j));
                         high[j - ni].add(c0);
                     }
                 }
@@ -372,8 +373,8 @@ public class PolyModElement<E extends Element> extends AbstractPolyElement<E, Po
         Element e0 = field.newElement();
 
         f.ensureSize(3);
-        f.getCoefficient(2).setToOne();
-        f.getCoefficient(0).set(this).negate();
+        f.getAt(2).setToOne();
+        f.getAt(0).set(this).negate();
 
         BigInteger z = field.getOrder().subtract(BigInteger.ONE).divide(BigIntegerUtils.TWO);
 
@@ -383,8 +384,8 @@ public class PolyModElement<E extends Element> extends AbstractPolyElement<E, Po
             Element e1, e2;
 
             r.ensureSize(2);
-            r.getCoefficient(1).setToOne();
-            x = r.getCoefficient(0);
+            r.getAt(1).setToOne();
+            x = r.getAt(0);
             x.setToRandom();
             e0.set(x).mul(x);
 
@@ -398,8 +399,8 @@ public class PolyModElement<E extends Element> extends AbstractPolyElement<E, Po
                 s.mul(s);
 
                 if (s.getDegree() == 2) {
-                    e1 = s.getCoefficient(0);
-                    e2 = s.getCoefficient(2);
+                    e1 = s.getAt(0);
+                    e2 = s.getAt(2);
                     e0.set(e2).mul(this);
                     e1.add(e0);
                     s.ensureSize(2);
@@ -409,8 +410,8 @@ public class PolyModElement<E extends Element> extends AbstractPolyElement<E, Po
                 if (z.testBit(i)) {
                     s.mul(r);
                     if (s.getDegree() == 2) {
-                        e1 = s.getCoefficient(0);
-                        e2 = s.getCoefficient(2);
+                        e1 = s.getAt(0);
+                        e2 = s.getAt(2);
                         e0.set(e2).mul(this);
                         e1.add(e0);
                         s.ensureSize(2);
@@ -423,8 +424,8 @@ public class PolyModElement<E extends Element> extends AbstractPolyElement<E, Po
                 continue;
 
             e0.setToOne();
-            e1 = s.getCoefficient(0);
-            e2 = s.getCoefficient(1);
+            e1 = s.getAt(0);
+            e2 = s.getAt(1);
             e1.add(e0);
             e0.set(e2).invert();
             e0.mul(e1);
@@ -510,13 +511,13 @@ public class PolyModElement<E extends Element> extends AbstractPolyElement<E, Po
 
 
     public PolyModElement<E> setFromPolyTruncate(PolyElement<E> element) {
-        int n = element.getCoefficients().size();
+        int n = element.getSize();
         if (n > field.n)
             n = field.n;
 
         int i = 0;
         for (; i < n; i++) {
-            coefficients.get(i).set(element.getCoefficients().get(i));
+            coefficients.get(i).set(element.getAt(i));
         }
 
         for (; i < field.n; i++) {
@@ -599,42 +600,42 @@ public class PolyModElement<E extends Element> extends AbstractPolyElement<E, Po
      * @param s2
      * @param scratch
      */
-    protected void kar_poly_2(List<E> dst, Element c3, Element c4, List<E> s1, List<E> s2, List<E> scratch) {
+    protected void kar_poly_2(Vector<E> dst, Element c3, Element c4, Vector<E> s1, Vector<E> s2, Vector<E> scratch) {
         Element c01, c02, c12;
 
-        c12 = scratch.get(0);
-        c02 = scratch.get(1);
-        c01 = scratch.get(2);
+        c12 = scratch.getAt(0);
+        c02 = scratch.getAt(1);
+        c01 = scratch.getAt(2);
 
-        c3.set(s1.get(0)).add(s1.get(1));
-        c4.set(s2.get(0)).add(s2.get(1));
+        c3.set(s1.getAt(0)).add(s1.getAt(1));
+        c4.set(s2.getAt(0)).add(s2.getAt(1));
         c01.set(c3).mul(c4);
-        c3.set(s1.get(0)).add(s1.get(2));
-        c4.set(s2.get(0)).add(s2.get(2));
+        c3.set(s1.getAt(0)).add(s1.getAt(2));
+        c4.set(s2.getAt(0)).add(s2.getAt(2));
         c02.set(c3).mul(c4);
-        c3.set(s1.get(1)).add(s1.get(2));
-        c4.set(s2.get(1)).add(s2.get(2));
+        c3.set(s1.getAt(1)).add(s1.getAt(2));
+        c4.set(s2.getAt(1)).add(s2.getAt(2));
         c12.set(c3).mul(c4);
-        dst.get(1).set(s1.get(1)).mul(s2.get(1));
+        dst.getAt(1).set(s1.getAt(1)).mul(s2.getAt(1));
 
         //constant term
-        dst.get(0).set(s1.get(0)).mul(s2.get(0));
+        dst.getAt(0).set(s1.getAt(0)).mul(s2.getAt(0));
 
         //coefficient of x^4
-        c4.set(s1.get(2)).mul(s2.get(2));
+        c4.set(s1.getAt(2)).mul(s2.getAt(2));
 
         //coefficient of x^3
-        c3.set(dst.get(1)).add(c4);
+        c3.set(dst.getAt(1)).add(c4);
         c3.set(c12.duplicate().sub(c3));
 
         //coefficient of x^2
-        dst.get(2).set(c4).add(dst.get(0));
-        c02.sub(dst.get(2));
-        dst.get(2).set(dst.get(1)).add(c02);
+        dst.getAt(2).set(c4).add(dst.getAt(0));
+        c02.sub(dst.getAt(2));
+        dst.getAt(2).set(dst.getAt(1)).add(c02);
 
         //coefficient of x
-        c01.sub(dst.get(0));
-        dst.set(1, (E) c01.duplicate().sub(dst.get(1)));
+        c01.sub(dst.getAt(0));
+        dst.setAt(1, (E) c01.duplicate().sub(dst.getAt(1)));
     }
 
     protected PolyElement polyInvert(PolyElement f) {
@@ -667,7 +668,7 @@ public class PolyModElement<E extends Element> extends AbstractPolyElement<E, Po
             r1.set(r2);
         }
 
-        inv.set(r1.getCoefficient(0)).invert();
+        inv.set(r1.getAt(0)).invert();
         return PolyUtils.constMul(inv, b1);
     }
 

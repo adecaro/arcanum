@@ -12,8 +12,8 @@ public class PairingFactoryTest extends TestCase {
         PairingFactory.getInstance().setReuseInstance(true);
         PairingFactory.getInstance().setUsePBCWhenPossible(false);
 
-        Pairing pairing1 = PairingFactory.getPairing("it/unisa/dia/gas/plaf/arcanum/pairing/a/a_181_603.properties");
-        Pairing pairing2 = PairingFactory.getPairing("it/unisa/dia/gas/plaf/arcanum/pairing/a/a_181_603.properties");
+        Pairing pairing1 = PairingFactory.getPairing("org/arcanum/pairing/a/a_181_603.properties");
+        Pairing pairing2 = PairingFactory.getPairing("org/arcanum/pairing/a/a_181_603.properties");
 
         assertEquals(true, pairing1 == pairing2);
     }
@@ -22,8 +22,8 @@ public class PairingFactoryTest extends TestCase {
         PairingFactory.getInstance().setReuseInstance(false);
         PairingFactory.getInstance().setUsePBCWhenPossible(false);
 
-        Pairing pairing1 = PairingFactory.getPairing("it/unisa/dia/gas/plaf/arcanum/pairing/a/a_181_603.properties");
-        Pairing pairing2 = PairingFactory.getPairing("it/unisa/dia/gas/plaf/arcanum/pairing/a/a_181_603.properties");
+        Pairing pairing1 = PairingFactory.getPairing("org/arcanum/pairing/a/a_181_603.properties");
+        Pairing pairing2 = PairingFactory.getPairing("org/arcanum/pairing/a/a_181_603.properties");
 
         assertEquals(true, pairing1 != pairing2);
     }

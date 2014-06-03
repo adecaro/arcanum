@@ -77,7 +77,7 @@ public class MP12PLP2Test {
 
         Matrix U1 = (Matrix) U.getField().newElement();
         for (int i = 0; i < U.getM(); i++) {
-            Element sample = R0.columnAt(i);
+            Element sample = R0.getColumnAt(i);
             Element u = decoder.processElements(sample);
             U1.setColAt(i, u);
         }
@@ -107,7 +107,7 @@ public class MP12PLP2Test {
 
         Matrix U1 = (Matrix) U.getField().newElement();
         for (int i = 0; i < U.getM(); i++) {
-            Element sample = R0.columnAt(i);
+            Element sample = R0.getColumnAt(i);
             Element u = decoder.processElements(sample);
             U1.setColAt(i, u);
         }

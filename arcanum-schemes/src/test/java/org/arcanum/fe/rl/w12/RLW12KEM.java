@@ -11,7 +11,6 @@ import org.arcanum.kem.KeyEncapsulationMechanism;
 import org.arcanum.pairing.PairingFactory;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.CipherParameters;
-import org.bouncycastle.crypto.InvalidCipherTextException;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
@@ -40,24 +39,18 @@ public class RLW12KEM {
     }
 
     public byte[][] encaps(CipherParameters publicKey, String w) {
-        try {
-            KeyEncapsulationMechanism kem = new RLW12KEMEngine();
-            kem.init(true, new RLW12EncryptionParameters((RLW12PublicKeyParameters) publicKey, w));
+        KeyEncapsulationMechanism kem = new RLW12KEMEngine();
+        kem.init(true, new RLW12EncryptionParameters((RLW12PublicKeyParameters) publicKey, w));
 
-            byte[] ciphertext = kem.process();
+        byte[] ciphertext = kem.process();
 
-            assertNotNull(ciphertext);
-            assertNotSame(0, ciphertext.length);
+        assertNotNull(ciphertext);
+        assertNotSame(0, ciphertext.length);
 
-            byte[] key = Arrays.copyOfRange(ciphertext, 0, kem.getKeyBlockSize());
-            byte[] ct = Arrays.copyOfRange(ciphertext, kem.getKeyBlockSize(), ciphertext.length);
+        byte[] key = Arrays.copyOfRange(ciphertext, 0, kem.getKeyBlockSize());
+        byte[] ct = Arrays.copyOfRange(ciphertext, kem.getKeyBlockSize(), ciphertext.length);
 
-            return new byte[][]{key, ct};
-        } catch (InvalidCipherTextException e) {
-            e.printStackTrace();
-            fail(e.getMessage());
-        }
-        return null;
+        return new byte[][]{key, ct};
     }
 
     public CipherParameters keyGen(CipherParameters publicKey, CipherParameters masterSecretKey, DFA dfa) {
@@ -72,22 +65,15 @@ public class RLW12KEM {
     }
 
     public byte[] decaps(CipherParameters secretKey, byte[] ciphertext) {
-        try {
-            KeyEncapsulationMechanism kem = new RLW12KEMEngine();
+        KeyEncapsulationMechanism kem = new RLW12KEMEngine();
 
-            kem.init(false, secretKey);
-            byte[] key = kem.processBlock(ciphertext);
+        kem.init(false, secretKey);
+        byte[] key = kem.processBlock(ciphertext);
 
-            assertNotNull(key);
-            assertNotSame(0, key.length);
+        assertNotNull(key);
+        assertNotSame(0, key.length);
 
-            return key;
-        } catch (InvalidCipherTextException e) {
-            e.printStackTrace();
-            fail(e.getMessage());
-        }
-
-        return null;
+        return key;
     }
 
 

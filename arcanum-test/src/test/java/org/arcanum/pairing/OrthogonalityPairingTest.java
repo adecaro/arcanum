@@ -24,8 +24,8 @@ public class OrthogonalityPairingTest extends AbstractArcanumTest {
     @Parameterized.Parameters
     public static Collection parameters() {
         Object[][] data = {
-                {false, "it/unisa/dia/gas/plaf/arcanum/pairing/a1/a1_3primes.properties"},
-                {true, "it/unisa/dia/gas/plaf/arcanum/pairing/a1/a1_3primes.properties"},
+                {false, "org/arcanum/pairing/a1/a1_3primes.properties"},
+                {true, "org/arcanum/pairing/a1/a1_3primes.properties"},
         };
 
         return Arrays.asList(data);

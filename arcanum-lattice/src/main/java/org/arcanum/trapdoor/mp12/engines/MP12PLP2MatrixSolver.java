@@ -46,7 +46,7 @@ public class MP12PLP2MatrixSolver extends MP12PLP2Solver {
             final int finalI = i;
             pool.submit(new Runnable() {
                 public void run() {
-                    result.setColAt(finalI, MP12PLP2MatrixSolver.super.processElements(U.columnAt(finalI)));
+                    result.setColAt(finalI, MP12PLP2MatrixSolver.super.processElements(U.getColumnAt(finalI)));
                 }
             });
         }

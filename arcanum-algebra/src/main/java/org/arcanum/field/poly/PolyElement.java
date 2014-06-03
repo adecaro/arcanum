@@ -6,16 +6,24 @@ import org.arcanum.Polynomial;
 import org.arcanum.util.math.BigIntegerUtils;
 
 import java.math.BigInteger;
+import java.util.List;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
 public class PolyElement<E extends Element> extends AbstractPolyElement<E, PolyField> {
 
+
     public PolyElement(PolyField<Field> field) {
         super(field);
     }
 
+    public PolyElement(PolyField<Field> field, List<E> coefficients) {
+        super(field);
+
+        // TODO: should we duplicate??
+        this.coefficients = coefficients;
+    }
 
     public PolyField getField() {
         return field;
@@ -202,7 +210,7 @@ public class PolyElement<E extends Element> extends AbstractPolyElement<E, PolyF
 
         e0 = field.getTargetField().newElement();
         for (i = 0; i < n; i++) {
-            Element x = prod.getCoefficient(i);
+            Element x = prod.getAt(i);
             x.setToZero();
             for (j = 0; j <= i; j++) {
                 if (j < fcount && i - j < gcount) {
@@ -361,7 +369,7 @@ public class PolyElement<E extends Element> extends AbstractPolyElement<E, PolyF
 
         ensureSize(n);
         for (i = 0; i < n; i++) {
-            coefficients.get(i).set(polyModElement.getCoefficient(i));
+            coefficients.get(i).set(polyModElement.getAt(i));
         }
         removeLeadingZeroes();
 
@@ -435,7 +443,7 @@ public class PolyElement<E extends Element> extends AbstractPolyElement<E, PolyF
         final PolyElement g = getField().newElement();
 
         final PolyModElement x = rxmod.newElement();
-        x.getCoefficient(1).setToOne();
+        x.getAt(1).setToOne();
 
         final BigInteger deg = BigInteger.valueOf(getDegree());
 
@@ -499,7 +507,7 @@ public class PolyElement<E extends Element> extends AbstractPolyElement<E, PolyF
         BigInteger q = field.getTargetField().getOrder();
         PolyElement g = (PolyElement) field.newElement();
 
-        x.getCoefficient(1).setToOne();
+        x.getAt(1).setToOne();
 
         p.set(x).pow(q).sub(x);
         g.setFromPolyMod(p).gcd(this).makeMonic();
@@ -509,8 +517,8 @@ public class PolyElement<E extends Element> extends AbstractPolyElement<E, PolyF
         }
 
         // Use Cantor-Zassenhaus to find a root
-        PolyElement fac = (PolyElement) field.newElement();
-        PolyElement r = (PolyElement) field.newElement();
+        PolyElement fac = field.newElement();
+        PolyElement r = field.newElement();
         x = (PolyElement) field.newElement(1);
 
         q = q.subtract(BigInteger.ONE);
@@ -551,7 +559,7 @@ public class PolyElement<E extends Element> extends AbstractPolyElement<E, PolyF
             }
         }
 
-        return (E) g.getCoefficient(0).negate();
+        return (E) g.getAt(0).negate();
     }
 
 }

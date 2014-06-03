@@ -53,14 +53,14 @@ public class TypeFTateNoDenomMillerPairingMap extends AbstractMillerPairingMap {
 
 
     private void qPower(Polynomial element, Polynomial e1, Element e) {
-        e1.getCoefficient(0).set(element.getCoefficient(0));
-        e1.getCoefficient(1).set(element.getCoefficient(1).duplicate().mul(e));
+        e1.getAt(0).set(element.getAt(0));
+        e1.getAt(1).set(element.getAt(1).duplicate().mul(e));
 
         Element epow = e.duplicate().square();
-        e1.getCoefficient(2).set(element.getCoefficient(2).duplicate().mul(epow));
-        e1.getCoefficient(3).set(element.getCoefficient(3).duplicate().mul(epow.mul(e)));
-        e1.getCoefficient(4).set(element.getCoefficient(4).duplicate().mul(epow.mul(e)));
-        e1.getCoefficient(5).set(element.getCoefficient(5).duplicate().mul(epow.mul(e)));
+        e1.getAt(2).set(element.getAt(2).duplicate().mul(epow));
+        e1.getAt(3).set(element.getAt(3).duplicate().mul(epow.mul(e)));
+        e1.getAt(4).set(element.getAt(4).duplicate().mul(epow.mul(e)));
+        e1.getAt(5).set(element.getAt(5).duplicate().mul(epow.mul(e)));
     }
 
     protected Element pairing(Point P, Point Qx, Point Qy) {
@@ -132,19 +132,19 @@ public class TypeFTateNoDenomMillerPairingMap extends AbstractMillerPairingMap {
                                   Polynomial e0, Polynomial v,
                                   Element a, Element b, Element c,
                                   Element Qx, Element Qy) {
-        Point e2 = (Point) e0.getCoefficient(i);
-        Point e1 = (Point) v.getCoefficient(j).duplicate().mul(Qx);
+        Point e2 = (Point) e0.getAt(i);
+        Point e1 = (Point) v.getAt(j).duplicate().mul(Qx);
         if (flag == 1)
             e1.mul(pairingData.negAlpha);
         e1.getX().mul(a);
         e1.getY().mul(a);
-        e2.set(v.getCoefficient(k)).mul(Qy);
+        e2.set(v.getAt(k)).mul(Qy);
         e2.getX().mul(b);
         e2.getY().mul(b);
         e2.add(e1);
         if (flag == 2)
             e2.mul(pairingData.negAlpha);
-        e1.set(v.getCoefficient(i));
+        e1.set(v.getAt(i));
         e1.getX().mul(c);
         e1.getY().mul(c);
         e2.add(e1);

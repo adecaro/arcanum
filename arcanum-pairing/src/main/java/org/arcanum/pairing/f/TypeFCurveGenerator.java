@@ -87,9 +87,9 @@ public class TypeFCurveGenerator implements ParametersGenerator {
         // Call poly_set_coeff1() first so we can use element_item() for the other
         // coefficients.
         f.ensureSize(7);
-        f.getCoefficient(6).setToOne();
+        f.getAt(6).setToOne();
         for (; ;) {
-            f.getCoefficient(0).setToRandom();
+            f.getAt(0).setToRandom();
 
             if (f.isIrriducible())
                 break;
@@ -98,7 +98,7 @@ public class TypeFCurveGenerator implements ParametersGenerator {
         //extend F_q^2 using f = x^6 + alpha
         //see if sextic twist contains a subgroup of order r
         //if not, it's the wrong twist: replace alpha with alpha^5
-        e1 = Fq2.newElement().set(b).mul(f.getCoefficient(0)).negate();
+        e1 = Fq2.newElement().set(b).mul(f.getAt(0)).negate();
 
         Field curveField = new CurveField(random, e1, r, null);
         Element point = curveField.newRandomElement();
@@ -117,7 +117,7 @@ public class TypeFCurveGenerator implements ParametersGenerator {
         point.mul(z1);
         if (point.isZero()) {
             z0 = BigInteger.valueOf(5);
-            f.getCoefficient(0).pow(z0);
+            f.getAt(0).pow(z0);
         }
 
         // Store parameters
@@ -127,8 +127,8 @@ public class TypeFCurveGenerator implements ParametersGenerator {
         params.put("r", r.toString());
         params.put("b", b.toString());
         params.put("beta", beta.toString());
-        params.put("alpha0", f.getCoefficient(0).getX().toBigInteger().toString());
-        params.put("alpha1", f.getCoefficient(0).getY().toBigInteger().toString());
+        params.put("alpha0", f.getAt(0).getX().toBigInteger().toString());
+        params.put("alpha1", f.getAt(0).getY().toBigInteger().toString());
 
         return params;
     }

@@ -14,6 +14,7 @@ import org.arcanum.util.math.BigIntegerUtils;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -91,11 +92,11 @@ public class TypeGPairing extends AbstractPairing {
         // Init polymod
         // First set the coefficient of x^5 to 1 so we can call element_item()
         // for the other coefficients.
-        PolyElement irreduciblePoly = (PolyElement) Fqx.newElement();
-        List<Element> irreduciblePolyCoeff = irreduciblePoly.getCoefficients();
+        List<Element> irreduciblePolyCoeff = new ArrayList<Element>();
         for (int i = 0; i < 5; i++)
             irreduciblePolyCoeff.add(Fq.newElement().set(curveParams.getBigIntegerAt("coeff", i)));
         irreduciblePolyCoeff.add(Fq.newOneElement());
+        PolyElement irreduciblePoly = (PolyElement) Fqx.newElement(irreduciblePolyCoeff);
 
         // init Fq12
         Fqd = initPolyMod(irreduciblePoly);
@@ -129,7 +130,7 @@ public class TypeGPairing extends AbstractPairing {
 
         // Compute xPowq's
         xPowq = Fqd.newElement();
-        xPowq.getCoefficient(1).setToOne();
+        xPowq.getAt(1).setToOne();
         xPowq.pow(q);
         xPowq2 = xPowq.duplicate().square();
         xPowq4 = xPowq2.duplicate().square();
@@ -154,7 +155,7 @@ public class TypeGPairing extends AbstractPairing {
     }
 
     protected PolyField initPoly() {
-        return new PolyField(random, Fq);
+        return new PolyField<Field>(random, Fq);
     }
 
     protected PolyModField initPolyMod(PolyElement irred) {

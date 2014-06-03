@@ -10,7 +10,6 @@ import org.arcanum.fe.abe.bns14.params.*;
 import org.arcanum.kem.KeyEncapsulationMechanism;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.CipherParameters;
-import org.bouncycastle.crypto.InvalidCipherTextException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,7 +46,7 @@ public class BNS14KEMEngineTest {
 //        int depth = 2;
 
         AsymmetricCipherKeyPair keyPair = setup(ell, depth);
-        Field Zq = ((BNS14PublicKeyParameters)keyPair.getPublic()).getLatticePk().getZq();
+        Field Zq = ((BNS14PublicKeyParameters) keyPair.getPublic()).getLatticePk().getZq();
 
         // Key Gen
         ArithmeticCircuit circuit = new ArithmeticCircuit(ell, q, depth, new ArithmeticCircuitGate[]{
@@ -56,10 +55,10 @@ public class BNS14KEMEngineTest {
                 new ArithmeticCircuitGate(INPUT, 2, 1),
                 new ArithmeticCircuitGate(INPUT, 3, 1),
 
-                new ArithmeticCircuitGate(AND, 4, 2, new int[]{0, 1}, Zq.newOneElement(),Zq.newOneElement()),
-                new ArithmeticCircuitGate(OR, 5, 2, new int[]{2, 3}, Zq.newOneElement(),Zq.newOneElement()),
+                new ArithmeticCircuitGate(AND, 4, 2, new int[]{0, 1}, Zq.newOneElement(), Zq.newOneElement()),
+                new ArithmeticCircuitGate(OR, 5, 2, new int[]{2, 3}, Zq.newOneElement(), Zq.newOneElement()),
 
-                new ArithmeticCircuitGate(OR, 6, 3, new int[]{4, 5}, Zq.newOneElement(),Zq.newOneElement()),
+                new ArithmeticCircuitGate(OR, 6, 3, new int[]{4, 5}, Zq.newOneElement(), Zq.newOneElement()),
         });
 
 //        ArithmeticCircuit circuit = new ArithmeticCircuit(ell, q, depth, new ArithmeticCircuitGate[]{
@@ -92,13 +91,14 @@ public class BNS14KEMEngineTest {
 
 
     protected AsymmetricCipherKeyPair setup(int ell, int depth) {
-        BNS14KeyPairGenerator setup = new BNS14KeyPairGenerator();
-        setup.init(new BNS14KeyPairGenerationParameters(
-            random,
-            new BNS14ParametersGenerator(random, ell, depth).generateParameters())
+        BNS14KeyPairGenerator gen = new BNS14KeyPairGenerator();
+        gen.init(
+                new BNS14KeyPairGenerationParameters(
+                        random,
+                        new BNS14ParametersGenerator(random, ell, depth).generateParameters()
+                )
         );
-
-        return setup.generateKeyPair();
+        return gen.generateKeyPair();
     }
 
     protected Element[] toElement(Field Zq, String assignment, int ell) {
@@ -113,56 +113,32 @@ public class BNS14KEMEngineTest {
     }
 
     protected byte[][] encaps(CipherParameters publicKey, Element[] w) {
-        try {
-            KeyEncapsulationMechanism kem = new BNS14KEMEngine();
-            kem.init(true, new BNS14EncryptionParameters((BNS14PublicKeyParameters) publicKey, w));
+        KeyEncapsulationMechanism kem = new BNS14KEMEngine();
+        kem.init(true, new BNS14EncryptionParameters((BNS14PublicKeyParameters) publicKey, w));
 
-            byte[] ciphertext = kem.process();
+        byte[] ciphertext = kem.process();
 
-            assertNotNull(ciphertext);
-            assertNotSame(0, ciphertext.length);
+        assertNotNull(ciphertext);
+        assertNotSame(0, ciphertext.length);
 
-            byte[] key = Arrays.copyOfRange(ciphertext, 0, kem.getKeyBlockSize());
-            byte[] ct = Arrays.copyOfRange(ciphertext, kem.getKeyBlockSize(), ciphertext.length);
+        byte[] key = Arrays.copyOfRange(ciphertext, 0, kem.getKeyBlockSize());
+        byte[] ct = Arrays.copyOfRange(ciphertext, kem.getKeyBlockSize(), ciphertext.length);
 
-            return new byte[][]{key, ct};
-        } catch (InvalidCipherTextException e) {
-            e.printStackTrace();
-            fail(e.getMessage());
-        }
-        return null;
+        return new byte[][]{key, ct};
     }
 
     protected CipherParameters keyGen(CipherParameters publicKey, CipherParameters masterSecretKey, ArithmeticCircuit circuit) {
-        // Init the Generator
-        BNS14SecretKeyGenerator keyGen = new BNS14SecretKeyGenerator();
-        keyGen.init(new BNS14SecretKeyGenerationParameters(
-                (BNS14PublicKeyParameters) publicKey,
-                (BNS14MasterSecretKeyParameters) masterSecretKey,
-                circuit
-        ));
-
-        // Generate the key
-        return keyGen.generateKey();
+        return new BNS14SecretKeyGenerator().init(
+                new BNS14SecretKeyGenerationParameters(
+                        (BNS14PublicKeyParameters) publicKey,
+                        (BNS14MasterSecretKeyParameters) masterSecretKey,
+                        circuit
+                )
+        ).generateKey();
     }
 
     protected byte[] decaps(CipherParameters secretKey, byte[] ciphertext) {
-        try {
-            KeyEncapsulationMechanism kem = new BNS14KEMEngine();
-
-            kem.init(false, secretKey);
-            byte[] key = kem.processBlock(ciphertext);
-
-            assertNotNull(key);
-            assertNotSame(0, key.length);
-
-            return key;
-        } catch (InvalidCipherTextException e) {
-            e.printStackTrace();
-            fail(e.getMessage());
-        }
-
-        return null;
+        return new BNS14KEMEngine().initForDecryption(secretKey).processBlock(ciphertext);
     }
 
 }

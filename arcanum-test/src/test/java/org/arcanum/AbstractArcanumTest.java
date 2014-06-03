@@ -23,18 +23,18 @@ public abstract class AbstractArcanumTest {
     @Parameterized.Parameters
     public static Collection parameters() {
         Object[][] data = {
-                {false, "or/arcanum/pairing/a/a_181_603.properties"},
-                {false, "or/arcanum/pairing/a1/a1_3primes.properties"},
-                {false, "or/arcanum/pairing/d/d_9563.properties"},
-                {false, "or/arcanum/pairing/e/e.properties"},
-                {false, "or/arcanum/pairing/f/f.properties"},
-                {false, "or/arcanum/pairing/g/g149.properties"},
-                {true, "or/arcanum/pairing/a/a_181_603.properties"},
-                {true, "or/arcanum/pairing/a1/a1_3primes.properties"},
-                {true, "or/arcanum/pairing/d/d_9563.properties"},
-                {true, "or/arcanum/pairing/e/e.properties"},
-                {true, "or/arcanum/pairing/f/f.properties"},
-                {true, "or/arcanum/pairing/g/g149.properties"}
+                {false, "org/arcanum/pairing/a/a_181_603.properties"},
+                {false, "org/arcanum/pairing/a1/a1_3primes.properties"},
+                {false, "org/arcanum/pairing/d/d_9563.properties"},
+                {false, "org/arcanum/pairing/e/e.properties"},
+                {false, "org/arcanum/pairing/f/f.properties"},
+                {false, "org/arcanum/pairing/g/g149.properties"},
+                {true, "org/arcanum/pairing/a/a_181_603.properties"},
+                {true, "org/arcanum/pairing/a1/a1_3primes.properties"},
+                {true, "org/arcanum/pairing/d/d_9563.properties"},
+                {true, "org/arcanum/pairing/e/e.properties"},
+                {true, "org/arcanum/pairing/f/f.properties"},
+                {true, "org/arcanum/pairing/g/g149.properties"}
         };
 
         return Arrays.asList(data);

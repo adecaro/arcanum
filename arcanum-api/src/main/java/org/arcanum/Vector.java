@@ -12,6 +12,9 @@ package org.arcanum;
  */
 public interface Vector<E extends Element> extends Element {
 
+
+    Field getTargetField();
+
     /**
      * Returns the size of this vector.
      *
@@ -28,6 +31,9 @@ public interface Vector<E extends Element> extends Element {
      * @since 1.0.0
      */
     E getAt(int index);
+
+
+    Vector<E> setAt(int index, E element);
 
     /**
      *
@@ -60,5 +66,4 @@ public interface Vector<E extends Element> extends Element {
      * @since 1.0.0
      */
     Vector<E> subVectorFrom(int start);
-
 }

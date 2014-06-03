@@ -9,13 +9,13 @@ public class PolyUtils {
 
 
     public static PolyElement constMul(Element a, PolyElement poly) {
-        int n = poly.getCoefficients().size();
+        int n = poly.getSize();
 
         PolyElement res = poly.getField().newElement();
         res.ensureSize(n);
 
         for (int i = 0; i < n; i++) {
-            res.getCoefficient(i).set(a).mul(poly.getCoefficient(i));
+            res.getAt(i).set(a).mul(poly.getAt(i));
         }
         res.removeLeadingZeroes();
 
@@ -43,15 +43,15 @@ public class PolyUtils {
         q.ensureSize(k + 1);
 
         Element temp = a.getField().getTargetField().newElement();
-        Element bn = b.getCoefficient(n).duplicate().invert();
+        Element bn = b.getAt(n).duplicate().invert();
 
         while (k >= 0) {
-            Element qk = q.getCoefficient(k);
-            qk.set(bn).mul(r.getCoefficient(m));
+            Element qk = q.getAt(k);
+            qk.set(bn).mul(r.getAt(m));
 
             for (int i = 0; i <= n; i++) {
-                temp.set(qk).mul(b.getCoefficient(i));
-                r.getCoefficient(i + k).sub(temp);
+                temp.set(qk).mul(b.getAt(i));
+                r.getAt(i + k).sub(temp);
             }
             k--; m--;
         }
@@ -81,15 +81,15 @@ public class PolyUtils {
         q.ensureSize(k + 1);
 
         Element temp = a.getField().getTargetField().newElement();
-        Element bn = b.getCoefficient(n).duplicate().invert();
+        Element bn = b.getAt(n).duplicate().invert();
 
         while (k >= 0) {
-            Element qk = q.getCoefficient(k);
-            qk.set(bn).mul(r.getCoefficient(m));
+            Element qk = q.getAt(k);
+            qk.set(bn).mul(r.getAt(m));
 
             for (int i = 0; i <= n; i++) {
-                temp.set(qk).mul(b.getCoefficient(i));
-                r.getCoefficient(i + k).sub(temp);
+                temp.set(qk).mul(b.getAt(i));
+                r.getAt(i + k).sub(temp);
             }
             k--; m--;
         }

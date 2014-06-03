@@ -46,14 +46,14 @@ public class MP12HLP2MatrixSampler extends MP12HLP2Sampler {
             final int finalI = i;
             pool.submit(new Runnable() {
                 public void run() {
-                    result.setColAt(finalI, MP12HLP2MatrixSampler.super.processElements(U.columnAt(finalI)));
+                    result.setColAt(finalI, MP12HLP2MatrixSampler.super.processElements(U.getColumnAt(finalI)));
                 }
             });
         }
         pool.awaitTermination();
 
 //        for (int i = 0, length = result.getN(); i < length; i++) {
-//            result.setColAt(i, super.processElements(U.columnAt(i)));
+//            result.setColAt(i, super.processElements(U.getColumnAt(i)));
 //        }
 
 

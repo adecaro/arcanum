@@ -96,7 +96,7 @@ public class MP12HLP2Test {
 
         Matrix U1 = (Matrix) U.getField().newElement();
         for (int i = 0; i < pk.getM(); i++) {
-            Element sample = R0.columnAt(i);
+            Element sample = R0.getColumnAt(i);
 //            System.out.println("sample = " + sample);
             Element u = decoder.processElements(sample);
 //            System.out.println("u = " + u);

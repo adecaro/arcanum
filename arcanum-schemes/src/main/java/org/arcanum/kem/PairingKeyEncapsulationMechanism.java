@@ -1,6 +1,7 @@
 package org.arcanum.kem;
 
 import org.arcanum.cipher.PairingAsymmetricBlockCipher;
+import org.bouncycastle.crypto.CipherParameters;
 import org.bouncycastle.crypto.InvalidCipherTextException;
 
 /**
@@ -13,9 +14,38 @@ public abstract class PairingKeyEncapsulationMechanism extends PairingAsymmetric
 
     protected int keyBytes = 0;
 
+    public KeyEncapsulationMechanism initForEncryption(CipherParameters param) {
+        init(true, param);
+
+        return this;
+    }
+
+    public KeyEncapsulationMechanism initForDecryption(CipherParameters param) {
+        init(false, param);
+
+        return this;
+    }
+
     public int getKeyBlockSize() {
         return keyBytes;
     }
+
+    public byte[] processBlock(byte[] in)  {
+        try {
+            return processBlock(in, 0, in.length);
+        } catch (InvalidCipherTextException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public byte[] process()  {
+        try {
+            return processBlock(EMPTY, 0, 0);
+        } catch (InvalidCipherTextException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public int getInputBlockSize() {
         if (forEncryption)
@@ -31,13 +61,5 @@ public abstract class PairingKeyEncapsulationMechanism extends PairingAsymmetric
         return keyBytes;
     }
 
-
-    public byte[] processBlock(byte[] in) throws InvalidCipherTextException {
-        return processBlock(in, 0, in.length);
-    }
-
-    public byte[] process() throws InvalidCipherTextException {
-        return processBlock(EMPTY, 0, 0);
-    }
 
 }

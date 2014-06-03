@@ -3,13 +3,12 @@ package org.arcanum.pairing.g;
 import org.arcanum.Element;
 import org.arcanum.Point;
 import org.arcanum.Polynomial;
+import org.arcanum.Vector;
 import org.arcanum.field.curve.CurveField;
 import org.arcanum.field.gt.GTFiniteElement;
 import org.arcanum.field.gt.GTFiniteField;
 import org.arcanum.field.poly.PolyModElement;
 import org.arcanum.pairing.map.AbstractMillerPairingMap;
-
-import java.util.List;
 
 public class TypeGTateAffineNoDenomMillerPairingMap extends AbstractMillerPairingMap<Polynomial> {
     protected TypeGPairing pairing;
@@ -77,12 +76,12 @@ public class TypeGTateAffineNoDenomMillerPairingMap extends AbstractMillerPairin
         Polynomial e0re = e0.getX();
         Polynomial e0im = e0.getY();
 
-        Element e0re0 = e0re.getCoefficient(0);
-        Element e0im0 = e0im.getCoefficient(0);
+        Element e0re0 = e0re.getAt(0);
+        Element e0im0 = e0im.getAt(0);
 
         Point<Polynomial> in = (Point<Polynomial>) element;
-        List<Element> inre = in.getX().getCoefficients();
-        List<Element> inmi = in.getY().getCoefficients();
+        Vector<Element> inre = in.getX();
+        Vector<Element> inmi = in.getY();
 
         qPower(1, e2, e0re, e0im, e0re0, e0im0, inre, inmi);
         e3.set(e0);
@@ -100,38 +99,38 @@ public class TypeGTateAffineNoDenomMillerPairingMap extends AbstractMillerPairin
 
     final void qPower(int sign, PolyModElement e2,
                       Element e0re, Element e0im, Element e0re0, Element e0im0,
-                      List<Element> inre, List<Element> inim) {
-        e2.set(pairing.xPowq).polymodConstMul(inre.get(1));
+                      Vector<Element> inre, Vector<Element> inim) {
+        e2.set(pairing.xPowq).polymodConstMul(inre.getAt(1));
         e0re.set(e2);
-        e2.set(pairing.xPowq2).polymodConstMul(inre.get(2));
+        e2.set(pairing.xPowq2).polymodConstMul(inre.getAt(2));
         e0re.add(e2);
-        e2.set(pairing.xPowq3).polymodConstMul(inre.get(3));
+        e2.set(pairing.xPowq3).polymodConstMul(inre.getAt(3));
         e0re.add(e2);
-        e2.set(pairing.xPowq4).polymodConstMul(inre.get(4));
+        e2.set(pairing.xPowq4).polymodConstMul(inre.getAt(4));
         e0re.add(e2);
-        e0re0.add(inre.get(0));
+        e0re0.add(inre.getAt(0));
 
         if (sign > 0) {
-            e2.set(pairing.xPowq).polymodConstMul(inim.get(1));
+            e2.set(pairing.xPowq).polymodConstMul(inim.getAt(1));
             e0im.set(e2);
-            e2.set(pairing.xPowq2).polymodConstMul(inim.get(2));
+            e2.set(pairing.xPowq2).polymodConstMul(inim.getAt(2));
             e0im.add(e2);
-            e2.set(pairing.xPowq3).polymodConstMul(inim.get(3));
+            e2.set(pairing.xPowq3).polymodConstMul(inim.getAt(3));
             e0im.add(e2);
-            e2.set(pairing.xPowq4).polymodConstMul(inim.get(4));
+            e2.set(pairing.xPowq4).polymodConstMul(inim.getAt(4));
             e0im.add(e2);
 
-            e0im0.add(inim.get(0));
+            e0im0.add(inim.getAt(0));
         } else {
-            e2.set(pairing.xPowq).polymodConstMul(inim.get(1));
+            e2.set(pairing.xPowq).polymodConstMul(inim.getAt(1));
             e0im.set(e2).negate();
-            e2.set(pairing.xPowq2).polymodConstMul(inim.get(2));
+            e2.set(pairing.xPowq2).polymodConstMul(inim.getAt(2));
             e0im.sub(e2);
-            e2.set(pairing.xPowq3).polymodConstMul(inim.get(3));
+            e2.set(pairing.xPowq3).polymodConstMul(inim.getAt(3));
             e0im.sub(e2);
-            e2.set(pairing.xPowq4).polymodConstMul(inim.get(4));
+            e2.set(pairing.xPowq4).polymodConstMul(inim.getAt(4));
             e0im.sub(e2);
-            e0im0.sub(inim.get(0));
+            e0im0.sub(inim.getAt(0));
         }
     }
 
@@ -181,11 +180,11 @@ public class TypeGTateAffineNoDenomMillerPairingMap extends AbstractMillerPairin
         //int d = rePart.getField().getN();
         int d = rePart.getDegree();
         for (i = 0; i < d; i++) {
-            rePart.getCoefficient(i).set(Qx.getCoefficient(i)).mul(a);
-            imPart.getCoefficient(i).set(Qy.getCoefficient(i)).mul(b);
+            rePart.getAt(i).set(Qx.getAt(i)).mul(a);
+            imPart.getAt(i).set(Qy.getAt(i)).mul(b);
         }
 
-        rePart.getCoefficient(0).add(c);
+        rePart.getAt(0).add(c);
     }
 
 }

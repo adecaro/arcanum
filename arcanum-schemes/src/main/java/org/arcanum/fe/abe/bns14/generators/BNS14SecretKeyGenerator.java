@@ -24,10 +24,12 @@ public class BNS14SecretKeyGenerator {
 
     private ArithmeticCircuit circuit;
 
-    public void init(KeyGenerationParameters param) {
+    public BNS14SecretKeyGenerator init(KeyGenerationParameters param) {
         this.param = (BNS14SecretKeyGenerationParameters) param;
 
         this.circuit = this.param.getCircuit();
+
+        return this;
     }
 
     public CipherParameters generateKey() {

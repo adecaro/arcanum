@@ -23,8 +23,8 @@ public abstract class AbstractArcanumCryptoTest {
     @Parameterized.Parameters
     public static Collection parameters() {
         Object[][] data = {
-                {false, "it/unisa/dia/gas/plaf/arcanum/crypto/a_181_603.properties"},
-                {true, "it/unisa/dia/gas/plaf/arcanum/crypto/a_181_603.properties"},
+                {false, "org/arcanum/params/a_181_603.properties"},
+                {true, "org/arcanum/params/a_181_603.properties"},
         };
 
         return Arrays.asList(data);
