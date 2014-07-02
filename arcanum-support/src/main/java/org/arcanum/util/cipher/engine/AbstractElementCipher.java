@@ -25,6 +25,10 @@ public class AbstractElementCipher implements ElementCipher {
         throw new IllegalStateException("Not implemented yet!!!");
     }
 
+    public Element processElementsTo(Element to, Element... input) {
+        throw new IllegalStateException("Not implemented yet!!!");
+    }
+
     public byte[] processElementsToBytes(Element... input) {
         throw new IllegalStateException("Not implemented yet!!!");
     }

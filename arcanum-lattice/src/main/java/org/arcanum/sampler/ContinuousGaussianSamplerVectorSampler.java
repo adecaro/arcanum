@@ -6,6 +6,7 @@ import org.arcanum.Vector;
 import org.arcanum.field.floating.FloatingElement;
 import org.arcanum.field.floating.FloatingField;
 import org.arcanum.field.vector.VectorField;
+import org.arcanum.util.concurrent.ThreadSecureRandom;
 
 import java.security.SecureRandom;
 
@@ -37,6 +38,8 @@ public class ContinuousGaussianSamplerVectorSampler implements Sampler<Vector> {
 
 
     public Vector sample() {
+        SecureRandom random = ThreadSecureRandom.get();
+
         Vector<FloatingElement> v = vf.newElement();
 
         for (int i = 0; i < n; i++)

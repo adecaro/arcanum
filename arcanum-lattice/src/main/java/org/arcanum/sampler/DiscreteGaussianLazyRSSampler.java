@@ -3,6 +3,7 @@ package org.arcanum.sampler;
 import org.apfloat.Apfloat;
 import org.arcanum.field.util.DoubleUtils;
 import org.arcanum.trapdoor.mp12.utils.MP12P2Utils;
+import org.arcanum.util.concurrent.ThreadSecureRandom;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -78,6 +79,8 @@ public class DiscreteGaussianLazyRSSampler implements GaussianSampler<BigInteger
     }
 
     public BigInteger sample(Apfloat c) {
+        SecureRandom random = ThreadSecureRandom.get();
+
         double center = c.doubleValue();
         int interval = (int) (Math.ceil(center + sigmaTau) -  Math.floor(center - sigmaTau)) + 1;
         int left = (int) Math.floor(center - sigmaTau);

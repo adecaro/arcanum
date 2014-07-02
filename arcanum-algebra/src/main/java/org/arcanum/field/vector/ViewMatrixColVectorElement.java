@@ -10,32 +10,32 @@ import org.arcanum.field.base.AbstractVectorField;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class ViewMatrixRowVectorElement<E extends Element> extends AbstractVectorElement<E, AbstractVectorField> {
+public class ViewMatrixColVectorElement<E extends Element> extends AbstractVectorElement<E, AbstractVectorField> {
 
     protected final Matrix base;
-    protected final int row;
+    protected final int col;
 
-    public ViewMatrixRowVectorElement(AbstractMatrixField field, Matrix base, int row) {
-        super(new VectorField<Field>(field.getRandom(), field.getTargetField(), field.getM()));
+    public ViewMatrixColVectorElement(AbstractMatrixField field, Matrix base, int col) {
+        super(new VectorField<Field>(field.getRandom(), field.getTargetField(), field.getN()));
 
         this.base = base;
-        this.row = row;
+        this.col = col;
     }
 
     public int getSize() {
-        return base.getM();
+        return base.getN();
     }
 
     public E getAt(int index) {
-        return (E) base.getAt(row, index);
+        return (E) base.getAt(index, col);
     }
 
     public boolean isZeroAt(int index) {
-        return base.isZeroAt(row, index);
+        return base.isZeroAt(index, col);
     }
 
     public Vector<E> setAt(int index, E element) {
-        base.setAt(row, index, element);
+        base.setAt(index, col, element);
 
         return this;
     }

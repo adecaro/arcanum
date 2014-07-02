@@ -244,14 +244,13 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
                 executor.submit(new Runnable() {
                     public void run() {
                         // column \times row
-                        Element temp = field.getTargetField().newElement();
+                        Element temp = r.getAt(finalI);
                         for (int k = 0; k < field.n; k++) {
                             if (isZeroAt(k, finalI))
                                 continue;
 
                             temp.add(getAt(k, finalI).duplicate().mul(ve.getAt(k)));
                         }
-                        r.getAt(finalI).set(temp);
                     }
                 });
             }
@@ -302,14 +301,12 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
         for (int i = 0; i < field.n; i++) {
 
             for (int j = 0; j < field.n; j++) {
-                Element temp = field.getTargetField().newZeroElement();
+                Element temp = result.getAt(i, j);
 
                 for (int k = 0; k < field.m; k++) {
                     if (!isZeroAt(i, k))
                         temp.add(getAt(i, k).duplicate().mul(getAt(j, k)));
                 }
-
-                result.getAt(i, j).set(temp);
             }
         }
 
@@ -340,14 +337,13 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
                             executor.submit(new Runnable() {
                                 public void run() {
                                     for (int j = 0; j < 1; j++) {
-                                        Element temp = field.getTargetField().newElement();
+                                        Element temp = r.getAt(finalI).setToZero();
                                         for (int k = 0; k < field.m; k++) {
                                             if (isZeroAt(finalI, k))
                                                 continue;
 
                                             temp.add(getAt(finalI, k).duplicate().mul(ve.getAt(k)));
                                         }
-                                        r.getAt(finalI).set(temp);
                                     }
                                 }
                             });
@@ -368,14 +364,13 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
                             executor.submit(new Runnable() {
                                 public void run() {
                                     // column \times row
-                                    Element temp = field.getTargetField().newElement();
+                                    Element temp = r.getAt(finalI).setToZero();
                                     for (int k = 0; k < field.n; k++) {
                                         if (isZeroAt(k, finalI))
                                             continue;
 
                                         temp.add(getAt(k, finalI).duplicate().mul(ve.getAt(k)));
                                     }
-                                    r.getAt(finalI).set(temp);
                                 }
                             });
                         }
@@ -413,6 +408,10 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
 
     public Vector<E> getRowViewAt(int row) {
         return new ViewMatrixRowVectorElement<E>(field, this, row);
+    }
+
+    public Vector<E> getViewColAt(int col) {
+        return new ViewMatrixColVectorElement<E>(field, this, col);
     }
 
     public String rowsToString(int startRow, int startCol) {
@@ -692,14 +691,13 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
                             executor.submit(new Runnable() {
                                 public void run() {
                                     for (int j = 0; j < 1; j++) {
-                                        Element temp = field.getTargetField().newElement();
+                                        Element temp = r.getAt(finalI);
                                         for (int k = 0; k < field.m; k++) {
                                             if (isZeroAt(finalI, k))
                                                 continue;
 
                                             temp.add(getAt(finalI, k).duplicate().mul(ve.getAt(k)));
                                         }
-                                        r.getAt(finalI).set(temp);
                                     }
                                 }
                             });
@@ -721,14 +719,13 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
                             executor.submit(new Runnable() {
                                 public void run() {
                                     // column \times row
-                                    Element temp = field.getTargetField().newElement();
+                                    Element temp = r.getAt(finalI);
                                     for (int k = 0; k < field.n; k++) {
                                         if (isZeroAt(k, finalI))
                                             continue;
 
                                         temp.add(getAt(k, finalI).duplicate().mul(ve.getAt(k)));
                                     }
-                                    r.getAt(finalI).set(temp);
                                 }
                             });
                         }
@@ -753,15 +750,17 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
                     executor.submit(new Runnable() {
                         public void run() {
                             // row \times column
+                            Element temp = r.getTargetField().newElement();
+
                             for (int j = 0; j < f.m; j++) {
-                                Element temp = field.getTargetField().newElement();
+                                Element target = r.getAt(finalI, j);
 
                                 for (int k = 0; k < field.m; k++) {
                                     if (isZeroAt(finalI, k))
                                         continue;
-                                    temp.add(getAt(finalI, k).duplicate().mul(me.getAt(k, j)));
+
+                                    target.add(temp.set(getAt(finalI, k)).mul(me.getAt(k, j)));
                                 }
-                                r.getAt(finalI, j).set(temp);
                             }
                         }
                     });

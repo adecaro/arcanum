@@ -53,6 +53,10 @@ public class VectorElement<E extends Element> extends AbstractVectorElement<E, A
         return coeff.get(index);
     }
 
+    public boolean isZeroAt(int index) {
+        return coeff.get(index).isZero();
+    }
+
     public Vector<E> setAt(int index, E element) {
         coeff.get(index).set(element);
 

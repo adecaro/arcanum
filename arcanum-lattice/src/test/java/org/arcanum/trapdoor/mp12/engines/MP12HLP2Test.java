@@ -7,6 +7,7 @@ import org.arcanum.Matrix;
 import org.arcanum.field.vector.MatrixField;
 import org.arcanum.field.vector.VectorField;
 import org.arcanum.trapdoor.mp12.generators.MP12HLP2KeyPairGenerator;
+import org.arcanum.trapdoor.mp12.generators.MP12PLP2KeyPairGenerator;
 import org.arcanum.trapdoor.mp12.params.*;
 import org.arcanum.util.cipher.params.ElementKeyPairParameters;
 import org.junit.Assert;
@@ -24,6 +25,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class MP12HLP2Test {
 
+    int k = 32;
     private MP12HLP2KeyPairGenerator gen;
     private ElementKeyPairParameters keyPair;
     private MP12HLP2PublicKeyParameters pk;
@@ -191,4 +193,38 @@ public class MP12HLP2Test {
 
         assertTrue(U.equals(UPrime));
     }
+
+    @Test
+    public void testTemp() throws Exception {
+        Matrix U = (Matrix) pk.getA().getField().newRandomElement();
+
+        // Sample
+        MP12PLP2KeyPairGenerator primitiveGen = new MP12PLP2KeyPairGenerator();
+        primitiveGen.init(new MP12PLP2KeyPairGenerationParameters(
+                pk.getParameters().getRandom(),
+                pk.getParameters().getN(),
+                k,
+                pk.getM() - (pk.getParameters().getN() * 32)
+        ));
+        ElementKeyPairParameters primitiveKeyPair = primitiveGen.generateKeyPair();
+        MP12PLP2PublicKeyParameters primitiveLatticePk = (MP12PLP2PublicKeyParameters) primitiveKeyPair.getPublic();
+        MP12PLP2MatrixSolver solver = new MP12PLP2MatrixSolver();
+        solver.init(primitiveLatticePk);
+        Matrix Udec = (Matrix) solver.processElements(U);
+        System.out.println("Udec = " + Udec);
+
+
+        MP12HLP2MatrixSampler sampleD = new MP12HLP2MatrixSampler();
+        sampleD.init(new MP12HLP2SampleParameters(keyPair.getPublic(), keyPair.getPrivate()));
+        Matrix R0 = (Matrix) sampleD.processElements(Udec);
+
+
+
+        Element U2 = pk.getA().mul(R0);
+
+        assertEquals(U, U2);
+    }
+
+
+
 }

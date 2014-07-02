@@ -5,6 +5,7 @@ import org.apfloat.ApfloatMath;
 import org.apfloat.Apint;
 import org.arcanum.Sampler;
 import org.arcanum.field.floating.ApfloatUtils;
+import org.arcanum.util.concurrent.ThreadSecureRandom;
 import org.arcanum.util.math.BigIntegerUtils;
 
 import java.io.*;
@@ -45,6 +46,8 @@ public class DiscreteGaussianCDTSampler implements Sampler<BigInteger> {
     }
 
     public BigInteger sample() {
+        SecureRandom random = ThreadSecureRandom.get();
+
         // TODO: avoid to use nextBoolean
         int r0 = random.nextInt(256);
 

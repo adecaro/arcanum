@@ -89,4 +89,8 @@ public abstract class AbstractPointElement<E extends Element, F extends Abstract
     public Vector<E> setZeroAt(int index) {
         throw new IllegalStateException("Not Implemented yet!");
     }
+
+    public boolean isZeroAt(int index) {
+        throw new IllegalStateException("Not Implemented yet!");
+    }
 }

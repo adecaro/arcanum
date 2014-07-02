@@ -23,6 +23,9 @@ public interface Vector<E extends Element> extends Element {
      */
     int getSize();
 
+    boolean isZeroAt(int index);
+
+
     /**
      * Returns the element at the specified coordinate.
      *
@@ -66,4 +69,5 @@ public interface Vector<E extends Element> extends Element {
      * @since 1.0.0
      */
     Vector<E> subVectorFrom(int start);
+
 }

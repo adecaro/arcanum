@@ -46,7 +46,10 @@ public class MP12PLP2MatrixSampler extends MP12PLP2Sampler {
             final int finalI = i;
             pool.submit(new Runnable() {
                 public void run() {
-                    result.setColAt(finalI, MP12PLP2MatrixSampler.super.processElements(U.getColumnAt(finalI)));
+                    MP12PLP2MatrixSampler.super.processElementsTo(
+                            result.getViewColAt(finalI),
+                            U.getViewColAt(finalI)
+                    );
                 }
             });
         }

@@ -34,7 +34,6 @@ public class VectorField<F extends Field> extends AbstractVectorField<F, VectorE
     }
 
 
-
     public VectorField<F> newField(int n) {
         return new VectorField<F>(random, targetField, n);
     }

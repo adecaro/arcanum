@@ -114,7 +114,6 @@ public abstract class AbstractElement<F extends AbstractField> implements Elemen
         return add(this);
     }
 
-    @Override
     public boolean equals(Object obj) {
         return obj instanceof Element && isEqual((Element) obj);
     }

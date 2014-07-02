@@ -62,16 +62,43 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
         return r;
     }
 
+    public Element processElementsTo(Element to, Element... input) {
+        Vector syndrome = (Vector) input[0];
+        if (syndrome.getSize() != n)
+            throw new IllegalArgumentException("Invalid syndrome length.");
+
+        Vector r = (Vector) to;
+
+        for (int i = 0, base = 0; i < n; i++) {
+
+            BigInteger u = (syndrome.isZeroAt(i)) ? BigInteger.ZERO : syndrome.getAt(i).toBigInteger();
+
+            for (int j = 0; j < k; j++) {
+                BigInteger xj = sampleZ(u);
+                r.getAt(base + j).set(xj);
+
+                u  = u.subtract(xj).shiftRight(1);
+            }
+
+            base += k;
+        }
+
+        return r;
+    }
+
+
+
     private BigInteger sampleZ(BigInteger u) {
         boolean uLSB = u.testBit(0);
 
-        BigInteger value;
-        if (uLSB)
-            value = one.poll();
-        else
-            value = zero.poll();
+        // TODO: store cache??
+        BigInteger value = null;
+//        if (uLSB)
+//            value = one.poll();
+//        else
+//            value = zero.poll();
 
-        if (value == null) {
+//        if (value == null) {
             while (true) {
                 BigInteger x = sampler.sample();
                 boolean xLSB = x.testBit(0);
@@ -79,13 +106,13 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
                     value = x;
                     break;
                 } else {
-                    if (xLSB)
-                        one.add(x);
-                    else
-                        zero.add(x);
+//                    if (xLSB)
+//                        one.add(x);
+//                    else
+//                        zero.add(x);
                 }
             }
-        }
+//        }
 
         return value;
     }

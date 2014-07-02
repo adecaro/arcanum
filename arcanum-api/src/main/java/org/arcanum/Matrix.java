@@ -73,6 +73,8 @@ public interface Matrix <E extends Element> extends Element {
 
     Vector<E> getRowViewAt(int row);
 
+    Vector<E> getViewColAt(int col);
+
 
     String rowsToString(int startRow, int startCol);
 
