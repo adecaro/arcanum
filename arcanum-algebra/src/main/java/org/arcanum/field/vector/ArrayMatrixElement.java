@@ -9,12 +9,12 @@ import java.math.BigInteger;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class ArrayMatrixElement<E extends Element> extends AbstractMatrixElement<E, MatrixField> {
+public class ArrayMatrixElement<E extends Element, F extends AbstractMatrixField> extends AbstractMatrixElement<E, F> {
 
     protected Element[][] matrix;
 
 
-    public ArrayMatrixElement(MatrixField field) {
+    public ArrayMatrixElement(F field) {
         super(field);
 
         this.matrix = new Element[field.n][field.m];
@@ -25,7 +25,13 @@ public class ArrayMatrixElement<E extends Element> extends AbstractMatrixElement
         }
     }
 
-    public ArrayMatrixElement(ArrayMatrixElement e) {
+    public ArrayMatrixElement(F field, Element[][] matrix) {
+        super(field);
+
+        this.matrix = matrix;
+    }
+
+    public ArrayMatrixElement(ArrayMatrixElement<E, F> e) {
         super(e.getField());
 
         this.matrix = new Element[field.n][field.m];
@@ -36,8 +42,8 @@ public class ArrayMatrixElement<E extends Element> extends AbstractMatrixElement
         }
     }
 
-    public ArrayMatrixElement(MatrixField field, Sampler<BigInteger> sampler) {
-        super(field);
+    public ArrayMatrixElement(F field, Sampler<BigInteger> sampler) {
+        super((F) field);
 
         this.matrix = new Element[field.n][field.m];
         for (int i = 0; i < field.n; i++) {
@@ -47,8 +53,8 @@ public class ArrayMatrixElement<E extends Element> extends AbstractMatrixElement
         }
     }
 
-    public ArrayMatrixElement(MatrixField field, Matrix m, Transformer transformer) {
-        super(field);
+    public ArrayMatrixElement(F field, Matrix m, Transformer transformer) {
+        super((F) field);
 
         this.matrix = new Element[field.n][field.m];
         for (int i = 0; i < field.n; i++) {
@@ -70,7 +76,7 @@ public class ArrayMatrixElement<E extends Element> extends AbstractMatrixElement
     }
 
     public ArrayMatrixElement getImmutable() {
-        return new ImmutableArrayMatrixElement<E>(this);
+        return new ImmutableArrayMatrixElement(this);
     }
 
 
@@ -103,7 +109,7 @@ public class ArrayMatrixElement<E extends Element> extends AbstractMatrixElement
         return matrix[row][col].isZero();
     }
 
-    public MatrixField getField() {
+    public F getField() {
         return super.getField();
     }
 

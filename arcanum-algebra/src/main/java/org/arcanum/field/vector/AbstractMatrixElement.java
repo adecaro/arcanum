@@ -17,10 +17,15 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
     }
 
 
+    public abstract boolean isZeroAt(int row, int col);
+
+    public abstract E getAt(int row, int col);
+
+
+
     public F getField() {
         return field;
     }
-
 
     public Field getTargetField() {
         return field.getTargetField();
@@ -55,13 +60,6 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
         return true;
     }
 
-    public boolean isZeroAt(int row, int col) {
-        throw new IllegalStateException("Not implemented yet!!!");
-    }
-
-    public E getAt(int row, int col) {
-        throw new IllegalStateException("Not implemented yet!!!");
-    }
 
     public Matrix<E> setAt(int row, int col, E e) {
         getAt(row, col).set(e);

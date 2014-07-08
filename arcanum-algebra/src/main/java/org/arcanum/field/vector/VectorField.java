@@ -12,7 +12,7 @@ import java.security.SecureRandom;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class VectorField<F extends Field> extends AbstractVectorField<F, VectorElement> {
+public class VectorField<F extends Field> extends AbstractVectorField<F, ListVectorElement> {
 
 
     public static Element newRandomElement(Field targetField, int n) {
@@ -25,12 +25,12 @@ public class VectorField<F extends Field> extends AbstractVectorField<F, VectorE
     }
 
 
-    public VectorElement newElement() {
-        return new VectorElement(this);
+    public ListVectorElement newElement() {
+        return new ListVectorElement(this);
     }
 
-    public VectorElement newElementFromSampler(Sampler<BigInteger> sampler) {
-        return new VectorElement(this, sampler);
+    public ListVectorElement newElementFromSampler(Sampler<BigInteger> sampler) {
+        return new ListVectorElement(this, sampler);
     }
 
 
@@ -38,8 +38,8 @@ public class VectorField<F extends Field> extends AbstractVectorField<F, VectorE
         return new VectorField<F>(random, targetField, n);
     }
 
-    public VectorElement newPrimitiveElement() {
-        VectorElement g = newElement();
+    public ListVectorElement newPrimitiveElement() {
+        ListVectorElement g = newElement();
 
         BigInteger value = BigInteger.ONE;
         for (int i = 0; i < n; i++) {

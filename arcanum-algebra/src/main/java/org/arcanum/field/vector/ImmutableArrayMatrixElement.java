@@ -7,9 +7,10 @@ import java.math.BigInteger;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class ImmutableArrayMatrixElement<E extends Element> extends ArrayMatrixElement<E> {
+public class ImmutableArrayMatrixElement<E extends Element, F extends AbstractMatrixField> extends ArrayMatrixElement<E, F> {
 
-    public ImmutableArrayMatrixElement(ArrayMatrixElement element) {
+
+    public ImmutableArrayMatrixElement(ArrayMatrixElement<E, F> element) {
         super(element.getField());
 
         this.matrix = new Element[field.n][field.m];
@@ -23,12 +24,12 @@ public class ImmutableArrayMatrixElement<E extends Element> extends ArrayMatrixE
     }
 
     @Override
-    public ArrayMatrixElement<E> duplicate() {
+    public ArrayMatrixElement duplicate() {
         return super.duplicate();
     }
 
     @Override
-    public ArrayMatrixElement<E> getImmutable() {
+    public ArrayMatrixElement getImmutable() {
         return this;
     }
 

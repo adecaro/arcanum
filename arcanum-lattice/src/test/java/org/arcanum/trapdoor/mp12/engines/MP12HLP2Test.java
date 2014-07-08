@@ -200,14 +200,14 @@ public class MP12HLP2Test {
 
         // Sample
         MP12PLP2KeyPairGenerator primitiveGen = new MP12PLP2KeyPairGenerator();
-        primitiveGen.init(new MP12PLP2KeyPairGenerationParameters(
+        primitiveGen.init(new MP12PLKeyPairGenerationParameters(
                 pk.getParameters().getRandom(),
                 pk.getParameters().getN(),
                 k,
                 pk.getM() - (pk.getParameters().getN() * 32)
         ));
         ElementKeyPairParameters primitiveKeyPair = primitiveGen.generateKeyPair();
-        MP12PLP2PublicKeyParameters primitiveLatticePk = (MP12PLP2PublicKeyParameters) primitiveKeyPair.getPublic();
+        MP12PLPublicKeyParameters primitiveLatticePk = (MP12PLPublicKeyParameters) primitiveKeyPair.getPublic();
         MP12PLP2MatrixSolver solver = new MP12PLP2MatrixSolver();
         solver.init(primitiveLatticePk);
         Matrix Udec = (Matrix) solver.processElements(U);

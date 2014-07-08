@@ -3,7 +3,6 @@ package org.arcanum.fhe.gsw14.field;
 import org.arcanum.Element;
 import org.arcanum.Matrix;
 import org.arcanum.field.base.AbstractElement;
-import org.arcanum.trapdoor.mp12.engines.MP12PLP2MatrixSampler;
 
 import java.math.BigInteger;
 
@@ -86,7 +85,7 @@ public class GSW14Element extends AbstractElement<GSW14Field> {
 
     public Element mul(Element element) {
         this.value = (Matrix) this.value.mul(
-                new MP12PLP2MatrixSampler().init(field.getPk()).processElements(((GSW14Element) element).value)
+                field.gInvert(((GSW14Element) element).value)
         );
 
         return this;

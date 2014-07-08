@@ -139,4 +139,5 @@ public abstract class AbstractField<E extends Element> implements Field<E> {
     public SecureRandom getRandom() {
         return random;
     }
+
 }

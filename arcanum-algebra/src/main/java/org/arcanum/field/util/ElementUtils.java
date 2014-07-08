@@ -1,8 +1,8 @@
 package org.arcanum.field.util;
 
 import org.arcanum.*;
+import org.arcanum.field.vector.ListVectorElement;
 import org.arcanum.field.vector.MatrixField;
-import org.arcanum.field.vector.VectorElement;
 import org.arcanum.field.vector.VectorField;
 
 import java.math.BigInteger;
@@ -134,16 +134,16 @@ public class ElementUtils {
         }
     }
 
-    public static VectorElement union(Element a, Element b) {
-        VectorElement va = (VectorElement) a;
-        VectorElement vb = (VectorElement) b;
+    public static ListVectorElement union(Element a, Element b) {
+        ListVectorElement va = (ListVectorElement) a;
+        ListVectorElement vb = (ListVectorElement) b;
 
         VectorField f = new VectorField<Field>(
                 va.getField().getRandom(),
                 va.getField().getTargetField(),
                 va.getSize() + vb.getSize()
         );
-        VectorElement r = f.newElement();
+        ListVectorElement r = f.newElement();
         int counter = 0;
 
         for (int i = 0; i < va.getSize(); i++)

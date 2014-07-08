@@ -17,7 +17,7 @@ public class ExecutorServiceUtils {
 
     static {
         fixedThreadPool = Executors.newFixedThreadPool(
-                Runtime.getRuntime().availableProcessors() * 4,
+                Runtime.getRuntime().availableProcessors() * 46,
                 threadFactory
         );
         cachedThreadPool = Executors.newCachedThreadPool(
@@ -37,6 +37,13 @@ public class ExecutorServiceUtils {
     public static ExecutorService getNewFixedThreadPool() {
         return Executors.newFixedThreadPool(
                 Runtime.getRuntime().availableProcessors() * 4,
+                threadFactory
+        );
+    }
+
+    public static ExecutorService getNewForAvailableProcessors() {
+        return Executors.newFixedThreadPool(
+                Runtime.getRuntime().availableProcessors(),
                 threadFactory
         );
     }
@@ -82,7 +89,7 @@ public class ExecutorServiceUtils {
     }
 
     public abstract static class IndexRunnable implements Runnable {
-        protected int i, j;
+        protected int i, j, k;
 
         public IndexRunnable(int i) {
             this.i = i;
@@ -91,6 +98,12 @@ public class ExecutorServiceUtils {
         public IndexRunnable(int i, int j) {
             this.i = i;
             this.j = j;
+        }
+
+        public IndexRunnable(int i, int j, int k) {
+            this.i = i;
+            this.j = j;
+            this.k = k;
         }
     }
 

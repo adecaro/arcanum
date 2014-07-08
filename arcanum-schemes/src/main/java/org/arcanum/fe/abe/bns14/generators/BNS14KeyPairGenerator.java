@@ -39,14 +39,14 @@ public class BNS14KeyPairGenerator implements AsymmetricCipherKeyPairGenerator {
 
         // Generate primitive trapdoor
         MP12PLP2KeyPairGenerator primitiveGen = new MP12PLP2KeyPairGenerator();
-        primitiveGen.init(new MP12PLP2KeyPairGenerationParameters(
+        primitiveGen.init(new MP12PLKeyPairGenerationParameters(
                 parameters.getRandom(),
                 parameters.getN(),
                 parameters.getK(),
                 latticePk.getM() - (parameters.getN() * parameters.getK())
         ));
         ElementKeyPairParameters primitiveKeyPair = primitiveGen.generateKeyPair();
-        MP12PLP2PublicKeyParameters primitiveLatticePk = (MP12PLP2PublicKeyParameters) primitiveKeyPair.getPublic();
+        MP12PLPublicKeyParameters primitiveLatticePk = (MP12PLPublicKeyParameters) primitiveKeyPair.getPublic();
 
         // generate public matrices
         Element D = latticePk.getA().getField().newRandomElement();

@@ -125,7 +125,7 @@ public class DiscreteGaussianCDTSampler implements Sampler<BigInteger> {
             BigInteger[] cdt, cdtInvMin, cdtInvMax;
             int cdtLength;
 
-            Apfloat sigma = gaussianParameter.divide(SQRT2PI);
+            Apfloat sigma = gaussianParameter.divide(SQRT_2PI);
             Apint k = gaussianParameter.multiply(newApfloat(SIGMA_BIN_INV_LOWPREC)).add(ApfloatUtils.IONE).truncate();
 
             // f = 2 sigma^2 = 2 k^2 1/(2ln(2)) = k^2/ln(2)

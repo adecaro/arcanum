@@ -123,7 +123,7 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
         Apfloat sq = square(
                 lweNoisParameter.multiply(
                         ApfloatUtils.sqrt(n).add(ApfloatUtils.sqrt(m)).add(ApfloatUtils.IONE)
-                ).divide(SQRT_TWO_PI)
+                ).divide(SQRT_2PI)
         ).add(IONE).multiply(ISIX).multiply(rrpSquare);
 
         if (matrixExtensionLength > 0)

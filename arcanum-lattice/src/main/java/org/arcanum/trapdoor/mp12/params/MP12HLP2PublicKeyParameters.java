@@ -3,12 +3,13 @@ package org.arcanum.trapdoor.mp12.params;
 import org.arcanum.Element;
 import org.arcanum.Field;
 import org.arcanum.Matrix;
+import org.arcanum.Vector;
 import org.arcanum.field.vector.VectorField;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class MP12HLP2PublicKeyParameters extends MP12PLP2PublicKeyParameters {
+public class MP12HLP2PublicKeyParameters extends MP12PLPublicKeyParameters {
 
     protected Element A;
     protected int m, mInBytes;
@@ -16,11 +17,11 @@ public class MP12HLP2PublicKeyParameters extends MP12PLP2PublicKeyParameters {
 
     public MP12HLP2PublicKeyParameters(MP12Parameters parameters,
                                        int k, int m,
-                                       Matrix G,
+                                       Vector g, Matrix G,
                                        Field syndromeField, Field Zq,
                                        VectorField<Field> preimageField,
                                        Element A) {
-        super(parameters, k, G, syndromeField, Zq, preimageField);
+        super(parameters, k, g, G, syndromeField, Zq, preimageField);
 
         this.A = A;
         this.m = m;

@@ -4,6 +4,8 @@ import org.apfloat.Apfloat;
 import org.apfloat.ApfloatMath;
 import org.apfloat.Apint;
 
+import java.math.BigInteger;
+
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
@@ -16,7 +18,7 @@ public class ApfloatUtils {
     public final static Apint IZERO = new Apint(0, radix);
     public final static Apint IONE = new Apint(1, radix);
     public final static Apint ITWO = new Apint(2, radix);
-    public static Apfloat SQRT_TWO_PI = ApfloatMath.sqrt(pi().multiply(ITWO));
+    public final static Apint ITHREE = new Apint(3, radix);
     public static final Apint IFOUR = new Apint(4, radix);
     public static final Apint IFIVE = new Apint(5, radix);
     public static final Apint ISIX = new Apint(6, radix);
@@ -26,12 +28,14 @@ public class ApfloatUtils {
 
     public final static Apfloat ONE = new Apfloat(1, precision, radix);
     public final static Apfloat TWO = new Apfloat(2, precision, radix);
-    public static Apfloat SQRT_TWO = ApfloatMath.sqrt(TWO);
     public static final Apfloat FIVE = new Apfloat(5, precision, radix);
     public static final Apfloat ZERO = new Apfloat(0, precision, radix);
 
     public static final Apfloat PI = pi();
-    public static final Apfloat SQRT2PI = ApfloatMath.sqrt(PI.multiply(ITWO));
+
+    public final static Apfloat SQRT_2PI = ApfloatMath.sqrt(PI.multiply(ITWO));
+    public final static Apfloat SQRT_TWO = ApfloatMath.sqrt(TWO);
+    public final static Apfloat SQRT_FIVE = ApfloatMath.sqrt(convert(IFIVE));
 
 
     public static Apfloat convert(Apfloat a) {
@@ -65,6 +69,10 @@ public class ApfloatUtils {
 
     public static Apfloat square(Apfloat value) {
         return ApfloatMath.pow(value, 2);
+    }
+
+    public static int log(BigInteger a) {
+        return ApfloatMath.log(new Apfloat(a, precision)).ceil().intValue();
     }
 
     public static String toString(Apfloat value) {

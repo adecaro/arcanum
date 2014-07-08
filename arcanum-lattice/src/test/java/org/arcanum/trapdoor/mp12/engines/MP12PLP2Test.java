@@ -3,8 +3,8 @@ package org.arcanum.trapdoor.mp12.engines;
 import org.arcanum.Element;
 import org.arcanum.Matrix;
 import org.arcanum.trapdoor.mp12.generators.MP12PLP2KeyPairGenerator;
-import org.arcanum.trapdoor.mp12.params.MP12PLP2KeyPairGenerationParameters;
-import org.arcanum.trapdoor.mp12.params.MP12PLP2PublicKeyParameters;
+import org.arcanum.trapdoor.mp12.params.MP12PLKeyPairGenerationParameters;
+import org.arcanum.trapdoor.mp12.params.MP12PLPublicKeyParameters;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,19 +19,19 @@ public class MP12PLP2Test {
 
     protected SecureRandom random;
     protected MP12PLP2KeyPairGenerator gen;
-    protected MP12PLP2PublicKeyParameters pk;
+    protected MP12PLPublicKeyParameters pk;
 
     @Before
     public void setUp() throws Exception {
         this.random = SecureRandom.getInstance("SHA1PRNG");
 
         this.gen = new MP12PLP2KeyPairGenerator();
-        this.gen.init(new MP12PLP2KeyPairGenerationParameters(
+        this.gen.init(new MP12PLKeyPairGenerationParameters(
                 random,
                 3,  // n
                 2  // k
         ));
-        this.pk = (MP12PLP2PublicKeyParameters) gen.generateKeyPair().getPublic();
+        this.pk = (MP12PLPublicKeyParameters) gen.generateKeyPair().getPublic();
     }
 
 
@@ -39,7 +39,7 @@ public class MP12PLP2Test {
     public void testSampleD() throws Exception {
         Element u = pk.getSyndromeField().newRandomElement();
         Element x = new MP12PLP2Sampler().init(pk).processElements(u);
-        Element uPrime = new MP12PLP2Decoder().init(pk).processElements(x);
+        Element uPrime = new MP12PLDecoder().init(pk).processElements(x);
 
         System.out.println("u = " + u);
         System.out.println("x = " + x);
@@ -51,7 +51,7 @@ public class MP12PLP2Test {
     public void testSolver() throws Exception {
         Element u = pk.getSyndromeField().newRandomElement();
         Element x = new MP12PLP2Solver().init(pk).processElements(u);
-        Element uPrime = new MP12PLP2Decoder().init(pk).processElements(x);
+        Element uPrime = new MP12PLDecoder().init(pk).processElements(x);
 
         System.out.println("u = " + u);
         System.out.println("x = " + x);
@@ -72,7 +72,7 @@ public class MP12PLP2Test {
         Matrix R0 = (Matrix) sampleD.processElements(U);
 
         // Decode
-        MP12PLP2Decoder decoder = new MP12PLP2Decoder();
+        MP12PLDecoder decoder = new MP12PLDecoder();
         decoder.init(pk);
 
         Matrix U1 = (Matrix) U.getField().newElement();
@@ -102,7 +102,7 @@ public class MP12PLP2Test {
         System.out.println("R0 = " + R0);
 
         // Decode
-        MP12PLP2Decoder decoder = new MP12PLP2Decoder();
+        MP12PLDecoder decoder = new MP12PLDecoder();
         decoder.init(pk);
 
         Matrix U1 = (Matrix) U.getField().newElement();

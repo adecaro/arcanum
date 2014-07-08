@@ -2,7 +2,7 @@ package org.arcanum.trapdoor.mp12.engines;
 
 import org.arcanum.Element;
 import org.arcanum.ElementCipher;
-import org.arcanum.field.vector.VectorElement;
+import org.arcanum.field.vector.ListVectorElement;
 import org.arcanum.util.cipher.engine.AbstractElementCipher;
 import org.arcanum.util.math.BigIntegerUtils;
 
@@ -14,13 +14,13 @@ import java.util.BitSet;
  */
 public class MP12HLP2ErrorTolerantOneTimePad extends AbstractElementCipher {
 
-    protected VectorElement key;
+    protected ListVectorElement key;
     protected BigInteger order;
     protected BigInteger oneFourthOrder;
 
     @Override
     public ElementCipher init(Element key) {
-        this.key = (VectorElement) key;
+        this.key = (ListVectorElement) key;
         this.order = this.key.getField().getTargetField().getOrder();
         this.oneFourthOrder = order.divide(BigIntegerUtils.FOUR);
 
@@ -30,7 +30,7 @@ public class MP12HLP2ErrorTolerantOneTimePad extends AbstractElementCipher {
     @Override
     public Element processBytes(byte[] buffer) {
         Element halfOrder = key.getField().getTargetField().newElement(order.divide(BigIntegerUtils.TWO));
-        VectorElement r = key.duplicate();
+        ListVectorElement r = key.duplicate();
 
         BitSet bits = BitSet.valueOf(buffer);
         for (int i = 0; i < key.getSize(); i++) {
@@ -43,7 +43,7 @@ public class MP12HLP2ErrorTolerantOneTimePad extends AbstractElementCipher {
 
     @Override
     public byte[] processElementsToBytes(Element... input) {
-        VectorElement r = (VectorElement) input[0].duplicate().sub(key);
+        ListVectorElement r = (ListVectorElement) input[0].duplicate().sub(key);
 
         BitSet bits = new BitSet(key.getSize());
         for (int i = 0; i < key.getSize(); i++) {

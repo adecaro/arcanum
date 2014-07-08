@@ -1,14 +1,16 @@
 package org.arcanum.fhe.gsw14.field;
 
 import org.arcanum.Element;
+import org.arcanum.ElementCipher;
 import org.arcanum.Matrix;
 import org.arcanum.Vector;
 import org.arcanum.field.base.AbstractField;
 import org.arcanum.field.base.AbstractVectorField;
 import org.arcanum.field.vector.VectorExElement;
+import org.arcanum.trapdoor.mp12.engines.MP12PLP2MatrixSampler;
 import org.arcanum.trapdoor.mp12.generators.MP12PLP2KeyPairGenerator;
-import org.arcanum.trapdoor.mp12.params.MP12PLP2KeyPairGenerationParameters;
-import org.arcanum.trapdoor.mp12.params.MP12PLP2PublicKeyParameters;
+import org.arcanum.trapdoor.mp12.params.MP12PLKeyPairGenerationParameters;
+import org.arcanum.trapdoor.mp12.params.MP12PLPublicKeyParameters;
 import org.arcanum.trapdoor.mp12.utils.MP12P2Utils;
 
 import java.math.BigInteger;
@@ -19,9 +21,10 @@ import java.security.SecureRandom;
  */
 public class GSW14Field extends AbstractField<GSW14Element> {
 
-    private MP12PLP2PublicKeyParameters pk;
+    private MP12PLPublicKeyParameters pk;
     private Element s, sDec;
     private BigInteger oneFourthOrder;
+    private ElementCipher sampler;
 
 
     public GSW14Field(SecureRandom random, int n, int k) {
@@ -29,9 +32,9 @@ public class GSW14Field extends AbstractField<GSW14Element> {
 
         // Init Micciancio-Peikert Primitive Lattice PK
         MP12PLP2KeyPairGenerator gen = new MP12PLP2KeyPairGenerator();
-        gen.init(new MP12PLP2KeyPairGenerationParameters(random, n, k));
+        gen.init(new MP12PLKeyPairGenerationParameters(random, n, k));
 
-        this.pk = (MP12PLP2PublicKeyParameters) gen.generateKeyPair().getPublic();
+        this.pk = (MP12PLPublicKeyParameters) gen.generateKeyPair().getPublic();
 
         // Generate Secret Key
         this.s = pk.getPreimageField()
@@ -44,17 +47,14 @@ public class GSW14Field extends AbstractField<GSW14Element> {
                 pk.getZq().newOneElement()
         );
 
-        this.oneFourthOrder = pk.getG().getAt(0, k-2).toBigInteger().shiftRight(2);
+        this.oneFourthOrder = pk.getG().getAt(0, k - 2).toBigInteger().shiftRight(2);
+
+        this.sampler = new MP12PLP2MatrixSampler().init(pk);
     }
 
 
     public GSW14Element newElement() {
         throw new IllegalStateException("Not implemented yet!!!");
-    }
-
-    @Override
-    public GSW14Element newElement(int value) {
-        return new GSW14Element(this, encrypt(value));
     }
 
     public BigInteger getOrder() {
@@ -69,23 +69,25 @@ public class GSW14Field extends AbstractField<GSW14Element> {
         return 0;
     }
 
+    public GSW14Element newElement(int value) {
+        return new GSW14Element(this, encrypt(value));
+    }
 
-    public MP12PLP2PublicKeyParameters getPk() {
+
+    public MP12PLPublicKeyParameters getPk() {
         return pk;
     }
 
 
-    private Matrix encrypt(int value) {
+    protected Matrix encrypt(int value) {
         // value must be in {0,1}
         Element mu = pk.getZq().newElement(value);
 
         // Sample error
         Element e = pk.getPreimageField().newElementFromSampler(MP12P2Utils.getLWENoiseSampler(random, pk.getParameters().getN()));
-        System.out.println("After e");
 
         // Generate cts
         Matrix ct = (Matrix) pk.getG().getField().newElement();
-        System.out.println("ct instantiated ");
 
         ct.setRowsToRandom(0, ct.getN() - 1)
                 .getRowsViewAt(0, ct.getN() - 1)
@@ -96,8 +98,7 @@ public class GSW14Field extends AbstractField<GSW14Element> {
         return ct;
     }
 
-
-    public BigInteger decrypt(Matrix value) {
+    protected BigInteger decrypt(Matrix value) {
         if (s == null)
             throw new IllegalStateException("Cannot decrypt ciphertext. Secret not initialized");
 
@@ -105,4 +106,13 @@ public class GSW14Field extends AbstractField<GSW14Element> {
         System.out.println("result = " + result);
         return result.abs().compareTo(oneFourthOrder) >= 0 ? BigInteger.ONE : BigInteger.ZERO;
     }
+
+    protected Element gInvert(Matrix value) {
+        return sampler.processElements(value);
+    }
+
+    protected void bootGen() {
+
+    }
+
 }

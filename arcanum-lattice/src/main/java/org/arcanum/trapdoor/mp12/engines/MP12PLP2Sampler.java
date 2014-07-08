@@ -2,7 +2,7 @@ package org.arcanum.trapdoor.mp12.engines;
 
 import org.arcanum.*;
 import org.arcanum.sampler.SamplerFactory;
-import org.arcanum.trapdoor.mp12.params.MP12PLP2PublicKeyParameters;
+import org.arcanum.trapdoor.mp12.params.MP12PLPublicKeyParameters;
 import org.arcanum.util.cipher.engine.AbstractElementCipher;
 
 import java.math.BigInteger;
@@ -16,7 +16,7 @@ import static org.arcanum.field.floating.ApfloatUtils.ITWO;
  */
 public class MP12PLP2Sampler extends AbstractElementCipher {
 
-    protected MP12PLP2PublicKeyParameters parameters;
+    protected MP12PLPublicKeyParameters parameters;
     protected int n, k;
 
     protected Sampler<BigInteger> sampler;
@@ -24,7 +24,7 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
 
 
     public ElementCipher init(ElementCipherParameters param) {
-        this.parameters = (MP12PLP2PublicKeyParameters) param;
+        this.parameters = (MP12PLPublicKeyParameters) param;
 
         this.n = parameters.getParameters().getN();
         this.k = parameters.getK();

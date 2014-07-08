@@ -13,12 +13,13 @@ import java.util.List;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class VectorElement<E extends Element> extends AbstractVectorElement<E, AbstractVectorField> {
+public class ListVectorElement<E extends Element, F extends AbstractVectorField> extends AbstractVectorElement<E, F> {
 
 
     protected List<E> coeff;
 
-    public VectorElement(AbstractVectorField field) {
+
+    public ListVectorElement(F field) {
         super(field);
 
         coeff = new ArrayList<E>(field.getN());
@@ -26,7 +27,7 @@ public class VectorElement<E extends Element> extends AbstractVectorElement<E, A
             coeff.add((E) field.getTargetField().newElement());
     }
 
-    public VectorElement(AbstractVectorElement element) {
+    public ListVectorElement(AbstractVectorElement<E, F> element) {
         super(element.getField());
 
         coeff = new ArrayList<E>(field.getN());
@@ -34,19 +35,28 @@ public class VectorElement<E extends Element> extends AbstractVectorElement<E, A
             coeff.add((E) element.getAt(i).duplicate());
     }
 
-    public VectorElement(AbstractVectorField field, List<E> coeff) {
+    public ListVectorElement(F field, List<E> coeff) {
         super(field);
 
         this.coeff = coeff;
     }
 
-    public VectorElement(AbstractVectorField field, Sampler<BigInteger> sampler) {
+    public ListVectorElement(F field, E[] coeffs) {
+        super(field);
+
+        coeff = new ArrayList<E>(field.getN());
+        for (int i = 0, size = field.getN(); i < size; i++)
+            coeff.add(coeffs[i]);
+    }
+
+    public ListVectorElement(F field, Sampler<BigInteger> sampler) {
         this(field);
 
         coeff = new ArrayList<E>(field.getN());
         for (int i = 0, size = field.getN(); i < size; i++)
             coeff.add((E) field.getTargetField().newElementFromSampler(sampler));
     }
+
 
 
     public E getAt(int index) {
@@ -58,7 +68,14 @@ public class VectorElement<E extends Element> extends AbstractVectorElement<E, A
     }
 
     public Vector<E> setAt(int index, E element) {
-        coeff.get(index).set(element);
+        if (element instanceof Vector) {
+            Vector v = (Vector) element;
+
+            for (int i=0, size = v.getSize(); i< size ; i++)
+                coeff.get(index+i).set(v.getAt(i));
+
+        } else
+            coeff.get(index).set(element);
 
         return this;
     }
@@ -67,12 +84,12 @@ public class VectorElement<E extends Element> extends AbstractVectorElement<E, A
         return coeff.size();
     }
 
-    public VectorElement<E> duplicate() {
-        return new VectorElement<E>(this);
+    public ListVectorElement duplicate() {
+        return new ListVectorElement(this);
     }
 
-    public VectorElement<E> getImmutable() {
-        return new ImmutableVectorElement<E>(this);
+    public ListVectorElement getImmutable() {
+        return new ImmutableListVectorElement(this);
     }
 
 }

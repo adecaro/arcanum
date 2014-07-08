@@ -10,6 +10,7 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 
 import static org.apfloat.ApfloatMath.*;
+import static org.apfloat.ApfloatMath.log;
 import static org.apfloat.ApfloatMath.sqrt;
 import static org.arcanum.field.floating.ApfloatUtils.*;
 import static org.arcanum.field.floating.ApfloatUtils.pi;
@@ -33,7 +34,7 @@ public class DiscreteGaussianZigguratSampler implements Sampler<BigInteger> {
 
         this.random = random;
         this.m = m;
-        this.sigma = gaussianParameter.divide(SQRT2PI);;
+        this.sigma = gaussianParameter.divide(SQRT_2PI);;
         this.omega = ApfloatUtils.precision;
 
         build();

@@ -5,7 +5,7 @@ import org.arcanum.Field;
 import org.arcanum.field.vector.MatrixField;
 import org.arcanum.field.vector.VectorField;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2PublicKeyParameters;
-import org.arcanum.trapdoor.mp12.params.MP12PLP2PublicKeyParameters;
+import org.arcanum.trapdoor.mp12.params.MP12PLPublicKeyParameters;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
@@ -13,7 +13,7 @@ import org.arcanum.trapdoor.mp12.params.MP12PLP2PublicKeyParameters;
 public class BNS14PublicKeyParameters extends BNS14KeyParameters {
 
     private MP12HLP2PublicKeyParameters latticePk;
-    private MP12PLP2PublicKeyParameters primitiveLatticePk;
+    private MP12PLPublicKeyParameters primitiveLatticePk;
     private Element D;
     private Element[] Bs;
     private VectorField secretField, randomnessField;
@@ -24,7 +24,7 @@ public class BNS14PublicKeyParameters extends BNS14KeyParameters {
 
     public BNS14PublicKeyParameters(BNS14Parameters parameters,
                                     MP12HLP2PublicKeyParameters latticePk,
-                                    MP12PLP2PublicKeyParameters primitiveLatticePk,
+                                    MP12PLPublicKeyParameters primitiveLatticePk,
                                     Element D, Element[] Bs) {
         super(false, parameters);
 
@@ -42,7 +42,7 @@ public class BNS14PublicKeyParameters extends BNS14KeyParameters {
         return latticePk;
     }
 
-    public MP12PLP2PublicKeyParameters getPrimitiveLatticePk() {
+    public MP12PLPublicKeyParameters getPrimitiveLatticePk() {
         return primitiveLatticePk;
     }
 

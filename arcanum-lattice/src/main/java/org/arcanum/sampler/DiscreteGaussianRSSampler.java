@@ -31,7 +31,7 @@ public class DiscreteGaussianRSSampler implements GaussianSampler<BigInteger> {
             random = new SecureRandom();
 
         this.random = random;
-        this.sigma = gaussianParameter.divide(SQRT2PI);
+        this.sigma = gaussianParameter.divide(SQRT_2PI);
         this.center = center;
 
         this.h = ONE.divide(TWO.multiply(square(sigma))).negate();

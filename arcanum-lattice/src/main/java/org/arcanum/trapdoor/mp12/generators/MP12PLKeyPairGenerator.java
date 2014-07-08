@@ -22,7 +22,7 @@ import static org.arcanum.field.floating.ApfloatUtils.ITWO;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class MP12PLP2KeyPairGenerator implements ElementKeyPairGenerator {
+public class MP12PLKeyPairGenerator implements ElementKeyPairGenerator {
     protected MP12PLKeyPairGenerationParameters params;
 
     protected SecureRandom random;
@@ -45,6 +45,7 @@ public class MP12PLP2KeyPairGenerator implements ElementKeyPairGenerator {
 
         this.n = params.getParameters().getN();
         this.k = params.getK();
+        this.q = params.getQ();
         int m = n * k + params.getExtraM();
         this.discreteGaussianSampler = SamplerFactory.getInstance().getDiscreteGaussianSampler(
                 random,
@@ -53,7 +54,7 @@ public class MP12PLP2KeyPairGenerator implements ElementKeyPairGenerator {
 
         SecureRandom random = params.getRandom();
 
-        this.Zq = ZFieldSelector.getInstance().getSymmetricZrFieldPowerOfTwo(random, k);
+        this.Zq = ZFieldSelector.getInstance().getSymmetricZrField(random, q, k);
         this.syndromeField = new VectorField<Field>(random, Zq, n);
         this.preimageField = new VectorField<Field>(random, Zq, m);
 

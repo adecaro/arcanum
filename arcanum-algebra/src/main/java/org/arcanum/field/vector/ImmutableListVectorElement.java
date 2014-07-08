@@ -1,15 +1,16 @@
 package org.arcanum.field.vector;
 
 import org.arcanum.Element;
+import org.arcanum.field.base.AbstractVectorField;
 
 import java.math.BigInteger;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class ImmutableVectorElement<E extends Element> extends VectorElement<E> {
+public class ImmutableListVectorElement<E extends Element, F extends AbstractVectorField> extends ListVectorElement<E, F> {
 
-    public ImmutableVectorElement(VectorElement element) {
+    public ImmutableListVectorElement(ListVectorElement<E, F> element) {
         super(element.getField());
 
         // TODO: remove to clear
@@ -21,47 +22,47 @@ public class ImmutableVectorElement<E extends Element> extends VectorElement<E> 
     }
 
     @Override
-    public VectorElement<E> duplicate() {
+    public ListVectorElement duplicate() {
         return super.duplicate();
     }
 
     @Override
-    public VectorElement<E> getImmutable() {
+    public ListVectorElement getImmutable() {
         return this;
     }
 
     @Override
-    public VectorElement set(Element e) {
+    public ListVectorElement set(Element e) {
         throw new IllegalStateException("Invalid call on an immutable element");
     }
 
     @Override
-    public VectorElement set(int value) {
+    public ListVectorElement set(int value) {
         throw new IllegalStateException("Invalid call on an immutable element");
     }
 
     @Override
-    public VectorElement set(BigInteger value) {
+    public ListVectorElement set(BigInteger value) {
         throw new IllegalStateException("Invalid call on an immutable element");
     }
 
     @Override
-    public VectorElement twice() {
-        return (VectorElement) duplicate().twice().getImmutable();
+    public ListVectorElement twice() {
+        return (ListVectorElement) duplicate().twice().getImmutable();
     }
 
     @Override
-    public VectorElement setToZero() {
+    public ListVectorElement setToZero() {
         throw new IllegalStateException("Invalid call on an immutable element");
     }
 
     @Override
-    public VectorElement setToOne() {
+    public ListVectorElement setToOne() {
         throw new IllegalStateException("Invalid call on an immutable element");
     }
 
     @Override
-    public VectorElement setToRandom() {
+    public ListVectorElement setToRandom() {
         throw new IllegalStateException("Invalid call on an immutable element");
     }
 
@@ -71,47 +72,47 @@ public class ImmutableVectorElement<E extends Element> extends VectorElement<E> 
     }
 
     @Override
-    public VectorElement square() {
-        return (VectorElement) duplicate().square().getImmutable();
+    public ListVectorElement square() {
+        return (ListVectorElement) duplicate().square().getImmutable();
     }
 
     @Override
-    public VectorElement invert() {
-        return (VectorElement) duplicate().invert().getImmutable();
+    public ListVectorElement invert() {
+        return (ListVectorElement) duplicate().invert().getImmutable();
     }
 
     @Override
-    public VectorElement negate() {
-        return (VectorElement) duplicate().negate().getImmutable();
+    public ListVectorElement negate() {
+        return (ListVectorElement) duplicate().negate().getImmutable();
     }
 
     @Override
-    public VectorElement add(Element e) {
-        return (VectorElement) duplicate().add(e).getImmutable();
+    public ListVectorElement add(Element e) {
+        return (ListVectorElement) duplicate().add(e).getImmutable();
     }
 
     @Override
-    public VectorElement mul(Element e) {
-        return (VectorElement) duplicate().mul(e).getImmutable();
+    public ListVectorElement mul(Element e) {
+        return (ListVectorElement) duplicate().mul(e).getImmutable();
     }
 
     @Override
-    public VectorElement mul(BigInteger n) {
-        return (VectorElement) duplicate().mul(n).getImmutable();
+    public ListVectorElement mul(BigInteger n) {
+        return (ListVectorElement) duplicate().mul(n).getImmutable();
     }
 
     @Override
-    public VectorElement mulZn(Element e) {
-        return (VectorElement) duplicate().mulZn(e).getImmutable();
+    public ListVectorElement mulZn(Element e) {
+        return (ListVectorElement) duplicate().mulZn(e).getImmutable();
     }
 
     @Override
-    public VectorElement powZn(Element e) {
-        return (VectorElement) duplicate().powZn(e).getImmutable();
+    public ListVectorElement powZn(Element e) {
+        return (ListVectorElement) duplicate().powZn(e).getImmutable();
     }
 
     @Override
-    public VectorElement setFromHash(byte[] source, int offset, int length) {
+    public ListVectorElement setFromHash(byte[] source, int offset, int length) {
         throw new IllegalStateException("Invalid call on an immutable element");
     }
 
@@ -131,8 +132,8 @@ public class ImmutableVectorElement<E extends Element> extends VectorElement<E> 
     }
 
     @Override
-    public VectorElement sub(Element element) {
-        return (VectorElement) duplicate().sub(element).getImmutable();
+    public ListVectorElement sub(Element element) {
+        return (ListVectorElement) duplicate().sub(element).getImmutable();
     }
 
     @Override
@@ -141,13 +142,13 @@ public class ImmutableVectorElement<E extends Element> extends VectorElement<E> 
     }
 
     @Override
-    public VectorElement mul(int z) {
-        return (VectorElement) duplicate().mul(z).getImmutable();
+    public ListVectorElement mul(int z) {
+        return (ListVectorElement) duplicate().mul(z).getImmutable();
     }
 
     @Override
-    public VectorElement sqrt() {
-        return (VectorElement) duplicate().sqrt().getImmutable();
+    public ListVectorElement sqrt() {
+        return (ListVectorElement) duplicate().sqrt().getImmutable();
     }
 
 }

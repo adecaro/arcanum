@@ -26,4 +26,11 @@ public class ZFieldSelector {
         } else
             return new SymmetricZrField(random, BigInteger.ONE.shiftLeft(k));
     }
+
+    public Field getSymmetricZrField(SecureRandom random, BigInteger q, int k) {
+        if (k <= 30) {
+            return new SymmetricLongZrField(random, q.longValue());
+        } else
+            return new SymmetricZrField(random, q);
+    }
 }

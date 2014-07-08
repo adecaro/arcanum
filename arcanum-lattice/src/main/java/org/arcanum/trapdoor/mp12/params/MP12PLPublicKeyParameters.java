@@ -3,14 +3,16 @@ package org.arcanum.trapdoor.mp12.params;
 import org.apfloat.Apfloat;
 import org.arcanum.Field;
 import org.arcanum.Matrix;
+import org.arcanum.Vector;
 import org.arcanum.field.vector.VectorField;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class MP12PLP2PublicKeyParameters extends MP12KeyParameters {
+public class MP12PLPublicKeyParameters extends MP12KeyParameters {
 
     protected int k;
+    protected Vector g;
     protected Matrix G; // parity-check matrix
 
     protected Field syndromeField;
@@ -18,15 +20,17 @@ public class MP12PLP2PublicKeyParameters extends MP12KeyParameters {
     protected VectorField<Field> preimageField;
 
 
-    public MP12PLP2PublicKeyParameters(MP12Parameters parameters,
-                                       int k,
-                                       Matrix G,
-                                       Field syndromeField,
-                                       Field Zq,
-                                       VectorField<Field> preimageField) {
+    public MP12PLPublicKeyParameters(MP12Parameters parameters,
+                                     int k,
+                                     Vector g,
+                                     Matrix G,
+                                     Field syndromeField,
+                                     Field Zq,
+                                     VectorField<Field> preimageField) {
         super(false, parameters);
 
         this.k = k;
+        this.g = g;
         this.G = G;
         this.syndromeField = syndromeField;
         this.Zq = Zq;
@@ -44,6 +48,11 @@ public class MP12PLP2PublicKeyParameters extends MP12KeyParameters {
     public Matrix getG() {
         return G;
     }
+
+    public Vector getPrimitiveVector() {
+        return g;
+    }
+
 
     public VectorField<Field> getPreimageField() {
         return preimageField;
