@@ -7,9 +7,9 @@ import org.arcanum.permutation.Permutation;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class AP14HESymGroupElement extends ArrayMatrixElement<GSW14Element, AP14HESymGroupField> {
+public class AP14HESymGroupElement extends ArrayMatrixElement<AP14GSW14Element, AP14HESymGroupField> {
 
-    public AP14HESymGroupElement(AP14HESymGroupField field, GSW14Element[][] elements) {
+    public AP14HESymGroupElement(AP14HESymGroupField field, AP14GSW14Element[][] elements) {
         super(field, elements);
     }
 

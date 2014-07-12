@@ -10,39 +10,43 @@ import java.math.BigInteger;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class AP14HECyclicSBSymGroupField extends AbstractVectorField<GSW14Field, AP14HECyclicSBSymGroupElement> {
+public class AP14HECyclicSBSymGroupField extends AbstractVectorField<AP14GSW14Field, AP14HECyclicSBSymGroupElement> {
 
 
-    public AP14HECyclicSBSymGroupField(GSW14Field field, int r) {
+    public AP14HECyclicSBSymGroupField(AP14GSW14Field field, int r) {
         super(field.getRandom(), field, r);
     }
 
-
     public AP14HECyclicSBSymGroupElement newElement() {
-        throw new IllegalStateException("Not implemented yet!!!");
+        throw new IllegalArgumentException("Not implemented yet!!!");
     }
 
-    public BigInteger getOrder() {
-        return null;
-    }
+    @Override
+    public AP14HECyclicSBSymGroupElement newElement(BigInteger value) {
+        PoolExecutor executor = new PoolExecutor(ExecutorServiceUtils.getNewForAvailableProcessors());
+        final AP14GSW14Element[] elements = new AP14GSW14Element[n];
 
-    public AP14HECyclicSBSymGroupElement getNqr() {
-        return null;
-    }
+        final int s = value.add(BigInteger.ONE).mod(BigInteger.valueOf(n)).intValue();
+        for (int i = 0; i < n; i++) {
+            executor.submit(new ExecutorServiceUtils.IndexRunnable(i) {
+                public void run() {
+                    elements[i] = targetField.newElement(i == s ? 1 : 0);
+                }
+            });
 
-    public int getLengthInBytes() {
-        return 0;
+        }
+        executor.awaitTermination();
+        return new AP14HECyclicSBSymGroupElement(this, elements);
     }
 
     public AP14HECyclicSBSymGroupElement newElement(Object value) {
         if (value instanceof Permutation) {
             Permutation perm = (Permutation) value;
-
-            if (perm.getSize() != n || !perm.isCyclic())
-                throw new IllegalArgumentException("Permutation size not valid!!!");
+            if (!perm.isCyclic())
+                throw new IllegalArgumentException("Not a cyclic permutation!!!");
 
             PoolExecutor executor = new PoolExecutor(ExecutorServiceUtils.getNewForAvailableProcessors());
-            final GSW14Element[] elements = new GSW14Element[n];
+            final AP14GSW14Element[] elements = new AP14GSW14Element[n];
 
             final int s = perm.permute(0);
             for (int i = 0; i < n; i++) {
@@ -54,11 +58,10 @@ public class AP14HECyclicSBSymGroupField extends AbstractVectorField<GSW14Field,
 
             }
             executor.awaitTermination();
-
             return new AP14HECyclicSBSymGroupElement(this, elements);
         }
 
-        throw new IllegalArgumentException("Input type not valid!!!");
+        throw new IllegalArgumentException("Invalid argument!!!");
     }
 
 }

@@ -41,6 +41,7 @@ public class MP12PLP2MatrixSampler extends MP12PLP2Sampler {
             ).newElement();
         }
 
+
         PoolExecutor pool = new PoolExecutor(EXECUTOR_SERVICE);
         for (int i = 0, length = U.getM(); i < length; i++) {
             final int finalI = i;

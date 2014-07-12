@@ -10,12 +10,12 @@ import java.math.BigInteger;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class AP14HESymGroupField extends AbstractMatrixField<GSW14Field, AP14HESymGroupElement> {
+public class AP14HESymGroupField extends AbstractMatrixField<AP14GSW14Field, AP14HESymGroupElement> {
 
     private int rSquare;
 
 
-    public AP14HESymGroupField(GSW14Field field, int r) {
+    public AP14HESymGroupField(AP14GSW14Field field, int r) {
         super(field.getRandom(), field, r, r);
 
         this.rSquare = r * r;
@@ -46,7 +46,7 @@ public class AP14HESymGroupField extends AbstractMatrixField<GSW14Field, AP14HES
                 throw new IllegalArgumentException("Permutation size not valid!!!");
 
             PoolExecutor executor = new PoolExecutor(ExecutorServiceUtils.getNewForAvailableProcessors());
-            final GSW14Element[][] elements = new GSW14Element[n][m];
+            final AP14GSW14Element[][] elements = new AP14GSW14Element[n][m];
             for (int i = 0; i < n; i++) {
                 final int s = perm.permute(i);
 

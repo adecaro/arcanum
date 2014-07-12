@@ -71,8 +71,8 @@ public class ApfloatUtils {
         return ApfloatMath.pow(value, 2);
     }
 
-    public static int log(BigInteger a) {
-        return ApfloatMath.log(new Apfloat(a, precision)).ceil().intValue();
+    public static int log2(BigInteger a) {
+        return ApfloatMath.log(new Apfloat(a, precision, radix), TWO).ceil().intValue();
     }
 
     public static String toString(Apfloat value) {

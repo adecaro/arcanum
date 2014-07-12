@@ -33,7 +33,6 @@ public class VectorField<F extends Field> extends AbstractVectorField<F, ListVec
         return new ListVectorElement(this, sampler);
     }
 
-
     public VectorField<F> newField(int n) {
         return new VectorField<F>(random, targetField, n);
     }

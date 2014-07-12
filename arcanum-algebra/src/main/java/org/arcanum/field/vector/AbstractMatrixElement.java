@@ -22,7 +22,6 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
     public abstract E getAt(int row, int col);
 
 
-
     public F getField() {
         return field;
     }
@@ -383,6 +382,41 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
         throw new IllegalStateException("Not Implemented yet!!!");
     }
 
+    public Element mul(final ColumnReader<E> reader) {
+        final MatrixField f = new MatrixField<Field>(field.getRandom(), field.getTargetField(), field.n, reader.getM());
+        final Matrix r = f.newElement();
+
+        PoolExecutor executor = new PoolExecutor();
+        for (int j = 0; j < f.m; j++) {
+
+            final int finalJ = j;
+            executor.submit(new Runnable() {
+                public void run() {
+                    Vector column = reader.getColumnAt(finalJ);
+                    for (int i = 0; i < f.n; i++) {
+
+                        Element target = r.getAt(i, finalJ);
+                        Element temp = r.getTargetField().newElement();
+
+                        for (int k = 0; k < field.m; k++) {
+                            if (isZeroAt(i, k))
+                                continue;
+
+                            target.add(temp.set(getAt(i, k)).mul(column.getAt(k)));
+                        }
+
+                    }
+
+                    System.out.println("j = " + finalJ);
+                }
+            });
+
+        }
+        executor.awaitTermination();
+
+        return r;
+    }
+
     public Matrix<E> transform(Transformer transformer) {
         for (int i = 0; i < field.n; i++)
             for (int j = 0; j < field.m; j++)
@@ -437,9 +471,22 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
     }
 
     public Matrix<E> setRowsToRandom(int start, int end) {
-        for (int i = start; i < end; i++)
-            for (int j = 0; j < field.m; j++)
-                getAt(i, j).setToRandom();
+        PoolExecutor executor = new PoolExecutor();
+        for (int i = start; i < end; i++) {
+            final int finalI = i;
+            executor.submit(new Runnable() {
+                public void run() {
+                    for (int j = 0; j < field.m; j++)
+                        getAt(finalI, j).setToRandom();
+                }
+            });
+        }
+        executor.awaitTermination();
+
+
+//        for (int i = start; i < end; i++)
+//            for (int j = 0; j < field.m; j++)
+//                getAt(i, j).setToRandom();
 
         return this;
     }
@@ -760,6 +807,7 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
                                     target.add(temp.set(getAt(finalI, k)).mul(me.getAt(k, j)));
                                 }
                             }
+
                         }
                     });
                 }

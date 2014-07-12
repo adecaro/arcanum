@@ -2,6 +2,7 @@ package org.arcanum.field.z;
 
 import org.arcanum.Element;
 import org.arcanum.field.base.AbstractElement;
+import org.arcanum.util.concurrent.ThreadSecureRandom;
 
 import java.math.BigInteger;
 
@@ -61,7 +62,8 @@ public class SymmetricLongZrElement<F extends SymmetricLongZrField> extends Abst
 
     public Element setToRandom() {
         // TODO: fix this.
-        this.value = Math.abs(field.getRandom().nextLong()) % field.order;
+//        this.value = Math.abs(field.getRandom().nextLong()) % field.order;
+        this.value = Math.abs(ThreadSecureRandom.get().nextLong()) % field.order;
 
         return mod();
     }

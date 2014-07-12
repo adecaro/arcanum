@@ -17,7 +17,7 @@ public class AP14HESymGroupFieldTest extends TestCase {
     @Before
     public void setUp() throws Exception {
         random = SecureRandom.getInstance("SHA1PRNG");
-        field = new AP14HESymGroupField(new GSW14Field(random, 4, 30), 5);
+        field = new AP14HESymGroupField(new AP14GSW14Field(random, 4, 30), 5);
     }
 
     @Test

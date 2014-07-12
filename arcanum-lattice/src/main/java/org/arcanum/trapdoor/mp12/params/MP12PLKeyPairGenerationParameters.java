@@ -47,7 +47,7 @@ public class MP12PLKeyPairGenerationParameters extends ElementKeyGenerationParam
 
         this.params = new MP12Parameters(random, n);
         this.q = q;
-        this.k = ApfloatUtils.log(q);
+        this.k = ApfloatUtils.log2(q);
     }
 
     public MP12Parameters getParameters() {

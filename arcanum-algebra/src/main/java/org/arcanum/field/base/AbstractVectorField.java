@@ -1,6 +1,7 @@
 package org.arcanum.field.base;
 
 import org.arcanum.Field;
+import org.arcanum.Vector;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -31,6 +32,25 @@ public abstract class AbstractVectorField<F extends Field, E extends AbstractVec
     public int getLengthInBytes() {
         return lenInBytes;
     }
+
+    public E newElement(Object value) {
+        if (value instanceof Vector) {
+            Vector v = (Vector) value;
+
+            E result = newElement();
+            for (int i = 0; i < n; i++) {
+                if (v.isZeroAt(i))
+                    result.setZeroAt(i);
+                else
+                    result.setAt(i, v.getAt(i));
+            }
+            return result;
+        }
+
+        throw new IllegalArgumentException("Invalid input!!!");
+    }
+
+
 
     public int getN() {
         return n;

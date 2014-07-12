@@ -63,6 +63,8 @@ public interface Matrix <E extends Element> extends Element {
 
     Element mulTo(Element e, Element to);
 
+    Element mul(ColumnReader<E> reader);
+
 
     Matrix<E> transform(Transformer transformer);
 
@@ -84,4 +86,13 @@ public interface Matrix <E extends Element> extends Element {
         public void transform(int row, int col, Element e);
 
     }
+
+    public interface ColumnReader<E extends Element> {
+
+        int getM();
+
+        Vector<E> getColumnAt(int column);
+
+    }
+
 }
