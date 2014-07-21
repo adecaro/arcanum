@@ -76,8 +76,6 @@ public class AP14BootstrappableGSW14Field extends AP14GSW14Field {
 
         // TODO: 2. Init Modulus switching to bootSmallQ
 
-        
-
         // TODO: 3. Generate bootstrapping key
 
         // TODO: 4. Decompose s, depends on the modulus switching

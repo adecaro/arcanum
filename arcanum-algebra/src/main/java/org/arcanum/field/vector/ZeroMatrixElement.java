@@ -7,10 +7,10 @@ import java.math.BigInteger;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class ZeroMatrixElement<E extends Element> extends AbstractMatrixElement<E, MatrixField> {
+public class ZeroMatrixElement<E extends Element> extends AbstractMatrixElement<E, AbstractMatrixField> {
 
 
-    public ZeroMatrixElement(MatrixField field) {
+    public ZeroMatrixElement(AbstractMatrixField field) {
         super(field);
     }
 

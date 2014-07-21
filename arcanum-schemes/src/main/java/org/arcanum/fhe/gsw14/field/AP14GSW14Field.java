@@ -1,9 +1,12 @@
 package org.arcanum.fhe.gsw14.field;
 
 import org.arcanum.*;
+import org.arcanum.Matrix.ColumnReader;
 import org.arcanum.field.base.AbstractField;
 import org.arcanum.field.base.AbstractVectorField;
+import org.arcanum.field.vector.AbstractMatrixField;
 import org.arcanum.field.vector.VectorExElement;
+import org.arcanum.field.vector.ZeroMatrixElement;
 import org.arcanum.trapdoor.mp12.engines.MP12PLP2MatrixSampler;
 import org.arcanum.trapdoor.mp12.engines.MP12PLP2Sampler;
 import org.arcanum.trapdoor.mp12.generators.MP12PLP2KeyPairGenerator;
@@ -23,7 +26,6 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
     protected Vector s, sDec;
     protected BigInteger oneFourthOrder;
     protected ElementCipher sampler;
-    protected ElementCipher sampler2;
     protected Sampler<BigInteger> lweErrorSampler;
 
 
@@ -52,8 +54,7 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
 
         this.oneFourthOrder = pk.getG().getAt(0, k - 2).toBigInteger().shiftRight(2);
 
-        this.sampler = new MP12PLP2MatrixSampler().init(pk);
-        this.sampler2 = new MP12PLP2Sampler().init(pk);
+        this.sampler = new MP12PLP2Sampler().init(pk);
     }
 
     public AP14GSW14Field(SecureRandom random, int n, int k, Element s) {
@@ -110,8 +111,14 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
     }
 
 
-    public Element newErrorFreeOneElement() {
-        return new AP14GSW14Element(this, pk.getG());
+    public Element newElementErrorFree(int value) {
+        switch (value) {
+            case 0 :
+                return new AP14GSW14Element(this, new ZeroMatrixElement((AbstractMatrixField) pk.getG().getField()));
+            case 1 :
+                return new AP14GSW14Element(this, (Matrix) pk.getG().duplicate());
+        }
+        throw new IllegalArgumentException("Value not valid. Must be 0 or 1.");
     }
 
     public MP12PLPublicKeyParameters getPk() {
@@ -130,9 +137,9 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
         Matrix ct = (Matrix) pk.getG().getField().newElement();
 
         ct.setRowsToRandom(0, ct.getN() - 1)
-                .getRowsViewAt(0, ct.getN() - 1)
-                .mulTo(s, ct.getRowViewAt(ct.getN() - 1));
-        ct.getRowViewAt(ct.getN() - 1).negate().add(e);
+                .getViewRowsAt(0, ct.getN() - 1)
+                .mulTo(s, ct.getViewRowAt(ct.getN() - 1));
+        ct.getViewRowAt(ct.getN() - 1).negate().add(e);
         ct.add(pk.getG().duplicate().mul(mu));
 
         return ct;
@@ -143,9 +150,9 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
             throw new IllegalStateException("Cannot decrypt ciphertext. Secret not initialized");
 
         BigInteger result = sDec.mul(value.getViewColAt(value.getM() - 2)).toBigInteger();
-        System.out.println("res = " + result.abs());
-        System.out.println("ofo = " + oneFourthOrder);
-        System.out.println("q   = " + pk.getZq().getOrder());
+//        System.out.println("res = " + result.abs());
+//        System.out.println("ofo = " + oneFourthOrder);
+//        System.out.println("q   = " + pk.getZq().getOrder());
         return result.abs().compareTo(oneFourthOrder) >= 0 ? BigInteger.ONE : BigInteger.ZERO;
     }
 
@@ -153,15 +160,14 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
 //        return sampler.processElements(value);
 //    }
 
-    protected Matrix.ColumnReader gInvert(final Matrix value) {
-        return new Matrix.ColumnReader() {
-
+    protected ColumnReader gInvert(final Matrix value) {
+        return new ColumnReader() {
             public int getM() {
                 return value.getM();
             }
 
             public Vector getColumnAt(int column) {
-                return (Vector) sampler2.processElements(value.getViewColAt(column));
+                return (Vector) sampler.processElements(value.getViewColAt(column));
             }
         };
     }

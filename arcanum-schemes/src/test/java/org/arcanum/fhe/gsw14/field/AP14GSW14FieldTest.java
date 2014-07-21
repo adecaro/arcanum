@@ -46,18 +46,86 @@ public class AP14GSW14FieldTest extends TestCase {
         assertEquals(BigInteger.ZERO, a.add(b).toBigInteger());
 
         a = field.newZeroElement();
-        b = field.newErrorFreeOneElement();
+        b = field.newElementErrorFree(1);
 
         assertEquals(BigInteger.ONE, a.add(b).toBigInteger());
+
+        a = field.newZeroElement();
+        b = field.newElementErrorFree(0);
+
+        assertEquals(BigInteger.ZERO, a.add(b).toBigInteger());
     }
 
     @Test
     public void testMul() {
         Element a = field.newOneElement();
-        Element b = field.newOneElement();
+        Element b = field.newZeroElement();
 
-//        assertEquals(BigInteger.ZERO, a.mul(b).toBigInteger());
+        assertEquals(BigInteger.ZERO, a.mul(b).toBigInteger());
 
+        a = field.newZeroElement();
+        b = field.newZeroElement();
+
+        assertEquals(BigInteger.ZERO, a.mul(b).toBigInteger());
+
+        a = field.newOneElement();
+        b = field.newOneElement();
+
+        assertEquals(BigInteger.ONE, a.mul(b).toBigInteger());
+
+        a = field.newOneElement();
+        b = field.newZeroElement();
+
+        assertEquals(BigInteger.ZERO, a.mul(b).toBigInteger());
+
+        a = field.newZeroElement();
+        b = field.newOneElement();
+
+        assertEquals(BigInteger.ZERO, a.mul(b).toBigInteger());
+
+        a = field.newOneElement();
+        b = field.newElementErrorFree(1);
+
+        assertEquals(BigInteger.ONE, a.mul(b).toBigInteger());
+
+        a = field.newZeroElement();
+        b = field.newElementErrorFree(1);
+
+        assertEquals(BigInteger.ZERO, a.mul(b).toBigInteger());
+
+        a = field.newElementErrorFree(1);
+        b = field.newElementErrorFree(1);
+
+        assertEquals(BigInteger.ONE, a.mul(b).toBigInteger());
+
+        a = field.newElementErrorFree(0);
+        b = field.newElementErrorFree(0);
+
+        assertEquals(BigInteger.ZERO, a.mul(b).toBigInteger());
+
+        a = field.newElementErrorFree(1);
+        b = field.newOneElement();
+
+        assertEquals(BigInteger.ONE, a.mul(b).toBigInteger());
+
+        a = field.newElementErrorFree(1);
+        b = field.newZeroElement();
+
+        assertEquals(BigInteger.ZERO, a.mul(b).toBigInteger());
+
+        a = field.newElementErrorFree(0);
+        b = field.newZeroElement();
+
+        assertEquals(BigInteger.ZERO, a.mul(b).toBigInteger());
+
+        a = field.newElementErrorFree(0);
+        b = field.newOneElement();
+
+        assertEquals(BigInteger.ZERO, a.mul(b).toBigInteger());
+    }
+
+    @Test
+    public void testMul2() {
         Element temp = field.newOneElement();
 
         int v = 1;
@@ -85,37 +153,7 @@ public class AP14GSW14FieldTest extends TestCase {
                 v= 1;
             }
         }
-            assertEquals(BigInteger.valueOf(v), temp.toBigInteger());
+        assertEquals(BigInteger.valueOf(v), temp.toBigInteger());
 
-//        a = field.newZeroElement();
-//        b = field.newZeroElement();
-//
-//        assertEquals(BigInteger.ZERO, a.mul(b).toBigInteger());
-//
-//        a = field.newOneElement();
-//        b = field.newOneElement();
-//
-//        assertEquals(BigInteger.ONE, a.mul(b).toBigInteger());
-//
-//        a = field.newOneElement();
-//        b = field.newZeroElement();
-//
-//        assertEquals(BigInteger.ZERO, a.mul(b).toBigInteger());
-//
-//        a = field.newZeroElement();
-//        b = field.newOneElement();
-//
-//        assertEquals(BigInteger.ZERO, a.mul(b).toBigInteger());
-//
-//        a = field.newOneElement();
-//        b = field.newErrorFreeOneElement();
-//
-//        assertEquals(BigInteger.ONE, a.mul(b).toBigInteger());
-//
-//        a = field.newZeroElement();
-//        b = field.newErrorFreeOneElement();
-//
-//        assertEquals(BigInteger.ZERO, a.mul(b).toBigInteger());
     }
-
 }

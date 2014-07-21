@@ -251,6 +251,9 @@ public abstract class AbstractVectorElement<E extends Element, F extends Abstrac
 
                     Element temp = field.getTargetField().newElement();
                     for (int k = 0; k < getSize(); k++) {
+                        if (isZeroAt(k) || me.isZeroAt(k))
+                            continue;
+
                         temp.add(
                                 getAt(k).duplicate().mul(me.getAt(k))
                         );

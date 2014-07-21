@@ -71,9 +71,9 @@ public interface Matrix <E extends Element> extends Element {
     Matrix<E> transformDiagonal(Transformer transformer);
 
 
-    Matrix<E> getRowsViewAt(int start, int end);
+    Matrix<E> getViewRowsAt(int start, int end);
 
-    Vector<E> getRowViewAt(int row);
+    Vector<E> getViewRowAt(int row);
 
     Vector<E> getViewColAt(int col);
 
@@ -87,7 +87,7 @@ public interface Matrix <E extends Element> extends Element {
 
     }
 
-    public interface ColumnReader<E extends Element> {
+    public static interface ColumnReader<E extends Element> {
 
         int getM();
 

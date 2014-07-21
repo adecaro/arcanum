@@ -6,6 +6,7 @@ import org.arcanum.trapdoor.mp12.params.MP12PLPublicKeyParameters;
 import org.arcanum.util.cipher.engine.AbstractElementCipher;
 
 import java.math.BigInteger;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
@@ -61,7 +62,7 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
 
         for (int i = 0, base = 0; i < n; i++) {
 
-            BigInteger u = syndrome.getAt(i).toBigInteger();
+            BigInteger u = (syndrome.isZeroAt(i)) ? BigInteger.ZERO : syndrome.getAt(i).toBigInteger();
 
             for (int j = 0; j < k; j++) {
                 BigInteger xj = sampler.sampleZ(u);
@@ -136,16 +137,15 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
         protected Queue<BigInteger> zero, one;
 
         public ZSampler() {
-            this.zero = new ConcurrentLinkedDeque<BigInteger>();
-            this.one = new ConcurrentLinkedDeque<BigInteger>();
+            this.zero = new LinkedList<BigInteger>();
+            this.one = new LinkedList<BigInteger>();
         }
-
 
         private BigInteger sampleZ(BigInteger u) {
             boolean uLSB = u.testBit(0);
 
             // TODO: store cache??
-            BigInteger value = null;
+            BigInteger value;
             if (uLSB)
                 value = one.poll();
             else

@@ -11,4 +11,5 @@ public interface Permutation {
 
     int permute(int index);
 
+    Permutation reverse();
 }

@@ -10,9 +10,13 @@ public class CyclicPermutation implements Permutation {
 
     public CyclicPermutation(int r, int value) {
         this.r = r;
-        this.value = (value + 1) % r;
+        this.value = value % r;
     }
 
+    public CyclicPermutation(int r) {
+        this.r = r;
+        this.value = 0;
+    }
 
     public int getSize() {
         return r;
@@ -26,6 +30,9 @@ public class CyclicPermutation implements Permutation {
         return (index + value) % r;
     }
 
+    public Permutation reverse() {
+        return new CyclicPermutation(r, r - value);
+    }
 
     public static void main(String[] args) {
         int r = 5;

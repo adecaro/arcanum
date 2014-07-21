@@ -407,7 +407,7 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
 
                     }
 
-                    System.out.println("j = " + finalJ);
+//                    System.out.println("j = " + finalJ);
                 }
             });
 
@@ -433,12 +433,12 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
     }
 
 
-    public Matrix<E> getRowsViewAt(int start, int end) {
+    public Matrix<E> getViewRowsAt(int start, int end) {
         return new ViewbyRowsMatrixElement(field, this, start, end);
 
     }
 
-    public Vector<E> getRowViewAt(int row) {
+    public Vector<E> getViewRowAt(int row) {
         return new ViewMatrixRowVectorElement<E>(field, this, row);
     }
 
@@ -539,7 +539,17 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
     }
 
     public Element set(Element value) {
-        throw new IllegalStateException("Not implemented yet!!!");
+        AbstractMatrixElement ame = (AbstractMatrixElement) value;
+
+        for (int i = 0; i < field.n; i++)
+            for (int j = 0; j < field.m; j++) {
+                if (ame.isZeroAt(i, j))
+                    setZeroAt(i, j);
+                else
+                    setAt(i, j, (E) ame.getAt(i, j));
+            }
+
+        return this;
     }
 
     public Element set(int value) {
@@ -560,7 +570,6 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
                 getAt(i, j).setToRandom();
 
         return this;
-
     }
 
     public Element setFromHash(byte[] source, int offset, int length) {

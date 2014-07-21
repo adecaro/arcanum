@@ -1,12 +1,10 @@
 package org.arcanum.program;
 
-import org.arcanum.Element;
-
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public interface Program {
+public interface Program<I, O> {
 
-    Element evaluate(Element... inputs);
+    O evaluate(I... inputs);
 
 }

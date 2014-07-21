@@ -25,4 +25,14 @@ public class DefaultPermutation implements Permutation {
         return perm[index];
     }
 
+    public Permutation reverse() {
+        int[] reversed = new int[perm.length];
+
+        for (int i = 0; i < reversed.length; i++) {
+            reversed[perm[i]] = i;
+        }
+
+        return new DefaultPermutation(reversed);
+    }
+
 }

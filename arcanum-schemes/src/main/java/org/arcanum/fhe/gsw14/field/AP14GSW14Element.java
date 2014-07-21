@@ -24,11 +24,13 @@ public class AP14GSW14Element extends AbstractElement<AP14GSW14Field> implements
 
 
     public Element duplicate() {
-        return null;
+        return new AP14GSW14Element(field, (Matrix) value.duplicate());
     }
 
     public Element set(Element value) {
-        return null;
+        this.value.set(((AP14GSW14Element) value).value);
+
+        return this;
     }
 
     public Element set(int value) {
@@ -80,7 +82,13 @@ public class AP14GSW14Element extends AbstractElement<AP14GSW14Field> implements
     }
 
     public Element add(Element element) {
-        this.value.add(((AP14GSW14Element)element).value);
+        this.value.add(((AP14GSW14Element) element).value);
+
+        return this;
+    }
+
+    public Element sub(Element element) {
+        this.value.sub(((AP14GSW14Element) element).value);
 
         return this;
     }
@@ -214,12 +222,12 @@ public class AP14GSW14Element extends AbstractElement<AP14GSW14Field> implements
         return value.transformDiagonal(transformer);
     }
 
-    public Matrix getRowsViewAt(int start, int end) {
-        return value.getRowsViewAt(start, end);
+    public Matrix getViewRowsAt(int start, int end) {
+        return value.getViewRowsAt(start, end);
     }
 
-    public Vector getRowViewAt(int row) {
-        return value.getRowViewAt(row);
+    public Vector getViewRowAt(int row) {
+        return value.getViewRowAt(row);
     }
 
     public Vector getViewColAt(int col) {
