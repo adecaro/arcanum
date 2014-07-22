@@ -30,6 +30,8 @@ public class DiscreteGaussianCDTSampler implements Sampler<BigInteger> {
 
     protected SecureRandom random;
     protected BigInteger[] cdt, cdtInvMin, cdtInvMax;
+    protected boolean[] cdtDiffLessThanTwo;
+    protected int[] curs;
     protected int cdtLength;
 
 
@@ -43,6 +45,8 @@ public class DiscreteGaussianCDTSampler implements Sampler<BigInteger> {
         this.cdtInvMin = data.cdtInvMin;
         this.cdtInvMax = data.cdtInvMax;
         this.cdtLength = data.cdtLength;
+        this.cdtDiffLessThanTwo = data.cdtDiffLessThanTwo;
+        this.curs = data.curs;
     }
 
     public BigInteger sample() {
@@ -53,14 +57,16 @@ public class DiscreteGaussianCDTSampler implements Sampler<BigInteger> {
 
         BigInteger min = cdtInvMin[r0];
         BigInteger max = cdtInvMax[r0];
-        if (max.subtract(min).compareTo(BigIntegerUtils.TWO) < 0) {
-            return (random.nextBoolean()) ? min : min.negate();
-        }
+
+        if (cdtDiffLessThanTwo[r0])
+            return (random.nextBoolean()) ? cdtInvMin[r0] : cdtInvMin[r0].negate();
 
         int mask_index = 56;
         BigInteger r1 = BigInteger.valueOf(r0).shiftLeft(mask_index);
         BigInteger r2 = MASK_INIT;
-        int cur = min.add(max).divide(BigIntegerUtils.TWO).intValue();
+//        int cur = min.add(max).shiftRight(1).intValue();
+
+        int cur = curs[r0];
 
         while (true) {
             if (r1.compareTo(cdt[cur]) > 0)
@@ -80,7 +86,7 @@ public class DiscreteGaussianCDTSampler implements Sampler<BigInteger> {
                 return (random.nextBoolean()) ? min : min.negate();
             }
 
-            cur = min.add(max).divide(BigIntegerUtils.TWO).intValue();
+            cur = min.add(max).shiftRight(1).intValue();
         }
 
         r2 = new BigInteger(64, random);
@@ -90,7 +96,7 @@ public class DiscreteGaussianCDTSampler implements Sampler<BigInteger> {
             else
                 max = BigInteger.valueOf(cur); // TODO: this is strange!!!
 
-            cur = min.add(max).divide(BigIntegerUtils.TWO).intValue();
+            cur = min.add(max).shiftRight(1).intValue();
 
             if (max.subtract(min).compareTo(BigIntegerUtils.TWO) < 0)
                 return (random.nextBoolean()) ? min : min.negate();
@@ -200,6 +206,8 @@ public class DiscreteGaussianCDTSampler implements Sampler<BigInteger> {
 
             cdtInvMin = new BigInteger[256];
             cdtInvMax = new BigInteger[256];
+            boolean[] cdtDiffLessThanTwo = new boolean[256];
+            int[] curs = new int[256];
 
             int min = 0, max = 0;
             BigInteger mask = BigInteger.valueOf(255).shiftLeft(56);
@@ -214,9 +222,16 @@ public class DiscreteGaussianCDTSampler implements Sampler<BigInteger> {
 
                 cdtInvMin[i] = BigInteger.valueOf(min);
                 cdtInvMax[i] = BigInteger.valueOf(max);
+
+                cdtDiffLessThanTwo[i] = (cdtInvMax[i].subtract(cdtInvMin[i]).compareTo(BigIntegerUtils.TWO) < 0);
+                curs[i] = cdtInvMin[i].add(cdtInvMax[i]).shiftRight(1).intValue();
             }
 
-            data = new CDTData(gaussianParameter, cdt, cdtInvMin, cdtInvMax, cdtLength);
+            data = new CDTData(
+                    gaussianParameter,
+                    cdt, cdtInvMin, cdtInvMax, cdtLength,
+                    cdtDiffLessThanTwo, curs
+                    );
             this.dataMap.put(gaussianParameter, data);
 
             return data;
@@ -226,18 +241,24 @@ public class DiscreteGaussianCDTSampler implements Sampler<BigInteger> {
         public class CDTData {
             Apfloat gaussianParameter;
             BigInteger[] cdt, cdtInvMin, cdtInvMax;
+            boolean[] cdtDiffLessThanTwo;
+            int[] curs;
             int cdtLength;
 
             public CDTData(Apfloat gaussianParameter,
                            BigInteger[] cdt,
                            BigInteger[] cdtInvMin,
                            BigInteger[] cdtInvMax,
-                           int cdtLength) {
+                           int cdtLength,
+                           boolean[] cdtDiffLessThanTwo,
+                           int[] curs) {
                 this.gaussianParameter = gaussianParameter;
                 this.cdt = cdt;
                 this.cdtInvMin = cdtInvMin;
                 this.cdtInvMax = cdtInvMax;
                 this.cdtLength = cdtLength;
+                this.cdtDiffLessThanTwo =  cdtDiffLessThanTwo;
+                this.curs = curs;
 
                 store();
             }
@@ -272,6 +293,16 @@ public class DiscreteGaussianCDTSampler implements Sampler<BigInteger> {
                         cdtInvMax[i] = new BigInteger(reader.readLine());
                     }
 
+                    cdtDiffLessThanTwo =  new boolean[length];
+                    for (int i = 0; i < length; i++) {
+                        cdtDiffLessThanTwo[i] = Boolean.valueOf(reader.readLine());
+                    }
+
+                    curs =  new int[length];
+                    for (int i = 0; i < length; i++) {
+                        curs[i] = Integer.valueOf(reader.readLine());
+                    }
+
                     reader.close();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
@@ -297,6 +328,12 @@ public class DiscreteGaussianCDTSampler implements Sampler<BigInteger> {
                         stream.println(v);
                     }
                     for (BigInteger v : cdtInvMax) {
+                        stream.println(v);
+                    }
+                    for (boolean v : cdtDiffLessThanTwo) {
+                        stream.println(v);
+                    }
+                    for (int v : curs) {
                         stream.println(v);
                     }
 

@@ -61,10 +61,9 @@ public interface Matrix <E extends Element> extends Element {
 
     Element mulFromTranspose(Element e);
 
-    Element mulTo(Element e, Element to);
-
     Element mul(ColumnReader<E> reader);
 
+    Element mulTo(ColumnReader<E> reader, Element to);
 
     Matrix<E> transform(Transformer transformer);
 

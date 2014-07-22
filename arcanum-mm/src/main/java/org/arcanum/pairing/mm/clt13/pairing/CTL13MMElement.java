@@ -252,6 +252,10 @@ public class CTL13MMElement implements Element {
         throw new IllegalStateException("Not Implemented yet!");
     }
 
+    public Element mulTo(Element e, Element to) {
+        throw new IllegalStateException("Not Implemented yet!");
+    }
+
     public Element mulZn(Element z) {
         throw new IllegalStateException("Not Implemented yet!");
     }
@@ -307,6 +311,10 @@ public class CTL13MMElement implements Element {
     }
 
     public int compareTo(Object o) {
+        throw new IllegalStateException("Not Implemented yet!");
+    }
+
+    public Element swap(Element e) {
         throw new IllegalStateException("Not Implemented yet!");
     }
 }

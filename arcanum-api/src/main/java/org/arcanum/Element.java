@@ -251,7 +251,6 @@ public interface Element extends ElementPow, Comparable  {
      */
     Element negate();
 
-
     /**
      * Sets this = this + element.
      *
@@ -317,6 +316,14 @@ public interface Element extends ElementPow, Comparable  {
     Element mulZn(Element z);
 
     /**
+     * TODO
+     * @param e
+     * @param to
+     * @return
+     */
+    Element mulTo(Element e, Element to);
+
+    /**
      * Sets this = this / element
      *
      * @param element is the divisor.
@@ -375,5 +382,12 @@ public interface Element extends ElementPow, Comparable  {
      * @since 1.0.0
      */
     int sign();
+
+    /**
+     * TODO:
+     * @param e
+     * @return
+     */
+    Element swap(Element e);
 
 }

@@ -105,6 +105,10 @@ public class AP14GSW14Element extends AbstractElement<AP14GSW14Field> implements
         return null;
     }
 
+    public Element mulTo(ColumnReader reader, Element to) {
+        throw new IllegalStateException("Not implemented yet!!!");
+    }
+
     public boolean isSqr() {
         return false;
     }
@@ -113,6 +117,17 @@ public class AP14GSW14Element extends AbstractElement<AP14GSW14Field> implements
         return 0;
     }
 
+    public Element swap(Element e) {
+        AP14GSW14Element b = (AP14GSW14Element) e;
+
+        // TODO: check compatibility
+
+        Matrix temp = b.value;
+        b.value = this.value;
+        this.value = temp;
+
+        return this;
+    }
 
     public Field getTargetField() {
         return value.getTargetField();
@@ -207,7 +222,10 @@ public class AP14GSW14Element extends AbstractElement<AP14GSW14Field> implements
     }
 
     public Element mulTo(Element e, Element to) {
-        return value.mulTo(e, to);
+        return value.mulTo(
+                field.gInvert(((AP14GSW14Element) e).value),
+                ((AP14GSW14Element) to).value
+        );
     }
 
     public Element mul(ColumnReader reader) {

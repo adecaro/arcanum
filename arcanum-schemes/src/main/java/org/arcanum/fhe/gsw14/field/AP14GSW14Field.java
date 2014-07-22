@@ -5,6 +5,7 @@ import org.arcanum.Matrix.ColumnReader;
 import org.arcanum.field.base.AbstractField;
 import org.arcanum.field.base.AbstractVectorField;
 import org.arcanum.field.vector.AbstractMatrixField;
+import org.arcanum.field.vector.ArrayMatrixElement;
 import org.arcanum.field.vector.VectorExElement;
 import org.arcanum.field.vector.ZeroMatrixElement;
 import org.arcanum.trapdoor.mp12.engines.MP12PLP2MatrixSampler;
@@ -121,6 +122,23 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
         throw new IllegalArgumentException("Value not valid. Must be 0 or 1.");
     }
 
+    public Element newElementErrorFreeFullMatrix(int value) {
+        switch (value) {
+            case 0 :
+                return new AP14GSW14Element(
+                        this,
+                        new ArrayMatrixElement((AbstractMatrixField) pk.getG().getField())
+                );
+            case 1 :
+                return new AP14GSW14Element(
+                        this,
+                        new ArrayMatrixElement((AbstractMatrixField) pk.getG().getField(), pk.getPrimitiveVector())
+                );
+        }
+        throw new IllegalArgumentException("Value not valid. Must be 0 or 1.");
+    }
+
+
     public MP12PLPublicKeyParameters getPk() {
         return pk;
     }
@@ -156,10 +174,6 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
         return result.abs().compareTo(oneFourthOrder) >= 0 ? BigInteger.ONE : BigInteger.ZERO;
     }
 
-//    protected Element gInvert(Matrix value) {
-//        return sampler.processElements(value);
-//    }
-
     protected ColumnReader gInvert(final Matrix value) {
         return new ColumnReader() {
             public int getM() {
@@ -170,5 +184,9 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
                 return (Vector) sampler.processElements(value.getViewColAt(column));
             }
         };
+    }
+
+    public Element newEmptyElement() {
+        return newElementErrorFreeFullMatrix(0);
     }
 }

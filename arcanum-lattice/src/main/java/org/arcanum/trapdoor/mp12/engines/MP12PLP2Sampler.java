@@ -24,11 +24,6 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
         }
     };
 
-    public ZSampler get() {
-        return zSampler.get();
-    }
-
-
     protected MP12PLPublicKeyParameters parameters;
     protected int n, k;
 
@@ -56,7 +51,7 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
         if (syndrome.getSize() != n)
             throw new IllegalArgumentException("Invalid syndrome length.");
 
-        ZSampler sampler = get();
+        ZSampler sampler = getZSampler();
 
         Vector r = parameters.getPreimageField().newElement();
 
@@ -82,7 +77,7 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
         if (syndrome.getSize() != n)
             throw new IllegalArgumentException("Invalid syndrome length.");
 
-        ZSampler sampler = get();
+        ZSampler sampler = getZSampler();
 
         Vector r = (Vector) to;
 
@@ -133,6 +128,10 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
 //        return value;
 //    }
 
+    public ZSampler getZSampler() {
+        return zSampler.get();
+    }
+
     public class ZSampler {
         protected Queue<BigInteger> zero, one;
 
@@ -144,7 +143,6 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
         private BigInteger sampleZ(BigInteger u) {
             boolean uLSB = u.testBit(0);
 
-            // TODO: store cache??
             BigInteger value;
             if (uLSB)
                 value = one.poll();

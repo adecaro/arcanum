@@ -207,6 +207,10 @@ public class PBCElement implements Element {
         return this;
     }
 
+    public Element mulTo(Element e, Element to) {
+        throw new IllegalStateException("Method not supported!!!");
+    }
+
     public PBCElement pow(BigInteger n) {
         MPZElementType z = MPZElementType.fromBigInteger(n);
         WrapperLibraryProvider.getWrapperLibrary().pbc_element_pow_mpz(this.value, this.value, z);
@@ -283,6 +287,10 @@ public class PBCElement implements Element {
     }
 
     public int compareTo(Object o) {
+        throw new IllegalStateException("Not Implemented yet!");
+    }
+
+    public Element swap(Element e) {
         throw new IllegalStateException("Not Implemented yet!");
     }
 

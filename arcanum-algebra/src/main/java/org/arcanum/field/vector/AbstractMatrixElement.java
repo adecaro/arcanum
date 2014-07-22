@@ -314,7 +314,6 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
         if (e instanceof Vector) {
             final Vector ve = (Vector) e;
 
-
             if (field.getTargetField().equals(((FieldOver) ve.getField()).getTargetField())) {
                 if (ve.getSize() == 1) {
                     throw new IllegalArgumentException("Cannot multiply this way.");
@@ -377,9 +376,72 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
                     }
                 }
             }
+        } else if (e instanceof Matrix) {
+            final Matrix me = (Matrix) e;
+
+            if (field.getTargetField().equals(me.getTargetField())) {
+                final Matrix r = (Matrix) to;
+
+                PoolExecutor executor = new PoolExecutor();
+                for (int i = 0, n = r.getN(); i < n; i++) {
+
+                    final int finalI = i;
+                    executor.submit(new Runnable() {
+                        public void run() {
+                            // row \times column
+                            Element temp = r.getTargetField().newElement();
+
+                            for (int j = 0, m = r.getM(); j < m; j++) {
+                                Element target = r.getAt(finalI, j).setToZero();
+
+                                for (int k = 0; k < field.m; k++) {
+                                    if (isZeroAt(finalI, k) || me.isZeroAt(j, j))
+                                        continue;
+
+                                    target.add(temp.set(getAt(finalI, k)).mul(me.getAt(k, j)));
+                                }
+                            }
+
+                        }
+                    });
+                }
+                executor.awaitTermination();
+
+                return r;
+            }
         }
 
         throw new IllegalStateException("Not Implemented yet!!!");
+    }
+
+    public Element mulTo(final ColumnReader<E> reader, Element to) {
+        final Matrix r = (Matrix) to;
+
+        PoolExecutor executor = new PoolExecutor();
+        for (int j = 0, m = r.getM(); j < m; j++) {
+
+            final int finalJ = j;
+            executor.submit(new Runnable() {
+                public void run() {
+                    Vector column = reader.getColumnAt(finalJ);
+                    Element temp = r.getTargetField().newElement();
+
+                    for (int i = 0, n = r.getN(); i < n; i++) {
+                        Element target = r.getAt(i, finalJ).setToZero();
+                        for (int k = 0; k < field.m; k++) {
+                            if (isZeroAt(i, k))
+                                continue;
+
+                            target.add(temp.set(getAt(i, k)).mul(column.getAt(k)));
+                        }
+                    }
+                }
+            });
+
+        }
+        executor.awaitTermination();
+
+        return this;
     }
 
     public Element mul(final ColumnReader<E> reader) {

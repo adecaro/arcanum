@@ -94,6 +94,10 @@ public abstract class AbstractElement<F extends AbstractField> implements Elemen
         throw new IllegalStateException("Not Implemented yet!");
     }
 
+    public Element swap(Element e) {
+        throw new IllegalStateException("Not Implemented yet!");
+    }
+
     public byte[] toBytes() {
         throw new IllegalStateException("Not Implemented yet!");
     }
@@ -104,6 +108,10 @@ public abstract class AbstractElement<F extends AbstractField> implements Elemen
 
     public Element mulZn(Element z) {
         return mul(z.toBigInteger());
+    }
+
+    public Element mulTo(Element e, Element to) {
+        throw new IllegalStateException("Not Implemented yet!");
     }
 
     public Element square() {

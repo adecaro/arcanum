@@ -19,7 +19,7 @@ public class AP14GSWBranchingProgramTest extends TestCase {
     @Before
     public void setUp() throws Exception {
         random = SecureRandom.getInstance("SHA1PRNG");
-        field = new AP14GSW14Field(random, 4, 30);
+        field = new AP14GSW14Field(random, 32, 30);
     }
 
     @Test

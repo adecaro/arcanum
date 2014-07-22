@@ -56,7 +56,7 @@ public class AP14GSWBranchingProgram extends ElementBranchingProgram {
 
         // 3. Output
 
-        return (state[0] == 1) ? true : false;
+        return (state[0] == 1);
     }
 
     public Element evaluate(Element... inputs) {
@@ -65,34 +65,48 @@ public class AP14GSWBranchingProgram extends ElementBranchingProgram {
 
         // init stat
         Element[] state = new Element[5];
-        state[0] = field.newElementErrorFree(1);
-        state[1] = field.newElementErrorFree(0);
-        state[2] = field.newElementErrorFree(0);
-        state[3] = field.newElementErrorFree(0);
-        state[4] = field.newElementErrorFree(0);
+        state[0] = field.newElementErrorFreeFullMatrix(1);
+        state[1] = field.newElementErrorFreeFullMatrix(0);
+        state[2] = field.newElementErrorFreeFullMatrix(0);
+        state[3] = field.newElementErrorFreeFullMatrix(0);
+        state[4] = field.newElementErrorFreeFullMatrix(0);
 
         // compute complements
         Element[] complements = new Element[inputs.length];
-        for (int i = 0; i < complements.length; i++) {
-            // TODO: encrypt 1 without error!
-            complements[i] = field.newOneElement().sub(inputs[i]);
-        }
+        for (int i = 0; i < complements.length; i++)
+            complements[i] = field.newElementErrorFreeFullMatrix(1).sub(inputs[i]);
 
         // 2. Evaluation
         Element[] newState = new Element[5];
+        for (int i = 0; i < 5; i++)
+            newState[i] = field.newEmptyElement();
+
         Element b = field.newZeroElement();
         for (int t = 0, len = vars.size(); t < len; t++) {
+            System.out.printf("Step %d...\n", t);
 
+            long start = System.currentTimeMillis();
             for (int j = 0; j < 5; j++) {
-                // TODO: can we avoid duplication?
-                Element a = complements[vars.get(t)].duplicate().mul(state[leftPerms.get(t).reverse().permute(j)]);
-                b.set(inputs[vars.get(t)]).mul(state[rightPerms.get(t).reverse().permute(j)]);
+//                Element a = complements[vars.get(t)].duplicate().mul(state[leftPerms.get(t).reverse().permute(j)]);
+//                inputs[vars.get(t)].mulTo(state[rightPerms.get(t).reverse().permute(j)], b);
+//                newState[j] = a.add(b);
 
-                newState[j] = a.add(b);
+                long start1 = System.currentTimeMillis();
+                complements[vars.get(t)].mulTo(state[leftPerms.get(t).reverse().permute(j)], newState[j]);
+                inputs[vars.get(t)].mulTo(state[rightPerms.get(t).reverse().permute(j)], b);
+                newState[j].add(b);
+                long end1 = System.currentTimeMillis();
+                System.out.printf("Step %d.%d completed in millis %d\n", t, j, (end1 - start1));
             }
 
             // Copy newState to state
-            System.arraycopy(newState, 0, state, 0, 5);
+//            System.arraycopy(newState, 0, state, 0, 5);
+
+            for (int i = 0; i < 5; i++)
+                state[i].swap(newState[i]);
+
+            long end = System.currentTimeMillis();
+            System.out.printf("Step %d completed in millis %d\n", t, (end-start));
         }
 
         // 3. Output

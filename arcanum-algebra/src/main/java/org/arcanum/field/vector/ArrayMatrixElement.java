@@ -3,6 +3,7 @@ package org.arcanum.field.vector;
 import org.arcanum.Element;
 import org.arcanum.Matrix;
 import org.arcanum.Sampler;
+import org.arcanum.Vector;
 
 import java.math.BigInteger;
 
@@ -85,6 +86,19 @@ public class ArrayMatrixElement<E extends Element, F extends AbstractMatrixField
 
                 transformer.transform(i, j, matrix[i][j]);
             }
+        }
+    }
+
+    public ArrayMatrixElement(F field, Vector<E> diagonal) {
+        this(field);
+
+        for (int i = 0; i < field.n; i++) {
+
+            int offset = i * diagonal.getSize();
+            for (int j = 0, s = diagonal.getSize(); j < s; j++) {
+                getAt(i, offset + j).set(diagonal.getAt(j));
+            }
+
         }
     }
 
