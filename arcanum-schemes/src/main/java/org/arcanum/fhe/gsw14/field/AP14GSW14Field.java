@@ -8,7 +8,7 @@ import org.arcanum.field.vector.AbstractMatrixField;
 import org.arcanum.field.vector.ArrayMatrixElement;
 import org.arcanum.field.vector.VectorExElement;
 import org.arcanum.field.vector.ZeroMatrixElement;
-import org.arcanum.trapdoor.mp12.engines.MP12PLP2MatrixSampler;
+import org.arcanum.trapdoor.mp12.engines.MP12PLP2LongSampler;
 import org.arcanum.trapdoor.mp12.engines.MP12PLP2Sampler;
 import org.arcanum.trapdoor.mp12.generators.MP12PLP2KeyPairGenerator;
 import org.arcanum.trapdoor.mp12.params.MP12PLKeyPairGenerationParameters;
@@ -55,7 +55,8 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
 
         this.oneFourthOrder = pk.getG().getAt(0, k - 2).toBigInteger().shiftRight(2);
 
-        this.sampler = new MP12PLP2Sampler().init(pk);
+        this.sampler = new MP12PLP2LongSampler().init(pk);
+//        this.sampler = new MP12PLP2Sampler().init(pk);
     }
 
     public AP14GSW14Field(SecureRandom random, int n, int k, Element s) {
@@ -78,7 +79,7 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
 
         this.oneFourthOrder = pk.getG().getAt(0, k - 2).toBigInteger().shiftRight(2);
 
-        this.sampler = new MP12PLP2MatrixSampler().init(pk);
+        this.sampler = new MP12PLP2Sampler().init(pk);
     }
 
 

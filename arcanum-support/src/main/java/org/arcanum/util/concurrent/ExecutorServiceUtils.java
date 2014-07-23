@@ -11,13 +11,15 @@ import java.util.concurrent.ThreadFactory;
  */
 public class ExecutorServiceUtils {
 
+    private static int MULTIPLIER = 3;
+
     private static ExecutorService fixedThreadPool;
     private static ExecutorService cachedThreadPool;
     private static DaemonThreadFactory threadFactory = new DaemonThreadFactory();
 
     static {
         fixedThreadPool = Executors.newFixedThreadPool(
-                Runtime.getRuntime().availableProcessors() * 46,
+                Runtime.getRuntime().availableProcessors() * MULTIPLIER,
                 threadFactory
         );
         cachedThreadPool = Executors.newCachedThreadPool(
@@ -36,7 +38,7 @@ public class ExecutorServiceUtils {
 
     public static ExecutorService getNewFixedThreadPool() {
         return Executors.newFixedThreadPool(
-                Runtime.getRuntime().availableProcessors() * 4,
+                Runtime.getRuntime().availableProcessors() * MULTIPLIER,
                 threadFactory
         );
     }

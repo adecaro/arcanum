@@ -87,6 +87,15 @@ public interface Element extends ElementPow, Comparable  {
      * @return this element set to value.
      * @since 1.0.0
      */
+    Element set(long value);
+
+    /**
+     * Sets this element to value.
+     *
+     * @param value the new value of this element.
+     * @return this element set to value.
+     * @since 1.0.0
+     */
     Element set(BigInteger value);
 
     /**
@@ -259,6 +268,13 @@ public interface Element extends ElementPow, Comparable  {
      * @since 1.0.0
      */
     Element add(BigInteger element);
+
+    /**
+     * TODO
+     * @param at
+     * @param b
+     */
+    Element addProduct(Element at, Element b);
 
     /**
      * Sets this = this + element.

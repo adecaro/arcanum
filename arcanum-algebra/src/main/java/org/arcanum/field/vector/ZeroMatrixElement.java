@@ -14,6 +14,12 @@ public class ZeroMatrixElement<E extends Element> extends AbstractMatrixElement<
         super(field);
     }
 
+
+    @Override
+    public boolean isSparse() {
+        return true;
+    }
+
     @Override
     public Element duplicate() {
         return new ZeroMatrixElement<E>(field);

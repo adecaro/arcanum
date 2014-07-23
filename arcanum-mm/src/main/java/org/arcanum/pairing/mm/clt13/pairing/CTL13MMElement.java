@@ -68,6 +68,10 @@ public class CTL13MMElement implements Element {
         throw new IllegalStateException("Not Implemented yet!");
     }
 
+    public Element set(long value) {
+        throw new IllegalStateException("Not Implemented yet!");
+    }
+
     public BigInteger toBigInteger() {
         return value;
     }
@@ -214,6 +218,10 @@ public class CTL13MMElement implements Element {
         this.value = field.getInstance().reduce(this.value.add(b));
 
         return this;
+    }
+
+    public Element addProduct(Element at, Element b) {
+        throw new IllegalStateException("Not Implemented yet!");
     }
 
     public Element sub(Element element) {

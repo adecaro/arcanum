@@ -21,6 +21,11 @@ public class DiagonalMatrixElement<E extends Element> extends AbstractMatrixElem
     }
 
     @Override
+    public boolean isSparse() {
+        return true;
+    }
+
+    @Override
     public Element duplicate() {
         return new DiagonalMatrixElement<E>(field, (Vector) base.duplicate());
     }

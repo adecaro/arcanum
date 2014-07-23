@@ -38,6 +38,10 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
         return field.m;
     }
 
+    public boolean isSparse() {
+        return false;
+    }
+
 
     public boolean isSquare() {
         return field.n == field.m;
@@ -62,6 +66,12 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
 
     public Matrix<E> setAt(int row, int col, E e) {
         getAt(row, col).set(e);
+
+        return this;
+    }
+
+    public Matrix<E> setAt(int row, int col, BigInteger value) {
+        getAt(row, col).set(value);
 
         return this;
     }
@@ -357,18 +367,29 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
                         for (int i = 0; i < field.m; i++) {
 
                             final int finalI = i;
-                            executor.submit(new Runnable() {
-                                public void run() {
-                                    // column \times row
-                                    Element temp = r.getAt(finalI).setToZero();
-                                    for (int k = 0; k < field.n; k++) {
-                                        if (isZeroAt(k, finalI))
-                                            continue;
+                            if (isSparse()) {
+                                executor.submit(new Runnable() {
+                                    public void run() {
+                                        // column \times row
+                                        Element temp = r.getAt(finalI).setToZero();
+                                        for (int k = 0; k < field.n; k++) {
+                                            if (isZeroAt(k, finalI))
+                                                continue;
 
-                                        temp.add(getAt(k, finalI).duplicate().mul(ve.getAt(k)));
+                                            temp.add(getAt(k, finalI).duplicate().mul(ve.getAt(k)));
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            } else {
+                                executor.submit(new Runnable() {
+                                    public void run() {
+                                        // column \times row
+                                        Element temp = r.getAt(finalI).setToZero();
+                                        for (int k = 0; k < field.n; k++)
+                                            temp.add(getAt(k, finalI).duplicate().mul(ve.getAt(k)));
+                                    }
+                                });
+                            }
                         }
                         executor.awaitTermination();
 
@@ -417,27 +438,47 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
     public Element mulTo(final ColumnReader<E> reader, Element to) {
         final Matrix r = (Matrix) to;
 
+        final int fieldN = r.getN();
+        final int fieldM = field.m;
         PoolExecutor executor = new PoolExecutor();
         for (int j = 0, m = r.getM(); j < m; j++) {
 
             final int finalJ = j;
-            executor.submit(new Runnable() {
-                public void run() {
-                    Vector column = reader.getColumnAt(finalJ);
-                    Element temp = r.getTargetField().newElement();
 
-                    for (int i = 0, n = r.getN(); i < n; i++) {
-                        Element target = r.getAt(i, finalJ).setToZero();
-                        for (int k = 0; k < field.m; k++) {
-                            if (isZeroAt(i, k))
-                                continue;
+            if (isSparse()) {
+                executor.submit(new Runnable() {
+                    public void run() {
+                        Vector column = reader.getColumnAt(finalJ);
+                        Element temp = r.getTargetField().newElement();
 
-                            target.add(temp.set(getAt(i, k)).mul(column.getAt(k)));
+                        for (int i = 0; i < fieldN; i++) {
+                            Element target = r.getAt(i, finalJ).setToZero();
+                            for (int k = 0; k < field.m; k++) {
+                                if (isZeroAt(i, k))
+                                    continue;
+
+                                target.add(temp.set(getAt(i, k)).mul(column.getAt(k)));
+                            }
                         }
                     }
-                }
-            });
+                });
+            } else {
+                executor.submit(new Runnable() {
+                    public void run() {
+                        Vector column = reader.getColumnAt(finalJ);
+//                        Element temp = r.getTargetField().newElement();
 
+                        for (int i = 0; i < fieldN; i++) {
+                            Element target = r.getAt(i, finalJ).setToZero();
+
+                            for (int k = 0; k < fieldM; k++) {
+//                                target.add(temp.set(getAt(i, k)).mul(column.getAt(k)));
+                                target.addProduct(getAt(i, k), column.getAt(k));
+                            }
+                        }
+                    }
+                });
+            }
         }
         executor.awaitTermination();
 

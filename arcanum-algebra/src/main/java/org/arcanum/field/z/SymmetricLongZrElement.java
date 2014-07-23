@@ -35,11 +35,18 @@ public class SymmetricLongZrElement<F extends SymmetricLongZrField> extends Abst
 //        this.value = ((SymmetricLongZrElement) value).value % field.order;
 //
 //        return mod();
+
         this.value = ((SymmetricLongZrElement) value).value;
         return this;
     }
 
     public Element set(int value) {
+        this.value = value % field.order;
+
+        return mod();
+    }
+
+    public Element set(long value) {
         this.value = value % field.order;
 
         return mod();
@@ -120,6 +127,15 @@ public class SymmetricLongZrElement<F extends SymmetricLongZrField> extends Abst
 
         return mod();
     }
+
+    public Element addProduct(Element a, Element b) {
+        this.value = (this.value +
+                (((SymmetricLongZrElement) a).value * ((SymmetricLongZrElement) b).value)
+        ) % field.order;
+
+        return mod();
+    }
+
 
     @Override
     public Element add(BigInteger element) {

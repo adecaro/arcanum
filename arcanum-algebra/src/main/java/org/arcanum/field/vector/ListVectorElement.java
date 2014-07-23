@@ -80,6 +80,12 @@ public class ListVectorElement<E extends Element, F extends AbstractVectorField>
         return this;
     }
 
+    public Vector<E> setAt(int index, BigInteger value) {
+        coeff.get(index).set(value);
+
+        return this;
+    }
+
     public int getSize() {
         return coeff.size();
     }

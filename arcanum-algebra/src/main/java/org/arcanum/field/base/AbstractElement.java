@@ -33,6 +33,10 @@ public abstract class AbstractElement<F extends AbstractField> implements Elemen
         throw new IllegalStateException("Not Implemented yet!");
     }
 
+    public Element set(long value) {
+        throw new IllegalStateException("Not Implemented yet!");
+    }
+
     public BigInteger toCanonicalBigInteger() {
         return toBigInteger();
     }
@@ -73,6 +77,11 @@ public abstract class AbstractElement<F extends AbstractField> implements Elemen
 
     public Element add(BigInteger element) {
         throw new IllegalStateException("Not Implemented yet!");
+    }
+
+    public Element addProduct(Element a, Element b) {
+        throw new IllegalStateException("Not Implemented yet!");
+//        return add(a.duplicate().mul(b));
     }
 
     public Element sub(Element element) {

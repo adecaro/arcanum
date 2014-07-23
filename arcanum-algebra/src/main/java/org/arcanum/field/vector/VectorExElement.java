@@ -6,6 +6,8 @@ import org.arcanum.Vector;
 import org.arcanum.field.base.AbstractVectorElement;
 import org.arcanum.field.base.AbstractVectorField;
 
+import java.math.BigInteger;
+
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
@@ -45,6 +47,15 @@ public class VectorExElement<E extends Element> extends AbstractVectorElement<E,
             return base.setAt(index, element);
 
         e.set(element);
+
+        return this;
+    }
+
+    public Vector<E> setAt(int index, BigInteger value) {
+        if (index < base.getSize())
+            return base.setAt(index, value);
+
+        e.set(value);
 
         return this;
     }

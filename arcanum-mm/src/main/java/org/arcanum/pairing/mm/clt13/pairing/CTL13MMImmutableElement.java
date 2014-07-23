@@ -126,4 +126,8 @@ public class CTL13MMImmutableElement extends CTL13MMElement {
         return duplicate().sqrt().getImmutable();
     }
 
+    @Override
+    public Element addProduct(Element at, Element b) {
+        return duplicate().addProduct(at, b);
+    }
 }

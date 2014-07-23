@@ -22,6 +22,9 @@ public class AP14GSW14Element extends AbstractElement<AP14GSW14Field> implements
         this.value = value;
     }
 
+    public boolean isSparse() {
+        return false;
+    }
 
     public Element duplicate() {
         return new AP14GSW14Element(field, (Matrix) value.duplicate());
@@ -159,6 +162,10 @@ public class AP14GSW14Element extends AbstractElement<AP14GSW14Field> implements
 
     public Matrix setAt(int row, int col, Element element) {
         return value.setAt(row, col, element);
+    }
+
+    public Matrix setAt(int row, int col, BigInteger v) {
+        return value.setAt(row, col, v);
     }
 
     public Matrix setZeroAt(int row, int col) {

@@ -15,7 +15,7 @@ import static org.arcanum.field.floating.ApfloatUtils.ITWO;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class MP12PLP2Sampler extends AbstractElementCipher {
+public class MP12PLP2LongSampler extends AbstractElementCipher {
 
     private ThreadLocal<ZSampler> zSampler = new ThreadLocal<ZSampler>() {
         @Override
@@ -28,7 +28,7 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
     protected int n, k;
 
     protected Sampler<BigInteger> sampler;
-    protected Queue<BigInteger> zero, one;
+    protected Queue<Long> zero, one;
 
 
     public ElementCipher init(ElementCipherParameters param) {
@@ -40,8 +40,8 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
                 parameters.getParameters().getRandom(),
                 parameters.getRandomizedRoundingParameter().multiply(ITWO)
         );
-        this.zero = new ConcurrentLinkedDeque<BigInteger>();
-        this.one = new ConcurrentLinkedDeque<BigInteger>();
+        this.zero = new ConcurrentLinkedDeque<Long>();
+        this.one = new ConcurrentLinkedDeque<Long>();
 
         return this;
     }
@@ -56,14 +56,13 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
         Vector r = parameters.getPreimageField().newElement();
 
         for (int i = 0, base = 0; i < n; i++) {
-            BigInteger u = (syndrome.isZeroAt(i)) ? BigInteger.ZERO : syndrome.getAt(i).toBigInteger();
+            long u = (syndrome.isZeroAt(i)) ? 0 : syndrome.getAt(i).toBigInteger().longValue();
 
             for (int j = 0; j < k; j++) {
-                BigInteger xj = sampler.sampleZ(u);
+                long xj = sampler.sampleZ(u);
                 r.getAt(base + j).set(xj);
 
-                u = u.subtract(xj).shiftRight(1);
-//                System.out.println("u = " + u);
+                u = (u - xj) >> 1;
             }
 
             base += k;
@@ -83,13 +82,13 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
 
         for (int i = 0, base = 0; i < n; i++) {
 
-            BigInteger u = (syndrome.isZeroAt(i)) ? BigInteger.ZERO : syndrome.getAt(i).toBigInteger();
+            long u = (syndrome.isZeroAt(i)) ? 0 : syndrome.getAt(i).toBigInteger().longValue();
 
             for (int j = 0; j < k; j++) {
-                BigInteger xj = sampler.sampleZ(u);
+                long xj = sampler.sampleZ(u);
                 r.getAt(base + j).set(xj);
 
-                u = u.subtract(xj).shiftRight(1);
+                u = (u - xj) >> 1;
             }
 
             base += k;
@@ -99,51 +98,22 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
     }
 
 
-//    private BigInteger sampleZ(BigInteger u) {
-//        boolean uLSB = u.testBit(0);
-//
-//        // TODO: store cache??
-//        BigInteger value = null;
-////        if (uLSB)
-////            value = one.poll();
-////        else
-////            value = zero.poll();
-//
-////        if (value == null) {
-//        while (true) {
-//            BigInteger x = sampler.sample();
-//            boolean xLSB = x.testBit(0);
-//            if (xLSB == uLSB) {
-//                value = x;
-//                break;
-//            } else {
-////                    if (xLSB)
-////                        one.add(x);
-////                    else
-////                        zero.add(x);
-//            }
-//        }
-////        }
-//
-//        return value;
-//    }
-
     public ZSampler getZSampler() {
         return zSampler.get();
     }
 
     public class ZSampler {
-        protected Queue<BigInteger> zero, one;
+        protected Queue<Long> zero, one;
 
         public ZSampler() {
-            this.zero = new LinkedList<BigInteger>();
-            this.one = new LinkedList<BigInteger>();
+            this.zero = new LinkedList<Long>();
+            this.one = new LinkedList<Long>();
         }
 
-        private BigInteger sampleZ(BigInteger u) {
-            boolean uLSB = u.testBit(0);
+        private Long sampleZ(long u) {
+            boolean uLSB = (u & (1)) != 0;
 
-            BigInteger value;
+            Long value;
             if (uLSB)
                 value = one.poll();
             else
@@ -151,9 +121,9 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
 
             if (value == null) {
                 while (true) {
-                    BigInteger x = sampler.sample();
-//                    System.out.println("x = " + x);
-                    boolean xLSB = x.testBit(0);
+                    long x = sampler.sample().longValue();
+
+                    boolean xLSB = (x & 1) != 0;
                     if (xLSB == uLSB) {
                         value = x;
                         break;

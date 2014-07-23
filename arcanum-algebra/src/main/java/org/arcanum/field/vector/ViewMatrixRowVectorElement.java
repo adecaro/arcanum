@@ -7,6 +7,8 @@ import org.arcanum.Vector;
 import org.arcanum.field.base.AbstractVectorElement;
 import org.arcanum.field.base.AbstractVectorField;
 
+import java.math.BigInteger;
+
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
@@ -36,6 +38,12 @@ public class ViewMatrixRowVectorElement<E extends Element> extends AbstractVecto
 
     public Vector<E> setAt(int index, E element) {
         base.setAt(row, index, element);
+
+        return this;
+    }
+
+    public Vector<E> setAt(int index, BigInteger value) {
+        base.setAt(row, index, value);
 
         return this;
     }

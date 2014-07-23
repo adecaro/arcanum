@@ -72,6 +72,9 @@ public class PBCElement implements Element {
         return this;
     }
 
+    public PBCElement set(long value) {
+        throw new IllegalStateException("Not Implemented yet!");    }
+
     public PBCElement set(BigInteger value) {
         MPZElementType z = MPZElementType.fromBigInteger(value);
         WrapperLibraryProvider.getWrapperLibrary().pbc_element_set_mpz(this.value, z);
@@ -168,6 +171,10 @@ public class PBCElement implements Element {
         WrapperLibraryProvider.getWrapperLibrary().pbc_element_add(value, value, ((PBCElement) element).value);
 
         return this;
+    }
+
+    public PBCElement addProduct(Element at, Element b) {
+        throw new IllegalStateException("Not implemented yet!!!");
     }
 
     public PBCElement sub(Element element) {

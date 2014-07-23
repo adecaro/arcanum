@@ -1,5 +1,7 @@
 package org.arcanum;
 
+import java.math.BigInteger;
+
 /**
  * This element represents a vector through its coordinates.
  * TODO: finish javadocs.
@@ -37,6 +39,8 @@ public interface Vector<E extends Element> extends Element {
 
 
     Vector<E> setAt(int index, E element);
+
+    Vector<E> setAt(int index, BigInteger value);
 
     /**
      *

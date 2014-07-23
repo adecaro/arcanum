@@ -5,6 +5,8 @@ import org.arcanum.Field;
 import org.arcanum.Point;
 import org.arcanum.Vector;
 
+import java.math.BigInteger;
+
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
@@ -31,6 +33,86 @@ public abstract class AbstractPointElement<E extends Element, F extends Abstract
 
     public Vector<E> setAt(int index, E element) {
         throw new IllegalStateException("Not Implemented yet!");
+    }
+
+    public Vector<E> setAt(int index, BigInteger value) {
+        throw new IllegalStateException("Not Implemented yet!");
+    }
+
+    public Element duplicate() {
+        return null;
+    }
+
+    public Element set(Element value) {
+        return null;
+    }
+
+    public Element set(int value) {
+        return null;
+    }
+
+    public Element set(BigInteger value) {
+        return null;
+    }
+
+    public BigInteger toBigInteger() {
+        return null;
+    }
+
+    public Element setToRandom() {
+        return null;
+    }
+
+    public Element setFromHash(byte[] source, int offset, int length) {
+        return null;
+    }
+
+    public Element setToZero() {
+        return null;
+    }
+
+    public boolean isZero() {
+        return false;
+    }
+
+    public Element setToOne() {
+        return null;
+    }
+
+    public boolean isEqual(Element value) {
+        return false;
+    }
+
+    public boolean isOne() {
+        return false;
+    }
+
+    public Element invert() {
+        return null;
+    }
+
+    public Element negate() {
+        return null;
+    }
+
+    public Element add(Element element) {
+        return null;
+    }
+
+    public Element mul(Element element) {
+        return null;
+    }
+
+    public Element mul(BigInteger n) {
+        return null;
+    }
+
+    public boolean isSqr() {
+        return false;
+    }
+
+    public int sign() {
+        return 0;
     }
 
     public E getX() {

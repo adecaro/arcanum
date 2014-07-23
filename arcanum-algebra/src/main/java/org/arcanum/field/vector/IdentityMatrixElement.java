@@ -15,6 +15,12 @@ public class IdentityMatrixElement<E extends Element> extends AbstractMatrixElem
         this.value = value;
     }
 
+
+    @Override
+    public boolean isSparse() {
+        return true;
+    }
+
     @Override
     public boolean isZeroAt(int row, int col) {
         return row != col;

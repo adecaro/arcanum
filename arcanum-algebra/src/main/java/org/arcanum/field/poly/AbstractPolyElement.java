@@ -7,6 +7,7 @@ import org.arcanum.Vector;
 import org.arcanum.field.base.AbstractElement;
 import org.arcanum.field.base.AbstractFieldOver;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,12 @@ public abstract class AbstractPolyElement<E extends Element, F extends AbstractF
 
     public Vector setAt(int index, Element element) {
         coefficients.get(index).set(element);
+
+        return this;
+    }
+
+    public Vector setAt(int index, BigInteger value) {
+        coefficients.get(index).set(value);
 
         return this;
     }

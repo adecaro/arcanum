@@ -21,7 +21,12 @@ public class TwoByColumnMatrixElement<E extends Element> extends AbstractMatrixE
         this.Am = A.getM();
     }
 
-    
+    @Override
+    public boolean isSparse() {
+        // TODO: check this condition
+        return A.isSparse() || B.isSparse();
+    }
+
     public final E getAt(int row, int col) {
         if (col < Am)
             return (E) A.getAt(row, col);

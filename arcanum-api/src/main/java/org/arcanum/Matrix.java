@@ -1,5 +1,7 @@
 package org.arcanum;
 
+import java.math.BigInteger;
+
 /**
  * TODO:
  *
@@ -16,6 +18,8 @@ public interface Matrix <E extends Element> extends Element {
     int getM();
 
 
+    boolean isSparse();
+
     boolean isSymmetric();
 
     boolean isSquare();
@@ -26,6 +30,8 @@ public interface Matrix <E extends Element> extends Element {
     E getAt(int row, int col);
 
     Matrix<E> setAt(int row, int col, E e);
+
+    Matrix<E> setAt(int row, int col, BigInteger value);
 
     Matrix<E> setZeroAt(int row, int col);
 
