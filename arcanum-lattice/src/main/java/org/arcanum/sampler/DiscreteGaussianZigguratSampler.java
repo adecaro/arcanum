@@ -10,7 +10,6 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 
 import static org.apfloat.ApfloatMath.*;
-import static org.apfloat.ApfloatMath.log;
 import static org.apfloat.ApfloatMath.sqrt;
 import static org.arcanum.field.floating.ApfloatUtils.*;
 import static org.arcanum.field.floating.ApfloatUtils.pi;

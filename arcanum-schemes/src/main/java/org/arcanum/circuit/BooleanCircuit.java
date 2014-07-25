@@ -118,6 +118,10 @@ public class BooleanCircuit implements Circuit<BooleanGate> {
                     this.value = getInputAt(0).get() || getInputAt(1).get();
                     break;
 
+                case NOT:
+                    this.value = !getInputAt(0).get();
+                    break;
+
                 case NAND:
                     this.value = !(getInputAt(0).get() && getInputAt(1).get());
                     break;
