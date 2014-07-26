@@ -1,6 +1,7 @@
 package org.arcanum.fe.abe.gvw13.engines;
 
 import org.arcanum.circuit.BooleanCircuit;
+import org.arcanum.circuit.smart.SmartBooleanCircuitLoader;
 import org.arcanum.fe.abe.gvw13.generators.GVW13KeyPairGenerator;
 import org.arcanum.fe.abe.gvw13.generators.GVW13ParametersGenerator;
 import org.arcanum.fe.abe.gvw13.generators.GVW13SecretKeyGenerator;
@@ -14,8 +15,6 @@ import org.junit.Test;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
-import static org.arcanum.circuit.BooleanCircuit.BooleanCircuitGate;
-import static org.arcanum.circuit.Gate.Type.*;
 import static org.junit.Assert.*;
 
 /**
@@ -32,25 +31,11 @@ public class GVW13KEMEngineTest {
 
     @Test
     public void testGVW13KEMEngine() {
-        // Setup
-        int ell = 4;
-        int depth = 3;
-
-        AsymmetricCipherKeyPair keyPair = setup(ell, depth);
-
         // Key Gen
-        int q = 3;
-        BooleanCircuit circuit = new BooleanCircuit(ell, q, depth, new BooleanCircuitGate[]{
-                new BooleanCircuitGate(INPUT, 0, 1),
-                new BooleanCircuitGate(INPUT, 1, 1),
-                new BooleanCircuitGate(INPUT, 2, 1),
-                new BooleanCircuitGate(INPUT, 3, 1),
-
-                new BooleanCircuitGate(AND, 4, 2, new int[]{0, 1}),
-                new BooleanCircuitGate(OR, 5, 2, new int[]{2, 3}),
-
-                new BooleanCircuitGate(AND, 6, 3, new int[]{4, 5}),
-        });
+        BooleanCircuit circuit =new SmartBooleanCircuitLoader().load(
+                "org/arcanum/circuits/circuit3.txt"
+        );
+        AsymmetricCipherKeyPair keyPair = setup(circuit.getNumInputs(), circuit.getDepth());
         GVW13SecretKeyParameters secretKey = (GVW13SecretKeyParameters) keyGen(keyPair.getPublic(), keyPair.getPrivate(), circuit);
 
         // Encaps/Decaps for a satisfying assignment

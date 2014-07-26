@@ -3,6 +3,7 @@ package org.arcanum.fhe.gsw14.field;
 import junit.framework.TestCase;
 import org.arcanum.circuit.BooleanCircuit;
 import org.arcanum.circuit.BooleanCircuitEvaluator;
+import org.arcanum.circuit.smart.SmartBooleanCircuitLoader;
 import org.arcanum.permutation.DefaultPermutation;
 import org.arcanum.permutation.Permutation;
 import org.arcanum.program.pbp.BooleanCircuitToBooleanPBP;
@@ -13,8 +14,6 @@ import org.junit.Test;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
-
-import static org.arcanum.circuit.Gate.Type.*;
 
 public class AP14GSWPBPEvaluatorTest extends TestCase {
 
@@ -47,22 +46,9 @@ public class AP14GSWPBPEvaluatorTest extends TestCase {
 
     @Test
     public void testCircuitEvaluation() {
-        int ell = 4;
-        int depth = 4;
-        int q = 4;
-        BooleanCircuit circuit = new BooleanCircuit(ell, q, depth, new BooleanCircuit.BooleanCircuitGate[]{
-                new BooleanCircuit.BooleanCircuitGate(INPUT, 0, 1),
-                new BooleanCircuit.BooleanCircuitGate(INPUT, 1, 1),
-                new BooleanCircuit.BooleanCircuitGate(INPUT, 2, 1),
-                new BooleanCircuit.BooleanCircuitGate(INPUT, 3, 1),
-
-                new BooleanCircuit.BooleanCircuitGate(AND, 4, 2, new int[]{0, 1}),
-                new BooleanCircuit.BooleanCircuitGate(AND, 5, 2, new int[]{2, 3}),
-
-                new BooleanCircuit.BooleanCircuitGate(AND, 6, 3 , new int[]{4, 5}),
-
-                new BooleanCircuit.BooleanCircuitGate(NOT, 7, 4, new int[]{6})
-        });
+        BooleanCircuit circuit =new SmartBooleanCircuitLoader().load(
+                "org/arcanum/circuits/circuit2.txt"
+        );
 
         // Convert it to a PBP
         PermutationBranchingProgram pbp = new BooleanCircuitToBooleanPBP().convert(circuit);
@@ -74,7 +60,7 @@ public class AP14GSWPBPEvaluatorTest extends TestCase {
         BooleanCircuitEvaluator circuitEvaluator = new BooleanCircuitEvaluator();
 
         // Generate the assignment randomly
-        boolean x0 = false;
+        boolean x0 = true;
         boolean x1 = true;
         boolean x2 = false;
         boolean x3 = true;
@@ -88,7 +74,7 @@ public class AP14GSWPBPEvaluatorTest extends TestCase {
                         field.newElement(x0 ? 1 : 0),
                         field.newElement(x1 ? 1 : 0),
                         field.newElement(x2 ? 1 : 0),
-                        field.newElement(x3 ? 1 : 0)))
+                        field.newElement(x3 ? 1 : 0)).toBigInteger())
         );
     }
 

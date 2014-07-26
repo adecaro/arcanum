@@ -37,7 +37,7 @@ public class GGHSW13SecretKeyGenerator {
         BooleanCircuit circuit = this.circuit;
 
         // sample the randomness
-        Element[] rs = new Element[circuit.getN() + circuit.getQ()];
+        Element[] rs = new Element[circuit.getNumInputs() + circuit.getNumGates()];
         for (int i = 0; i < rs.length; i++)
             rs[i] = pairing.getZr().newRandomElement().getImmutable();
 

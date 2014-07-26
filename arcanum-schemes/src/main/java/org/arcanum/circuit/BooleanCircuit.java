@@ -1,7 +1,6 @@
 package org.arcanum.circuit;
 
-import java.util.Arrays;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
@@ -9,45 +8,85 @@ import java.util.Iterator;
  */
 public class BooleanCircuit implements Circuit<BooleanGate> {
 
-    private int n, q;
-    private int depth;
-    private BooleanGate[] gates;
+    private int numInputs, numGates, numWires;
+    private List<BooleanGate> gatesList;
+    private Map<Integer, BooleanGate> gateMap;
 
 
-    public BooleanCircuit(int n, int q, int depth, BooleanCircuitGate[] gates) {
-        this.n = n;
-        this.q = q;
-        this.depth = depth;
+    public BooleanCircuit(int numInputs, int numGates, int numWires) {
+        this.numInputs = numInputs;
+        this.numGates = numGates;
+        this.numWires = numWires;
 
-        this.gates = gates;
-        for (BooleanCircuitGate gate : gates)
-            gate.setCircuit(this);
+        this.gatesList = new ArrayList<BooleanGate>();
+        this.gateMap = new HashMap<Integer, BooleanGate>();
     }
 
 
-    public int getN() {
-        return n;
+    public int getNumInputs() {
+        return numInputs;
     }
 
-    public int getQ() {
-        return q;
+    public int getNumGates() {
+        return numGates;
+    }
+
+    public int getNumWires() {
+        return numWires;
     }
 
     public int getDepth() {
-        return depth;
+        return getOutputGate().getDepth();
     }
 
 
     public Iterator<BooleanGate> iterator() {
-        return Arrays.asList(gates).iterator();
+        return gatesList.iterator();
     }
 
     public BooleanGate getGateAt(int index) {
-        return gates[index];
+        return gateMap.get(index);
     }
 
     public BooleanGate getOutputGate() {
-        return gates[n + q - 1];
+        return gateMap.get(gatesList.size() - 1);
+    }
+
+    public BooleanCircuit computeDepths() {
+        for (BooleanGate gate : this) {
+            BooleanCircuitGate bcGate = (BooleanCircuitGate) gate;
+            System.out.println("bcGate.getIndex() = " + bcGate.getIndex());
+
+            switch (gate.getType()) {
+                case INPUT:
+                    bcGate.depth = 0;
+                    break;
+
+                default:
+                    int max = 0;
+                    for (int i = 0; i <gate.getNumInputs(); i++) {
+                        Gate temp = getGateAt(gate.getInputIndexAt(i));
+                        System.out.println("temp.getType() = " + temp.getType() + " Depth() = " + temp.getDepth() + " Index() = " + temp.getIndex());
+
+                        max = Math.max(temp.getDepth(), max);
+                    }
+                    System.out.println("max = " + max);
+
+                    bcGate.depth = max + 1;
+                    break;
+            }
+        }
+        return this;
+    }
+
+    public BooleanCircuit addGate(BooleanCircuitGate gate) {
+        // TODO: add output
+        gatesList.add(gate);
+        gate.setCircuit(this);
+
+        gateMap.put(gate.getIndex(), gate);
+
+        return this;
     }
 
 
@@ -62,21 +101,25 @@ public class BooleanCircuit implements Circuit<BooleanGate> {
 
         private boolean value;
 
-        public BooleanCircuitGate(Type type, int index, int depth) {
+        public BooleanCircuitGate(Type type, int index) {
             this.type = type;
             this.index = index;
-            this.depth = depth;
+            this.depth = 0;
         }
 
-        public BooleanCircuitGate(Type type, int index, int depth, int[] inputs) {
+        public BooleanCircuitGate(Type type, int[] ins, int[] outs) {
             this.type = type;
-            this.index = index;
-            this.depth = depth;
-            this.inputs = Arrays.copyOf(inputs, inputs.length);
+            this.index = outs[0];
+            this.depth = 0;
+
+            if (outs.length > 1)
+                throw new IllegalArgumentException("Too many outputs");
+            this.inputs = Arrays.copyOf(ins, ins.length);
         }
 
-        public int getInputNum() {
-            return inputs.length;
+
+        public int getNumInputs() {
+            return (inputs == null) ? 0 : inputs.length;
         }
 
         public Type getType() {
@@ -119,6 +162,7 @@ public class BooleanCircuit implements Circuit<BooleanGate> {
                     break;
 
                 case NOT:
+                case INV:
                     this.value = !getInputAt(0).get();
                     break;
 
@@ -133,15 +177,8 @@ public class BooleanCircuit implements Circuit<BooleanGate> {
             return this;
         }
 
-        @Override
         public String toString() {
-            return "BooleanGate{" +
-                    "type=" + type +
-                    ", index=" + index +
-                    ", depth=" + depth +
-                    ", inputs=" + Arrays.toString(inputs) +
-                    ", value=" + value +
-                    '}';
+            return String.format("BooleanGate{type=%s, index=%d, depth=%d, inputs=%s, value=%s}", type, index, depth, Arrays.toString(inputs), value);
         }
 
         public Gate<Boolean> putAt(int index, Boolean value) {
@@ -151,6 +188,7 @@ public class BooleanCircuit implements Circuit<BooleanGate> {
         public Boolean getAt(int index) {
             throw new IllegalStateException("Not implemented yet!!!");
         }
+
 
         protected void setCircuit(BooleanCircuit circuit) {
             this.circuit = circuit;

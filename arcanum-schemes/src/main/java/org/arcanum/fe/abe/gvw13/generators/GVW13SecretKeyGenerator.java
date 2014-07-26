@@ -36,8 +36,8 @@ public class GVW13SecretKeyGenerator {
         GVW13PublicKeyParameters pk = param.getPublicKeyParameters();
 
         BooleanCircuit circuit = this.circuit;
-        int n = circuit.getN();
-        int q = circuit.getQ();
+        int n = circuit.getNumInputs();
+        int q = circuit.getNumGates();
         int qMinus1 = q - 1;
 
         // Generate key pairs

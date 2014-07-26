@@ -5,7 +5,9 @@ package org.arcanum.circuit;
 */
 public interface Gate<V> {
 
-    public static enum Type {INPUT, AND, OR, NOT, NAND}
+
+    public static enum Type {INPUT, AND, OR, NOT, INV, XOR, NAND}
+
 
     Type getType();
 
@@ -13,17 +15,19 @@ public interface Gate<V> {
 
     int getDepth();
 
-    int getInputIndexAt(int index);
+    int getNumInputs();
 
-    int getInputNum();
+    int getInputIndexAt(int index);
 
     Gate<V> getInputAt(int index);
 
-    Gate<V> evaluate();
 
     V get();
 
     Gate<V> set(V value);
+
+    Gate<V> evaluate();
+
 
     Gate<V> putAt(int index, V value);
 

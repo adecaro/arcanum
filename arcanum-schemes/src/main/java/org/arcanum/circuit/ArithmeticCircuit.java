@@ -30,11 +30,11 @@ public class ArithmeticCircuit implements Circuit<ArithmeticGate> {
     }
 
 
-    public int getN() {
+    public int getNumInputs() {
         return n;
     }
 
-    public int getQ() {
+    public int getNumGates() {
         return q;
     }
 
@@ -100,7 +100,7 @@ public class ArithmeticCircuit implements Circuit<ArithmeticGate> {
             this.values = new HashMap<Integer, Element>();
         }
 
-        public int getInputNum() {
+        public int getNumInputs() {
             return inputs.length;
         }
 

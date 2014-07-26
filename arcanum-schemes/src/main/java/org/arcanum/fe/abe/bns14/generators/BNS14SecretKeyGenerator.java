@@ -55,7 +55,7 @@ public class BNS14SecretKeyGenerator {
                 case OR:
                     // addition
                     Element B = pk.getBAt(0).getField().newZeroElement();
-                    for (int j = 0, k = gate.getInputNum(); j < k; j++) {
+                    for (int j = 0, k = gate.getNumInputs(); j < k; j++) {
                         // \alpha_i G
                         Element R = solver.processElements(
                                 (gate.getAlphaAt(j).isOne()) ?
@@ -77,13 +77,13 @@ public class BNS14SecretKeyGenerator {
                                     pk.getPrimitiveLatticePk().getG() :
                                     pk.getPrimitiveLatticePk().getG().duplicate().mulZn(gate.getAlphaAt(0))
                     );
-                    for (int j = 1, k = gate.getInputNum(); j < k; j++) {
+                    for (int j = 1, k = gate.getNumInputs(); j < k; j++) {
                         // R_j = SolveR(G, T_G, - B_{j-1} R_{j-1})
                         R = solver.processElements(keys.get(gate.getInputIndexAt(j - 1)).mul(R).negate());
                     }
 
                     // Compute B_g = B_{k-1} R_{k-1}
-                    keys.put(index, keys.get(gate.getInputIndexAt(gate.getInputNum() - 1)).mul(R));
+                    keys.put(index, keys.get(gate.getInputIndexAt(gate.getNumInputs() - 1)).mul(R));
                     break;
             }
         }

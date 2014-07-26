@@ -10,9 +10,9 @@ import java.util.Iterator;
  */
 public interface Circuit<C extends Gate> extends Iterable<C>, Program {
 
-    int getN();
+    int getNumInputs();
 
-    int getQ();
+    int getNumGates();
 
     int getDepth();
 

@@ -35,10 +35,10 @@ public class GGHVV13SecretKeyGenerator {
         GGHVV13PublicKeyParameters pk = param.getPublicKeyParameters();
 
         BooleanCircuit circuit = this.circuit;
-        int n = circuit.getN();
+        int n = circuit.getNumInputs();
 
         // sample the randomness
-        Element[] rs = new Element[n + circuit.getQ()];
+        Element[] rs = new Element[n + circuit.getNumGates()];
         for (int i = 0; i < rs.length; i++)
             rs[i] = pairing.getZr().newRandomElement().getImmutable();
 

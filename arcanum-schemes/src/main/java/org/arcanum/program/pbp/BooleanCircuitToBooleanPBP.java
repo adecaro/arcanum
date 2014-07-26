@@ -43,6 +43,7 @@ public class BooleanCircuitToBooleanPBP {
 
         for (BooleanGate gate : circuit) {
             int index = gate.getIndex();
+            System.out.println("index = " + index);
 
             switch (gate.getType()) {
                 case INPUT:
@@ -56,6 +57,9 @@ public class BooleanCircuitToBooleanPBP {
                     BooleanPermutationBranchingProgram leftPBP = pbps.get(gate.getInputIndexAt(0));
                     BooleanPermutationBranchingProgram rightPBP = pbps.get(gate.getInputIndexAt(1));
 
+                    System.out.println("leftPBP  = " + leftPBP.getLength());
+                    System.out.println("rightPBP = " + rightPBP.getLength());
+
                     BooleanPermutationBranchingProgram andPBP = new BooleanPermutationBranchingProgram();
                     // alpha accept
                     andPBP.addProgram(leftPBP.applyPerm(commToAlpha));
@@ -67,11 +71,13 @@ public class BooleanCircuitToBooleanPBP {
                     andPBP.addProgram(rightPBP.applyPerm(commToGammaInverse));
 
 //                    System.out.println("andPBP = " + andPBP);
+                    System.out.println("andPBP   = " + andPBP.getLength());
 
                     pbps.put(index, andPBP);
                     break;
 
                 case NOT:
+                case INV:
                     BooleanPermutationBranchingProgram pbp = pbps.get(gate.getInputIndexAt(0));
                     pbp = pbp.negate(commutator.getInverse()).applyPerm(commInvToComm);
 

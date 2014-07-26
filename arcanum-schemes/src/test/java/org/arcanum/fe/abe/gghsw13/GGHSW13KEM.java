@@ -1,6 +1,7 @@
 package org.arcanum.fe.abe.gghsw13;
 
 import org.arcanum.circuit.BooleanCircuit;
+import org.arcanum.circuit.smart.SmartBooleanCircuitLoader;
 import org.arcanum.fe.abe.gghsw13.engines.GGHSW13KEMEngine;
 import org.arcanum.fe.abe.gghsw13.generators.GGHSW13KeyPairGenerator;
 import org.arcanum.fe.abe.gghsw13.generators.GGHSW13ParametersGenerator;
@@ -14,8 +15,6 @@ import org.bouncycastle.crypto.CipherParameters;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
-import static org.arcanum.circuit.BooleanCircuit.BooleanCircuitGate;
-import static org.arcanum.circuit.Gate.Type.*;
 import static org.junit.Assert.*;
 
 /**
@@ -79,24 +78,14 @@ public class GGHSW13KEM {
 
 
     public static void main(String[] args) {
-        int n = 4;
-        int q = 3;
-        BooleanCircuit circuit = new BooleanCircuit(n, q, 3, new BooleanCircuitGate[]{
-                new BooleanCircuitGate(INPUT, 0, 1),
-                new BooleanCircuitGate(INPUT, 1, 1),
-                new BooleanCircuitGate(INPUT, 2, 1),
-                new BooleanCircuitGate(INPUT, 3, 1),
-
-                new BooleanCircuitGate(AND, 4, 2, new int[]{0, 1}),
-                new BooleanCircuitGate(OR, 5, 2, new int[]{2, 3}),
-
-                new BooleanCircuitGate(AND, 6, 3, new int[]{4, 5}),
-        });
+        BooleanCircuit circuit =new SmartBooleanCircuitLoader().load(
+                "org/arcanum/circuits/circuit3.txt"
+        );
 
         GGHSW13KEM kem = new GGHSW13KEM();
 
         // Setup
-        AsymmetricCipherKeyPair keyPair = kem.setup(n);
+        AsymmetricCipherKeyPair keyPair = kem.setup(circuit.getNumInputs());
 
         // Keygen
         CipherParameters secretKey = kem.keyGen(keyPair.getPublic(), keyPair.getPrivate(), circuit);

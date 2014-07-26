@@ -1,6 +1,7 @@
 package org.arcanum.kem;
 
 import org.arcanum.circuit.BooleanCircuit;
+import org.arcanum.circuit.smart.SmartBooleanCircuitLoader;
 import org.arcanum.fe.abe.gghsw13.engines.GGHSW13KEMEngine;
 import org.arcanum.fe.abe.gghsw13.generators.GGHSW13KeyPairGenerator;
 import org.arcanum.fe.abe.gghsw13.generators.GGHSW13ParametersGenerator;
@@ -22,8 +23,6 @@ import java.security.SecureRandom;
 import java.security.Security;
 import java.security.spec.AlgorithmParameterSpec;
 
-import static org.arcanum.circuit.BooleanCircuit.BooleanCircuitGate;
-import static org.arcanum.circuit.Gate.Type.*;
 import static org.junit.Assert.assertEquals;
 
 
@@ -119,10 +118,13 @@ public class KEMCipherGGHSW13KEM {
         Security.addProvider(new BouncyCastleProvider());
 
         try {
+            BooleanCircuit circuit =new SmartBooleanCircuitLoader().load(
+                    "org/arcanum/circuits/circuit3.txt"
+            );
+
             // Setup
-            int n = 4;
             KEMCipherGGHSW13KEM engine = new KEMCipherGGHSW13KEM();
-            engine.setup(n);
+            engine.setup(circuit.getNumInputs());
 
             // Encrypt
             String message = "Hello World!!!";
@@ -130,18 +132,6 @@ public class KEMCipherGGHSW13KEM {
             byte[] ciphertext = engine.encrypt(message);
 
             // Decrypt
-            int q = 3;
-            BooleanCircuit circuit = new BooleanCircuit(n, q, 3, new BooleanCircuitGate[]{
-                    new BooleanCircuitGate(INPUT, 0, 1),
-                    new BooleanCircuitGate(INPUT, 1, 1),
-                    new BooleanCircuitGate(INPUT, 2, 1),
-                    new BooleanCircuitGate(INPUT, 3, 1),
-
-                    new BooleanCircuitGate(AND, 4, 2, new int[]{0, 1}),
-                    new BooleanCircuitGate(OR, 5, 2, new int[]{2, 3}),
-
-                    new BooleanCircuitGate(AND, 6, 3, new int[]{4, 5}),
-            });
             byte[] plaintext = engine.decrypt(engine.keyGen(circuit), encapsulation, ciphertext);
 
             assertEquals(true, message.equals(new String(plaintext)));
