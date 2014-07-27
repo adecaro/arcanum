@@ -109,7 +109,6 @@ public class BooleanPermutationBranchingProgram implements PermutationBranchingP
         BooleanPermutationBranchingProgram result = new BooleanPermutationBranchingProgram();
         result.addProgram(this);
 
-        // TODO: duplicate
         int indexLast = getLength() - 1;
 
         result.leftPerms.add(

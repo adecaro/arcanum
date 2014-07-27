@@ -6,7 +6,7 @@ package org.arcanum.circuit;
 public interface Gate<V> {
 
 
-    public static enum Type {INPUT, AND, OR, NOT, INV, XOR, NAND}
+    public static enum Type {INPUT, AND, OR, NOT, INV, XOR, NAND, MOD2}
 
 
     Type getType();

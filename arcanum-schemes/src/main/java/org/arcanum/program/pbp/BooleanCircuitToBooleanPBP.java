@@ -41,9 +41,10 @@ public class BooleanCircuitToBooleanPBP {
     public PermutationBranchingProgram convert(BooleanCircuit circuit) {
         Map<Integer, BooleanPermutationBranchingProgram> pbps = new HashMap<Integer, BooleanPermutationBranchingProgram>();
 
+        // Assume that all the gates have fan-in 2.
         for (BooleanGate gate : circuit) {
             int index = gate.getIndex();
-            System.out.println("index = " + index);
+//            System.out.println("index = " + index);
 
             switch (gate.getType()) {
                 case INPUT:
@@ -54,39 +55,64 @@ public class BooleanCircuitToBooleanPBP {
                     break;
 
                 case AND:
-                    BooleanPermutationBranchingProgram leftPBP = pbps.get(gate.getInputIndexAt(0));
-                    BooleanPermutationBranchingProgram rightPBP = pbps.get(gate.getInputIndexAt(1));
+                    pbps.put(index, and(pbps.get(gate.getInputIndexAt(0)), pbps.get(gate.getInputIndexAt(1))));
+                    break;
 
-                    System.out.println("leftPBP  = " + leftPBP.getLength());
-                    System.out.println("rightPBP = " + rightPBP.getLength());
+                case OR:
+                    pbps.put(index, or(pbps.get(gate.getInputIndexAt(0)), pbps.get(gate.getInputIndexAt(1))));
+                    break;
 
-                    BooleanPermutationBranchingProgram andPBP = new BooleanPermutationBranchingProgram();
-                    // alpha accept
-                    andPBP.addProgram(leftPBP.applyPerm(commToAlpha));
-                    // gamma accept
-                    andPBP.addProgram(rightPBP.applyPerm(commToGamma));
-                    // alpha^-1 accept
-                    andPBP.addProgram(leftPBP.applyPerm(commToAlphaInverse));
-                    // gamma^-1 accept
-                    andPBP.addProgram(rightPBP.applyPerm(commToGammaInverse));
+                case NAND:
+                    pbps.put(index, nand(pbps.get(gate.getInputIndexAt(0)), pbps.get(gate.getInputIndexAt(1))));
+                    break;
 
-//                    System.out.println("andPBP = " + andPBP);
-                    System.out.println("andPBP   = " + andPBP.getLength());
-
-                    pbps.put(index, andPBP);
+                case MOD2:
+                    pbps.put(index, mod2(pbps.get(gate.getInputIndexAt(0)), pbps.get(gate.getInputIndexAt(1))));
                     break;
 
                 case NOT:
                 case INV:
-                    BooleanPermutationBranchingProgram pbp = pbps.get(gate.getInputIndexAt(0));
-                    pbp = pbp.negate(commutator.getInverse()).applyPerm(commInvToComm);
-
-                    pbps.put(index, pbp);
+                    pbps.put(index, not(pbps.get(gate.getInputIndexAt(0))));
                     break;
+
+
+                default:
+                    throw new IllegalArgumentException("Gate not recognized!!!");
             }
         }
 
         return pbps.get(circuit.getOutputGate().getIndex());
+    }
+
+
+    protected BooleanPermutationBranchingProgram and(BooleanPermutationBranchingProgram a, BooleanPermutationBranchingProgram b) {
+        BooleanPermutationBranchingProgram andPBP = new BooleanPermutationBranchingProgram();
+        // alpha accept
+        andPBP.addProgram(a.applyPerm(commToAlpha));
+        // gamma accept
+        andPBP.addProgram(b.applyPerm(commToGamma));
+        // alpha^-1 accept
+        andPBP.addProgram(a.applyPerm(commToAlphaInverse));
+        // gamma^-1 accept
+        andPBP.addProgram(b.applyPerm(commToGammaInverse));
+
+        return andPBP;
+    }
+
+    protected BooleanPermutationBranchingProgram not(BooleanPermutationBranchingProgram pbp) {
+        return pbp.negate(commutator.getInverse()).applyPerm(commInvToComm);
+    }
+
+    protected BooleanPermutationBranchingProgram nand(BooleanPermutationBranchingProgram a, BooleanPermutationBranchingProgram b) {
+        return not(and(a, b));
+    }
+
+    protected BooleanPermutationBranchingProgram or(BooleanPermutationBranchingProgram a, BooleanPermutationBranchingProgram b) {
+        return nand(nand(a, a), nand(b, b));
+    }
+
+    protected BooleanPermutationBranchingProgram mod2(BooleanPermutationBranchingProgram a, BooleanPermutationBranchingProgram b) {
+        return or(and(a, not(b)), and(not(a), b));
     }
 
 }

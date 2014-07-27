@@ -55,7 +55,6 @@ public class BooleanCircuit implements Circuit<BooleanGate> {
     public BooleanCircuit computeDepths() {
         for (BooleanGate gate : this) {
             BooleanCircuitGate bcGate = (BooleanCircuitGate) gate;
-            System.out.println("bcGate.getIndex() = " + bcGate.getIndex());
 
             switch (gate.getType()) {
                 case INPUT:
@@ -66,12 +65,8 @@ public class BooleanCircuit implements Circuit<BooleanGate> {
                     int max = 0;
                     for (int i = 0; i <gate.getNumInputs(); i++) {
                         Gate temp = getGateAt(gate.getInputIndexAt(i));
-                        System.out.println("temp.getType() = " + temp.getType() + " Depth() = " + temp.getDepth() + " Index() = " + temp.getIndex());
-
                         max = Math.max(temp.getDepth(), max);
                     }
-                    System.out.println("max = " + max);
-
                     bcGate.depth = max + 1;
                     break;
             }
@@ -168,6 +163,12 @@ public class BooleanCircuit implements Circuit<BooleanGate> {
 
                 case NAND:
                     this.value = !(getInputAt(0).get() && getInputAt(1).get());
+                    break;
+
+                case MOD2:
+                    this.value = (getInputAt(0).get() && !getInputAt(1).get()) ||
+                            (!getInputAt(0).get() && getInputAt(1).get());
+
                     break;
 
                 default:

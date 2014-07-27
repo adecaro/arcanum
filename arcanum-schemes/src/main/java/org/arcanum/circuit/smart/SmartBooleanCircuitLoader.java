@@ -28,8 +28,8 @@ public class SmartBooleanCircuitLoader {
             int nGates = Integer.valueOf(st.nextToken());
             int nWires = Integer.valueOf(st.nextToken());
 
-            System.out.println("nGates = " + nGates);
-            System.out.println("nWires = " + nWires);
+//            System.out.println("nGates = " + nGates);
+//            System.out.println("nWires = " + nWires);
 
             // Then two numbers defining the number n1 and n2 of wires
             // in the inputs to the function given by the circuit.
@@ -46,9 +46,9 @@ public class SmartBooleanCircuitLoader {
             if (n3 != 1)
                 throw new IllegalArgumentException("Only one output accepted");
 
-            System.out.println("n1 = " + n1);
-            System.out.println("n2 = " + n2);
-            System.out.println("n3 = " + n3);
+//            System.out.println("n1 = " + n1);
+//            System.out.println("n2 = " + n2);
+//            System.out.println("n3 = " + n3);
 
             BooleanCircuit circuit = new BooleanCircuit(n1 + n2, nGates, nWires);
             for (int i = 0; i < circuit.getNumInputs(); i++) {
@@ -77,7 +77,7 @@ public class SmartBooleanCircuitLoader {
                 if (line.isEmpty())
                     continue;
 
-                System.out.println("line = " + line);
+//                System.out.println("line = " + line);
 
                 st = new StringTokenizer(line, " ");
                 int nIns = Integer.valueOf(st.nextToken());

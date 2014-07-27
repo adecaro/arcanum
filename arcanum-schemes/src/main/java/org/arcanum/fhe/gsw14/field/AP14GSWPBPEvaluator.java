@@ -1,7 +1,9 @@
 package org.arcanum.fhe.gsw14.field;
 
 import org.arcanum.Element;
-import org.arcanum.program.ProgramEvaluator;
+import org.arcanum.program.AbstractProgramEvaluator;
+import org.arcanum.program.Assignment;
+import org.arcanum.program.assignment.ElementBooleanAssignment;
 import org.arcanum.program.pbp.PermutationBranchingProgram;
 import org.arcanum.util.concurrent.ExecutorServiceUtils;
 import org.arcanum.util.concurrent.PoolExecutor;
@@ -9,11 +11,15 @@ import org.arcanum.util.concurrent.PoolExecutor;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class AP14GSWPBPEvaluator implements ProgramEvaluator<PermutationBranchingProgram, Element, Element> {
+public class AP14GSWPBPEvaluator extends AbstractProgramEvaluator<PermutationBranchingProgram, Element, Element> {
 
-    public Element evaluate(final PermutationBranchingProgram pbp, final Element... inputs) {
+    public Element evaluate(PermutationBranchingProgram pbp, Element... inputs) {
+        return evaluate(pbp, new ElementBooleanAssignment(inputs));
+    }
+
+    public Element evaluate(final PermutationBranchingProgram pbp, final Assignment<Element> assignment) {
         // 1. Initialization
-        AP14GSW14Field field = (AP14GSW14Field) inputs[0].getField();
+        AP14GSW14Field field = (AP14GSW14Field) assignment.getAt(0).getField();
 
         // init stat
         final Element[] state = new Element[5];
@@ -24,9 +30,9 @@ public class AP14GSWPBPEvaluator implements ProgramEvaluator<PermutationBranchin
         state[4] = field.newElementErrorFreeFullMatrix(0);
 
         // compute complements
-        final Element[] complements = new Element[inputs.length];
+        final Element[] complements = new Element[assignment.getLength()];
         for (int i = 0; i < complements.length; i++)
-            complements[i] = field.newElementErrorFreeFullMatrix(1).sub(inputs[i]);
+            complements[i] = field.newElementErrorFreeFullMatrix(1).sub(assignment.getAt(i));
 
         // 2. Evaluation
         final Element[] newState = new Element[5];
@@ -64,7 +70,7 @@ public class AP14GSWPBPEvaluator implements ProgramEvaluator<PermutationBranchin
                         long start1 = System.currentTimeMillis();
 
                         complements[pbp.getVarIndexAt(i)].mulTo(state[pbp.permuteLeftInverseAt(i, j)], newState[j]);
-                        inputs[pbp.getVarIndexAt(i)].mulTo(state[pbp.permuteRightInverseAt(i, j)], b[j]);
+                        assignment.getAt(pbp.getVarIndexAt(i)).mulTo(state[pbp.permuteRightInverseAt(i, j)], b[j]);
 
                         newState[j].add(b[j]);
 
@@ -105,10 +111,9 @@ public class AP14GSWPBPEvaluator implements ProgramEvaluator<PermutationBranchin
                 state[2].toBigInteger(),
                 state[3].toBigInteger(),
                 state[4].toBigInteger()
-                );
+        );
 
 
         return state[0];
     }
-
 }

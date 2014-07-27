@@ -7,4 +7,6 @@ public interface ProgramEvaluator<P extends Program, I, O> {
 
     O evaluate(P program, I... inputs);
 
+    O evaluate(P program, Assignment<I> assignment);
+
 }
