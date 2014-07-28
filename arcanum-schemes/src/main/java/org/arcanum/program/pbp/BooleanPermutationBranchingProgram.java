@@ -1,7 +1,7 @@
 package org.arcanum.program.pbp;
 
-import org.arcanum.permutation.DefaultPermutation;
-import org.arcanum.permutation.Permutation;
+import org.arcanum.program.pbp.permutation.DefaultPermutation;
+import org.arcanum.program.pbp.permutation.Permutation;
 
 import java.util.ArrayList;
 import java.util.List;

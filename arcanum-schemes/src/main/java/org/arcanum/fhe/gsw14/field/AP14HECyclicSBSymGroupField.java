@@ -1,7 +1,7 @@
 package org.arcanum.fhe.gsw14.field;
 
 import org.arcanum.field.base.AbstractVectorField;
-import org.arcanum.permutation.Permutation;
+import org.arcanum.program.pbp.permutation.Permutation;
 import org.arcanum.util.concurrent.ExecutorServiceUtils;
 import org.arcanum.util.concurrent.PoolExecutor;
 

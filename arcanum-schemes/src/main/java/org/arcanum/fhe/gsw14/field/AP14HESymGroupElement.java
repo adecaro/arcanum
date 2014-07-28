@@ -2,7 +2,7 @@ package org.arcanum.fhe.gsw14.field;
 
 import org.arcanum.Element;
 import org.arcanum.field.vector.ArrayMatrixElement;
-import org.arcanum.permutation.Permutation;
+import org.arcanum.program.pbp.permutation.Permutation;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

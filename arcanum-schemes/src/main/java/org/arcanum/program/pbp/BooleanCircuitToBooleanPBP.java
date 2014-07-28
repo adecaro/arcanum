@@ -2,8 +2,8 @@ package org.arcanum.program.pbp;
 
 import org.arcanum.circuit.BooleanCircuit;
 import org.arcanum.circuit.BooleanGate;
-import org.arcanum.permutation.DefaultPermutation;
-import org.arcanum.permutation.Permutation;
+import org.arcanum.program.pbp.permutation.DefaultPermutation;
+import org.arcanum.program.pbp.permutation.Permutation;
 
 import java.util.HashMap;
 import java.util.Map;

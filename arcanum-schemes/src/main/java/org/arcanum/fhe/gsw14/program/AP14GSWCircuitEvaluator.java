@@ -1,4 +1,4 @@
-package org.arcanum.fhe.gsw14.field;
+package org.arcanum.fhe.gsw14.program;
 
 import org.arcanum.Element;
 import org.arcanum.circuit.BooleanCircuit;

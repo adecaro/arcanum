@@ -1,7 +1,7 @@
 package org.arcanum.program.pbp;
 
-import org.arcanum.permutation.Permutation;
 import org.arcanum.program.Program;
+import org.arcanum.program.pbp.permutation.Permutation;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

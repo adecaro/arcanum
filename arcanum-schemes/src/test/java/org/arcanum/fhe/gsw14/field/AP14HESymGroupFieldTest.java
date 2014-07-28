@@ -2,8 +2,8 @@ package org.arcanum.fhe.gsw14.field;
 
 import junit.framework.TestCase;
 import org.arcanum.Element;
-import org.arcanum.permutation.DefaultPermutation;
-import org.arcanum.permutation.Permutation;
+import org.arcanum.program.pbp.permutation.DefaultPermutation;
+import org.arcanum.program.pbp.permutation.Permutation;
 import org.junit.Before;
 import org.junit.Test;
 

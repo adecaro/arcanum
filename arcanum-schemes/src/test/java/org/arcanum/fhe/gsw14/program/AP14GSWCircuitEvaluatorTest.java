@@ -1,13 +1,12 @@
-package org.arcanum.fhe.gsw14.field;
+package org.arcanum.fhe.gsw14.program;
 
 import org.arcanum.circuit.BooleanCircuit;
 import org.arcanum.circuit.BooleanCircuitEvaluator;
 import org.arcanum.circuit.smart.SmartBooleanCircuitLoader;
+import org.arcanum.fhe.gsw14.field.AP14GSW14Field;
 import org.arcanum.program.assignment.BooleanAssignment;
 import org.arcanum.program.assignment.BooleanAssignmentGenerator;
 import org.arcanum.program.assignment.ElementBooleanAssignment;
-import org.arcanum.program.pbp.BooleanCircuitToBooleanPBP;
-import org.arcanum.program.pbp.PermutationBranchingProgram;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +20,8 @@ import java.util.Collection;
 import static org.junit.Assert.assertSame;
 
 @RunWith(value = Parameterized.class)
-public class AP14GSWPBPEvaluatorTest {
+public class AP14GSWCircuitEvaluatorTest {
+
 
     @Parameterized.Parameters
     public static Collection parameters() {
@@ -39,18 +39,14 @@ public class AP14GSWPBPEvaluatorTest {
         return Arrays.asList(data);
     }
 
-
-    protected String circuitPath;
-
     private SecureRandom random;
     private AP14GSW14Field field;
 
+    protected String circuitPath;
 
-
-    public AP14GSWPBPEvaluatorTest(String circuitPath) {
+    public AP14GSWCircuitEvaluatorTest(String circuitPath) {
         this.circuitPath = circuitPath;
     }
-
 
     @Before
     public void setUp() throws Exception {
@@ -58,18 +54,13 @@ public class AP14GSWPBPEvaluatorTest {
         field = new AP14GSW14Field(random, 4, 30);
     }
 
-
     @Test
-    public void testCircuitEvaluation() {
+    public void testEvaluation() {
         BooleanCircuit circuit =new SmartBooleanCircuitLoader().load(circuitPath);
-
-        // Convert it to a PBP
-        PermutationBranchingProgram pbp = new BooleanCircuitToBooleanPBP().convert(circuit);
-        System.out.println("pbp = " + pbp);
 
         // Verify that they evaluates to the same value.
 
-        AP14GSWPBPEvaluator pbpEvaluator = new AP14GSWPBPEvaluator();
+        AP14GSWCircuitEvaluator encCircuitEvaluator = new AP14GSWCircuitEvaluator();
         BooleanCircuitEvaluator circuitEvaluator = new BooleanCircuitEvaluator();
 
         BooleanAssignmentGenerator assignmentGenerator = new BooleanAssignmentGenerator(circuit.getNumInputs());
@@ -77,8 +68,10 @@ public class AP14GSWPBPEvaluatorTest {
             System.out.println("assignment = " + assignment);
             assertSame(
                     circuitEvaluator.evaluate(circuit, assignment),
-                    !BigInteger.ONE.equals(pbpEvaluator.evaluate(
-                            pbp,new ElementBooleanAssignment(field, assignment)).toBigInteger())
+                    !BigInteger.ONE.equals(encCircuitEvaluator.evaluate(
+                            circuit,
+                            new ElementBooleanAssignment(field, assignment))
+                            .toBigInteger())
             );
         }
     }

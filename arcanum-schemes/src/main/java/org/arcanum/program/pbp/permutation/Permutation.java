@@ -1,4 +1,4 @@
-package org.arcanum.permutation;
+package org.arcanum.program.pbp.permutation;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

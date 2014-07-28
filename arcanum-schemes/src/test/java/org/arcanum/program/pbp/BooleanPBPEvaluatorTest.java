@@ -1,8 +1,8 @@
 package org.arcanum.program.pbp;
 
 import junit.framework.TestCase;
-import org.arcanum.permutation.DefaultPermutation;
-import org.arcanum.permutation.Permutation;
+import org.arcanum.program.pbp.permutation.DefaultPermutation;
+import org.arcanum.program.pbp.permutation.Permutation;
 import org.junit.Test;
 
 public class BooleanPBPEvaluatorTest extends TestCase {

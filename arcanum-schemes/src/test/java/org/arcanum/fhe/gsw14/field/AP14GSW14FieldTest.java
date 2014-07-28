@@ -1,23 +1,34 @@
 package org.arcanum.fhe.gsw14.field;
 
-import junit.framework.TestCase;
 import org.arcanum.Element;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
-public class AP14GSW14FieldTest extends TestCase {
+import static junit.framework.Assert.assertEquals;
+
+public class AP14GSW14FieldTest {
 
     private SecureRandom random;
     private AP14GSW14Field field;
+    private long start;
 
     @Before
     public void setUp() throws Exception {
         random = SecureRandom.getInstance("SHA1PRNG");
-        field = new AP14GSW14Field(random, 4, 30);
+        field = new AP14GSW14Field(random, 16, 24);
+        start = System.currentTimeMillis();
     }
+
+    @After
+    public void after() throws Exception {
+        long end = System.currentTimeMillis();
+        System.out.println("(end-start) = " + (end - start));
+    }
+
 
     @Test
     public void testNewElement() {
@@ -57,6 +68,14 @@ public class AP14GSW14FieldTest extends TestCase {
     }
 
     @Test
+    public void testMulOne() {
+        Element a = field.newOneElement();
+        Element b = field.newZeroElement();
+
+        assertEquals(BigInteger.ZERO, a.mul(b).toBigInteger());
+    }
+
+        @Test
     public void testMul() {
         Element a = field.newOneElement();
         Element b = field.newZeroElement();
@@ -124,36 +143,4 @@ public class AP14GSW14FieldTest extends TestCase {
         assertEquals(BigInteger.ZERO, a.mul(b).toBigInteger());
     }
 
-    @Test
-    public void testMul2() {
-        Element temp = field.newOneElement();
-
-        int v = 1;
-        for (int i = 0; i < 200; i++) {
-            System.out.println("i = " + i);
-
-            int nv = 1;//Math.random() > 0.5d ? 1 : 0;
-
-            System.out.println("nv = " + nv);
-
-            Element n = field.newElement(nv);
-//            System.out.println("n = " + n.toBigInteger());
-
-
-            v *= nv;
-            System.out.println("v = " + v);
-
-            temp = n.mul(temp);
-
-            assertEquals(BigInteger.valueOf(v), temp.toBigInteger());
-            System.out.println("temp = " + temp.toBigInteger());
-
-            if (v == 0) {
-                temp = field.newOneElement().add(temp);
-                v= 1;
-            }
-        }
-        assertEquals(BigInteger.valueOf(v), temp.toBigInteger());
-
-    }
 }
