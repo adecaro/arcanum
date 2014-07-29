@@ -79,7 +79,7 @@ public class GGHVV13KEM {
 
     public static void main(String[] args) {
         BooleanCircuit circuit =new SmartBooleanCircuitLoader().load(
-                "org/arcanum/circuits/circuit3.txt"
+                "org/arcanum/circuits/bool/circuit3.txt"
         );
 
         GGHVV13KEM kem = new GGHVV13KEM();

@@ -11,7 +11,8 @@ public interface Permutation {
 
     int permute(int index);
 
+    int permuteInverse(int index);
+
     Permutation getInverse();
 
-    Permutation compose(Permutation permutation);
 }

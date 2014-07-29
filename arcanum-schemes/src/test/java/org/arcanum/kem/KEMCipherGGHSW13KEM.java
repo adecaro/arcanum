@@ -119,7 +119,7 @@ public class KEMCipherGGHSW13KEM {
 
         try {
             BooleanCircuit circuit =new SmartBooleanCircuitLoader().load(
-                    "org/arcanum/circuits/circuit3.txt"
+                    "org/arcanum/circuits/bool/circuit3.txt"
             );
 
             // Setup

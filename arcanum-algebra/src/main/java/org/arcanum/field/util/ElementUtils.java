@@ -25,6 +25,9 @@ public class ElementUtils {
     }
 
     public static Element[] cloneImmutable(Element[] source) {
+        if (source == null)
+            return null;
+
         Element[] target = Arrays.copyOf(source, source.length);
 
         for (int i = 0; i < target.length; i++) {

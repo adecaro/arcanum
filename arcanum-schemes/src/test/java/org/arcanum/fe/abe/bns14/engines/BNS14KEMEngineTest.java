@@ -3,6 +3,7 @@ package org.arcanum.fe.abe.bns14.engines;
 import org.arcanum.Element;
 import org.arcanum.Field;
 import org.arcanum.circuit.ArithmeticCircuit;
+import org.arcanum.circuit.smart.SmartArithmeticCircuitLoader;
 import org.arcanum.fe.abe.bns14.generators.BNS14KeyPairGenerator;
 import org.arcanum.fe.abe.bns14.generators.BNS14ParametersGenerator;
 import org.arcanum.fe.abe.bns14.generators.BNS14SecretKeyGenerator;
@@ -18,8 +19,6 @@ import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-import static org.arcanum.circuit.ArithmeticCircuit.ArithmeticCircuitGate;
-import static org.arcanum.circuit.Gate.Type.*;
 import static org.junit.Assert.*;
 
 /**
@@ -36,42 +35,19 @@ public class BNS14KEMEngineTest {
 
     @Test
     public void testBNS14KEMEngine() {
-        // Setup
-        int ell = 4;
-        int depth = 3;
-        int q = 3;
 
-//        int ell = 2;
-//        int q = 1;
-//        int depth = 2;
-
-        AsymmetricCipherKeyPair keyPair = setup(ell, depth);
+        AsymmetricCipherKeyPair keyPair = setup(4, 2);
         Field Zq = ((BNS14PublicKeyParameters) keyPair.getPublic()).getLatticePk().getZq();
 
-        // Key Gen
-        ArithmeticCircuit circuit = new ArithmeticCircuit(ell, q, depth, new ArithmeticCircuitGate[]{
-                new ArithmeticCircuitGate(INPUT, 0, 1),
-                new ArithmeticCircuitGate(INPUT, 1, 1),
-                new ArithmeticCircuitGate(INPUT, 2, 1),
-                new ArithmeticCircuitGate(INPUT, 3, 1),
-
-                new ArithmeticCircuitGate(AND, 4, 2, new int[]{0, 1}, Zq.newOneElement(), Zq.newOneElement()),
-                new ArithmeticCircuitGate(OR, 5, 2, new int[]{2, 3}, Zq.newOneElement(), Zq.newOneElement()),
-
-                new ArithmeticCircuitGate(OR, 6, 3, new int[]{4, 5}, Zq.newOneElement(), Zq.newOneElement()),
-        });
-
-//        ArithmeticCircuit circuit = new ArithmeticCircuit(ell, q, depth, new ArithmeticCircuitGate[]{
-//                new ArithmeticCircuitGate(INPUT, 0, 1),
-//                new ArithmeticCircuitGate(INPUT, 1, 1),
-//                new ArithmeticCircuitGate(OR, 3, 2, new int[]{0, 1}, Zq.newOneElement(), Zq.newOneElement()),
-//        });
+        ArithmeticCircuit circuit = new SmartArithmeticCircuitLoader().load(
+                Zq, "org/arcanum/circuits/arithmetic/circuit4.txt"
+        );
 
 
         BNS14SecretKeyParameters secretKey = (BNS14SecretKeyParameters) keyGen(keyPair.getPublic(), keyPair.getPrivate(), circuit);
 
         // Encaps/Decaps for a satisfying assignment
-        byte[][] ct = encaps(keyPair.getPublic(), toElement(Zq, "1 0 1 -1", ell));
+        byte[][] ct = encaps(keyPair.getPublic(), toElement(Zq, "1 0 1 -1", circuit.getNumInputs()));
         byte[] key = ct[0];
         byte[] keyPrime = decaps(secretKey, ct[1]);
 
@@ -80,7 +56,7 @@ public class BNS14KEMEngineTest {
         assertEquals(true, Arrays.equals(key, keyPrime));
 
         // Encaps/Decaps for a non-satisfying assignment
-        ct = encaps(keyPair.getPublic(), toElement(Zq, "1 1 1 1", ell));
+        ct = encaps(keyPair.getPublic(), toElement(Zq, "1 1 1 1", circuit.getNumInputs()));
         key = ct[0];
         keyPrime = decaps(secretKey, ct[1]);
 

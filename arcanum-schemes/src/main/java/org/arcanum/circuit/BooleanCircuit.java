@@ -39,7 +39,6 @@ public class BooleanCircuit implements Circuit<BooleanGate> {
         return getOutputGate().getDepth();
     }
 
-
     public Iterator<BooleanGate> iterator() {
         return gatesList.iterator();
     }
@@ -95,6 +94,7 @@ public class BooleanCircuit implements Circuit<BooleanGate> {
         private int[] inputs;
 
         private boolean value;
+
 
         public BooleanCircuitGate(Type type, int index) {
             this.type = type;

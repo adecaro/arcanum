@@ -32,6 +32,11 @@ public class BNS14KEMEngine extends AbstractKeyEncapsulationMechanism {
 
             this.keyBytes = publicKey.getKeyLengthInBytes();
             // TODO: adjust outBytes
+//            publicKey.getRandomnessField().getLengthInBytes()
+//            publicKey.getRandomnessField().getLengthInBytes()
+//            publicKey.getPrimitiveLatticePk().getZq().getLengthInBytes() * ell
+//            publicKey.getRandomnessField().getLengthInBytes() * ell
+
 //            this.outBytes = (encKey.getAssignment().length() + 1) * ((TORBNS14PublicKeyParameters)publicKey.getCipherParametersOut()).getOwfOutputField().getLengthInBytes();
         } else {
             if (!(key instanceof BNS14SecretKeyParameters))
@@ -143,16 +148,18 @@ public class BNS14KEMEngine extends AbstractKeyEncapsulationMechanism {
 
             return otp.processElementsToBytes(cout);
         } else {
+            // Encrypt
             BNS14EncryptionParameters encKey = (BNS14EncryptionParameters) key;
             BNS14PublicKeyParameters publicKey = encKey.getPublicKey();
 
             ElementStreamWriter writer = new ElementStreamWriter(getOutputBlockSize());
             try {
-                // choose random bit string
+                // 1. Choose the key
                 byte[] bytes = new byte[publicKey.getKeyLengthInBytes()];
                 publicKey.getParameters().getRandom().nextBytes(bytes);
                 writer.write(bytes);
 
+                // 2. Encrypt the key
                 Element s = publicKey.getSecretField().newRandomElement();
                 Element e0 = publicKey.sampleError();
                 Element e1 = publicKey.sampleError();

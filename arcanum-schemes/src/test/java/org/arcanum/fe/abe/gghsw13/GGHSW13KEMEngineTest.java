@@ -53,7 +53,7 @@ public class GGHSW13KEMEngineTest extends AbstractArcanumCryptoTest {
     @Test
     public void testGGHSW13KEMEngine() {
         BooleanCircuit circuit =new SmartBooleanCircuitLoader().load(
-                "org/arcanum/circuits/circuit3.txt"
+                "org/arcanum/circuits/bool/circuit3.txt"
         );
 
         AsymmetricCipherKeyPair keyPair = setup(createParameters(circuit.getNumInputs()));

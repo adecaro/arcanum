@@ -8,7 +8,7 @@ public class SmartBooleanCircuitLoaderTest {
     @Test
     public void testLoad1() throws Exception {
         SmartBooleanCircuitLoader loader = new SmartBooleanCircuitLoader();
-        BooleanCircuit circuit = loader.load("org/arcanum/circuits/smart/comparator_32bit_signed_lteq.txt");
+        BooleanCircuit circuit = loader.load("org/arcanum/circuits/bool/smart/comparator_32bit_signed_lteq.txt");
 
         Boolean[] x = new Boolean[64];
         for (int i = 0; i < 32; i++) {

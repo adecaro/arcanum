@@ -11,8 +11,13 @@ public class BooleanAssignment implements Assignment<Boolean> {
 
     private Boolean[] assignment;
 
+
     public BooleanAssignment(Boolean[] assignment) {
         this.assignment = assignment;
+    }
+
+    public BooleanAssignment(int length) {
+        this.assignment = new Boolean[length];
     }
 
     public int getLength() {
@@ -23,9 +28,15 @@ public class BooleanAssignment implements Assignment<Boolean> {
         return assignment[index];
     }
 
-
-    @Override
     public String toString() {
         return Arrays.toString(assignment);
+    }
+
+    public BooleanAssignment setToRandom() {
+        for (int i = 0; i < assignment.length; i++) {
+            assignment[i] = (Math.random() > 0.5d);
+        }
+        
+        return this;
     }
 }

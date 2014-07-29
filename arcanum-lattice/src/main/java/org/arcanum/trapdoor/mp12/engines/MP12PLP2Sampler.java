@@ -99,35 +99,6 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
     }
 
 
-//    private BigInteger sampleZ(BigInteger u) {
-//        boolean uLSB = u.testBit(0);
-//
-//        // TODO: store cache??
-//        BigInteger value = null;
-////        if (uLSB)
-////            value = one.poll();
-////        else
-////            value = zero.poll();
-//
-////        if (value == null) {
-//        while (true) {
-//            BigInteger x = sampler.sample();
-//            boolean xLSB = x.testBit(0);
-//            if (xLSB == uLSB) {
-//                value = x;
-//                break;
-//            } else {
-////                    if (xLSB)
-////                        one.add(x);
-////                    else
-////                        zero.add(x);
-//            }
-//        }
-////        }
-//
-//        return value;
-//    }
-
     public ZSampler getZSampler() {
         return zSampler.get();
     }
@@ -152,7 +123,7 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
             if (value == null) {
                 while (true) {
                     BigInteger x = sampler.sample();
-//                    System.out.println("x = " + x);
+
                     boolean xLSB = x.testBit(0);
                     if (xLSB == uLSB) {
                         value = x;
@@ -169,8 +140,6 @@ public class MP12PLP2Sampler extends AbstractElementCipher {
             return value;
         }
 
-
     }
-
 
 }

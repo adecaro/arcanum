@@ -57,12 +57,11 @@ public class BooleanPermutationBranchingProgram implements PermutationBranchingP
     }
 
     public int permuteLeftInverseAt(int index, int value) {
-        // TODO: optimeze
-        return leftPerms.get(index).getInverse().permute(value);
+        return leftPerms.get(index).permuteInverse(value);
     }
 
     public int permuteRightInverseAt(int index, int value) {
-        return rightPerms.get(index).getInverse().permute(value);
+        return rightPerms.get(index).permuteInverse(value);
     }
 
     public void addProgram(BooleanPermutationBranchingProgram pbp) {

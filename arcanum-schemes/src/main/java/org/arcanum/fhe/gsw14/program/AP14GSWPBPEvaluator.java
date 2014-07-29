@@ -4,7 +4,7 @@ import org.arcanum.Element;
 import org.arcanum.fhe.gsw14.field.AP14GSW14Field;
 import org.arcanum.program.AbstractProgramEvaluator;
 import org.arcanum.program.Assignment;
-import org.arcanum.program.assignment.ElementBooleanAssignment;
+import org.arcanum.program.assignment.ElementAssignment;
 import org.arcanum.program.pbp.PermutationBranchingProgram;
 import org.arcanum.util.concurrent.ExecutorServiceUtils;
 import org.arcanum.util.concurrent.PoolExecutor;
@@ -15,7 +15,7 @@ import org.arcanum.util.concurrent.PoolExecutor;
 public class AP14GSWPBPEvaluator extends AbstractProgramEvaluator<PermutationBranchingProgram, Element, Element> {
 
     public Element evaluate(PermutationBranchingProgram pbp, Element... inputs) {
-        return evaluate(pbp, new ElementBooleanAssignment(inputs));
+        return evaluate(pbp, new ElementAssignment(inputs));
     }
 
     public Element evaluate(final PermutationBranchingProgram pbp, final Assignment<Element> assignment) {

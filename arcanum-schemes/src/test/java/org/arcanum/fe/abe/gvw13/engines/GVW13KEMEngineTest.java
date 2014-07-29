@@ -33,7 +33,7 @@ public class GVW13KEMEngineTest {
     public void testGVW13KEMEngine() {
         // Key Gen
         BooleanCircuit circuit =new SmartBooleanCircuitLoader().load(
-                "org/arcanum/circuits/circuit3.txt"
+                "org/arcanum/circuits/bool/circuit3.txt"
         );
         AsymmetricCipherKeyPair keyPair = setup(circuit.getNumInputs(), circuit.getDepth());
         GVW13SecretKeyParameters secretKey = (GVW13SecretKeyParameters) keyGen(keyPair.getPublic(), keyPair.getPrivate(), circuit);

@@ -3,10 +3,7 @@ package org.arcanum.circuit;
 import org.arcanum.Element;
 import org.arcanum.field.util.ElementUtils;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
@@ -14,48 +11,84 @@ import java.util.Map;
  */
 public class ArithmeticCircuit implements Circuit<ArithmeticGate> {
 
-    private int n, q;
-    private int depth;
-    private ArithmeticGate[] gates;
+    private int numInputs, numGates, numWires;
+    private List<ArithmeticGate> gatesList;
+    private Map<Integer, ArithmeticGate> gateMap;
 
 
-    public ArithmeticCircuit(int n, int q, int depth, ArithmeticCircuitGate[] gates) {
-        this.n = n;
-        this.q = q;
-        this.depth = depth;
+    public ArithmeticCircuit(int numInputs, int numGates, int numWires) {
+        this.numInputs = numInputs;
+        this.numGates = numGates;
+        this.numWires = numWires;
 
-        this.gates = gates;
-        for (ArithmeticCircuitGate gate : gates)
-            gate.setCircuit(this);
+        this.gatesList = new ArrayList<ArithmeticGate>();
+        this.gateMap = new HashMap<Integer, ArithmeticGate>();
     }
 
 
     public int getNumInputs() {
-        return n;
+        return numInputs;
     }
 
     public int getNumGates() {
-        return q;
+        return numGates;
+    }
+
+    public int getNumWires() {
+        return numWires;
     }
 
     public int getDepth() {
-        return depth;
+        return getOutputGate().getDepth();
     }
 
     public Iterator<ArithmeticGate> iterator() {
-        return Arrays.asList(gates).iterator();
+        return gatesList.iterator();
     }
 
     public ArithmeticGate getGateAt(int index) {
-        return gates[index];
+        return gateMap.get(index);
     }
 
     public ArithmeticGate getOutputGate() {
-        return gates[n + q - 1];
+        return gateMap.get(gatesList.size() - 1);
     }
 
+    public ArithmeticCircuit computeDepths() {
+        for (ArithmeticGate gate : this) {
+            ArithmeticCircuitGate arithmeticCircuitGate = (ArithmeticCircuitGate) gate;
+
+            switch (gate.getType()) {
+                case INPUT:
+                    arithmeticCircuitGate.depth = 0;
+                    break;
+
+                default:
+                    int max = 0;
+                    for (int i = 0; i < gate.getNumInputs(); i++) {
+                        Gate temp = getGateAt(gate.getInputIndexAt(i));
+                        max = Math.max(temp.getDepth(), max);
+                    }
+                    arithmeticCircuitGate.depth = max + 1;
+                    break;
+            }
+        }
+        return this;
+    }
+
+    public ArithmeticCircuit addGate(ArithmeticCircuitGate gate) {
+        // TODO: add output
+        gatesList.add(gate);
+        gate.setCircuit(this);
+
+        gateMap.put(gate.getIndex(), gate);
+
+        return this;
+    }
+
+
     public Element evaluate(Element... inputs) {
-        for (ArithmeticGate gate : gates) {
+        for (ArithmeticGate gate : gatesList) {
             switch (gate.getType()) {
                 case INPUT:
                     gate.set(inputs[gate.getIndex()]);
@@ -70,7 +103,6 @@ public class ArithmeticCircuit implements Circuit<ArithmeticGate> {
         return getOutputGate().get();
     }
 
-
     public static class ArithmeticCircuitGate implements ArithmeticGate {
 
         private ArithmeticCircuit circuit;
@@ -84,24 +116,31 @@ public class ArithmeticCircuit implements Circuit<ArithmeticGate> {
         private Element[] alphas;
         private Map<Integer, Element> values;
 
-        public ArithmeticCircuitGate(Type type, int index, int depth) {
+
+        public ArithmeticCircuitGate(Type type, int index) {
             this.type = type;
             this.index = index;
-            this.depth = depth;
+            this.depth = 0
+            ;
             this.values = new HashMap<Integer, Element>();
         }
 
-        public ArithmeticCircuitGate(Type type, int index, int depth, int[] inputs, Element... alphas) {
+        public ArithmeticCircuitGate(Type type, int[] ins, int[] outs, Element... alphas) {
             this.type = type;
-            this.index = index;
-            this.depth = depth;
-            this.inputs = Arrays.copyOf(inputs, inputs.length);
+            this.index = outs[0];
+            this.depth = 0;
+
+            if (outs.length > 1)
+                throw new IllegalArgumentException("Too many outputs");
+            this.inputs = Arrays.copyOf(ins, ins.length);
+
             this.alphas = ElementUtils.cloneImmutable(alphas);
             this.values = new HashMap<Integer, Element>();
         }
 
+
         public int getNumInputs() {
-            return inputs.length;
+            return (inputs == null) ? 0 : inputs.length;
         }
 
         public Element get() {
@@ -132,7 +171,6 @@ public class ArithmeticCircuit implements Circuit<ArithmeticGate> {
             return circuit.getGateAt(getInputIndexAt(index));
         }
 
-
         public ArithmeticGate set(Element value) {
             this.value = value;
             return this;
@@ -161,7 +199,6 @@ public class ArithmeticCircuit implements Circuit<ArithmeticGate> {
             return this;
         }
 
-        @Override
         public String toString() {
             return "ArithmeticGate{" +
                     "type=" + type +
@@ -172,7 +209,6 @@ public class ArithmeticCircuit implements Circuit<ArithmeticGate> {
                     '}';
         }
 
-
         public Gate<Element> putAt(int index, Element value) {
             values.put(index, value);
             return this;
@@ -181,6 +217,7 @@ public class ArithmeticCircuit implements Circuit<ArithmeticGate> {
         public Element getAt(int index) {
             return values.get(index);
         }
+
 
         protected void setCircuit(ArithmeticCircuit circuit) {
             this.circuit = circuit;

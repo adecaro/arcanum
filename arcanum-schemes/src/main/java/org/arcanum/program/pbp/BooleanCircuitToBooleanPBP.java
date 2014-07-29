@@ -14,6 +14,7 @@ import java.util.Map;
 public class BooleanCircuitToBooleanPBP {
 
     protected Permutation alpha, gamma, commutator, identity;
+    protected Permutation commutatorInverse;
     protected Permutation commToAlpha, commToGamma;
     protected Permutation commToAlphaInverse, commToGammaInverse;
     protected Permutation commInvToComm;
@@ -23,6 +24,7 @@ public class BooleanCircuitToBooleanPBP {
         this.alpha = new DefaultPermutation(1, 2, 3, 4, 0);
         this.gamma = new DefaultPermutation(2, 0, 4, 1, 3);
         this.commutator = new DefaultPermutation(2, 4, 1, 0, 3);
+        this.commutatorInverse = commutator.getInverse();
         this.identity = new DefaultPermutation(5);
 
         // commutator to alpha
@@ -100,7 +102,7 @@ public class BooleanCircuitToBooleanPBP {
     }
 
     protected BooleanPermutationBranchingProgram not(BooleanPermutationBranchingProgram pbp) {
-        return pbp.negate(commutator.getInverse()).applyPerm(commInvToComm);
+        return pbp.negate(commutatorInverse).applyPerm(commInvToComm);
     }
 
     protected BooleanPermutationBranchingProgram nand(BooleanPermutationBranchingProgram a, BooleanPermutationBranchingProgram b) {

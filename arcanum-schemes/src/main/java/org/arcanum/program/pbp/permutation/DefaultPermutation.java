@@ -6,10 +6,17 @@ package org.arcanum.program.pbp.permutation;
 public class DefaultPermutation implements Permutation {
 
     private int[] perm;
+    private int[] invPerm;
 
 
     public DefaultPermutation(int... perm) {
         this.perm = perm;
+
+        // compute inverse
+        this.invPerm = new int[perm.length];
+        for (int i = 0; i < invPerm.length; i++) {
+            this.invPerm[perm[i]] = i;
+        }
     }
 
     public DefaultPermutation(int size) {
@@ -17,6 +24,12 @@ public class DefaultPermutation implements Permutation {
 
         for (int i = 0; i < size; i++) {
             perm[i] = i;
+        }
+
+        // compute inverse
+        this.invPerm = new int[perm.length];
+        for (int i = 0; i < invPerm.length; i++) {
+            this.invPerm[perm[i]] = i;
         }
     }
 
@@ -44,6 +57,11 @@ public class DefaultPermutation implements Permutation {
         return perm[index];
     }
 
+    @Override
+    public int permuteInverse(int index) {
+        return invPerm[index];
+    }
+
     public Permutation getInverse() {
         int[] reversed = new int[perm.length];
 
@@ -52,19 +70,6 @@ public class DefaultPermutation implements Permutation {
         }
 
         return new DefaultPermutation(reversed);
-    }
-
-    public Permutation compose(Permutation permutation) {
-        if (this.getSize() != permutation.getSize())
-            throw new IllegalArgumentException("Invalid size!!!");
-
-        int[] result = new int[perm.length];
-
-        for (int i = 0; i < result.length; i++) {
-            result[i] = permutation.permute(permute(i));
-        }
-
-        return new DefaultPermutation(result);
     }
 
     @Override

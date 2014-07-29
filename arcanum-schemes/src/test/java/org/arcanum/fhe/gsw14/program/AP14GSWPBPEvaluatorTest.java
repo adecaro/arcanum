@@ -6,7 +6,7 @@ import org.arcanum.circuit.smart.SmartBooleanCircuitLoader;
 import org.arcanum.fhe.gsw14.field.AP14GSW14Field;
 import org.arcanum.program.assignment.BooleanAssignment;
 import org.arcanum.program.assignment.BooleanAssignmentGenerator;
-import org.arcanum.program.assignment.ElementBooleanAssignment;
+import org.arcanum.program.assignment.ElementAssignment;
 import org.arcanum.program.pbp.BooleanCircuitToBooleanPBP;
 import org.arcanum.program.pbp.PermutationBranchingProgram;
 import org.junit.Before;
@@ -27,10 +27,10 @@ public class AP14GSWPBPEvaluatorTest {
     @Parameterized.Parameters
     public static Collection parameters() {
         Object[][] data = {
-                {"org/arcanum/circuits/gates/or.txt"},
-                {"org/arcanum/circuits/gates/and.txt"},
-                {"org/arcanum/circuits/gates/nand.txt"},
-                {"org/arcanum/circuits/gates/mod2.txt"},
+                {"org/arcanum/circuits/bool/gates/or.txt"},
+                {"org/arcanum/circuits/bool/gates/and.txt"},
+                {"org/arcanum/circuits/bool/gates/nand.txt"},
+                {"org/arcanum/circuits/bool/gates/mod2.txt"},
 //                {"org/arcanum/circuits/circuit.txt"},
 //                {"org/arcanum/circuits/circuit2.txt"},
 //                {"org/arcanum/circuits/circuit3.txt"},
@@ -79,7 +79,7 @@ public class AP14GSWPBPEvaluatorTest {
             assertSame(
                     circuitEvaluator.evaluate(circuit, assignment),
                     !BigInteger.ONE.equals(pbpEvaluator.evaluate(
-                            pbp,new ElementBooleanAssignment(field, assignment)).toBigInteger())
+                            pbp,new ElementAssignment(field, assignment)).toBigInteger())
             );
         }
     }
