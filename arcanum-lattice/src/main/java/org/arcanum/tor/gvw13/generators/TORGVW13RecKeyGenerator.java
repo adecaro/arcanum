@@ -5,12 +5,14 @@ import org.arcanum.ElementCipherParameters;
 import org.arcanum.Field;
 import org.arcanum.Matrix;
 import org.arcanum.field.vector.MatrixField;
+import org.arcanum.field.vector.TwoByRowMatrixElement;
 import org.arcanum.tor.gvw13.params.TORGVW13ReKeyGenerationParameters;
 import org.arcanum.tor.gvw13.params.TORGVW13RecodeParameters;
 import org.arcanum.trapdoor.mp12.engines.MP12HLP2MatrixSampler;
 import org.arcanum.trapdoor.mp12.engines.MP12HLP2Sampler;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2PublicKeyParameters;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2SampleParameters;
+import org.arcanum.trapdoor.mp12.utils.MP12P2Utils;
 import org.arcanum.util.cipher.generators.ElementKeyGenerator;
 import org.arcanum.util.cipher.params.ElementKeyGenerationParameters;
 
@@ -36,15 +38,18 @@ public class TORGVW13RecKeyGenerator implements ElementKeyGenerator {
                 latticePk.getM()
         );
 
-        Element R0 = null, R1 = null;
+        Matrix R0 = null, R1 = null;
         if (params.isLeft()) {
             // b = 0
 
             // Sample R1 from D_Z,s
             // TODO: The s here is that of SampleD
-//            R1 = RField.newElementFromSampler(latticePk.getDiscreteGaussianSampler());
+            R1 = RField.newElementFromSampler(
+                    MP12P2Utils.getLWENoiseSampler(latticePk.getParameters().getRandom(), latticePk.getParameters().getN())
+                    );
 
             // Compute U
+            // TODO: compute differently as -A_r R_1 + A_T
             Matrix U = (Matrix) ((MP12HLP2PublicKeyParameters) params.getTargetPk().getPublicKeyParameters()).getA().duplicate().sub(
                     ((MP12HLP2PublicKeyParameters) params.getRightPk().getPublicKeyParameters()).getA().mul(R1)
             );
@@ -52,12 +57,14 @@ public class TORGVW13RecKeyGenerator implements ElementKeyGenerator {
             // Sample R0
             MP12HLP2Sampler sampleD = new MP12HLP2MatrixSampler(RField);
             sampleD.init(new MP12HLP2SampleParameters(params.getLeftPk().getPublicKeyParameters(), params.getSk().getPrivateKeyParameter()));
-            R0 = sampleD.processElements(U);
+            R0 = (Matrix) sampleD.processElements(U);
         } else {
             // b = 1
             // Sample R0 from D_Z,s
             // TODO: The s here is that of SampleD
-//            R0 = RField.newElementFromSampler(latticePk.getDiscreteGaussianSampler());
+            R0 = RField.newElementFromSampler(
+                    MP12P2Utils.getLWENoiseSampler(latticePk.getParameters().getRandom(), latticePk.getParameters().getN())
+            );
 
             // Compute U
             Matrix U = (Matrix) ((MP12HLP2PublicKeyParameters) params.getTargetPk().getPublicKeyParameters()).getA().duplicate().sub(
@@ -67,11 +74,11 @@ public class TORGVW13RecKeyGenerator implements ElementKeyGenerator {
             // Sample R1
             MP12HLP2Sampler sampleD = new MP12HLP2MatrixSampler(RField);
             sampleD.init(new MP12HLP2SampleParameters(params.getLeftPk().getPublicKeyParameters(), params.getSk().getPrivateKeyParameter()));
-            R1 = sampleD.processElements(U);
+            R1 = (Matrix) sampleD.processElements(U);
         }
 
         // Compute R
-        Element R = RField.unionByRow(R0, R1);
+        Element R = new TwoByRowMatrixElement(R0, R1);
 
         return new TORGVW13RecodeParameters(params.getLeftPk().getParameters(), R);
     }

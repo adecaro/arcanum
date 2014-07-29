@@ -5,6 +5,7 @@ import org.arcanum.ElementCipher;
 import org.arcanum.Field;
 import org.arcanum.Matrix;
 import org.arcanum.field.vector.MatrixField;
+import org.arcanum.field.vector.TwoByColumnMatrixElement;
 import org.arcanum.field.vector.VectorField;
 import org.arcanum.trapdoor.mp12.generators.MP12HLP2KeyPairGenerator;
 import org.arcanum.trapdoor.mp12.params.*;
@@ -170,7 +171,7 @@ public class MP12HLP2Test {
         Element A1 = pk.getA().getField().newRandomElement();
         Element u = VectorField.newRandomElement(pk.getZq(), pk.getParameters().getN());
 
-        Element F = MatrixField.unionByCol(pk.getA(), A1);
+        Element F = new TwoByColumnMatrixElement((Matrix) pk.getA(), (Matrix) A1);
 
         Element rOut = sampler.processElements(A1, u);
         Element uPrime = F.mul(rOut);
@@ -187,7 +188,7 @@ public class MP12HLP2Test {
         Element U = new MatrixField<Field>(pk.getParameters().getRandom(), pk.getZq(), pk.getParameters().getN(), pk.getM()).newRandomElement();
         Element R = sampler.processElements(A1, U);
 
-        Element F = MatrixField.unionByCol(pk.getA(), A1);
+        Element F = new TwoByColumnMatrixElement((Matrix) pk.getA(), (Matrix) A1);
         Element UPrime = F.mul(R);
 
         assertTrue(U.equals(UPrime));

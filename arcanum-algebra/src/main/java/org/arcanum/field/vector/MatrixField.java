@@ -14,75 +14,6 @@ import static org.arcanum.Matrix.Transformer;
 public class MatrixField<F extends Field> extends AbstractMatrixField<F, AbstractMatrixElement> {
 
 
-    public static Matrix newElementFromSampler(MatrixField field, int n, int m, Sampler<BigInteger> sampler) {
-        return new MatrixField<Field>(field.getRandom(), field.getTargetField(), n, m).newElementFromSampler(sampler);
-    }
-
-    public static Matrix unionByCol(Element a, Element b) {
-        AbstractMatrixElement a1 = (AbstractMatrixElement) a;
-        AbstractMatrixElement b1 = (AbstractMatrixElement) b;
-
-        MatrixField f = new MatrixField<Field>(
-                a1.getField().getRandom(), a1.getTargetField(),
-                a1.getField().n,
-                a1.getField().m + b1.getField().m);
-
-        Matrix c = f.newElement();
-        for (int i = 0; i < f.n; i++) {
-            for (int j = 0; j < a1.getField().m; j++) {
-                if (a1.isZeroAt(i, j))
-                    c.setZeroAt(i, j);
-                else
-                    c.getAt(i, j).set(a1.getAt(i, j));
-            }
-
-            for (int j = 0; j < b1.getField().m; j++) {
-                if (b1.isZeroAt(i, j))
-                    c.setZeroAt(i, a1.getField().m + j);
-                else
-                    c.getAt(i, a1.getField().m + j).set(b1.getAt(i, j));
-            }
-        }
-
-
-        return c;
-
-    }
-
-    public static Matrix unionByRow(Element a, Element b) {
-        AbstractMatrixElement a1 = (AbstractMatrixElement) a;
-        AbstractMatrixElement b1 = (AbstractMatrixElement) b;
-
-        MatrixField f = new MatrixField<Field>(
-                a1.getField().getRandom(), a1.getTargetField(),
-                a1.getField().n + b1.getField().n,
-                a1.getField().m
-        );
-
-        Matrix c = f.newElement();
-        for (int i = 0; i < f.m; i++) {
-
-            for (int j = 0; j < a1.getField().n; j++) {
-                if (a1.isZeroAt(j, i))
-                    c.setZeroAt(j, i);
-                else
-                    c.getAt(j, i).set(a1.getAt(j, i));
-            }
-
-            for (int j = 0; j < b1.getField().n; j++) {
-                if (b1.isZeroAt(j, i))
-                    c.setZeroAt(a1.getField().n + j, i);
-                else
-                    c.getAt(a1.getField().n + j, i).set(b1.getAt(j, i));
-            }
-        }
-
-
-        return c;
-
-    }
-
-
     protected final int lenInBytes;
 
 
@@ -107,7 +38,13 @@ public class MatrixField<F extends Field> extends AbstractMatrixField<F, Abstrac
         return new ArrayMatrixElement(this, sampler);
     }
 
+    public int getLengthInBytes() {
+        return lenInBytes;
+    }
+
+
     public Matrix newElementIdentity() {
+        // TODO: use DiagonalMatrixElement
         Matrix m = newElement();
         for (int i = 0; i < n; i++)
             m.getAt(i, i).setToOne();
@@ -146,22 +83,6 @@ public class MatrixField<F extends Field> extends AbstractMatrixField<F, Abstrac
         return new ArrayMatrixElement(new MatrixField<F>(random, targetField, n));
     }
 
-    public Matrix newSquareMatrix(int n, Matrix matrix, Transformer transformer) {
-        return new ArrayMatrixElement(
-                new MatrixField<F>(random, targetField, n),
-                matrix,
-                transformer
-        );
-    }
-
-    public Matrix newMatrix(int n, int m, Matrix matrix, Transformer transformer) {
-        return new ArrayMatrixElement(
-                new MatrixField<F>(random, targetField, n, m),
-                matrix,
-                transformer
-        );
-    }
-
     public Matrix newMatrix(Matrix matrix, Transformer transformer) {
         return new ArrayMatrixElement(
                 new MatrixField<F>(random, targetField, matrix.getN(), matrix.getM()),
@@ -178,25 +99,12 @@ public class MatrixField<F extends Field> extends AbstractMatrixField<F, Abstrac
         );
     }
 
-    public Matrix newTwoByRowMatrix(Matrix A, Matrix B) {
-        // TODO: check field dimension
-        return new TwoByRowMatrixElement(
-                new MatrixField<F>(random, targetField, A.getN() + B.getN(), A.getM()),
-                (AbstractMatrixElement) A,
-                (AbstractMatrixElement) B);
-    }
-
-    public Matrix newTwoByTwoElement(Element A, Element B, Element C, Element D) {
+    public Matrix newTwoByTwoElement(Matrix A, Matrix B, Matrix C, Matrix D) {
         // TODO: check field dimension
         return new TwoByTwoMatrixElement(this,
-                (AbstractMatrixElement) A, (AbstractMatrixElement) B,
-                (AbstractMatrixElement) C, (AbstractMatrixElement) D
+                A, B,
+                C, D
         );
-    }
-
-
-    public int getLengthInBytes() {
-        return lenInBytes;
     }
 
 }

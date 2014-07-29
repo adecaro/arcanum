@@ -5,6 +5,7 @@ import org.arcanum.Field;
 import org.arcanum.Matrix;
 import org.arcanum.Sampler;
 import org.arcanum.field.vector.MatrixField;
+import org.arcanum.field.vector.TwoByColumnMatrixElement;
 import org.arcanum.field.vector.VectorField;
 import org.arcanum.sampler.SamplerFactory;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2KeyPairGenerationParameters;
@@ -55,13 +56,14 @@ public class MP12HLP2KeyPairGenerator extends MP12PLP2KeyPairGenerator {
         // 1. Choose barA random in Z_q[n x barM]
         MatrixField<Field> hatAField = new MatrixField<Field>(random, Zq, n);
         Matrix hatA = hatAField.newRandomElement();
-        Matrix barA = MatrixField.unionByCol(hatAField.newElementIdentity(), hatA);
+        Matrix barA = new TwoByColumnMatrixElement(hatAField.newElementIdentity(), hatA);
 
         // 2. Sample R from Z[barM x w] using distribution D
-        Matrix R = MatrixField.newElementFromSampler(hatAField, barM, w, hlZSampler);
+        MatrixField<Field> rField = new MatrixField<Field>(random, Zq, barM, w);
+        Matrix R = rField.newElementFromSampler(hlZSampler);
 
         // 3. Compute G - barA R
-        Element A1 = ((Matrix) barA.mul(R)).transform(new Matrix.Transformer() {
+        Matrix A1 = ((Matrix) barA.mul(R)).transform(new Matrix.Transformer() {
             public void transform(int row, int col, Element e) {
                 e.negate();
                 if (!G.isZeroAt(row, col))
@@ -69,7 +71,7 @@ public class MP12HLP2KeyPairGenerator extends MP12PLP2KeyPairGenerator {
             }
         });
 
-        Element A = MatrixField.unionByCol(barA, A1);
+        Matrix A = new TwoByColumnMatrixElement(barA, A1);
 
         return new ElementKeyPairParameters(
                 new MP12HLP2PublicKeyParameters(

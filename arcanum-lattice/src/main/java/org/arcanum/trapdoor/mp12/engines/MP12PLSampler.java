@@ -62,17 +62,17 @@ public class MP12PLSampler extends AbstractElementCipher {
 
     private Element sampleZk(BigInteger u) {
         Vector x;
-            System.out.println("u = " + u);
+//            System.out.println("u = " + u);
         while (true) {
             x = (Vector) vf.newElementFromSampler(sampler);
             Element uu = parameters.getPrimitiveVector().mul(x);
 
-            System.out.println("uu = " + uu);
+//            System.out.println("uu = " + uu);
             if (u.equals(uu.toBigInteger()))
                 break;
 
         }
-        System.out.println("x = " + x);
+//        System.out.println("x = " + x);
 
         return x;
     }

@@ -1,6 +1,7 @@
 package org.arcanum.field.vector;
 
 import org.arcanum.Element;
+import org.arcanum.Field;
 import org.arcanum.Matrix;
 
 /**
@@ -19,6 +20,24 @@ public class TwoByColumnMatrixElement<E extends Element> extends AbstractMatrixE
         this.B = B;
 
         this.Am = A.getM();
+    }
+
+    public TwoByColumnMatrixElement(Matrix A, Matrix B) {
+        super(new MatrixField<Field>(
+                ((AbstractMatrixField)A.getField()).getRandom(), A.getTargetField(),
+                A.getN(),
+                A.getM() + B.getM()));
+
+        this.A = A;
+        this.B = B;
+
+        this.Am = A.getM();
+    }
+
+
+    @Override
+    public Element duplicate() {
+        return new ArrayMatrixElement(field, this);
     }
 
     @Override

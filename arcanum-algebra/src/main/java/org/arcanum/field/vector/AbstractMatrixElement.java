@@ -614,7 +614,7 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
     }
 
     public String toString() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder(this.getClass().getSimpleName());
         sb.append("[\n");
         for (int i = 0; i < field.n; i++) {
 
@@ -630,11 +630,7 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
             if (i != field.n - 1)
                 sb.append(";\n");
         }
-        sb.append("]\n");
-
-        return "DiagonalMatrixElement{" +
-                "matrix=\n" + sb.toString() +
-                '}';
+        return sb.append("]\n").toString();
     }
 
     public Element duplicate() {

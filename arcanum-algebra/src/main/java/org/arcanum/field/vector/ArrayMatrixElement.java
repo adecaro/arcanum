@@ -89,6 +89,21 @@ public class ArrayMatrixElement<E extends Element, F extends AbstractMatrixField
         }
     }
 
+    public ArrayMatrixElement(F field, Matrix m) {
+        super((F) field);
+
+        this.matrix = new Element[field.n][field.m];
+        for (int i = 0; i < field.n; i++) {
+            for (int j = 0; j < field.m; j++) {
+
+                if (m.isZeroAt(i, j))
+                    matrix[i][j] = getTargetField().newZeroElement();
+                else
+                    matrix[i][j] = getTargetField().newElement(m.getAt(i, j));
+            }
+        }
+    }
+
     public ArrayMatrixElement(F field, Vector<E> diagonal) {
         this(field);
 

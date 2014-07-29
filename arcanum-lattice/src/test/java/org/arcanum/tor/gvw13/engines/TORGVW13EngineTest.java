@@ -17,7 +17,7 @@ import java.security.SecureRandom;
  */
 public class TORGVW13EngineTest {
 
-    private ElementKeyPairParameters keyPair0, keyPair1, keyPair2;
+    private ElementKeyPairParameters keyPair0, keyPair1, keyPair2, keyPair3;
     private TORGVW13PublicKeyParameters pk0, pk1, pk2, pk3;
     private SecureRandom random;
 
@@ -36,10 +36,12 @@ public class TORGVW13EngineTest {
         keyPair0 = keyPairGenerator.generateKeyPair();
         keyPair1 = keyPairGenerator.generateKeyPair();
         keyPair2 = keyPairGenerator.generateKeyPair();
+        keyPair3 = keyPairGenerator.generateKeyPair();
 
         pk0 =  (TORGVW13PublicKeyParameters) keyPair0.getPublic();
         pk1 =  (TORGVW13PublicKeyParameters) keyPair1.getPublic();
         pk2 =  (TORGVW13PublicKeyParameters) keyPair2.getPublic();
+        pk3 =  (TORGVW13PublicKeyParameters) keyPair3.getPublic();
     }
 
     @Test

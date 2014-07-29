@@ -5,6 +5,7 @@ import org.arcanum.*;
 import org.arcanum.field.floating.ApfloatUtils;
 import org.arcanum.field.floating.FloatingField;
 import org.arcanum.field.vector.MatrixField;
+import org.arcanum.field.vector.TwoByRowMatrixElement;
 import org.arcanum.sampler.DiscreteGaussianCOVSampler;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2PrivateKeyParameters;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2PublicKeyParameters;
@@ -148,7 +149,7 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
         Future<Matrix> C = executor.submitFuture(new Callable<Matrix>() {
             public Matrix call() throws Exception {
                 if (matrixExtensionLength > 0) {
-                    return mff.newTwoByRowMatrix(
+                    return new TwoByRowMatrixElement(
                             mff.newMatrix(sk.getR(), new Matrix.Transformer() {
                                 public void transform(int row, int col, Element e) {
                                     e.mul(sqrtBInverse);
@@ -187,7 +188,7 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
             }
         });
 
-        Matrix cov = null;
+        Matrix cov;
         try {
             cov = mff.newTwoByTwoElement(
                     mff.newIdentityMatrix(m, sqrtB), mff.newNullMatrix(m, n),

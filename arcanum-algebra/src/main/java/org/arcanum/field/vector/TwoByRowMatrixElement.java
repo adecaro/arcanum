@@ -1,6 +1,7 @@
 package org.arcanum.field.vector;
 
 import org.arcanum.Element;
+import org.arcanum.Field;
 import org.arcanum.Matrix;
 
 /**
@@ -21,7 +22,15 @@ public class TwoByRowMatrixElement<E extends Element> extends AbstractMatrixElem
         this.An = A.getN();
     }
 
-    
+    public TwoByRowMatrixElement(Matrix A, Matrix B) {
+        super(new MatrixField<Field<E>>(((AbstractMatrixElement)A).getField().getRandom(), A.getTargetField(), A.getN() + B.getN(), A.getM()));
+
+        this.A = A;
+        this.B = B;
+
+        this.An = A.getN();
+    }
+
     public final E getAt(int row, int col) {
         if (row < An)
             return (E) A.getAt(row, col);
