@@ -1,13 +1,13 @@
 package org.arcanum.fe.ibe.dip10.generators;
 
 import org.arcanum.Element;
-import org.arcanum.Pairing;
-import org.arcanum.ParametersGenerator;
+import org.arcanum.common.parameters.ParametersGenerator;
 import org.arcanum.common.parameters.PropertiesParameters;
 import org.arcanum.fe.ibe.dip10.params.AHIBEDIP10KeyPairGenerationParameters;
 import org.arcanum.fe.ibe.dip10.params.AHIBEDIP10MasterSecretKeyParameters;
 import org.arcanum.fe.ibe.dip10.params.AHIBEDIP10PublicKeyParameters;
 import org.arcanum.field.util.ElementUtils;
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.PairingFactory;
 import org.arcanum.pairing.a1.TypeA1CurveGenerator;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
@@ -36,28 +36,28 @@ public class AHIBEDIP10KeyPairGenerator implements AsymmetricCipherKeyPairGenera
             pairing = PairingFactory.getPairing(parameters);
 
             Element generator = pairing.getG1().newRandomElement().getImmutable();
-            gen1 = ElementUtils.getGenerator(pairing, generator, parameters, 0, 4).getImmutable();
+            gen1 = ElementUtils.getGenerator(generator, parameters, 0, 4).getImmutable();
 
             if (!pairing.pairing(generator, generator).isOne()) {
-                gen3 = ElementUtils.getGenerator(pairing, generator, parameters, 2, 4).getImmutable();
-                gen4 = ElementUtils.getGenerator(pairing, generator, parameters, 3, 4).getImmutable();
+                gen3 = ElementUtils.getGenerator(generator, parameters, 2, 4).getImmutable();
+                gen4 = ElementUtils.getGenerator(generator, parameters, 3, 4).getImmutable();
                 break;
             }
         }
 
         // Construct Public Key and Master Secret Key
-        Element Y1 = ElementUtils.randomIn(pairing, gen1).getImmutable();
-        Element X1 = ElementUtils.randomIn(pairing, gen1).getImmutable();
+        Element Y1 = ElementUtils.randomIn(pairing.getZr(), gen1).getImmutable();
+        Element X1 = ElementUtils.randomIn(pairing.getZr(), gen1).getImmutable();
 
         Element[] uElements = new Element[this.parameters.getLength()];
         for (int i = 0; i < uElements.length; i++) {
-            uElements[i] = ElementUtils.randomIn(pairing, gen1).getImmutable();
+            uElements[i] = ElementUtils.randomIn(pairing.getZr(), gen1).getImmutable();
         }
 
-        Element Y3 = ElementUtils.randomIn(pairing, gen3).getImmutable();
+        Element Y3 = ElementUtils.randomIn(pairing.getZr(), gen3).getImmutable();
 
-        Element X4 = ElementUtils.randomIn(pairing, gen4).getImmutable();
-        Element Y4 = ElementUtils.randomIn(pairing, gen4).getImmutable();
+        Element X4 = ElementUtils.randomIn(pairing.getZr(), gen4).getImmutable();
+        Element Y4 = ElementUtils.randomIn(pairing.getZr(), gen4).getImmutable();
 
         Element alpha = pairing.getZr().newRandomElement().getImmutable();
 

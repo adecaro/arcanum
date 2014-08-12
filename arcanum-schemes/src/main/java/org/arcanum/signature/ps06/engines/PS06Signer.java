@@ -1,7 +1,7 @@
 package org.arcanum.signature.ps06.engines;
 
 import org.arcanum.Element;
-import org.arcanum.Pairing;
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.PairingFactory;
 import org.arcanum.signature.ps06.params.*;
 import org.bouncycastle.crypto.*;

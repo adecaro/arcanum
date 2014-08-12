@@ -1,6 +1,6 @@
 package org.arcanum.pairing.pbc.curve;
 
-import org.arcanum.ParametersGenerator;
+import org.arcanum.common.parameters.ParametersGenerator;
 import org.arcanum.common.parameters.PropertiesParameters;
 import org.arcanum.pairing.pbc.wrapper.jna.WrapperLibraryProvider;
 

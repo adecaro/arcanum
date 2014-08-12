@@ -1,7 +1,7 @@
 package org.arcanum.pairing.mm.clt13.pairing;
 
-import org.arcanum.Pairing;
-import org.arcanum.Parameters;
+import org.arcanum.common.parameters.Parameters;
+import org.arcanum.pairing.Pairing;
 
 import java.security.SecureRandom;
 

@@ -1,6 +1,6 @@
 package org.arcanum.pairing;
 
-import org.arcanum.ParametersGenerator;
+import org.arcanum.common.parameters.ParametersGenerator;
 import org.arcanum.pairing.a.TypeACurveGenerator;
 import org.arcanum.pairing.a1.TypeA1CurveGenerator;
 import org.arcanum.pairing.e.TypeECurveGenerator;

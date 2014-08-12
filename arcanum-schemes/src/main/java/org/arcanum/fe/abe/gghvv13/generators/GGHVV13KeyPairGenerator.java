@@ -1,11 +1,11 @@
 package org.arcanum.fe.abe.gghvv13.generators;
 
 import org.arcanum.Element;
-import org.arcanum.Pairing;
 import org.arcanum.common.fe.generator.KeyPairGenerator;
 import org.arcanum.fe.abe.gghvv13.params.GGHVV13MasterSecretKeyParameters;
 import org.arcanum.fe.abe.gghvv13.params.GGHVV13Parameters;
 import org.arcanum.fe.abe.gghvv13.params.GGHVV13PublicKeyParameters;
+import org.arcanum.pairing.Pairing;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 
 /**

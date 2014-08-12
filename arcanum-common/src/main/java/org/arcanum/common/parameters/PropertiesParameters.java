@@ -1,6 +1,5 @@
 package org.arcanum.common.parameters;
 
-import org.arcanum.Parameters;
 import org.arcanum.common.io.Base64;
 
 import java.io.*;

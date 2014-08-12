@@ -1,10 +1,10 @@
 package org.arcanum.tor.gvw13.generators;
 
 import org.arcanum.Element;
-import org.arcanum.ElementCipherParameters;
 import org.arcanum.Field;
 import org.arcanum.Matrix;
 import org.arcanum.common.cipher.generators.ElementKeyGenerator;
+import org.arcanum.common.cipher.params.ElementCipherParameters;
 import org.arcanum.common.cipher.params.ElementKeyGenerationParameters;
 import org.arcanum.field.vector.MatrixField;
 import org.arcanum.field.vector.TwoByRowMatrixElement;

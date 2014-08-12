@@ -2,8 +2,8 @@ package org.arcanum.pairing.immutable;
 
 import org.arcanum.Element;
 import org.arcanum.Field;
-import org.arcanum.Pairing;
-import org.arcanum.PairingPreProcessing;
+import org.arcanum.pairing.Pairing;
+import org.arcanum.pairing.PairingPreProcessing;
 
 import java.util.HashMap;
 import java.util.Map;

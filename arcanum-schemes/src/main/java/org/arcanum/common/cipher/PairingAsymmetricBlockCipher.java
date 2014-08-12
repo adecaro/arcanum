@@ -1,6 +1,6 @@
 package org.arcanum.common.cipher;
 
-import org.arcanum.Pairing;
+import org.arcanum.pairing.Pairing;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

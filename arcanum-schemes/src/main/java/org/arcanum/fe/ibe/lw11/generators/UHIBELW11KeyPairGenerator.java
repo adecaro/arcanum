@@ -1,13 +1,13 @@
 package org.arcanum.fe.ibe.lw11.generators;
 
 import org.arcanum.Element;
-import org.arcanum.Pairing;
-import org.arcanum.ParametersGenerator;
+import org.arcanum.common.parameters.ParametersGenerator;
 import org.arcanum.common.parameters.PropertiesParameters;
 import org.arcanum.fe.ibe.lw11.params.UHIBELW11KeyPairGenerationParameters;
 import org.arcanum.fe.ibe.lw11.params.UHIBELW11MasterSecretKeyParameters;
 import org.arcanum.fe.ibe.lw11.params.UHIBELW11PublicKeyParameters;
 import org.arcanum.field.util.ElementUtils;
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.PairingFactory;
 import org.arcanum.pairing.a1.TypeA1CurveGenerator;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
@@ -36,16 +36,16 @@ public class UHIBELW11KeyPairGenerator implements AsymmetricCipherKeyPairGenerat
             pairing = PairingFactory.getPairing(parameters);
 
             Element generator = pairing.getG1().newRandomElement();
-            g = ElementUtils.getGenerator(pairing, generator, parameters, 0, 3).getImmutable();
+            g = ElementUtils.getGenerator(generator, parameters, 0, 3).getImmutable();
             if (!pairing.pairing(g, g).isOne())
                 break;
         }
 
         // Generate required elements
-        Element u = ElementUtils.randomIn(pairing, g).getImmutable();
-        Element h = ElementUtils.randomIn(pairing, g).getImmutable();
-        Element v = ElementUtils.randomIn(pairing, g).getImmutable();
-        Element w = ElementUtils.randomIn(pairing, g).getImmutable();
+        Element u = ElementUtils.randomIn(pairing.getZr(), g).getImmutable();
+        Element h = ElementUtils.randomIn(pairing.getZr(), g).getImmutable();
+        Element v = ElementUtils.randomIn(pairing.getZr(), g).getImmutable();
+        Element w = ElementUtils.randomIn(pairing.getZr(), g).getImmutable();
 
         Element alpha = pairing.getZr().newRandomElement().getImmutable();
 

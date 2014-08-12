@@ -2,8 +2,8 @@ package org.arcanum.field.polymod;
 
 import junit.framework.TestCase;
 import org.arcanum.Element;
-import org.arcanum.Pairing;
-import org.arcanum.Parameters;
+import org.arcanum.common.parameters.Parameters;
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.PairingFactory;
 import org.arcanum.pairing.d.TypeDPairing;
 

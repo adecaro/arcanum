@@ -1,6 +1,6 @@
 package org.arcanum.pairing.mm.clt13.parameters;
 
-import org.arcanum.Parameters;
+import org.arcanum.common.parameters.Parameters;
 
 import java.math.BigInteger;
 

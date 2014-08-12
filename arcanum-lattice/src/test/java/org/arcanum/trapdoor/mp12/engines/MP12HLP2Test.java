@@ -1,9 +1,9 @@
 package org.arcanum.trapdoor.mp12.engines;
 
 import org.arcanum.Element;
-import org.arcanum.ElementCipher;
 import org.arcanum.Field;
 import org.arcanum.Matrix;
+import org.arcanum.common.cipher.engine.ElementCipher;
 import org.arcanum.common.cipher.params.ElementKeyPairParameters;
 import org.arcanum.field.vector.MatrixField;
 import org.arcanum.field.vector.TwoByColumnMatrixElement;

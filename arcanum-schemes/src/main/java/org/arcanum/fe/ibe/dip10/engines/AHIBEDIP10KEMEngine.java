@@ -70,9 +70,9 @@ public class AHIBEDIP10KEMEngine extends PairingKeyEncapsulationMechanism {
             for (int i = 0; i < encParams.getLength(); i++) {
                 C1.mul(pk.getUAt(i).powZn(encParams.getIdAt(i)));
             }
-            C1.mul(pk.getT()).powZn(s).mul(ElementUtils.randomIn(pairing, pk.getY4()));
+            C1.mul(pk.getT()).powZn(s).mul(ElementUtils.randomIn(pairing.getZr(), pk.getY4()));
 
-            Element C2 = pk.getY1().powZn(s).mul(ElementUtils.randomIn(pairing, pk.getY4()));
+            Element C2 = pk.getY1().powZn(s).mul(ElementUtils.randomIn(pairing.getZr(), pk.getY4()));
 
             // Convert to byte array
             ByteArrayOutputStream bytes = new ByteArrayOutputStream(getOutputBlockSize());

@@ -30,7 +30,7 @@
             <includes>
                 <include>org.arcanum.dia.gas:arcanum-android</include>
                 <include>org.arcanum.dia.gas:arcanum-benchmark</include>
-                <include>org.arcanum.dia.gas:arcanum-api</include>
+                <include>org.arcanum.dia.gas:arcanum-common</include>
                 <include>org.arcanum.dia.gas:arcanum-plaf</include>
                 <include>org.arcanum.dia.gas:arcanum-mm</include>
                 <include>org.arcanum.dia.gas:arcanum-pbc</include>

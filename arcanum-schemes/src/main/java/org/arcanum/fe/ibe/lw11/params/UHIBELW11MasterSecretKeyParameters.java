@@ -1,7 +1,7 @@
 package org.arcanum.fe.ibe.lw11.params;
 
 import org.arcanum.Element;
-import org.arcanum.Parameters;
+import org.arcanum.common.parameters.Parameters;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

@@ -2,8 +2,8 @@ package org.arcanum.pairing.map;
 
 import org.arcanum.Element;
 import org.arcanum.Field;
-import org.arcanum.Pairing;
-import org.arcanum.PairingPreProcessing;
+import org.arcanum.pairing.Pairing;
+import org.arcanum.pairing.PairingPreProcessing;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

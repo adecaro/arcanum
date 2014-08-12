@@ -1,7 +1,7 @@
 package org.arcanum.trapdoor.mp12.params;
 
-import org.arcanum.Parameters;
 import org.arcanum.common.cipher.params.ElementKeyGenerationParameters;
+import org.arcanum.common.parameters.Parameters;
 import org.arcanum.field.floating.ApfloatUtils;
 
 import java.math.BigInteger;

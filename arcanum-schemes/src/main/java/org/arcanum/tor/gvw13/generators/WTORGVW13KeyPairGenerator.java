@@ -1,7 +1,7 @@
 package org.arcanum.tor.gvw13.generators;
 
 import org.arcanum.Element;
-import org.arcanum.Pairing;
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.PairingFactory;
 import org.arcanum.tor.gvw13.params.WTORGVW13KeyPairGenerationParameters;
 import org.arcanum.tor.gvw13.params.WTORGVW13Parameters;

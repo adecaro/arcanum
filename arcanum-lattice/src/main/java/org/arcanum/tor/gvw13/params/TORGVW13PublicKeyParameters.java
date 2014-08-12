@@ -1,8 +1,8 @@
 package org.arcanum.tor.gvw13.params;
 
-import org.arcanum.ElementCipher;
-import org.arcanum.ElementCipherParameters;
 import org.arcanum.Field;
+import org.arcanum.common.cipher.engine.ElementCipher;
+import org.arcanum.common.cipher.params.ElementCipherParameters;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

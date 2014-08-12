@@ -1,7 +1,7 @@
 package org.arcanum.fe.rl.w12.params;
 
 import org.arcanum.Element;
-import org.arcanum.Parameters;
+import org.arcanum.common.parameters.Parameters;
 import org.arcanum.program.dfa.DFA;
 import org.bouncycastle.crypto.CipherParameters;
 

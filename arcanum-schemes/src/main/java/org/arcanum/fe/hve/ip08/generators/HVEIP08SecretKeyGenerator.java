@@ -2,13 +2,13 @@ package org.arcanum.fe.hve.ip08.generators;
 
 import org.arcanum.Element;
 import org.arcanum.ElementPow;
-import org.arcanum.Pairing;
 import org.arcanum.common.concurrent.ExecutorServiceUtils;
 import org.arcanum.common.concurrent.Pool;
 import org.arcanum.common.concurrent.PoolExecutor;
 import org.arcanum.fe.hve.ip08.params.HVEIP08MasterSecretKeyParameters;
 import org.arcanum.fe.hve.ip08.params.HVEIP08SecretKeyGenerationParameters;
 import org.arcanum.fe.hve.ip08.params.HVEIP08SecretKeyParameters;
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.PairingFactory;
 import org.bouncycastle.crypto.CipherParameters;
 import org.bouncycastle.crypto.KeyGenerationParameters;

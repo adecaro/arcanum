@@ -1,8 +1,8 @@
 package org.arcanum.tor.gvw13.generators;
 
 
-import org.arcanum.ElementCipher;
 import org.arcanum.Field;
+import org.arcanum.common.cipher.engine.ElementCipher;
 import org.arcanum.common.cipher.generators.ElementKeyPairGenerator;
 import org.arcanum.common.cipher.params.ElementKeyGenerationParameters;
 import org.arcanum.common.cipher.params.ElementKeyPairParameters;

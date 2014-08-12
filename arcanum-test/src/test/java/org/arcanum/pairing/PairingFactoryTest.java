@@ -1,7 +1,6 @@
 package org.arcanum.pairing;
 
 import junit.framework.TestCase;
-import org.arcanum.Pairing;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

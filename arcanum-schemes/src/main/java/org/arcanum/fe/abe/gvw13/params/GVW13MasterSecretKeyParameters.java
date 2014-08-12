@@ -1,6 +1,6 @@
 package org.arcanum.fe.abe.gvw13.params;
 
-import org.arcanum.ElementCipherParameters;
+import org.arcanum.common.cipher.params.ElementCipherParameters;
 import org.arcanum.common.fe.params.KeyParameters;
 
 /**

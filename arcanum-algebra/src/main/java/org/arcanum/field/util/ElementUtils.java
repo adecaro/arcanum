@@ -1,6 +1,10 @@
 package org.arcanum.field.util;
 
-import org.arcanum.*;
+import org.arcanum.Element;
+import org.arcanum.ElementPow;
+import org.arcanum.Field;
+import org.arcanum.Matrix;
+import org.arcanum.common.parameters.Parameters;
 import org.arcanum.field.vector.ListVectorElement;
 import org.arcanum.field.vector.MatrixField;
 import org.arcanum.field.vector.VectorField;
@@ -67,11 +71,11 @@ public class ElementUtils {
         return target;
     }
 
-    public static Element randomIn(Pairing pairing, Element generator) {
-        return generator.duplicate().powZn(pairing.getZr().newRandomElement());
+    public static Element randomIn(Field field, Element generator) {
+        return generator.duplicate().powZn(field.newRandomElement());
     }
 
-    public static Element getGenerator(Pairing pairing, Element generator, Parameters parameters, int subgroupIndex, int numPrimes) {
+    public static Element getGenerator(Element generator, Parameters parameters, int subgroupIndex, int numPrimes) {
         BigInteger prod = BigInteger.ONE;
         for (int j = 0; j < numPrimes; j++) {
             if (j != subgroupIndex)

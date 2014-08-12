@@ -1,7 +1,6 @@
 package org.arcanum.pairing;
 
-import org.arcanum.Pairing;
-import org.arcanum.Parameters;
+import org.arcanum.common.parameters.Parameters;
 import org.arcanum.common.parameters.PropertiesParameters;
 import org.arcanum.pairing.a.TypeAPairing;
 import org.arcanum.pairing.a1.TypeA1Pairing;

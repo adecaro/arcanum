@@ -1,6 +1,6 @@
 package org.arcanum.tor.gvw13.params;
 
-import org.arcanum.ElementCipherParameters;
+import org.arcanum.common.cipher.params.ElementCipherParameters;
 
 import java.security.SecureRandom;
 

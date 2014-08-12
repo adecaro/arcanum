@@ -1,6 +1,6 @@
 package org.arcanum.trapdoor.mp12.params;
 
-import org.arcanum.ElementCipherParameters;
+import org.arcanum.common.cipher.params.ElementCipherParameters;
 import org.arcanum.common.cipher.params.ElementKeyPairParameters;
 
 /**

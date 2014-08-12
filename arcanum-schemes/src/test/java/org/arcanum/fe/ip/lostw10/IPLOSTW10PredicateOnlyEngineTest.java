@@ -2,13 +2,13 @@ package org.arcanum.fe.ip.lostw10;
 
 import org.arcanum.AbstractTest;
 import org.arcanum.Element;
-import org.arcanum.Pairing;
 import org.arcanum.common.fe.engine.PredicateOnlyEngine;
 import org.arcanum.fe.ip.lostw10.engines.IPLOSTW10PredicateOnlyEngine;
 import org.arcanum.fe.ip.lostw10.generators.IPLOSTW10KeyPairGenerator;
 import org.arcanum.fe.ip.lostw10.generators.IPLOSTW10ParametersGenerator;
 import org.arcanum.fe.ip.lostw10.generators.IPLOSTW10SecretKeyGenerator;
 import org.arcanum.fe.ip.lostw10.params.*;
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.PairingFactory;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.CipherParameters;

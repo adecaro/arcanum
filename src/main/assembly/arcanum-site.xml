@@ -12,12 +12,6 @@
             <outputDirectory>site</outputDirectory>
             <includes/>
         </fileSet>
-
-        <fileSet>
-            <directory>arcanum-api/target/site/apidocs</directory>
-            <outputDirectory>site/java-docs/api</outputDirectory>
-            <includes/>
-        </fileSet>
     </fileSets>
 
 </assembly>

@@ -1,11 +1,11 @@
 package org.arcanum.fe.rl.w12.generators;
 
 import org.arcanum.Element;
-import org.arcanum.Pairing;
 import org.arcanum.common.fe.generator.SecretKeyGenerator;
 import org.arcanum.fe.rl.w12.params.RLW12MasterSecretKeyParameters;
 import org.arcanum.fe.rl.w12.params.RLW12PublicKeyParameters;
 import org.arcanum.fe.rl.w12.params.RLW12SecretKeyParameters;
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.PairingFactory;
 import org.arcanum.program.dfa.DFA;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;

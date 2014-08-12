@@ -1,7 +1,11 @@
 package org.arcanum.pairing.g;
 
-import org.arcanum.*;
+import org.arcanum.Element;
+import org.arcanum.Field;
+import org.arcanum.Point;
+import org.arcanum.Polynomial;
 import org.arcanum.common.math.BigIntegerUtils;
+import org.arcanum.common.parameters.Parameters;
 import org.arcanum.field.curve.CurveField;
 import org.arcanum.field.gt.GTFiniteField;
 import org.arcanum.field.poly.PolyElement;

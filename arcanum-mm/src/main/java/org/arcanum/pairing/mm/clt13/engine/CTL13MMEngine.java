@@ -1,9 +1,9 @@
 package org.arcanum.pairing.mm.clt13.engine;
 
-import org.arcanum.Parameters;
 import org.arcanum.common.concurrent.ExecutorServiceUtils;
 import org.arcanum.common.concurrent.accumultor.Accumulator;
 import org.arcanum.common.concurrent.accumultor.BigIntegerAddAccumulator;
+import org.arcanum.common.parameters.Parameters;
 import org.arcanum.pairing.mm.clt13.parameters.CTL13MMPublicParameters;
 import org.arcanum.pairing.mm.clt13.parameters.CTL13MMSystemParameters;
 

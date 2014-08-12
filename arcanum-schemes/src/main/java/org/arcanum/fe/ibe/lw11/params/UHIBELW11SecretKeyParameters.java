@@ -1,7 +1,7 @@
 package org.arcanum.fe.ibe.lw11.params;
 
 import org.arcanum.Element;
-import org.arcanum.Parameters;
+import org.arcanum.common.parameters.Parameters;
 import org.arcanum.field.util.ElementUtils;
 
 import java.util.Arrays;

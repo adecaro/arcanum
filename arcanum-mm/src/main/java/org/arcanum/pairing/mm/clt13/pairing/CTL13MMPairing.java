@@ -1,6 +1,10 @@
 package org.arcanum.pairing.mm.clt13.pairing;
 
-import org.arcanum.*;
+import org.arcanum.Element;
+import org.arcanum.Field;
+import org.arcanum.common.parameters.Parameters;
+import org.arcanum.pairing.Pairing;
+import org.arcanum.pairing.PairingPreProcessing;
 import org.arcanum.pairing.accumulator.PairingAccumulator;
 import org.arcanum.pairing.accumulator.PairingAccumulatorFactory;
 import org.arcanum.pairing.map.DefaultPairingPreProcessing;

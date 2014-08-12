@@ -1,6 +1,6 @@
 package org.arcanum.pairing;
 
-import org.arcanum.ParametersGenerator;
+import org.arcanum.common.parameters.ParametersGenerator;
 import org.arcanum.pairing.pbc.curve.*;
 import org.junit.runners.Parameterized;
 

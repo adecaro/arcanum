@@ -1,10 +1,10 @@
 package org.arcanum.fe.ibe.dip10.generators;
 
 import org.arcanum.Element;
-import org.arcanum.Pairing;
 import org.arcanum.common.cipher.CipherParametersGenerator;
 import org.arcanum.fe.ibe.dip10.params.*;
 import org.arcanum.field.util.ElementUtils;
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.PairingFactory;
 import org.bouncycastle.crypto.CipherParameters;
 import org.bouncycastle.crypto.KeyGenerationParameters;
@@ -35,7 +35,7 @@ public class AHIBEDIP10SecretKeyGenerator implements CipherParametersGenerator {
             Element r2 = pairing.getZr().newRandomElement();
 
             // K11
-            Element K11 = pk.getY1().powZn(r1).mul(ElementUtils.randomIn(pairing, pk.getY3()));
+            Element K11 = pk.getY1().powZn(r1).mul(ElementUtils.randomIn(pairing.getZr(), pk.getY3()));
 
             // K12
             Element K12 = pairing.getG1().newOneElement();
@@ -49,16 +49,16 @@ public class AHIBEDIP10SecretKeyGenerator implements CipherParametersGenerator {
             K12.mul(msk.getX1())
               .powZn(r1)
               .mul(pk.getY1().powZn(msk.getAlpha()))
-              .mul(ElementUtils.randomIn(pairing, pk.getY3()));
+              .mul(ElementUtils.randomIn(pairing.getZr(), pk.getY3()));
 
             // E1s
             Element[] E1s = new Element[uNum - idNum];
             for (int i = 0; i < E1s.length; i++) {
-                E1s[i] = pk.getUAt(idNum + i).powZn(r1).mul(ElementUtils.randomIn(pairing, pk.getY3())).getImmutable();
+                E1s[i] = pk.getUAt(idNum + i).powZn(r1).mul(ElementUtils.randomIn(pairing.getZr(), pk.getY3())).getImmutable();
             }
 
             // K21
-            Element K21 = pk.getY1().powZn(r2).mul(ElementUtils.randomIn(pairing, pk.getY3()));
+            Element K21 = pk.getY1().powZn(r2).mul(ElementUtils.randomIn(pairing.getZr(), pk.getY3()));
 
             // K22
             Element K22 = pairing.getG1().newOneElement();
@@ -67,12 +67,12 @@ public class AHIBEDIP10SecretKeyGenerator implements CipherParametersGenerator {
             }
             K22.mul(msk.getX1())
               .powZn(r2)
-              .mul(ElementUtils.randomIn(pairing, pk.getY3()));
+              .mul(ElementUtils.randomIn(pairing.getZr(), pk.getY3()));
 
             // E2s
             Element[] E2s = new Element[uNum - idNum];
             for (int i = 0; i < E2s.length; i++) {
-                E2s[i] = pk.getUAt(idNum + i).powZn(r2).mul(ElementUtils.randomIn(pairing, pk.getY3())).getImmutable();
+                E2s[i] = pk.getUAt(idNum + i).powZn(r2).mul(ElementUtils.randomIn(pairing.getZr(), pk.getY3())).getImmutable();
             }
 
             return new AHIBEDIP10SecretKeyParameters(pk.getParameters(),
@@ -93,38 +93,38 @@ public class AHIBEDIP10SecretKeyGenerator implements CipherParametersGenerator {
             // K11
             Element K11 = sk.getK11()
                     .mul(sk.getK21().powZn(r1))
-                    .mul(ElementUtils.randomIn(pairing, pk.getY3()));
+                    .mul(ElementUtils.randomIn(pairing.getZr(), pk.getY3()));
 
             // K12
             Element K12 = sk.getK12()
                     .mul(sk.getK22().powZn(r1))
                     .mul(sk.getE1At(0).powZn(parameters.getId()))
                     .mul(sk.getE2At(0).powZn(r1.duplicate().mul(parameters.getId())))
-                    .mul(ElementUtils.randomIn(pairing, pk.getY3()));
+                    .mul(ElementUtils.randomIn(pairing.getZr(), pk.getY3()));
 
             // E1s
             Element[] E1s = new Element[sk.getE1Length() - 1];
             for (int i = 0; i < E1s.length; i++) {
                 E1s[i] = sk.getE1At(i+1)
                         .mul(sk.getE2At(i+1).powZn(r1))
-                        .mul(ElementUtils.randomIn(pairing, pk.getY3())).getImmutable();
+                        .mul(ElementUtils.randomIn(pairing.getZr(), pk.getY3())).getImmutable();
             }
 
             // K21
             Element K21 = sk.getK21().powZn(r2)
-                    .mul(ElementUtils.randomIn(pairing, pk.getY3()));
+                    .mul(ElementUtils.randomIn(pairing.getZr(), pk.getY3()));
 
             // K12
             Element K22 = sk.getK22().powZn(r2)
                     .mul(sk.getE2At(0).powZn(r2.duplicate().mul(parameters.getId())))
-                    .mul(ElementUtils.randomIn(pairing, pk.getY3()));
+                    .mul(ElementUtils.randomIn(pairing.getZr(), pk.getY3()));
 
             // E1s
             Element[] E2s = new Element[sk.getE1Length() - 1];
             for (int i = 0; i < E1s.length; i++) {
                 E2s[i] = sk.getE2At(i+1)
                         .powZn(r2)
-                        .mul(ElementUtils.randomIn(pairing, pk.getY3())).getImmutable();
+                        .mul(ElementUtils.randomIn(pairing.getZr(), pk.getY3())).getImmutable();
             }
 
             Element[] ids = new Element[sk.getIds().length + 1];

@@ -2,9 +2,9 @@ package org.arcanum.pairing.pbc;
 
 import com.sun.jna.Pointer;
 import org.arcanum.Element;
-import org.arcanum.PairingPreProcessing;
-import org.arcanum.Parameters;
+import org.arcanum.common.parameters.Parameters;
 import org.arcanum.pairing.AbstractPairing;
+import org.arcanum.pairing.PairingPreProcessing;
 import org.arcanum.pairing.pbc.wrapper.jna.PBCPairingPPType;
 import org.arcanum.pairing.pbc.wrapper.jna.PBCPairingType;
 import org.arcanum.pairing.pbc.wrapper.jna.WrapperLibraryProvider;

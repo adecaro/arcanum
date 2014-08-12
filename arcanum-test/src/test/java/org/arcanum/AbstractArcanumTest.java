@@ -1,5 +1,6 @@
 package org.arcanum;
 
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.PairingFactory;
 import org.junit.Before;
 import org.junit.runner.RunWith;

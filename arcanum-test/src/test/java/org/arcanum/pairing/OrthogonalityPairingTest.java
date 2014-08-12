@@ -2,7 +2,7 @@ package org.arcanum.pairing;
 
 import org.arcanum.AbstractArcanumTest;
 import org.arcanum.Element;
-import org.arcanum.Parameters;
+import org.arcanum.common.parameters.Parameters;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -2,7 +2,6 @@ package org.arcanum.pairing;
 
 import org.arcanum.AbstractArcanumTest;
 import org.arcanum.Element;
-import org.arcanum.PairingPreProcessing;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

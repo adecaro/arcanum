@@ -1,7 +1,7 @@
 package org.arcanum.tor.gvw13.params;
 
 import org.arcanum.Element;
-import org.arcanum.Parameters;
+import org.arcanum.common.parameters.Parameters;
 import org.bouncycastle.crypto.CipherParameters;
 
 /**

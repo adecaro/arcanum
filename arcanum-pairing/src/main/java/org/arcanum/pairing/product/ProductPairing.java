@@ -1,7 +1,11 @@
 package org.arcanum.pairing.product;
 
-import org.arcanum.*;
+import org.arcanum.Element;
+import org.arcanum.Field;
+import org.arcanum.Vector;
 import org.arcanum.field.vector.VectorField;
+import org.arcanum.pairing.Pairing;
+import org.arcanum.pairing.PairingPreProcessing;
 import org.arcanum.pairing.accumulator.PairingAccumulator;
 import org.arcanum.pairing.accumulator.PairingAccumulatorFactory;
 import org.arcanum.pairing.accumulator.ProductPairingAccumulator;

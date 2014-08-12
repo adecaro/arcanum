@@ -2,9 +2,9 @@ package org.arcanum.pairing.f;
 
 import org.arcanum.Element;
 import org.arcanum.Field;
-import org.arcanum.Parameters;
 import org.arcanum.Point;
 import org.arcanum.common.math.BigIntegerUtils;
+import org.arcanum.common.parameters.Parameters;
 import org.arcanum.field.curve.CurveField;
 import org.arcanum.field.gt.GTFiniteField;
 import org.arcanum.field.poly.PolyElement;

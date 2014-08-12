@@ -1,12 +1,12 @@
 package org.arcanum.fe.rl.w12.generators;
 
 import org.arcanum.Element;
-import org.arcanum.Pairing;
 import org.arcanum.common.fe.generator.KeyPairGenerator;
 import org.arcanum.fe.rl.w12.params.RLW12MasterSecretKeyParameters;
 import org.arcanum.fe.rl.w12.params.RLW12Parameters;
 import org.arcanum.fe.rl.w12.params.RLW12PublicKeyParameters;
 import org.arcanum.field.util.ElementUtils;
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.PairingFactory;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 
@@ -22,13 +22,13 @@ public class RLW12KeyPairGenerator extends KeyPairGenerator<RLW12Parameters> {
         Element g = parameters.getG();
 
         // Generate required elements
-        Element z = ElementUtils.randomIn(pairing, g).getImmutable();
-        Element hStart = ElementUtils.randomIn(pairing, g).getImmutable();
-        Element hEnd = ElementUtils.randomIn(pairing, g).getImmutable();
+        Element z = ElementUtils.randomIn(pairing.getZr(), g).getImmutable();
+        Element hStart = ElementUtils.randomIn(pairing.getZr(), g).getImmutable();
+        Element hEnd = ElementUtils.randomIn(pairing.getZr(), g).getImmutable();
 
         Element[] hs = new Element[parameters.getAlphabetSize()];
         for (int i = 0; i < hs.length; i++) {
-            hs[i] = ElementUtils.randomIn(pairing, g).getImmutable();
+            hs[i] = ElementUtils.randomIn(pairing.getZr(), g).getImmutable();
         }
 
         Element alpha = pairing.getZr().newRandomElement().getImmutable();

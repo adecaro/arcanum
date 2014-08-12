@@ -1,10 +1,10 @@
 package org.arcanum.fe.hve.ip08.params;
 
 import org.arcanum.Element;
-import org.arcanum.Pairing;
-import org.arcanum.PairingPreProcessing;
 import org.arcanum.field.util.ElementUtils;
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.PairingFactory;
+import org.arcanum.pairing.PairingPreProcessing;
 
 import java.util.Arrays;
 

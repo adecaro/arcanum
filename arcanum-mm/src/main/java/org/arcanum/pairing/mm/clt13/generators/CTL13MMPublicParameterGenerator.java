@@ -1,7 +1,5 @@
 package org.arcanum.pairing.mm.clt13.generators;
 
-import org.arcanum.Parameters;
-import org.arcanum.ParametersGenerator;
 import org.arcanum.common.concurrent.ExecutorServiceUtils;
 import org.arcanum.common.concurrent.Pool;
 import org.arcanum.common.concurrent.PoolExecutor;
@@ -11,6 +9,8 @@ import org.arcanum.common.concurrent.accumultor.BigIntegerMulAccumulator;
 import org.arcanum.common.concurrent.context.ContextExecutor;
 import org.arcanum.common.concurrent.context.ContextRunnable;
 import org.arcanum.common.parameters.MutableParameters;
+import org.arcanum.common.parameters.Parameters;
+import org.arcanum.common.parameters.ParametersGenerator;
 import org.arcanum.pairing.mm.clt13.parameters.CTL13MMMapParameters;
 import org.arcanum.pairing.mm.clt13.parameters.CTL13MMSystemParameters;
 

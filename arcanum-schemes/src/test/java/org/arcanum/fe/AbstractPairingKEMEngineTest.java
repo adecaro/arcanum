@@ -1,6 +1,6 @@
 package org.arcanum.fe;
 
-import org.arcanum.Parameters;
+import org.arcanum.common.parameters.Parameters;
 import org.arcanum.pairing.PairingFactory;
 import org.arcanum.program.Program;
 import org.junit.Before;

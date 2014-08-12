@@ -1,8 +1,8 @@
 package org.arcanum.fe.abe.gvw13.generators;
 
-import org.arcanum.ElementCipherParameters;
 import org.arcanum.common.cipher.generators.ElementKeyGenerator;
 import org.arcanum.common.cipher.generators.ElementKeyPairGenerator;
+import org.arcanum.common.cipher.params.ElementCipherParameters;
 import org.arcanum.common.cipher.params.ElementKeyPairParameters;
 import org.arcanum.common.fe.generator.SecretKeyGenerator;
 import org.arcanum.fe.abe.gvw13.params.GVW13MasterSecretKeyParameters;

@@ -2,9 +2,9 @@ package org.arcanum.pairing.dpvs;
 
 import org.arcanum.Element;
 import org.arcanum.Field;
-import org.arcanum.Pairing;
 import org.arcanum.Vector;
 import org.arcanum.field.util.ElementUtils;
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.product.ProductPairing;
 
 import java.security.SecureRandom;

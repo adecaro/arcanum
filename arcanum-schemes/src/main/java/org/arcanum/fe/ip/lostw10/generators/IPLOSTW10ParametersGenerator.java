@@ -1,9 +1,9 @@
 package org.arcanum.fe.ip.lostw10.generators;
 
 import org.arcanum.Element;
-import org.arcanum.Pairing;
-import org.arcanum.Parameters;
+import org.arcanum.common.parameters.Parameters;
 import org.arcanum.fe.ip.lostw10.params.IPLOSTW10Parameters;
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.PairingFactory;
 
 

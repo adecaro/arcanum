@@ -2,8 +2,8 @@ package org.arcanum.common.io.disk;
 
 import org.arcanum.common.io.ByteBufferDataInput;
 import org.arcanum.common.io.ByteBufferDataOutput;
-import org.arcanum.common.io.PairingDataInput;
-import org.arcanum.common.io.PairingDataOutput;
+import org.arcanum.common.io.ExDataInput;
+import org.arcanum.common.io.ExDataOutput;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -21,8 +21,8 @@ public class ByteBufferBigIntegerArraySector implements ArraySector<BigInteger> 
     protected int offset, recordSize, recordLength, numRecords;
     protected int lengthInBytes;
 
-    protected PairingDataInput in;
-    protected PairingDataOutput out;
+    protected ExDataInput in;
+    protected ExDataOutput out;
 
     protected Map<String, Integer> labelsMap;
 
@@ -57,8 +57,8 @@ public class ByteBufferBigIntegerArraySector implements ArraySector<BigInteger> 
 
     public synchronized ArraySector<BigInteger> mapTo(Mode mode, ByteBuffer buffer) {
         this.buffer = buffer;
-        this.in = new PairingDataInput(new ByteBufferDataInput(buffer));
-        this.out = new PairingDataOutput(new ByteBufferDataOutput(buffer));
+        this.in = new ExDataInput(new ByteBufferDataInput(buffer));
+        this.out = new ExDataOutput(new ByteBufferDataOutput(buffer));
 
         switch (mode) {
             case INIT:

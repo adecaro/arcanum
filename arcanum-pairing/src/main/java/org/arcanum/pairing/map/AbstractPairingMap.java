@@ -1,9 +1,9 @@
 package org.arcanum.pairing.map;
 
 import org.arcanum.Element;
-import org.arcanum.Pairing;
-import org.arcanum.PairingPreProcessing;
 import org.arcanum.Point;
+import org.arcanum.pairing.Pairing;
+import org.arcanum.pairing.PairingPreProcessing;
 import org.arcanum.pairing.accumulator.PairingAccumulator;
 import org.arcanum.pairing.accumulator.PairingAccumulatorFactory;
 

@@ -7,6 +7,7 @@ import org.arcanum.field.curve.CurveField;
 import org.arcanum.field.gt.GTFiniteElement;
 import org.arcanum.field.gt.GTFiniteField;
 import org.arcanum.field.poly.PolyModElement;
+import org.arcanum.pairing.PairingPreProcessing;
 import org.arcanum.pairing.map.AbstractMillerPairingMap;
 import org.arcanum.pairing.map.AbstractMillerPairingPreProcessing;
 

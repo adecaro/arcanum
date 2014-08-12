@@ -1,7 +1,5 @@
 package org.arcanum.common.parameters;
 
-import org.arcanum.Parameters;
-
 import java.math.BigInteger;
 
 /**

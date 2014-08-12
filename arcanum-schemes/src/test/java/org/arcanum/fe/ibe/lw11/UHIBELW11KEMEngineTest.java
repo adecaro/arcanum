@@ -2,12 +2,12 @@ package org.arcanum.fe.ibe.lw11;
 
 import org.arcanum.AbstractTest;
 import org.arcanum.Element;
-import org.arcanum.Pairing;
 import org.arcanum.common.kem.KeyEncapsulationMechanism;
 import org.arcanum.fe.ibe.lw11.engines.UHIBELW11KEMEngine;
 import org.arcanum.fe.ibe.lw11.generators.UHIBELW11KeyPairGenerator;
 import org.arcanum.fe.ibe.lw11.generators.UHIBELW11SecretKeyGenerator;
 import org.arcanum.fe.ibe.lw11.params.*;
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.PairingFactory;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.CipherParameters;

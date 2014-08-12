@@ -1,12 +1,12 @@
 package org.arcanum.fe.ip.lostw10.generators;
 
 import org.arcanum.Element;
-import org.arcanum.Pairing;
 import org.arcanum.Vector;
 import org.arcanum.fe.ip.lostw10.params.IPLOSTW10KeyGenerationParameters;
 import org.arcanum.fe.ip.lostw10.params.IPLOSTW10MasterSecretKeyParameters;
 import org.arcanum.fe.ip.lostw10.params.IPLOSTW10Parameters;
 import org.arcanum.fe.ip.lostw10.params.IPLOSTW10PublicKeyParameters;
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.PairingFactory;
 import org.arcanum.pairing.dpvs.DPVS;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;

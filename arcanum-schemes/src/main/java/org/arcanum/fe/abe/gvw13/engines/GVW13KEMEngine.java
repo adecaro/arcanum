@@ -1,7 +1,7 @@
 package org.arcanum.fe.abe.gvw13.engines;
 
 import org.arcanum.Element;
-import org.arcanum.ElementCipher;
+import org.arcanum.common.cipher.engine.ElementCipher;
 import org.arcanum.common.fe.params.EncryptionParameters;
 import org.arcanum.common.io.ElementStreamReader;
 import org.arcanum.common.io.ElementStreamWriter;

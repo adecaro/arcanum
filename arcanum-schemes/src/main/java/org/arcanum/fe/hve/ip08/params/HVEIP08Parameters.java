@@ -3,7 +3,7 @@ package org.arcanum.fe.hve.ip08.params;
 import org.arcanum.Element;
 import org.arcanum.ElementPow;
 import org.arcanum.ElementPowPreProcessing;
-import org.arcanum.Parameters;
+import org.arcanum.common.parameters.Parameters;
 import org.bouncycastle.crypto.CipherParameters;
 
 import java.util.Arrays;

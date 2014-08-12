@@ -1,8 +1,8 @@
 package org.arcanum.pairing.a;
 
 import org.arcanum.Field;
-import org.arcanum.Parameters;
 import org.arcanum.Point;
+import org.arcanum.common.parameters.Parameters;
 import org.arcanum.field.curve.CurveField;
 import org.arcanum.field.gt.GTFiniteField;
 import org.arcanum.field.quadratic.DegreeTwoExtensionQuadraticField;

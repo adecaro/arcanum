@@ -1,9 +1,9 @@
 package org.arcanum.fe.hve.ip08.generators;
 
 import org.arcanum.Element;
-import org.arcanum.Pairing;
-import org.arcanum.Parameters;
+import org.arcanum.common.parameters.Parameters;
 import org.arcanum.fe.hve.ip08.params.HVEIP08Parameters;
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.PairingFactory;
 
 import java.util.Arrays;

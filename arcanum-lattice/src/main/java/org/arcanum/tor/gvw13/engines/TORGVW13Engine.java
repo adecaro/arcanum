@@ -1,9 +1,9 @@
 package org.arcanum.tor.gvw13.engines;
 
 import org.arcanum.Element;
-import org.arcanum.ElementCipher;
-import org.arcanum.ElementCipherParameters;
 import org.arcanum.common.cipher.engine.AbstractElementCipher;
+import org.arcanum.common.cipher.engine.ElementCipher;
+import org.arcanum.common.cipher.params.ElementCipherParameters;
 import org.arcanum.field.util.ElementUtils;
 import org.arcanum.tor.gvw13.params.TORGVW13EncryptParameters;
 import org.arcanum.tor.gvw13.params.TORGVW13PublicKeyParameters;

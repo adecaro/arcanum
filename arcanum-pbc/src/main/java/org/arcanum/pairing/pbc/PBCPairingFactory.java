@@ -1,7 +1,7 @@
 package org.arcanum.pairing.pbc;
 
-import org.arcanum.Pairing;
-import org.arcanum.Parameters;
+import org.arcanum.common.parameters.Parameters;
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.pbc.wrapper.jna.WrapperLibraryProvider;
 
 /**

@@ -1,6 +1,6 @@
 package org.arcanum.fe.abe.gghsw13.params;
 
-import org.arcanum.Pairing;
+import org.arcanum.pairing.Pairing;
 import org.bouncycastle.crypto.CipherParameters;
 
 /**

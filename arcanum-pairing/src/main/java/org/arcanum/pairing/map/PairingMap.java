@@ -1,8 +1,8 @@
 package org.arcanum.pairing.map;
 
 import org.arcanum.Element;
-import org.arcanum.PairingPreProcessing;
 import org.arcanum.Point;
+import org.arcanum.pairing.PairingPreProcessing;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

@@ -2,8 +2,8 @@ package org.arcanum.mm.clt13.pairing;
 
 import org.arcanum.Element;
 import org.arcanum.Field;
-import org.arcanum.Pairing;
 import org.arcanum.mm.clt13.AbstractCTL13MMTest;
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.mm.clt13.pairing.CTL13MMPairing;
 import org.arcanum.pairing.mm.clt13.parameters.CTL13MMSystemParameters;
 import org.junit.Before;

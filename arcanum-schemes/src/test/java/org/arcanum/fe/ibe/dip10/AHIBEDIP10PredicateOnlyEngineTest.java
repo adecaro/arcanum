@@ -2,12 +2,12 @@ package org.arcanum.fe.ibe.dip10;
 
 import org.arcanum.AbstractTest;
 import org.arcanum.Element;
-import org.arcanum.Pairing;
 import org.arcanum.common.fe.engine.PredicateOnlyEngine;
 import org.arcanum.fe.ibe.dip10.engines.AHIBEDIP10PredicateOnlyEngine;
 import org.arcanum.fe.ibe.dip10.generators.AHIBEDIP10KeyPairGenerator;
 import org.arcanum.fe.ibe.dip10.generators.AHIBEDIP10SecretKeyGenerator;
 import org.arcanum.fe.ibe.dip10.params.*;
+import org.arcanum.pairing.Pairing;
 import org.arcanum.pairing.PairingFactory;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.CipherParameters;

@@ -1,11 +1,11 @@
 package org.arcanum.pairing.a1;
 
 import org.arcanum.Element;
-import org.arcanum.PairingPreProcessing;
 import org.arcanum.Point;
 import org.arcanum.common.math.BigIntegerUtils;
 import org.arcanum.field.gt.GTFiniteElement;
 import org.arcanum.field.gt.GTFiniteField;
+import org.arcanum.pairing.PairingPreProcessing;
 import org.arcanum.pairing.map.AbstractMillerPairingMap;
 import org.arcanum.pairing.map.AbstractMillerPairingPreProcessing;
 

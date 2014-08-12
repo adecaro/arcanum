@@ -1,7 +1,7 @@
 package org.arcanum.pairing.immutable;
 
 import org.arcanum.Element;
-import org.arcanum.PairingPreProcessing;
+import org.arcanum.pairing.PairingPreProcessing;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

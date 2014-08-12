@@ -1,6 +1,6 @@
 package org.arcanum.fe.ibe.lw11.params;
 
-import org.arcanum.Parameters;
+import org.arcanum.common.parameters.Parameters;
 import org.bouncycastle.crypto.params.AsymmetricKeyParameter;
 
 /**

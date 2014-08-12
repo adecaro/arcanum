@@ -1,8 +1,8 @@
 package org.arcanum.pairing.accumulator;
 
 import org.arcanum.Element;
-import org.arcanum.PairingPreProcessing;
 import org.arcanum.common.concurrent.accumultor.Accumulator;
+import org.arcanum.pairing.PairingPreProcessing;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

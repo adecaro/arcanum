@@ -1,7 +1,7 @@
 package org.arcanum.pairing.accumulator;
 
 import org.arcanum.Element;
-import org.arcanum.Pairing;
+import org.arcanum.pairing.Pairing;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
