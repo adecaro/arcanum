@@ -1,26 +1,18 @@
 package org.arcanum.fe.abe.gvw13.generators;
 
 import org.arcanum.ElementCipherParameters;
-import org.arcanum.fe.abe.gvw13.params.GVW13KeyPairGenerationParameters;
+import org.arcanum.common.cipher.generators.ElementKeyPairGenerator;
+import org.arcanum.common.cipher.params.ElementKeyPairParameters;
+import org.arcanum.common.fe.generator.KeyPairGenerator;
 import org.arcanum.fe.abe.gvw13.params.GVW13MasterSecretKeyParameters;
 import org.arcanum.fe.abe.gvw13.params.GVW13Parameters;
 import org.arcanum.fe.abe.gvw13.params.GVW13PublicKeyParameters;
-import org.arcanum.util.cipher.generators.ElementKeyPairGenerator;
-import org.arcanum.util.cipher.params.ElementKeyPairParameters;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
-import org.bouncycastle.crypto.AsymmetricCipherKeyPairGenerator;
-import org.bouncycastle.crypto.KeyGenerationParameters;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class GVW13KeyPairGenerator implements AsymmetricCipherKeyPairGenerator {
-    private GVW13KeyPairGenerationParameters params;
-
-
-    public void init(KeyGenerationParameters keyGenerationParameters) {
-        this.params = (GVW13KeyPairGenerationParameters) keyGenerationParameters;
-    }
+public class GVW13KeyPairGenerator extends KeyPairGenerator<GVW13Parameters> {
 
     public AsymmetricCipherKeyPair generateKeyPair() {
         GVW13Parameters parameters = params.getParameters();
@@ -47,6 +39,5 @@ public class GVW13KeyPairGenerator implements AsymmetricCipherKeyPairGenerator {
                 new GVW13MasterSecretKeyParameters(parameters, secretKeys)
         );
     }
-
 
 }

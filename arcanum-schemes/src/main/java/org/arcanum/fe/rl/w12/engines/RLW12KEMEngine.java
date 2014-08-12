@@ -1,17 +1,18 @@
 package org.arcanum.fe.rl.w12.engines;
 
 import org.arcanum.Element;
-import org.arcanum.dfa.DFA;
-import org.arcanum.fe.rl.w12.params.RLW12EncryptionParameters;
-import org.arcanum.fe.rl.w12.params.RLW12KeyParameters;
+import org.arcanum.common.fe.params.EncryptionParameters;
+import org.arcanum.common.io.ElementStreamWriter;
+import org.arcanum.common.io.PairingStreamReader;
+import org.arcanum.common.kem.PairingKeyEncapsulationMechanism;
+import org.arcanum.fe.rl.w12.params.RLW12Parameters;
 import org.arcanum.fe.rl.w12.params.RLW12PublicKeyParameters;
 import org.arcanum.fe.rl.w12.params.RLW12SecretKeyParameters;
-import org.arcanum.kem.PairingKeyEncapsulationMechanism;
 import org.arcanum.pairing.PairingFactory;
 import org.arcanum.pairing.accumulator.PairingAccumulator;
 import org.arcanum.pairing.accumulator.PairingAccumulatorFactory;
-import org.arcanum.util.io.ElementStreamWriter;
-import org.arcanum.util.io.PairingStreamReader;
+import org.arcanum.program.Assignment;
+import org.arcanum.program.dfa.DFA;
 
 import java.io.IOException;
 
@@ -21,17 +22,25 @@ import java.io.IOException;
 public class RLW12KEMEngine extends PairingKeyEncapsulationMechanism {
 
     public void initialize() {
+        // Check params
+        RLW12Parameters keyParameters;
+
         if (forEncryption) {
-            if (!(key instanceof RLW12EncryptionParameters))
+            if (!(key instanceof EncryptionParameters))
                 throw new IllegalArgumentException("RLW12EncryptionParameters are required for encryption.");
+
+            keyParameters = ((EncryptionParameters<RLW12PublicKeyParameters, Character>) key).getMpk().getParameters();
         } else {
             if (!(key instanceof RLW12SecretKeyParameters))
                 throw new IllegalArgumentException("RLW12SecretKeyParameters are required for decryption.");
+
+            keyParameters = ((RLW12SecretKeyParameters) key).getParameters();
         }
 
-        RLW12KeyParameters rlKey = (RLW12KeyParameters) key;
-        this.pairing = PairingFactory.getPairing(rlKey.getParameters().getParameters());
+        // Init pairing
+        this.pairing = PairingFactory.getPairing(keyParameters.getParameters());
 
+        // Init sizes
         this.keyBytes = pairing.getGT().getLengthInBytes();
 //        this.outBytes = 2 * pairing.getGT().getLengthInBytes() + N * pairing.getG1().getLengthInBytes();
     }
@@ -83,9 +92,9 @@ public class RLW12KEMEngine extends PairingKeyEncapsulationMechanism {
             Element M = pairing.getGT().newRandomElement();
 
             // Encrypt the massage under the specified attributes
-            RLW12EncryptionParameters encKey = (RLW12EncryptionParameters) key;
-            RLW12PublicKeyParameters publicKey = encKey.getPublicKey();
-            String w = encKey.getW();
+            EncryptionParameters<RLW12PublicKeyParameters, Character> encKey = (EncryptionParameters<RLW12PublicKeyParameters, Character>) key;
+            RLW12PublicKeyParameters publicKey = encKey.getMpk();
+            Assignment<Character> assignment = encKey.getAssignment();
 
             ElementStreamWriter writer = new ElementStreamWriter(getOutputBlockSize());
             try {
@@ -94,8 +103,8 @@ public class RLW12KEMEngine extends PairingKeyEncapsulationMechanism {
 
                 // Store the ciphertext
 
-                // Store w
-                writer.write(w);
+                // Store assignment
+                writer.write(assignment.toString());
 
                 // Initialize
                 Element s0 = pairing.getZr().newRandomElement();
@@ -104,11 +113,11 @@ public class RLW12KEMEngine extends PairingKeyEncapsulationMechanism {
 
                 // Sequence
                 Element sPrev = s0;
-                for (int i = 0, l = w.length(); i < l; i++) {
+                for (int i = 0, l = assignment.getLength(); i < l; i++) {
                     Element sNext = pairing.getZr().newRandomElement();
 
                     writer.write(publicKey.getParameters().getG().powZn(sNext));
-                    writer.write(publicKey.getHAt(w.charAt(i)).powZn(sNext).mul(publicKey.getZ().powZn(sPrev)));
+                    writer.write(publicKey.getHAt(assignment.getAt(i)).powZn(sNext).mul(publicKey.getZ().powZn(sPrev)));
 
                     sPrev = sNext;
                 }

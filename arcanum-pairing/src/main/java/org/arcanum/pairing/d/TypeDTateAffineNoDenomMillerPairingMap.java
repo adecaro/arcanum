@@ -1,6 +1,7 @@
 package org.arcanum.pairing.d;
 
 import org.arcanum.*;
+import org.arcanum.common.math.BigIntegerUtils;
 import org.arcanum.field.curve.CurveElement;
 import org.arcanum.field.curve.CurveField;
 import org.arcanum.field.gt.GTFiniteElement;
@@ -8,7 +9,6 @@ import org.arcanum.field.gt.GTFiniteField;
 import org.arcanum.field.poly.PolyModElement;
 import org.arcanum.pairing.map.AbstractMillerPairingMap;
 import org.arcanum.pairing.map.AbstractMillerPairingPreProcessing;
-import org.arcanum.util.math.BigIntegerUtils;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

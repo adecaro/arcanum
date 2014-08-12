@@ -2,6 +2,7 @@ package org.arcanum.fe.abe.bns14.params;
 
 import org.arcanum.Element;
 import org.arcanum.Field;
+import org.arcanum.common.fe.params.KeyParameters;
 import org.arcanum.field.vector.MatrixField;
 import org.arcanum.field.vector.VectorField;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2PublicKeyParameters;
@@ -10,7 +11,7 @@ import org.arcanum.trapdoor.mp12.params.MP12PLPublicKeyParameters;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class BNS14PublicKeyParameters extends BNS14KeyParameters {
+public class BNS14PublicKeyParameters extends KeyParameters<BNS14Parameters> {
 
     private MP12HLP2PublicKeyParameters latticePk;
     private MP12PLPublicKeyParameters primitiveLatticePk;

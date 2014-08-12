@@ -2,26 +2,18 @@ package org.arcanum.fe.rl.w12.generators;
 
 import org.arcanum.Element;
 import org.arcanum.Pairing;
-import org.arcanum.fe.rl.w12.params.RLW12KeyPairGenerationParameters;
+import org.arcanum.common.fe.generator.KeyPairGenerator;
 import org.arcanum.fe.rl.w12.params.RLW12MasterSecretKeyParameters;
 import org.arcanum.fe.rl.w12.params.RLW12Parameters;
 import org.arcanum.fe.rl.w12.params.RLW12PublicKeyParameters;
 import org.arcanum.field.util.ElementUtils;
 import org.arcanum.pairing.PairingFactory;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
-import org.bouncycastle.crypto.AsymmetricCipherKeyPairGenerator;
-import org.bouncycastle.crypto.KeyGenerationParameters;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class RLW12KeyPairGenerator implements AsymmetricCipherKeyPairGenerator {
-    private RLW12KeyPairGenerationParameters params;
-
-
-    public void init(KeyGenerationParameters keyGenerationParameters) {
-        this.params = (RLW12KeyPairGenerationParameters) keyGenerationParameters;
-    }
+public class RLW12KeyPairGenerator extends KeyPairGenerator<RLW12Parameters> {
 
     public AsymmetricCipherKeyPair generateKeyPair() {
         RLW12Parameters parameters = params.getParameters();

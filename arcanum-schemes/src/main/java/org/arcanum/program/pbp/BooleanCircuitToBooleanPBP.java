@@ -1,7 +1,7 @@
 package org.arcanum.program.pbp;
 
-import org.arcanum.circuit.BooleanCircuit;
-import org.arcanum.circuit.BooleanGate;
+import org.arcanum.program.circuit.BooleanCircuit;
+import org.arcanum.program.circuit.BooleanGate;
 import org.arcanum.program.pbp.permutation.DefaultPermutation;
 import org.arcanum.program.pbp.permutation.Permutation;
 

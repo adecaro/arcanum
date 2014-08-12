@@ -1,12 +1,12 @@
 package org.arcanum.fe.ibe.dip10.engines;
 
 import org.arcanum.Element;
+import org.arcanum.common.kem.PairingKeyEncapsulationMechanism;
 import org.arcanum.fe.ibe.dip10.params.AHIBEDIP10EncryptionParameters;
 import org.arcanum.fe.ibe.dip10.params.AHIBEDIP10KeyParameters;
 import org.arcanum.fe.ibe.dip10.params.AHIBEDIP10PublicKeyParameters;
 import org.arcanum.fe.ibe.dip10.params.AHIBEDIP10SecretKeyParameters;
 import org.arcanum.field.util.ElementUtils;
-import org.arcanum.kem.PairingKeyEncapsulationMechanism;
 import org.arcanum.pairing.PairingFactory;
 
 import java.io.ByteArrayOutputStream;

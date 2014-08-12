@@ -5,10 +5,10 @@ import com.sun.jna.Pointer;
 import org.arcanum.Element;
 import org.arcanum.ElementPowPreProcessing;
 import org.arcanum.Field;
+import org.arcanum.common.collection.Arrays;
 import org.arcanum.pairing.pbc.wrapper.jna.MPZElementType;
 import org.arcanum.pairing.pbc.wrapper.jna.PBCElementPPType;
 import org.arcanum.pairing.pbc.wrapper.jna.WrapperLibraryProvider;
-import org.arcanum.util.Arrays;
 
 import java.math.BigInteger;
 

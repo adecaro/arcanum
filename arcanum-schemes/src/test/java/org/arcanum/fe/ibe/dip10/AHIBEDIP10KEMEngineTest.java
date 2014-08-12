@@ -1,13 +1,13 @@
 package org.arcanum.fe.ibe.dip10;
 
-import org.arcanum.AbstractArcanumCryptoTest;
+import org.arcanum.AbstractTest;
 import org.arcanum.Element;
 import org.arcanum.Pairing;
+import org.arcanum.common.kem.KeyEncapsulationMechanism;
 import org.arcanum.fe.ibe.dip10.engines.AHIBEDIP10KEMEngine;
 import org.arcanum.fe.ibe.dip10.generators.AHIBEDIP10KeyPairGenerator;
 import org.arcanum.fe.ibe.dip10.generators.AHIBEDIP10SecretKeyGenerator;
 import org.arcanum.fe.ibe.dip10.params.*;
-import org.arcanum.kem.KeyEncapsulationMechanism;
 import org.arcanum.pairing.PairingFactory;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.CipherParameters;
@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
 /**
  * @author Angelo De Caro
  */
-public class AHIBEDIP10KEMEngineTest extends AbstractArcanumCryptoTest {
+public class AHIBEDIP10KEMEngineTest extends AbstractTest {
 
 
     public AHIBEDIP10KEMEngineTest(boolean usePBC, String curvePath) {

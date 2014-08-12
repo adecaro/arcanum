@@ -2,7 +2,7 @@ package org.arcanum.fe.ibe.dip10.generators;
 
 import org.arcanum.Element;
 import org.arcanum.Pairing;
-import org.arcanum.cipher.CipherParametersGenerator;
+import org.arcanum.common.cipher.CipherParametersGenerator;
 import org.arcanum.fe.ibe.dip10.params.*;
 import org.arcanum.field.util.ElementUtils;
 import org.arcanum.pairing.PairingFactory;

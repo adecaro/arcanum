@@ -3,7 +3,7 @@ package org.arcanum.pairing.accumulator;
 
 import org.arcanum.AbstractArcanumTest;
 import org.arcanum.Element;
-import org.arcanum.util.concurrent.recursive.RecursiveMultiplier;
+import org.arcanum.common.concurrent.recursive.RecursiveMultiplier;
 import org.junit.Test;
 import org.junit.runners.Parameterized;
 

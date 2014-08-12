@@ -3,9 +3,9 @@ package org.arcanum.trapdoor.mp12.engines;
 import org.arcanum.Element;
 import org.arcanum.Field;
 import org.arcanum.Matrix;
+import org.arcanum.common.concurrent.ExecutorServiceUtils;
+import org.arcanum.common.concurrent.PoolExecutor;
 import org.arcanum.field.vector.MatrixField;
-import org.arcanum.util.concurrent.ExecutorServiceUtils;
-import org.arcanum.util.concurrent.PoolExecutor;
 
 import java.util.concurrent.ExecutorService;
 

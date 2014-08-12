@@ -1,12 +1,12 @@
 package org.arcanum.fhe.gsw14.program;
 
-import org.arcanum.circuit.BooleanCircuit;
-import org.arcanum.circuit.BooleanCircuitEvaluator;
-import org.arcanum.circuit.smart.SmartBooleanCircuitLoader;
 import org.arcanum.fhe.gsw14.field.AP14GSW14Field;
 import org.arcanum.program.assignment.BooleanAssignment;
 import org.arcanum.program.assignment.BooleanAssignmentGenerator;
 import org.arcanum.program.assignment.ElementAssignment;
+import org.arcanum.program.circuit.BooleanCircuit;
+import org.arcanum.program.circuit.BooleanCircuitEvaluator;
+import org.arcanum.program.circuit.smart.SmartBooleanCircuitLoader;
 import org.arcanum.program.pbp.BooleanCircuitToBooleanPBP;
 import org.arcanum.program.pbp.PermutationBranchingProgram;
 import org.junit.Before;
@@ -27,14 +27,14 @@ public class AP14GSWPBPEvaluatorTest {
     @Parameterized.Parameters
     public static Collection parameters() {
         Object[][] data = {
-                {"org/arcanum/circuits/bool/gates/or.txt"},
-                {"org/arcanum/circuits/bool/gates/and.txt"},
-                {"org/arcanum/circuits/bool/gates/nand.txt"},
-                {"org/arcanum/circuits/bool/gates/mod2.txt"},
-//                {"org/arcanum/circuits/circuit.txt"},
-//                {"org/arcanum/circuits/circuit2.txt"},
-//                {"org/arcanum/circuits/circuit3.txt"},
-//                {"org/arcanum/circuits/parity4inputs.txt"},
+                {"org/arcanum/program/circuit/bool/gates/or.txt"},
+                {"org/arcanum/program/circuit/bool/gates/and.txt"},
+                {"org/arcanum/program/circuit/bool/gates/nand.txt"},
+                {"org/arcanum/program/circuit/bool/gates/mod2.txt"},
+//                {"org/arcanum/circuit/circuit.txt"},
+//                {"org/arcanum/circuit/circuit2.txt"},
+//                {"org/arcanum/circuit/circuit3.txt"},
+//                {"org/arcanum/circuit/parity4inputs.txt"},
         };
 
         return Arrays.asList(data);

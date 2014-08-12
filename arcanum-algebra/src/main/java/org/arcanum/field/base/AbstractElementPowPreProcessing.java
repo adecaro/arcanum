@@ -3,8 +3,8 @@ package org.arcanum.field.base;
 import org.arcanum.Element;
 import org.arcanum.ElementPowPreProcessing;
 import org.arcanum.Field;
-import org.arcanum.util.io.ElementStreamWriter;
-import org.arcanum.util.io.FieldStreamReader;
+import org.arcanum.common.io.ElementStreamWriter;
+import org.arcanum.common.io.FieldStreamReader;
 
 import java.io.IOException;
 import java.math.BigInteger;

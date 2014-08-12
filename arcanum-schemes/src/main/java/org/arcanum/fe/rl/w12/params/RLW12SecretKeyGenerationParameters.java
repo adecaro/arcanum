@@ -1,6 +1,6 @@
 package org.arcanum.fe.rl.w12.params;
 
-import org.arcanum.dfa.DFA;
+import org.arcanum.program.dfa.DFA;
 import org.bouncycastle.crypto.KeyGenerationParameters;
 
 /**

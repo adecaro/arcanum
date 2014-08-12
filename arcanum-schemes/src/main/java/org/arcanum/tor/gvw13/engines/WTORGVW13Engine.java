@@ -3,11 +3,11 @@ package org.arcanum.tor.gvw13.engines;
 import org.arcanum.Element;
 import org.arcanum.ElementCipher;
 import org.arcanum.Pairing;
+import org.arcanum.common.cipher.engine.AbstractElementCipher;
 import org.arcanum.pairing.PairingFactory;
 import org.arcanum.tor.gvw13.params.WTORGVW13KeyParameters;
 import org.arcanum.tor.gvw13.params.WTORGVW13PublicKeyParameters;
 import org.arcanum.tor.gvw13.params.WTORGVW13RecodeParameters;
-import org.arcanum.util.cipher.engine.AbstractElementCipher;
 import org.bouncycastle.crypto.CipherParameters;
 
 /**

@@ -1,9 +1,9 @@
 package org.arcanum.fhe.gsw14.field;
 
+import org.arcanum.common.concurrent.ExecutorServiceUtils;
+import org.arcanum.common.concurrent.PoolExecutor;
 import org.arcanum.field.vector.AbstractMatrixField;
 import org.arcanum.program.pbp.permutation.Permutation;
-import org.arcanum.util.concurrent.ExecutorServiceUtils;
-import org.arcanum.util.concurrent.PoolExecutor;
 
 import java.math.BigInteger;
 

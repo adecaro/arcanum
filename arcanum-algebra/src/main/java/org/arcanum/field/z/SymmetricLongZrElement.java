@@ -1,8 +1,8 @@
 package org.arcanum.field.z;
 
 import org.arcanum.Element;
+import org.arcanum.common.concurrent.ThreadSecureRandom;
 import org.arcanum.field.base.AbstractElement;
-import org.arcanum.util.concurrent.ThreadSecureRandom;
 
 import java.math.BigInteger;
 

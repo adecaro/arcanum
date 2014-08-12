@@ -2,15 +2,16 @@ package org.arcanum.fe.abe.gvw13.engines;
 
 import org.arcanum.Element;
 import org.arcanum.ElementCipher;
-import org.arcanum.circuit.BooleanCircuit;
-import org.arcanum.circuit.BooleanGate;
-import org.arcanum.fe.abe.gvw13.params.GVW13EncryptionParameters;
+import org.arcanum.common.fe.params.EncryptionParameters;
+import org.arcanum.common.io.ElementStreamReader;
+import org.arcanum.common.io.ElementStreamWriter;
+import org.arcanum.common.kem.AbstractKeyEncapsulationMechanism;
 import org.arcanum.fe.abe.gvw13.params.GVW13PublicKeyParameters;
 import org.arcanum.fe.abe.gvw13.params.GVW13SecretKeyParameters;
-import org.arcanum.kem.AbstractKeyEncapsulationMechanism;
+import org.arcanum.program.Assignment;
+import org.arcanum.program.circuit.BooleanCircuit;
+import org.arcanum.program.circuit.BooleanGate;
 import org.arcanum.tor.gvw13.params.TORGVW13PublicKeyParameters;
-import org.arcanum.util.io.ElementStreamReader;
-import org.arcanum.util.io.ElementStreamWriter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,15 +23,15 @@ public class GVW13KEMEngine extends AbstractKeyEncapsulationMechanism {
 
     public void initialize() {
         if (forEncryption) {
-            if (!(key instanceof GVW13EncryptionParameters))
+            if (!(key instanceof EncryptionParameters))
                 throw new IllegalArgumentException("GVW13EncryptionParameters are required for encryption.");
 
-            GVW13EncryptionParameters encKey = (GVW13EncryptionParameters) key;
-            GVW13PublicKeyParameters publicKey = encKey.getPublicKey();
+            EncryptionParameters<GVW13PublicKeyParameters, Boolean> encKey = (EncryptionParameters<GVW13PublicKeyParameters, Boolean>) key;
+            GVW13PublicKeyParameters publicKey = encKey.getMpk();
 
             this.keyBytes = publicKey.getParameters().getKeyLengthInBytes();
             // TODO: adjust outBytes
-            this.outBytes = (encKey.getAssignment().length() + 1) * ((TORGVW13PublicKeyParameters)publicKey.getCipherParametersOut()).getOwfOutputField().getLengthInBytes();
+            this.outBytes = (encKey.getAssignment().getLength() + 1) * ((TORGVW13PublicKeyParameters)publicKey.getCipherParametersOut()).getOwfOutputField().getLengthInBytes();
         } else {
             if (!(key instanceof GVW13SecretKeyParameters))
                 throw new IllegalArgumentException("GVW13SecretKeyParameters are required for decryption.");
@@ -94,11 +95,11 @@ public class GVW13KEMEngine extends AbstractKeyEncapsulationMechanism {
 
             return tor.processElementsToBytes(e);
         } else {
-            GVW13EncryptionParameters encKey = (GVW13EncryptionParameters) key;
-            GVW13PublicKeyParameters publicKey = encKey.getPublicKey();
+            EncryptionParameters<GVW13PublicKeyParameters, Boolean> encKey = (EncryptionParameters<GVW13PublicKeyParameters, Boolean>) key;
+            GVW13PublicKeyParameters publicKey = encKey.getMpk();
 
             ElementCipher tor = publicKey.getParameters().getTor();
-            String assignment = encKey.getAssignment();
+            Assignment<Boolean> assignment = encKey.getAssignment();
 
             ElementStreamWriter writer = new ElementStreamWriter(getOutputBlockSize());
             try {
@@ -116,11 +117,11 @@ public class GVW13KEMEngine extends AbstractKeyEncapsulationMechanism {
                 tor.init(key);
                 Element e = tor.processBytes(bytes);
 
-                writer.write(assignment);
+                writer.write(assignment.toString());
                 writer.write(e);
-                for (int i = 0, n = assignment.length(); i < n; i++) {
+                for (int i = 0, n = assignment.getLength(); i < n; i++) {
                     // init for encoding
-                    tor.init(publicKey.getCipherParametersAt(i, assignment.charAt(i) == '1'));
+                    tor.init(publicKey.getCipherParametersAt(i, assignment.getAt(i)));
 
                     // encode
                     e = tor.processElements(s);

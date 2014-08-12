@@ -1,8 +1,8 @@
 package org.arcanum.field.vector;
 
 import org.arcanum.*;
+import org.arcanum.common.concurrent.PoolExecutor;
 import org.arcanum.field.base.AbstractElement;
-import org.arcanum.util.concurrent.PoolExecutor;
 
 import java.math.BigInteger;
 

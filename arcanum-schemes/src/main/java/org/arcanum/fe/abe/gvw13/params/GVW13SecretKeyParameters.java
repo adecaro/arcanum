@@ -2,14 +2,15 @@ package org.arcanum.fe.abe.gvw13.params;
 
 import org.arcanum.ElementCipherParameters;
 import org.arcanum.Field;
-import org.arcanum.circuit.BooleanCircuit;
+import org.arcanum.common.fe.params.KeyParameters;
+import org.arcanum.program.circuit.BooleanCircuit;
 
 import java.util.Map;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class GVW13SecretKeyParameters extends GVW13KeyParameters {
+public class GVW13SecretKeyParameters extends KeyParameters<GVW13Parameters> {
 
     private BooleanCircuit circuit;
     private Map<Integer, ElementCipherParameters[]> keys;

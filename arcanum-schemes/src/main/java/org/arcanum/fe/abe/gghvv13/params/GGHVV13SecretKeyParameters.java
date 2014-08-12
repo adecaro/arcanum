@@ -1,15 +1,16 @@
 package org.arcanum.fe.abe.gghvv13.params;
 
 import org.arcanum.Element;
-import org.arcanum.circuit.BooleanCircuit;
+import org.arcanum.common.fe.params.KeyParameters;
 import org.arcanum.field.util.ElementUtils;
+import org.arcanum.program.circuit.BooleanCircuit;
 
 import java.util.Map;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class GGHVV13SecretKeyParameters extends GGHVV13KeyParameters {
+public class GGHVV13SecretKeyParameters extends KeyParameters<GGHVV13Parameters> {
 
     private BooleanCircuit circuit;
     private Element[][] M;

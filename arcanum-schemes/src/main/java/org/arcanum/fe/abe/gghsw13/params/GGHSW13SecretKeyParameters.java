@@ -1,14 +1,15 @@
 package org.arcanum.fe.abe.gghsw13.params;
 
 import org.arcanum.Element;
-import org.arcanum.circuit.BooleanCircuit;
+import org.arcanum.common.fe.params.KeyParameters;
+import org.arcanum.program.circuit.BooleanCircuit;
 
 import java.util.Map;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class GGHSW13SecretKeyParameters extends GGHSW13KeyParameters {
+public class GGHSW13SecretKeyParameters extends KeyParameters<GGHSW13Parameters> {
 
     private BooleanCircuit circuit;
     private Map<Integer, Element[]> keys;

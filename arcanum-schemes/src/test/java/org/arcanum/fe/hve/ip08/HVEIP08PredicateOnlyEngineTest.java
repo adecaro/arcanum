@@ -1,7 +1,7 @@
 package org.arcanum.fe.hve.ip08;
 
-import org.arcanum.AbstractArcanumCryptoTest;
-import org.arcanum.fe.PredicateOnlyEncryptionScheme;
+import org.arcanum.AbstractTest;
+import org.arcanum.common.fe.engine.PredicateOnlyEngine;
 import org.arcanum.fe.hve.ip08.engines.HVEIP08PredicateOnlyEngine;
 import org.arcanum.fe.hve.ip08.generators.HVEIP08KeyPairGenerator;
 import org.arcanum.fe.hve.ip08.generators.HVEIP08ParametersGenerator;
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Angelo De Caro
  */
-public class HVEIP08PredicateOnlyEngineTest extends AbstractArcanumCryptoTest {
+public class HVEIP08PredicateOnlyEngineTest extends AbstractTest {
 
 
     public HVEIP08PredicateOnlyEngineTest(boolean usePBC, String curvePath) {
@@ -59,7 +59,7 @@ public class HVEIP08PredicateOnlyEngineTest extends AbstractArcanumCryptoTest {
 
     protected byte[] enc(CipherParameters publicKey, int... attributes) {
         try {
-            PredicateOnlyEncryptionScheme engine = new HVEIP08PredicateOnlyEngine();
+            PredicateOnlyEngine engine = new HVEIP08PredicateOnlyEngine();
             engine.init(true, new HVEIP08EncryptionParameters((HVEIP08PublicKeyParameters) publicKey, attributes));
 
             return engine.process();
@@ -70,7 +70,7 @@ public class HVEIP08PredicateOnlyEngineTest extends AbstractArcanumCryptoTest {
 
     protected boolean evaluate(CipherParameters searchKey, byte[] ct) {
         try {
-            PredicateOnlyEncryptionScheme engine = new HVEIP08PredicateOnlyEngine();
+            PredicateOnlyEngine engine = new HVEIP08PredicateOnlyEngine();
             engine.init(false, searchKey);
 
             return engine.evaluate(ct);

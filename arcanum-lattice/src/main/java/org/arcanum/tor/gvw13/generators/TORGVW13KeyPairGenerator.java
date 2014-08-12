@@ -3,6 +3,9 @@ package org.arcanum.tor.gvw13.generators;
 
 import org.arcanum.ElementCipher;
 import org.arcanum.Field;
+import org.arcanum.common.cipher.generators.ElementKeyPairGenerator;
+import org.arcanum.common.cipher.params.ElementKeyGenerationParameters;
+import org.arcanum.common.cipher.params.ElementKeyPairParameters;
 import org.arcanum.tor.gvw13.params.TORGVW13KeyPairGenerationParameters;
 import org.arcanum.tor.gvw13.params.TORGVW13PublicKeyParameters;
 import org.arcanum.tor.gvw13.params.TORGVW13SecretKeyParameters;
@@ -12,9 +15,6 @@ import org.arcanum.trapdoor.mp12.generators.MP12HLP2KeyPairGenerator;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2KeyPairGenerationParameters;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2OneWayFunctionParameters;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2PublicKeyParameters;
-import org.arcanum.util.cipher.generators.ElementKeyPairGenerator;
-import org.arcanum.util.cipher.params.ElementKeyGenerationParameters;
-import org.arcanum.util.cipher.params.ElementKeyPairParameters;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

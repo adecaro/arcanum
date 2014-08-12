@@ -2,14 +2,14 @@ package org.arcanum.fe.rl.w12.generators;
 
 import org.arcanum.Element;
 import org.arcanum.Pairing;
-import org.arcanum.dfa.DFA;
+import org.arcanum.common.fe.generator.SecretKeyGenerator;
 import org.arcanum.fe.rl.w12.params.RLW12MasterSecretKeyParameters;
 import org.arcanum.fe.rl.w12.params.RLW12PublicKeyParameters;
-import org.arcanum.fe.rl.w12.params.RLW12SecretKeyGenerationParameters;
 import org.arcanum.fe.rl.w12.params.RLW12SecretKeyParameters;
 import org.arcanum.pairing.PairingFactory;
+import org.arcanum.program.dfa.DFA;
+import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.CipherParameters;
-import org.bouncycastle.crypto.KeyGenerationParameters;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,23 +17,20 @@ import java.util.Map;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class RLW12SecretKeyGenerator {
-    private RLW12SecretKeyGenerationParameters param;
+public class RLW12SecretKeyGenerator extends SecretKeyGenerator<RLW12PublicKeyParameters, RLW12MasterSecretKeyParameters, DFA> {
 
     private Pairing pairing;
-    private DFA dfa;
 
-    public void init(KeyGenerationParameters param) {
-        this.param = (RLW12SecretKeyGenerationParameters) param;
+    @Override
+    public SecretKeyGenerator<RLW12PublicKeyParameters, RLW12MasterSecretKeyParameters, DFA> init(AsymmetricCipherKeyPair keyPair) {
+        super.init(keyPair);
 
-        this.pairing = PairingFactory.getPairing(this.param.getMasterSecretKeyParameters().getParameters().getParameters());
-        this.dfa = this.param.getDfa();
+        this.pairing = PairingFactory.getPairing(secretKey.getParameters().getParameters());
+
+        return this;
     }
 
-    public CipherParameters generateKey() {
-        RLW12MasterSecretKeyParameters msk = param.getMasterSecretKeyParameters();
-        RLW12PublicKeyParameters pk = param.getPublicKeyParameters();
-
+    public CipherParameters generateKey(DFA dfa) {
         int ns = dfa.getNumStates();
 
         Element[] kStarts = new Element[2];
@@ -47,8 +44,8 @@ public class RLW12SecretKeyGenerator {
 
         // Initial state
         Element rs = pairing.getZr().newRandomElement();
-        kStarts[0] = Ds[0].mul(pk.gethStart().powZn(rs));
-        kStarts[1] = pk.getParameters().getG().powZn(rs);
+        kStarts[0] = Ds[0].mul(publicKey.gethStart().powZn(rs));
+        kStarts[1] = publicKey.getParameters().getG().powZn(rs);
 
         // Transitions
         for (int i = 0, size = dfa.getNumTransitions(); i < size; i++) {
@@ -59,15 +56,15 @@ public class RLW12SecretKeyGenerator {
             kTransitions.put(
                     transition,
                     new Element[]{
-                            Ds[transition.getFrom()].invert().mul(pk.getZ().powZn(rt)),
-                            pk.getParameters().getG().powZn(rt),
-                            Ds[transition.getTo()].mul(pk.getHAt(transition.getReading()).powZn(rt))
+                            Ds[transition.getFrom()].invert().mul(publicKey.getZ().powZn(rt)),
+                            publicKey.getParameters().getG().powZn(rt),
+                            Ds[transition.getTo()].mul(publicKey.getHAt(transition.getReading()).powZn(rt))
                     }
             );
         }
 
         // Final states
-        Element secret = pk.getParameters().getG().powZn(msk.getAlpha().negate()).getImmutable();
+        Element secret = publicKey.getParameters().getG().powZn(secretKey.getAlpha().negate()).getImmutable();
         for (int i = 0, size = dfa.getNumFinalStates(); i < size; i++) {
             int finalState = dfa.getFinalStateAt(i);
 
@@ -76,14 +73,14 @@ public class RLW12SecretKeyGenerator {
             kEnds.put(
                     finalState,
                     new Element[]{
-                        secret.mul(Ds[finalState]).mul(pk.gethEnd().powZn(rf)),
-                        pk.getParameters().getG().powZn(rf)
+                        secret.mul(Ds[finalState]).mul(publicKey.gethEnd().powZn(rf)),
+                        publicKey.getParameters().getG().powZn(rf)
                     }
             );
         }
 
         return new RLW12SecretKeyParameters(
-                param.getPublicKeyParameters().getParameters(),
+                publicKey.getParameters(),
                 dfa, kStarts, kTransitions, kEnds
         );
     }

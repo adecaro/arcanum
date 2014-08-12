@@ -1,13 +1,13 @@
 package org.arcanum.fe.ibe.lw11;
 
-import org.arcanum.AbstractArcanumCryptoTest;
+import org.arcanum.AbstractTest;
 import org.arcanum.Element;
 import org.arcanum.Pairing;
+import org.arcanum.common.kem.KeyEncapsulationMechanism;
 import org.arcanum.fe.ibe.lw11.engines.UHIBELW11KEMEngine;
 import org.arcanum.fe.ibe.lw11.generators.UHIBELW11KeyPairGenerator;
 import org.arcanum.fe.ibe.lw11.generators.UHIBELW11SecretKeyGenerator;
 import org.arcanum.fe.ibe.lw11.params.*;
-import org.arcanum.kem.KeyEncapsulationMechanism;
 import org.arcanum.pairing.PairingFactory;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.CipherParameters;
@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 /**
  * @author Angelo De Caro
  */
-public class UHIBELW11KEMEngineTest extends AbstractArcanumCryptoTest {
+public class UHIBELW11KEMEngineTest extends AbstractTest {
 
 
     public UHIBELW11KEMEngineTest(boolean usePBC, String curvePath) {

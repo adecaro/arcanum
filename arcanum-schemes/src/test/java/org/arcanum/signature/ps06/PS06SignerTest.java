@@ -1,6 +1,6 @@
 package org.arcanum.signature.ps06;
 
-import org.arcanum.AbstractArcanumCryptoTest;
+import org.arcanum.AbstractTest;
 import org.arcanum.signature.ps06.engines.PS06Signer;
 import org.arcanum.signature.ps06.generators.PS06ParametersGenerator;
 import org.arcanum.signature.ps06.generators.PS06SecretKeyGenerator;
@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class PS06SignerTest extends AbstractArcanumCryptoTest {
+public class PS06SignerTest extends AbstractTest {
 
 
     public PS06SignerTest(boolean usePBC, String curvePath) {

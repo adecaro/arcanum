@@ -1,7 +1,7 @@
 package org.arcanum.tor.gvw13.generators;
 
 import org.arcanum.Element;
-import org.arcanum.cipher.CipherParametersGenerator;
+import org.arcanum.common.cipher.CipherParametersGenerator;
 import org.arcanum.tor.gvw13.params.WTORGVW13ReKeyPairGenerationParameters;
 import org.arcanum.tor.gvw13.params.WTORGVW13RecodeParameters;
 import org.bouncycastle.crypto.CipherParameters;

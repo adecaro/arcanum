@@ -3,7 +3,7 @@ package org.arcanum.fe.ibe.lw11.generators;
 import org.arcanum.Element;
 import org.arcanum.Field;
 import org.arcanum.Pairing;
-import org.arcanum.cipher.CipherParametersGenerator;
+import org.arcanum.common.cipher.CipherParametersGenerator;
 import org.arcanum.fe.ibe.lw11.params.*;
 import org.arcanum.pairing.PairingFactory;
 import org.bouncycastle.crypto.CipherParameters;

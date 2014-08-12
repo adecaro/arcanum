@@ -2,7 +2,7 @@ package org.arcanum.signature.ps06.generators;
 
 import org.arcanum.Element;
 import org.arcanum.Pairing;
-import org.arcanum.cipher.CipherParametersGenerator;
+import org.arcanum.common.cipher.CipherParametersGenerator;
 import org.arcanum.pairing.PairingFactory;
 import org.arcanum.signature.ps06.params.*;
 import org.bouncycastle.crypto.CipherParameters;

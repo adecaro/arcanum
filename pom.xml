@@ -44,7 +44,7 @@
 
     <modules>
         <module>arcanum-api</module>
-        <module>arcanum-support</module>
+        <module>arcanum-common</module>
         <module>arcanum-algebra</module>
         <module>arcanum-pairing</module>
         <module>arcanum-pbc</module>

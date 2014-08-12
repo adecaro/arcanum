@@ -4,7 +4,7 @@ import org.arcanum.Element;
 import org.arcanum.Field;
 import org.arcanum.Polynomial;
 import org.arcanum.Vector;
-import org.arcanum.util.math.BigIntegerUtils;
+import org.arcanum.common.math.BigIntegerUtils;
 
 import java.math.BigInteger;
 import java.util.List;

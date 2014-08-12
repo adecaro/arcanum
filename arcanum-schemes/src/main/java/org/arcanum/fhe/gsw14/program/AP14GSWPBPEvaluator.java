@@ -1,13 +1,13 @@
 package org.arcanum.fhe.gsw14.program;
 
 import org.arcanum.Element;
+import org.arcanum.common.concurrent.ExecutorServiceUtils;
+import org.arcanum.common.concurrent.PoolExecutor;
 import org.arcanum.fhe.gsw14.field.AP14GSW14Field;
 import org.arcanum.program.AbstractProgramEvaluator;
 import org.arcanum.program.Assignment;
 import org.arcanum.program.assignment.ElementAssignment;
 import org.arcanum.program.pbp.PermutationBranchingProgram;
-import org.arcanum.util.concurrent.ExecutorServiceUtils;
-import org.arcanum.util.concurrent.PoolExecutor;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

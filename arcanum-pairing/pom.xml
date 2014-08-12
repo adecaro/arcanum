@@ -28,7 +28,7 @@
 
         <dependency>
             <groupId>org.arcanum</groupId>
-            <artifactId>arcanum-support</artifactId>
+            <artifactId>arcanum-common</artifactId>
             <version>1.0.0</version>
         </dependency>
 

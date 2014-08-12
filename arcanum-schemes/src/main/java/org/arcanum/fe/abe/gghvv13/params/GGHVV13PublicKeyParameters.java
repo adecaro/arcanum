@@ -1,12 +1,13 @@
 package org.arcanum.fe.abe.gghvv13.params;
 
 import org.arcanum.Element;
+import org.arcanum.common.fe.params.KeyParameters;
 import org.arcanum.field.util.ElementUtils;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class GGHVV13PublicKeyParameters extends GGHVV13KeyParameters {
+public class GGHVV13PublicKeyParameters extends KeyParameters<GGHVV13Parameters> {
 
     private Element H;
     private Element[] hs;

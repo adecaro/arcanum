@@ -4,9 +4,9 @@ import org.apfloat.Apfloat;
 import org.apfloat.ApfloatMath;
 import org.apfloat.Apint;
 import org.arcanum.Sampler;
+import org.arcanum.common.concurrent.ThreadSecureRandom;
+import org.arcanum.common.math.BigIntegerUtils;
 import org.arcanum.field.floating.ApfloatUtils;
-import org.arcanum.util.concurrent.ThreadSecureRandom;
-import org.arcanum.util.math.BigIntegerUtils;
 
 import java.io.*;
 import java.math.BigInteger;

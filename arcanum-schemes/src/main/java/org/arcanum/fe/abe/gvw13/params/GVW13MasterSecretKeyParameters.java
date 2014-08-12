@@ -1,11 +1,12 @@
 package org.arcanum.fe.abe.gvw13.params;
 
 import org.arcanum.ElementCipherParameters;
+import org.arcanum.common.fe.params.KeyParameters;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class GVW13MasterSecretKeyParameters extends GVW13KeyParameters {
+public class GVW13MasterSecretKeyParameters extends KeyParameters<GVW13Parameters> {
 
     private ElementCipherParameters[] torPrivateKeys;
 

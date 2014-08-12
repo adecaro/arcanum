@@ -1,113 +1,62 @@
 package org.arcanum.fe.abe.gvw13.engines;
 
-import org.arcanum.circuit.BooleanCircuit;
-import org.arcanum.circuit.smart.SmartBooleanCircuitLoader;
+import org.arcanum.common.fe.generator.SecretKeyGenerator;
+import org.arcanum.common.kem.AbstractKeyEncapsulationMechanism;
+import org.arcanum.common.kem.KeyEncapsulationMechanism.Pair;
+import org.arcanum.fe.AbstractKEMEngineTest;
 import org.arcanum.fe.abe.gvw13.generators.GVW13KeyPairGenerator;
 import org.arcanum.fe.abe.gvw13.generators.GVW13ParametersGenerator;
 import org.arcanum.fe.abe.gvw13.generators.GVW13SecretKeyGenerator;
-import org.arcanum.fe.abe.gvw13.params.*;
-import org.arcanum.kem.KeyEncapsulationMechanism;
-import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
+import org.arcanum.program.assignment.BooleanAssignment;
+import org.arcanum.program.circuit.BooleanCircuit;
+import org.arcanum.program.circuit.smart.SmartBooleanCircuitLoader;
+import org.bouncycastle.crypto.AsymmetricCipherKeyPairGenerator;
 import org.bouncycastle.crypto.CipherParameters;
-import org.junit.Before;
 import org.junit.Test;
 
-import java.security.SecureRandom;
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class GVW13KEMEngineTest {
-
-    private SecureRandom random;
-
-    @Before
-    public void setUp() throws Exception {
-        random = SecureRandom.getInstance("SHA1PRNG");
-    }
+public class GVW13KEMEngineTest extends AbstractKEMEngineTest<BooleanCircuit> {
 
     @Test
-    public void testGVW13KEMEngine() {
-        // Key Gen
-        BooleanCircuit circuit =new SmartBooleanCircuitLoader().load(
-                "org/arcanum/circuits/bool/circuit3.txt"
-        );
-        AsymmetricCipherKeyPair keyPair = setup(circuit.getNumInputs(), circuit.getDepth());
-        GVW13SecretKeyParameters secretKey = (GVW13SecretKeyParameters) keyGen(keyPair.getPublic(), keyPair.getPrivate(), circuit);
+    public void testEncapsDecaps() {
+        // 1. (MPK,MSK) <- Setup
+        setup();
 
-        // Encaps/Decaps for a satisfying assignment
-        String assignment = "1111";
-        byte[][] ct = encaps(keyPair.getPublic(), assignment);
-        byte[] key = ct[0];
-        byte[] keyPrime = decaps(secretKey, ct[1]);
-
-        System.out.println("key      = " + Arrays.toString(key));
-        System.out.println("keyPrime = " + Arrays.toString(keyPrime));
-        assertEquals(true, Arrays.equals(key, keyPrime));
-
-        // Encaps/Decaps for a non-satisfying assignment
-        assignment = "0001";
-        ct = encaps(keyPair.getPublic(), assignment);
-        key = ct[0];
-        keyPrime = decaps(secretKey, ct[1]);
-
-        System.out.println("key      = " + Arrays.toString(key));
-        System.out.println("keyPrime = " + Arrays.toString(keyPrime));
-        assertEquals(false, Arrays.equals(key, keyPrime));
-    }
-
-
-    protected AsymmetricCipherKeyPair setup(int ell, int depth) {
-        GVW13KeyPairGenerator setup = new GVW13KeyPairGenerator();
-        setup.init(new GVW13KeyPairGenerationParameters(
-            random,
-            new GVW13ParametersGenerator(random, ell, depth).generateParameters())
+        // 2. SK <- KeyGen(MSK, circuit)
+        CipherParameters secretKey = keyGen(
+                new SmartBooleanCircuitLoader().load("org/arcanum/program/circuit/bool/circuit3.txt")
         );
 
-        return setup.generateKeyPair();
+        // 3. Encaps/Decaps for a satisfying assignment
+        Pair pair = encaps(new BooleanAssignment(true, true, true, true));
+        assertEquals(true, Arrays.equals(pair.getKey(), decaps(secretKey, pair.getEncapsulation())));
+
+        // 4. Encaps/Decaps for a non-satisfying assignment
+        pair = encaps(new BooleanAssignment(false, false, false, true));
+        assertEquals(false, Arrays.equals(pair.getKey(), decaps(secretKey, pair.getEncapsulation())));
     }
 
-    protected byte[][] encaps(CipherParameters publicKey, String w) {
-        KeyEncapsulationMechanism kem = new GVW13KEMEngine();
-        kem.init(true, new GVW13EncryptionParameters((GVW13PublicKeyParameters) publicKey, w));
 
-        byte[] ciphertext = kem.process();
-
-        assertNotNull(ciphertext);
-        assertNotSame(0, ciphertext.length);
-
-        byte[] key = Arrays.copyOfRange(ciphertext, 0, kem.getKeyBlockSize());
-        byte[] ct = Arrays.copyOfRange(ciphertext, kem.getKeyBlockSize(), ciphertext.length);
-
-        return new byte[][]{key, ct};
+    protected AbstractKeyEncapsulationMechanism createEngine() {
+        return new GVW13KEMEngine();
     }
 
-    protected CipherParameters keyGen(CipherParameters publicKey, CipherParameters masterSecretKey, BooleanCircuit circuit) {
-        // Init the Generator
-        GVW13SecretKeyGenerator keyGen = new GVW13SecretKeyGenerator();
-        keyGen.init(new GVW13SecretKeyGenerationParameters(
-                (GVW13PublicKeyParameters) publicKey,
-                (GVW13MasterSecretKeyParameters) masterSecretKey,
-                circuit
-        ));
-
-        // Generate the key
-        return keyGen.generateKey();
+    protected SecretKeyGenerator createSecretKeyGenerator() {
+        return new GVW13SecretKeyGenerator();
     }
 
-    protected byte[] decaps(CipherParameters secretKey, byte[] ciphertext) {
-        KeyEncapsulationMechanism kem = new GVW13KEMEngine();
+    protected AsymmetricCipherKeyPairGenerator createkeyPairGenerator() {
+        return new GVW13KeyPairGenerator();
+    }
 
-        kem.init(false, secretKey);
-        byte[] key = kem.processBlock(ciphertext);
-
-        assertNotNull(key);
-        assertNotSame(0, key.length);
-
-        return key;
+    protected CipherParameters generateParams() {
+        return new GVW13ParametersGenerator(random, 4, 2).generateParameters();
     }
 
 }

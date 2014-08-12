@@ -1,9 +1,9 @@
 package org.arcanum.fe.ip.lostw10;
 
-import org.arcanum.AbstractArcanumCryptoTest;
+import org.arcanum.AbstractTest;
 import org.arcanum.Element;
 import org.arcanum.Pairing;
-import org.arcanum.fe.PredicateOnlyEncryptionScheme;
+import org.arcanum.common.fe.engine.PredicateOnlyEngine;
 import org.arcanum.fe.ip.lostw10.engines.IPLOSTW10PredicateOnlyEngine;
 import org.arcanum.fe.ip.lostw10.generators.IPLOSTW10KeyPairGenerator;
 import org.arcanum.fe.ip.lostw10.generators.IPLOSTW10ParametersGenerator;
@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Angelo De Caro
  */
-public class IPLOSTW10PredicateOnlyEngineTest extends AbstractArcanumCryptoTest {
+public class IPLOSTW10PredicateOnlyEngineTest extends AbstractTest {
 
 
     public IPLOSTW10PredicateOnlyEngineTest(boolean usePBC, String curvePath) {
@@ -59,7 +59,7 @@ public class IPLOSTW10PredicateOnlyEngineTest extends AbstractArcanumCryptoTest 
 
     protected byte[] encrypt(CipherParameters publicKey, Element[] x) {
         try {
-            PredicateOnlyEncryptionScheme engine = new IPLOSTW10PredicateOnlyEngine();
+            PredicateOnlyEngine engine = new IPLOSTW10PredicateOnlyEngine();
             engine.init(true, new IPLOSTW10EncryptionParameters((IPLOSTW10PublicKeyParameters) publicKey,  x));
 
             return engine.process();
@@ -79,7 +79,7 @@ public class IPLOSTW10PredicateOnlyEngineTest extends AbstractArcanumCryptoTest 
 
     protected boolean evaluate(CipherParameters secretKey, byte[] ciphertext) {
         try {
-            PredicateOnlyEncryptionScheme engine = new IPLOSTW10PredicateOnlyEngine();
+            PredicateOnlyEngine engine = new IPLOSTW10PredicateOnlyEngine();
             engine.init(false, secretKey);
 
             return engine.evaluate(ciphertext);

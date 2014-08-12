@@ -3,8 +3,8 @@ package org.arcanum.pairing.accumulator;
 import org.arcanum.Element;
 import org.arcanum.Pairing;
 import org.arcanum.PairingPreProcessing;
-import org.arcanum.util.concurrent.accumultor.AbstractAccumulator;
-import org.arcanum.util.concurrent.accumultor.Accumulator;
+import org.arcanum.common.concurrent.accumultor.AbstractAccumulator;
+import org.arcanum.common.concurrent.accumultor.Accumulator;
 
 import java.util.concurrent.Callable;
 

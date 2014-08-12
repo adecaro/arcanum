@@ -3,7 +3,7 @@ package org.arcanum.pairing.mm.clt13.pairing;
 import org.arcanum.Element;
 import org.arcanum.ElementPowPreProcessing;
 import org.arcanum.Field;
-import org.arcanum.util.Arrays;
+import org.arcanum.common.collection.Arrays;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

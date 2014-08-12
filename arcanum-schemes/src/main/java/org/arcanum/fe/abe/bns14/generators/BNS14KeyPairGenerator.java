@@ -1,28 +1,20 @@
 package org.arcanum.fe.abe.bns14.generators;
 
 import org.arcanum.Element;
-import org.arcanum.fe.abe.bns14.params.BNS14KeyPairGenerationParameters;
+import org.arcanum.common.cipher.params.ElementKeyPairParameters;
+import org.arcanum.common.fe.generator.KeyPairGenerator;
 import org.arcanum.fe.abe.bns14.params.BNS14MasterSecretKeyParameters;
 import org.arcanum.fe.abe.bns14.params.BNS14Parameters;
 import org.arcanum.fe.abe.bns14.params.BNS14PublicKeyParameters;
 import org.arcanum.trapdoor.mp12.generators.MP12HLP2KeyPairGenerator;
 import org.arcanum.trapdoor.mp12.generators.MP12PLP2KeyPairGenerator;
 import org.arcanum.trapdoor.mp12.params.*;
-import org.arcanum.util.cipher.params.ElementKeyPairParameters;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
-import org.bouncycastle.crypto.AsymmetricCipherKeyPairGenerator;
-import org.bouncycastle.crypto.KeyGenerationParameters;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class BNS14KeyPairGenerator implements AsymmetricCipherKeyPairGenerator {
-    private BNS14KeyPairGenerationParameters params;
-
-
-    public void init(KeyGenerationParameters keyGenerationParameters) {
-        this.params = (BNS14KeyPairGenerationParameters) keyGenerationParameters;
-    }
+public class BNS14KeyPairGenerator extends KeyPairGenerator<BNS14Parameters> {
 
     public AsymmetricCipherKeyPair generateKeyPair() {
         BNS14Parameters parameters = params.getParameters();
@@ -65,6 +57,5 @@ public class BNS14KeyPairGenerator implements AsymmetricCipherKeyPairGenerator {
                 )
         );
     }
-
 
 }

@@ -1,12 +1,12 @@
 package org.arcanum.fe.ibe.lw11.engines;
 
 import org.arcanum.Element;
+import org.arcanum.common.io.PairingStreamReader;
+import org.arcanum.common.kem.PairingKeyEncapsulationMechanism;
 import org.arcanum.fe.ibe.lw11.params.UHIBELW11EncryptionParameters;
 import org.arcanum.fe.ibe.lw11.params.UHIBELW11PublicKeyParameters;
 import org.arcanum.fe.ibe.lw11.params.UHIBELW11SecretKeyParameters;
-import org.arcanum.kem.PairingKeyEncapsulationMechanism;
 import org.arcanum.pairing.PairingFactory;
-import org.arcanum.util.io.PairingStreamReader;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

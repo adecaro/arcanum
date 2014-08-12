@@ -1,9 +1,9 @@
 package org.arcanum.fhe.gsw14.program;
 
 import org.arcanum.Element;
-import org.arcanum.circuit.BooleanCircuit;
-import org.arcanum.circuit.BooleanGate;
 import org.arcanum.program.AbstractProgramEvaluator;
+import org.arcanum.program.circuit.BooleanCircuit;
+import org.arcanum.program.circuit.BooleanGate;
 
 import java.util.HashMap;
 import java.util.Map;

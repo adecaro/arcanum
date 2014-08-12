@@ -1,120 +1,66 @@
 package org.arcanum.fe.abe.bns14.engines;
 
-import org.arcanum.Element;
 import org.arcanum.Field;
-import org.arcanum.circuit.ArithmeticCircuit;
-import org.arcanum.circuit.smart.SmartArithmeticCircuitLoader;
+import org.arcanum.common.fe.generator.SecretKeyGenerator;
+import org.arcanum.common.kem.AbstractKeyEncapsulationMechanism;
+import org.arcanum.common.kem.KeyEncapsulationMechanism.Pair;
+import org.arcanum.fe.AbstractKEMEngineTest;
 import org.arcanum.fe.abe.bns14.generators.BNS14KeyPairGenerator;
 import org.arcanum.fe.abe.bns14.generators.BNS14ParametersGenerator;
 import org.arcanum.fe.abe.bns14.generators.BNS14SecretKeyGenerator;
-import org.arcanum.fe.abe.bns14.params.*;
-import org.arcanum.kem.KeyEncapsulationMechanism;
-import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
+import org.arcanum.fe.abe.bns14.params.BNS14PublicKeyParameters;
+import org.arcanum.program.assignment.ElementAssignment;
+import org.arcanum.program.circuit.ArithmeticCircuit;
+import org.arcanum.program.circuit.smart.SmartArithmeticCircuitLoader;
+import org.bouncycastle.crypto.AsymmetricCipherKeyPairGenerator;
 import org.bouncycastle.crypto.CipherParameters;
-import org.junit.Before;
 import org.junit.Test;
 
-import java.math.BigInteger;
-import java.security.SecureRandom;
 import java.util.Arrays;
-import java.util.StringTokenizer;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class BNS14KEMEngineTest {
-
-    private SecureRandom random;
-
-    @Before
-    public void setUp() throws Exception {
-        random = SecureRandom.getInstance("SHA1PRNG");
-    }
+public class BNS14KEMEngineTest extends AbstractKEMEngineTest<ArithmeticCircuit> {
 
     @Test
-    public void testBNS14KEMEngine() {
-
-        AsymmetricCipherKeyPair keyPair = setup(4, 2);
+    public void testEncapsDecaps() {
+        // 1. (MPK,MSK) <- Setup
+        setup();
         Field Zq = ((BNS14PublicKeyParameters) keyPair.getPublic()).getLatticePk().getZq();
 
+        // 2. SK <- KeyGen(MSK, circuit)
         ArithmeticCircuit circuit = new SmartArithmeticCircuitLoader().load(
-                Zq, "org/arcanum/circuits/arithmetic/circuit4.txt"
+                Zq, "org/arcanum/program/circuit/arithmetic/circuit4.txt"
         );
+        CipherParameters secretKey = keyGen(circuit);
 
+        // 3. Encaps/Decaps for a satisfying assignment
+        Pair pair = encaps(new ElementAssignment(Zq, 1, 0, 1, -1));
+        assertEquals(true, Arrays.equals(pair.getKey(), decaps(secretKey, pair.getEncapsulation())));
 
-        BNS14SecretKeyParameters secretKey = (BNS14SecretKeyParameters) keyGen(keyPair.getPublic(), keyPair.getPrivate(), circuit);
-
-        // Encaps/Decaps for a satisfying assignment
-        byte[][] ct = encaps(keyPair.getPublic(), toElement(Zq, "1 0 1 -1", circuit.getNumInputs()));
-        byte[] key = ct[0];
-        byte[] keyPrime = decaps(secretKey, ct[1]);
-
-        System.out.println("key      = " + Arrays.toString(key));
-        System.out.println("keyPrime = " + Arrays.toString(keyPrime));
-        assertEquals(true, Arrays.equals(key, keyPrime));
-
-        // Encaps/Decaps for a non-satisfying assignment
-        ct = encaps(keyPair.getPublic(), toElement(Zq, "1 1 1 1", circuit.getNumInputs()));
-        key = ct[0];
-        keyPrime = decaps(secretKey, ct[1]);
-
-        System.out.println("key      = " + Arrays.toString(key));
-        System.out.println("keyPrime = " + Arrays.toString(keyPrime));
-        assertEquals(false, Arrays.equals(key, keyPrime));
+        // 4. Encaps/Decaps for a non-satisfying assignment
+        pair = encaps(new ElementAssignment(Zq, 1, 1, 1, 1));
+        assertEquals(false, Arrays.equals(pair.getKey(), decaps(secretKey, pair.getEncapsulation())));
     }
 
 
-    protected AsymmetricCipherKeyPair setup(int ell, int depth) {
-        BNS14KeyPairGenerator gen = new BNS14KeyPairGenerator();
-        gen.init(
-                new BNS14KeyPairGenerationParameters(
-                        random,
-                        new BNS14ParametersGenerator(random, ell, depth).generateParameters()
-                )
-        );
-        return gen.generateKeyPair();
+    protected AbstractKeyEncapsulationMechanism createEngine() {
+        return new BNS14KEMEngine();
     }
 
-    protected Element[] toElement(Field Zq, String assignment, int ell) {
-        Element[] elements = new Element[ell];
-        StringTokenizer st = new StringTokenizer(assignment, " ");
-        int i = 0;
-        while (st.hasMoreTokens() && i < ell) {
-            elements[i++] = Zq.newElement(new BigInteger(st.nextToken()));
-        }
-
-        return elements;
+    protected SecretKeyGenerator createSecretKeyGenerator() {
+        return new BNS14SecretKeyGenerator();
     }
 
-    protected byte[][] encaps(CipherParameters publicKey, Element[] w) {
-        KeyEncapsulationMechanism kem = new BNS14KEMEngine();
-        kem.init(true, new BNS14EncryptionParameters((BNS14PublicKeyParameters) publicKey, w));
-
-        byte[] ciphertext = kem.process();
-
-        assertNotNull(ciphertext);
-        assertNotSame(0, ciphertext.length);
-
-        byte[] key = Arrays.copyOfRange(ciphertext, 0, kem.getKeyBlockSize());
-        byte[] ct = Arrays.copyOfRange(ciphertext, kem.getKeyBlockSize(), ciphertext.length);
-
-        return new byte[][]{key, ct};
+    protected AsymmetricCipherKeyPairGenerator createkeyPairGenerator() {
+        return new BNS14KeyPairGenerator();
     }
 
-    protected CipherParameters keyGen(CipherParameters publicKey, CipherParameters masterSecretKey, ArithmeticCircuit circuit) {
-        return new BNS14SecretKeyGenerator().init(
-                new BNS14SecretKeyGenerationParameters(
-                        (BNS14PublicKeyParameters) publicKey,
-                        (BNS14MasterSecretKeyParameters) masterSecretKey,
-                        circuit
-                )
-        ).generateKey();
-    }
-
-    protected byte[] decaps(CipherParameters secretKey, byte[] ciphertext) {
-        return new BNS14KEMEngine().initForDecryption(secretKey).processBlock(ciphertext);
+    protected CipherParameters generateParams() {
+        return new BNS14ParametersGenerator(random, 4, 2).generateParameters();
     }
 
 }

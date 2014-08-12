@@ -2,17 +2,17 @@ package org.arcanum.fe.abe.bns14.engines;
 
 import org.arcanum.Element;
 import org.arcanum.Matrix;
-import org.arcanum.circuit.ArithmeticCircuit;
-import org.arcanum.circuit.ArithmeticGate;
-import org.arcanum.fe.abe.bns14.params.BNS14EncryptionParameters;
+import org.arcanum.common.fe.params.EncryptionParameters;
+import org.arcanum.common.io.ElementStreamReader;
+import org.arcanum.common.io.ElementStreamWriter;
+import org.arcanum.common.kem.AbstractKeyEncapsulationMechanism;
 import org.arcanum.fe.abe.bns14.params.BNS14PublicKeyParameters;
 import org.arcanum.fe.abe.bns14.params.BNS14SecretKeyParameters;
 import org.arcanum.field.util.ElementUtils;
-import org.arcanum.kem.AbstractKeyEncapsulationMechanism;
+import org.arcanum.program.circuit.ArithmeticCircuit;
+import org.arcanum.program.circuit.ArithmeticGate;
 import org.arcanum.trapdoor.mp12.engines.MP12HLP2ErrorTolerantOneTimePad;
 import org.arcanum.trapdoor.mp12.engines.MP12PLP2MatrixSolver;
-import org.arcanum.util.io.ElementStreamReader;
-import org.arcanum.util.io.ElementStreamWriter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,11 +24,11 @@ public class BNS14KEMEngine extends AbstractKeyEncapsulationMechanism {
 
     public void initialize() {
         if (forEncryption) {
-            if (!(key instanceof BNS14EncryptionParameters))
+            if (!(key instanceof EncryptionParameters))
                 throw new IllegalArgumentException("BNS14EncryptionParameters are required for encryption.");
 
-            BNS14EncryptionParameters encKey = (BNS14EncryptionParameters) key;
-            BNS14PublicKeyParameters publicKey = encKey.getPublicKey();
+            EncryptionParameters<BNS14PublicKeyParameters, Element> encKey = (EncryptionParameters<BNS14PublicKeyParameters, Element>) key;
+            BNS14PublicKeyParameters publicKey = encKey.getMpk();
 
             this.keyBytes = publicKey.getKeyLengthInBytes();
             // TODO: adjust outBytes
@@ -149,8 +149,8 @@ public class BNS14KEMEngine extends AbstractKeyEncapsulationMechanism {
             return otp.processElementsToBytes(cout);
         } else {
             // Encrypt
-            BNS14EncryptionParameters encKey = (BNS14EncryptionParameters) key;
-            BNS14PublicKeyParameters publicKey = encKey.getPublicKey();
+            EncryptionParameters<BNS14PublicKeyParameters, Element> encKey = (EncryptionParameters<BNS14PublicKeyParameters, Element>) key;
+            BNS14PublicKeyParameters publicKey = encKey.getMpk();
 
             ElementStreamWriter writer = new ElementStreamWriter(getOutputBlockSize());
             try {
@@ -177,10 +177,10 @@ public class BNS14KEMEngine extends AbstractKeyEncapsulationMechanism {
                     Element Si = publicKey.sampleUniformOneMinusOneMarix();
                     Element ei = Si.mul(e0);
 
-                    writer.write(encKey.getXAt(i));
+                    writer.write(encKey.getAssignment().getAt(i));
                     writer.write(
                             publicKey.getBAt(i).duplicate()
-                                    .add(publicKey.getLatticePk().getG().duplicate().mulZn(encKey.getXAt(i)))
+                                    .add(publicKey.getLatticePk().getG().duplicate().mulZn(encKey.getAssignment().getAt(i)))
                                     .mul(s)
                                     .add(ei)
                     );

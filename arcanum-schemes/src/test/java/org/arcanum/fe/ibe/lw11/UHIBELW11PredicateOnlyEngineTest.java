@@ -1,9 +1,9 @@
 package org.arcanum.fe.ibe.lw11;
 
-import org.arcanum.AbstractArcanumCryptoTest;
+import org.arcanum.AbstractTest;
 import org.arcanum.Element;
 import org.arcanum.Pairing;
-import org.arcanum.fe.PredicateOnlyEncryptionScheme;
+import org.arcanum.common.fe.engine.PredicateOnlyEngine;
 import org.arcanum.fe.ibe.lw11.engines.UHIBELW11PredicateOnlyEngine;
 import org.arcanum.fe.ibe.lw11.generators.UHIBELW11KeyPairGenerator;
 import org.arcanum.fe.ibe.lw11.generators.UHIBELW11SecretKeyGenerator;
@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 /**
  * @author Angelo De Caro
  */
-public class UHIBELW11PredicateOnlyEngineTest extends AbstractArcanumCryptoTest {
+public class UHIBELW11PredicateOnlyEngineTest extends AbstractTest {
 
 
     public UHIBELW11PredicateOnlyEngineTest(boolean usePBC, String curvePath) {
@@ -99,7 +99,7 @@ public class UHIBELW11PredicateOnlyEngineTest extends AbstractArcanumCryptoTest 
     protected byte[] encrypt(CipherParameters publicKey, Element... ids) {
         byte[] ciphertext = new byte[0];
         try {
-            PredicateOnlyEncryptionScheme engine = new UHIBELW11PredicateOnlyEngine();
+            PredicateOnlyEngine engine = new UHIBELW11PredicateOnlyEngine();
             engine.init(true, new UHIBELW11EncryptionParameters((UHIBELW11PublicKeyParameters) publicKey, ids));
             ciphertext = engine.process();
 
@@ -115,7 +115,7 @@ public class UHIBELW11PredicateOnlyEngineTest extends AbstractArcanumCryptoTest 
 
     protected boolean evaluate(CipherParameters secretKey, byte[] cipherText) {
         try {
-            PredicateOnlyEncryptionScheme engine = new UHIBELW11PredicateOnlyEngine();
+            PredicateOnlyEngine engine = new UHIBELW11PredicateOnlyEngine();
             engine.init(false, secretKey);
 
             return engine.evaluate(cipherText);

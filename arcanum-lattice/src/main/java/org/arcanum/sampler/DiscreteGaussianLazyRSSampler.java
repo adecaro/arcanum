@@ -1,9 +1,9 @@
 package org.arcanum.sampler;
 
 import org.apfloat.Apfloat;
+import org.arcanum.common.concurrent.ThreadSecureRandom;
 import org.arcanum.field.util.DoubleUtils;
 import org.arcanum.trapdoor.mp12.utils.MP12P2Utils;
-import org.arcanum.util.concurrent.ThreadSecureRandom;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

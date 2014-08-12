@@ -3,9 +3,9 @@ package org.arcanum.pairing.pbc;
 import org.arcanum.Element;
 import org.arcanum.Point;
 import org.arcanum.Vector;
+import org.arcanum.common.collection.Arrays;
 import org.arcanum.pairing.pbc.wrapper.jna.PBCElementType;
 import org.arcanum.pairing.pbc.wrapper.jna.WrapperLibraryProvider;
-import org.arcanum.util.Arrays;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

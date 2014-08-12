@@ -2,8 +2,6 @@ package org.arcanum.program.assignment;
 
 import org.arcanum.program.Assignment;
 
-import java.util.Arrays;
-
 /**
 * @author Angelo De Caro (arcanumlib@gmail.com)
 */
@@ -12,13 +10,20 @@ public class BooleanAssignment implements Assignment<Boolean> {
     private Boolean[] assignment;
 
 
-    public BooleanAssignment(Boolean[] assignment) {
+    public BooleanAssignment(Boolean... assignment) {
         this.assignment = assignment;
     }
 
     public BooleanAssignment(int length) {
         this.assignment = new Boolean[length];
     }
+
+    public BooleanAssignment(String assignment) {
+        this.assignment = new Boolean[assignment.length()];
+        for (int i = 0; i < this.assignment.length; i++)
+            this.assignment[i] = assignment.charAt(i) == '1';
+    }
+
 
     public int getLength() {
         return assignment.length;
@@ -29,7 +34,9 @@ public class BooleanAssignment implements Assignment<Boolean> {
     }
 
     public String toString() {
-        return Arrays.toString(assignment);
+        StringBuilder b = new StringBuilder();
+        for (Boolean anAssignment : assignment) b.append(anAssignment ? 1 : 0);
+        return b.toString();
     }
 
     public BooleanAssignment setToRandom() {

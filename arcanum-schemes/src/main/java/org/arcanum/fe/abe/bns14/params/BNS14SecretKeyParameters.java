@@ -1,12 +1,13 @@
 package org.arcanum.fe.abe.bns14.params;
 
 import org.arcanum.Element;
-import org.arcanum.circuit.ArithmeticCircuit;
+import org.arcanum.common.fe.params.KeyParameters;
+import org.arcanum.program.circuit.ArithmeticCircuit;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class BNS14SecretKeyParameters extends BNS14KeyParameters {
+public class BNS14SecretKeyParameters extends KeyParameters<BNS14Parameters> {
 
     private BNS14PublicKeyParameters publicKey;
     private ArithmeticCircuit circuit;

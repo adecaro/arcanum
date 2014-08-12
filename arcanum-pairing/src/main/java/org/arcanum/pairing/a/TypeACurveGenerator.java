@@ -3,11 +3,11 @@ package org.arcanum.pairing.a;
 import org.arcanum.Field;
 import org.arcanum.Parameters;
 import org.arcanum.ParametersGenerator;
+import org.arcanum.common.io.Base64;
+import org.arcanum.common.math.BigIntegerUtils;
+import org.arcanum.common.parameters.PropertiesParameters;
 import org.arcanum.field.curve.CurveField;
 import org.arcanum.field.z.ZrField;
-import org.arcanum.util.io.Base64;
-import org.arcanum.util.math.BigIntegerUtils;
-import org.arcanum.util.parameters.PropertiesParameters;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

@@ -1,9 +1,9 @@
 package org.arcanum.fe.ibe.dip10;
 
-import org.arcanum.AbstractArcanumCryptoTest;
+import org.arcanum.AbstractTest;
 import org.arcanum.Element;
 import org.arcanum.Pairing;
-import org.arcanum.fe.PredicateOnlyEncryptionScheme;
+import org.arcanum.common.fe.engine.PredicateOnlyEngine;
 import org.arcanum.fe.ibe.dip10.engines.AHIBEDIP10PredicateOnlyEngine;
 import org.arcanum.fe.ibe.dip10.generators.AHIBEDIP10KeyPairGenerator;
 import org.arcanum.fe.ibe.dip10.generators.AHIBEDIP10SecretKeyGenerator;
@@ -20,7 +20,7 @@ import static org.junit.Assert.fail;
 /**
  * @author Angelo De Caro
  */
-public class AHIBEDIP10PredicateOnlyEngineTest extends AbstractArcanumCryptoTest {
+public class AHIBEDIP10PredicateOnlyEngineTest extends AbstractTest {
 
 
     public AHIBEDIP10PredicateOnlyEngineTest(boolean usePBC, String curvePath) {
@@ -101,7 +101,7 @@ public class AHIBEDIP10PredicateOnlyEngineTest extends AbstractArcanumCryptoTest
         byte[] ciphertext = new byte[0];
 
         try {
-            PredicateOnlyEncryptionScheme engine = new AHIBEDIP10PredicateOnlyEngine();
+            PredicateOnlyEngine engine = new AHIBEDIP10PredicateOnlyEngine();
             engine.init(true, new AHIBEDIP10EncryptionParameters((AHIBEDIP10PublicKeyParameters) publicKey, ids));
             ciphertext = engine.process();
         } catch (InvalidCipherTextException e) {
@@ -114,7 +114,7 @@ public class AHIBEDIP10PredicateOnlyEngineTest extends AbstractArcanumCryptoTest
 
     protected boolean evaluate(CipherParameters secretKey, byte[] cipherText) {
         try {
-            PredicateOnlyEncryptionScheme engine = new AHIBEDIP10PredicateOnlyEngine();
+            PredicateOnlyEngine engine = new AHIBEDIP10PredicateOnlyEngine();
             engine.init(false, secretKey);
 
             return engine.evaluate(cipherText);

@@ -1,8 +1,8 @@
 package org.arcanum.pairing.map;
 
 import org.arcanum.*;
-import org.arcanum.util.io.ElementStreamWriter;
-import org.arcanum.util.io.PairingStreamReader;
+import org.arcanum.common.io.ElementStreamWriter;
+import org.arcanum.common.io.PairingStreamReader;
 
 import java.io.IOException;
 import java.math.BigInteger;

@@ -1,6 +1,7 @@
 package org.arcanum.pairing.g;
 
 import org.arcanum.*;
+import org.arcanum.common.math.BigIntegerUtils;
 import org.arcanum.field.curve.CurveField;
 import org.arcanum.field.gt.GTFiniteField;
 import org.arcanum.field.poly.PolyElement;
@@ -10,7 +11,6 @@ import org.arcanum.field.poly.PolyModField;
 import org.arcanum.field.quadratic.QuadraticField;
 import org.arcanum.field.z.ZrField;
 import org.arcanum.pairing.AbstractPairing;
-import org.arcanum.util.math.BigIntegerUtils;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

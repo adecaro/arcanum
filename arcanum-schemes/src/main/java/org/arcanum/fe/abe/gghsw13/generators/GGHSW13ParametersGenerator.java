@@ -1,7 +1,9 @@
 package org.arcanum.fe.abe.gghsw13.generators;
 
 import org.arcanum.Pairing;
+import org.arcanum.Parameters;
 import org.arcanum.fe.abe.gghsw13.params.GGHSW13Parameters;
+import org.arcanum.pairing.PairingFactory;
 
 
 /**
@@ -13,8 +15,8 @@ public class GGHSW13ParametersGenerator {
     private int n;
 
 
-    public GGHSW13ParametersGenerator init(Pairing pairing, int n) {
-        this.pairing = pairing;
+    public GGHSW13ParametersGenerator init(Parameters parameters, int n) {
+        this.pairing = PairingFactory.getPairing(parameters);
         this.n = n;
 
         return this;

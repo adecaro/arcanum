@@ -3,10 +3,10 @@ package org.arcanum.sampler;
 import org.apfloat.Apfloat;
 import org.arcanum.Sampler;
 import org.arcanum.Vector;
+import org.arcanum.common.concurrent.ThreadSecureRandom;
 import org.arcanum.field.floating.FloatingElement;
 import org.arcanum.field.floating.FloatingField;
 import org.arcanum.field.vector.VectorField;
-import org.arcanum.util.concurrent.ThreadSecureRandom;
 
 import java.security.SecureRandom;
 

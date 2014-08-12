@@ -1,7 +1,7 @@
 package org.arcanum.fe.hve.ip08.engines;
 
 import org.arcanum.Element;
-import org.arcanum.cipher.PredicateOnlyPairingAsymmetricBlockCipher;
+import org.arcanum.common.fe.engine.PredicateOnlyPairingAsymmetricBlockCipher;
 import org.arcanum.fe.hve.ip08.params.HVEIP08EncryptionParameters;
 import org.arcanum.fe.hve.ip08.params.HVEIP08KeyParameters;
 import org.arcanum.fe.hve.ip08.params.HVEIP08PublicKeyParameters;

@@ -1,8 +1,8 @@
 package org.arcanum.field.curve;
 
 import org.arcanum.Element;
+import org.arcanum.common.math.BigIntegerUtils;
 import org.arcanum.field.base.AbstractPointElement;
-import org.arcanum.util.math.BigIntegerUtils;
 
 import java.math.BigInteger;
 

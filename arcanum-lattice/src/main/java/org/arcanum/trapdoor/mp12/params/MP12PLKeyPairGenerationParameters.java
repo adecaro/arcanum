@@ -1,8 +1,8 @@
 package org.arcanum.trapdoor.mp12.params;
 
 import org.arcanum.Parameters;
+import org.arcanum.common.cipher.params.ElementKeyGenerationParameters;
 import org.arcanum.field.floating.ApfloatUtils;
-import org.arcanum.util.cipher.params.ElementKeyGenerationParameters;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

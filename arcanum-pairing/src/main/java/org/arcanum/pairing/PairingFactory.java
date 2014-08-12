@@ -2,6 +2,7 @@ package org.arcanum.pairing;
 
 import org.arcanum.Pairing;
 import org.arcanum.Parameters;
+import org.arcanum.common.parameters.PropertiesParameters;
 import org.arcanum.pairing.a.TypeAPairing;
 import org.arcanum.pairing.a1.TypeA1Pairing;
 import org.arcanum.pairing.d.TypeDPairing;
@@ -9,7 +10,6 @@ import org.arcanum.pairing.e.TypeEPairing;
 import org.arcanum.pairing.f.TypeFPairing;
 import org.arcanum.pairing.g.TypeGPairing;
 import org.arcanum.pairing.immutable.ImmutableParing;
-import org.arcanum.util.parameters.PropertiesParameters;
 
 import java.lang.reflect.Method;
 import java.security.SecureRandom;

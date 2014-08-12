@@ -3,11 +3,11 @@ package org.arcanum.pairing.a;
 import org.arcanum.Element;
 import org.arcanum.PairingPreProcessing;
 import org.arcanum.Point;
+import org.arcanum.common.math.BigIntegerUtils;
 import org.arcanum.field.gt.GTFiniteElement;
 import org.arcanum.field.gt.GTFiniteField;
 import org.arcanum.pairing.map.AbstractMillerPairingMap;
 import org.arcanum.pairing.map.AbstractMillerPairingPreProcessing;
-import org.arcanum.util.math.BigIntegerUtils;
 
 import java.math.BigInteger;
 

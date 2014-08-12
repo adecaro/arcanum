@@ -1,11 +1,11 @@
 package org.arcanum.fe.hve.ip08.engines;
 
 import org.arcanum.Element;
+import org.arcanum.common.kem.PairingKeyEncapsulationMechanism;
 import org.arcanum.fe.hve.ip08.params.HVEIP08EncryptionParameters;
 import org.arcanum.fe.hve.ip08.params.HVEIP08KeyParameters;
 import org.arcanum.fe.hve.ip08.params.HVEIP08PublicKeyParameters;
 import org.arcanum.fe.hve.ip08.params.HVEIP08SecretKeyParameters;
-import org.arcanum.kem.PairingKeyEncapsulationMechanism;
 import org.arcanum.pairing.PairingFactory;
 import org.arcanum.pairing.accumulator.PairingAccumulator;
 import org.arcanum.pairing.accumulator.PairingAccumulatorFactory;

@@ -1,7 +1,7 @@
 package org.arcanum.field.z;
 
+import org.arcanum.common.math.BigIntegerUtils;
 import org.arcanum.field.base.AbstractField;
-import org.arcanum.util.math.BigIntegerUtils;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

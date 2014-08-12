@@ -3,12 +3,12 @@ package org.arcanum.pairing.pbc;
 import com.sun.jna.Pointer;
 import org.arcanum.Element;
 import org.arcanum.ElementPowPreProcessing;
+import org.arcanum.common.math.BigIntegerUtils;
 import org.arcanum.field.base.AbstractField;
 import org.arcanum.pairing.pbc.wrapper.jna.MPZElementType;
 import org.arcanum.pairing.pbc.wrapper.jna.PBCElementType;
 import org.arcanum.pairing.pbc.wrapper.jna.PBCPairingType;
 import org.arcanum.pairing.pbc.wrapper.jna.WrapperLibraryProvider;
-import org.arcanum.util.math.BigIntegerUtils;
 
 import java.math.BigInteger;
 

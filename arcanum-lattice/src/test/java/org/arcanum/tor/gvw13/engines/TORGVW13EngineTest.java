@@ -2,10 +2,10 @@ package org.arcanum.tor.gvw13.engines;
 
 import org.arcanum.Element;
 import org.arcanum.ElementCipherParameters;
+import org.arcanum.common.cipher.params.ElementKeyPairParameters;
 import org.arcanum.tor.gvw13.generators.TORGVW13KeyPairGenerator;
 import org.arcanum.tor.gvw13.generators.TORGVW13RecKeyGenerator;
 import org.arcanum.tor.gvw13.params.*;
-import org.arcanum.util.cipher.params.ElementKeyPairParameters;
 import org.junit.Before;
 import org.junit.Test;
 

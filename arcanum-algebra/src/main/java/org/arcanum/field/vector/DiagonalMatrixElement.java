@@ -42,7 +42,6 @@ public class DiagonalMatrixElement<E extends Element> extends AbstractMatrixElem
 
     @Override
     public E getAt(int row, int col) {
-        // TODO: remove this check
         if (isZeroAt(row, col))
             throw new IllegalStateException("Invalid Position");
 

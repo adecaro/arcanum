@@ -2,22 +2,22 @@ package org.arcanum.pairing.mm.clt13.generators;
 
 import org.arcanum.Parameters;
 import org.arcanum.ParametersGenerator;
+import org.arcanum.common.concurrent.ExecutorServiceUtils;
+import org.arcanum.common.concurrent.Pool;
+import org.arcanum.common.concurrent.PoolExecutor;
+import org.arcanum.common.concurrent.accumultor.Accumulator;
+import org.arcanum.common.concurrent.accumultor.BigIntegerAddAccumulator;
+import org.arcanum.common.concurrent.accumultor.BigIntegerMulAccumulator;
+import org.arcanum.common.concurrent.context.ContextExecutor;
+import org.arcanum.common.concurrent.context.ContextRunnable;
+import org.arcanum.common.parameters.MutableParameters;
 import org.arcanum.pairing.mm.clt13.parameters.CTL13MMMapParameters;
 import org.arcanum.pairing.mm.clt13.parameters.CTL13MMSystemParameters;
-import org.arcanum.util.concurrent.ExecutorServiceUtils;
-import org.arcanum.util.concurrent.Pool;
-import org.arcanum.util.concurrent.PoolExecutor;
-import org.arcanum.util.concurrent.accumultor.Accumulator;
-import org.arcanum.util.concurrent.accumultor.BigIntegerAddAccumulator;
-import org.arcanum.util.concurrent.accumultor.BigIntegerMulAccumulator;
-import org.arcanum.util.concurrent.context.ContextExecutor;
-import org.arcanum.util.concurrent.context.ContextRunnable;
-import org.arcanum.util.parameters.MutableParameters;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
-import static org.arcanum.util.math.BigIntegerUtils.getRandom;
+import static org.arcanum.common.math.BigIntegerUtils.getRandom;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

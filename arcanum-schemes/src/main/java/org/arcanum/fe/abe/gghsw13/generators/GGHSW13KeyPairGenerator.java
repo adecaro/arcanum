@@ -2,24 +2,16 @@ package org.arcanum.fe.abe.gghsw13.generators;
 
 import org.arcanum.Element;
 import org.arcanum.Pairing;
-import org.arcanum.fe.abe.gghsw13.params.GGHSW13KeyPairGenerationParameters;
+import org.arcanum.common.fe.generator.KeyPairGenerator;
 import org.arcanum.fe.abe.gghsw13.params.GGHSW13MasterSecretKeyParameters;
 import org.arcanum.fe.abe.gghsw13.params.GGHSW13Parameters;
 import org.arcanum.fe.abe.gghsw13.params.GGHSW13PublicKeyParameters;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
-import org.bouncycastle.crypto.AsymmetricCipherKeyPairGenerator;
-import org.bouncycastle.crypto.KeyGenerationParameters;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class GGHSW13KeyPairGenerator implements AsymmetricCipherKeyPairGenerator {
-    private GGHSW13KeyPairGenerationParameters params;
-
-
-    public void init(KeyGenerationParameters keyGenerationParameters) {
-        this.params = (GGHSW13KeyPairGenerationParameters) keyGenerationParameters;
-    }
+public class GGHSW13KeyPairGenerator extends KeyPairGenerator<GGHSW13Parameters> {
 
     public AsymmetricCipherKeyPair generateKeyPair() {
         GGHSW13Parameters parameters = params.getParameters();
@@ -43,6 +35,5 @@ public class GGHSW13KeyPairGenerator implements AsymmetricCipherKeyPairGenerator
                 new GGHSW13MasterSecretKeyParameters(parameters, alpha)
         );
     }
-
 
 }

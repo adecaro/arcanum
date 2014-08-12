@@ -2,14 +2,14 @@ package org.arcanum.fe.abe.gghsw13.generators;
 
 import org.arcanum.Element;
 import org.arcanum.Pairing;
-import org.arcanum.circuit.BooleanCircuit;
-import org.arcanum.circuit.BooleanGate;
+import org.arcanum.common.fe.generator.SecretKeyGenerator;
 import org.arcanum.fe.abe.gghsw13.params.GGHSW13MasterSecretKeyParameters;
 import org.arcanum.fe.abe.gghsw13.params.GGHSW13PublicKeyParameters;
-import org.arcanum.fe.abe.gghsw13.params.GGHSW13SecretKeyGenerationParameters;
 import org.arcanum.fe.abe.gghsw13.params.GGHSW13SecretKeyParameters;
+import org.arcanum.program.circuit.BooleanCircuit;
+import org.arcanum.program.circuit.BooleanGate;
+import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.CipherParameters;
-import org.bouncycastle.crypto.KeyGenerationParameters;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,25 +17,19 @@ import java.util.Map;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class GGHSW13SecretKeyGenerator {
-    private GGHSW13SecretKeyGenerationParameters param;
-
+public class GGHSW13SecretKeyGenerator extends SecretKeyGenerator<GGHSW13PublicKeyParameters, GGHSW13MasterSecretKeyParameters, BooleanCircuit>  {
     private Pairing pairing;
-    private BooleanCircuit circuit;
 
-    public void init(KeyGenerationParameters param) {
-        this.param = (GGHSW13SecretKeyGenerationParameters) param;
+    @Override
+    public SecretKeyGenerator<GGHSW13PublicKeyParameters, GGHSW13MasterSecretKeyParameters, BooleanCircuit> init(AsymmetricCipherKeyPair keyPair) {
+        super.init(keyPair);
 
-        this.pairing = this.param.getMasterSecretKeyParameters().getParameters().getPairing();
-        this.circuit = this.param.getCircuit();
+        this.pairing = secretKey.getParameters().getPairing();
+
+        return this;
     }
 
-    public CipherParameters generateKey() {
-        GGHSW13MasterSecretKeyParameters msk = param.getMasterSecretKeyParameters();
-        GGHSW13PublicKeyParameters pk = param.getPublicKeyParameters();
-
-        BooleanCircuit circuit = this.circuit;
-
+    public CipherParameters generateKey(BooleanCircuit circuit) {
         // sample the randomness
         Element[] rs = new Element[circuit.getNumInputs() + circuit.getNumGates()];
         for (int i = 0; i < rs.length; i++)
@@ -45,7 +39,7 @@ public class GGHSW13SecretKeyGenerator {
 
         Map<Integer, Element[]> keys = new HashMap<Integer, Element[]>();
 
-        Element ePrime = pairing.getFieldAt(circuit.getDepth()).newElement().powZn(msk.getAlpha().sub(rs[rs.length - 1]));
+        Element ePrime = pairing.getFieldAt(circuit.getDepth()).newElement().powZn(secretKey.getAlpha().sub(rs[rs.length - 1]));
         keys.put(-1, new Element[]{ePrime});
 
         for (BooleanGate gate : circuit) {
@@ -57,7 +51,7 @@ public class GGHSW13SecretKeyGenerator {
 
                     Element z = pairing.getZr().newRandomElement();
 
-                    Element e1 = pairing.getG1().newElement().powZn(rs[index]).mul(pk.getHAt(index).powZn(z));
+                    Element e1 = pairing.getG1().newElement().powZn(rs[index]).mul(publicKey.getHAt(index).powZn(z));
                     Element e2 = pairing.getG1().newElement().powZn(z.negate());
 
                     keys.put(index, new Element[]{e1, e2});
@@ -98,9 +92,7 @@ public class GGHSW13SecretKeyGenerator {
             }
         }
 
-        return new GGHSW13SecretKeyParameters(
-                param.getPublicKeyParameters().getParameters(), circuit, keys
-        );
+        return new GGHSW13SecretKeyParameters(publicKey.getParameters(), circuit, keys);
     }
 
 }

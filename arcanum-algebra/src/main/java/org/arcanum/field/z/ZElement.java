@@ -1,7 +1,7 @@
 package org.arcanum.field.z;
 
 import org.arcanum.Element;
-import org.arcanum.util.Arrays;
+import org.arcanum.common.collection.Arrays;
 
 import java.math.BigInteger;
 

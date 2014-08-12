@@ -4,6 +4,8 @@ import org.arcanum.Element;
 import org.arcanum.Field;
 import org.arcanum.Matrix;
 import org.arcanum.Sampler;
+import org.arcanum.common.cipher.params.ElementKeyGenerationParameters;
+import org.arcanum.common.cipher.params.ElementKeyPairParameters;
 import org.arcanum.field.vector.MatrixField;
 import org.arcanum.field.vector.TwoByColumnMatrixElement;
 import org.arcanum.field.vector.VectorField;
@@ -12,8 +14,6 @@ import org.arcanum.trapdoor.mp12.params.MP12HLP2KeyPairGenerationParameters;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2PrivateKeyParameters;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2PublicKeyParameters;
 import org.arcanum.trapdoor.mp12.utils.MP12P2Utils;
-import org.arcanum.util.cipher.params.ElementKeyGenerationParameters;
-import org.arcanum.util.cipher.params.ElementKeyPairParameters;
 
 import java.math.BigInteger;
 

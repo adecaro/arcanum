@@ -1,13 +1,13 @@
 package org.arcanum.pairing.f;
 
 import org.arcanum.*;
+import org.arcanum.common.math.BigIntegerUtils;
+import org.arcanum.common.parameters.PropertiesParameters;
 import org.arcanum.field.curve.CurveField;
 import org.arcanum.field.poly.PolyElement;
 import org.arcanum.field.poly.PolyField;
 import org.arcanum.field.quadratic.QuadraticField;
 import org.arcanum.field.z.ZrField;
-import org.arcanum.util.math.BigIntegerUtils;
-import org.arcanum.util.parameters.PropertiesParameters;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

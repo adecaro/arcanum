@@ -2,9 +2,9 @@ package org.arcanum.trapdoor.mp12.engines;
 
 import org.arcanum.Element;
 import org.arcanum.ElementCipher;
+import org.arcanum.common.cipher.engine.AbstractElementCipher;
+import org.arcanum.common.math.BigIntegerUtils;
 import org.arcanum.field.vector.ListVectorElement;
-import org.arcanum.util.cipher.engine.AbstractElementCipher;
-import org.arcanum.util.math.BigIntegerUtils;
 
 import java.math.BigInteger;
 import java.util.BitSet;

@@ -3,8 +3,8 @@ package org.arcanum.trapdoor.mp12.engines;
 import org.arcanum.Element;
 import org.arcanum.ElementCipher;
 import org.arcanum.ElementCipherParameters;
+import org.arcanum.common.cipher.engine.AbstractElementCipher;
 import org.arcanum.trapdoor.mp12.params.MP12PLPublicKeyParameters;
-import org.arcanum.util.cipher.engine.AbstractElementCipher;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

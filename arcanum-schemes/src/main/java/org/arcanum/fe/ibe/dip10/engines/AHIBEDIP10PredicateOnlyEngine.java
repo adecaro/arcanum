@@ -1,14 +1,14 @@
 package org.arcanum.fe.ibe.dip10.engines;
 
 import org.arcanum.Element;
-import org.arcanum.cipher.PredicateOnlyPairingAsymmetricBlockCipher;
+import org.arcanum.common.fe.engine.PredicateOnlyPairingAsymmetricBlockCipher;
+import org.arcanum.common.io.PairingStreamReader;
 import org.arcanum.fe.ibe.dip10.params.AHIBEDIP10EncryptionParameters;
 import org.arcanum.fe.ibe.dip10.params.AHIBEDIP10KeyParameters;
 import org.arcanum.fe.ibe.dip10.params.AHIBEDIP10PublicKeyParameters;
 import org.arcanum.fe.ibe.dip10.params.AHIBEDIP10SecretKeyParameters;
 import org.arcanum.field.util.ElementUtils;
 import org.arcanum.pairing.PairingFactory;
-import org.arcanum.util.io.PairingStreamReader;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

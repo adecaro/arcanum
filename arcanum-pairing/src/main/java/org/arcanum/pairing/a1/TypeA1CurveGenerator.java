@@ -2,8 +2,8 @@ package org.arcanum.pairing.a1;
 
 import org.arcanum.Parameters;
 import org.arcanum.ParametersGenerator;
-import org.arcanum.util.math.BigIntegerUtils;
-import org.arcanum.util.parameters.PropertiesParameters;
+import org.arcanum.common.math.BigIntegerUtils;
+import org.arcanum.common.parameters.PropertiesParameters;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

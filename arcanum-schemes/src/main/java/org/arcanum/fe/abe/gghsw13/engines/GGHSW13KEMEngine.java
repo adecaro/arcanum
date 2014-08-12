@@ -1,15 +1,17 @@
 package org.arcanum.fe.abe.gghsw13.engines;
 
 import org.arcanum.Element;
-import org.arcanum.circuit.BooleanCircuit;
-import org.arcanum.circuit.BooleanGate;
-import org.arcanum.fe.abe.gghsw13.params.GGHSW13EncryptionParameters;
-import org.arcanum.fe.abe.gghsw13.params.GGHSW13KeyParameters;
+import org.arcanum.common.fe.params.EncryptionParameters;
+import org.arcanum.common.io.ElementStreamWriter;
+import org.arcanum.common.io.PairingStreamReader;
+import org.arcanum.common.kem.PairingKeyEncapsulationMechanism;
+import org.arcanum.fe.abe.gghsw13.params.GGHSW13Parameters;
 import org.arcanum.fe.abe.gghsw13.params.GGHSW13PublicKeyParameters;
 import org.arcanum.fe.abe.gghsw13.params.GGHSW13SecretKeyParameters;
-import org.arcanum.kem.PairingKeyEncapsulationMechanism;
-import org.arcanum.util.io.ElementStreamWriter;
-import org.arcanum.util.io.PairingStreamReader;
+import org.arcanum.program.Assignment;
+import org.arcanum.program.assignment.BooleanAssignment;
+import org.arcanum.program.circuit.BooleanCircuit;
+import org.arcanum.program.circuit.BooleanGate;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -21,17 +23,21 @@ import java.util.Map;
 public class GGHSW13KEMEngine extends PairingKeyEncapsulationMechanism {
 
     public void initialize() {
+        GGHSW13Parameters parameters;
+
         if (forEncryption) {
-            if (!(key instanceof GGHSW13EncryptionParameters))
+            if (!(key instanceof EncryptionParameters))
                 throw new IllegalArgumentException("GGHSW13EncryptionParameters are required for encryption.");
+
+            parameters = ((EncryptionParameters<GGHSW13PublicKeyParameters, Boolean>) key).getMpk().getParameters();
         } else {
             if (!(key instanceof GGHSW13SecretKeyParameters))
                 throw new IllegalArgumentException("GGHSW13SecretKeyParameters are required for decryption.");
+
+            parameters = ((GGHSW13SecretKeyParameters) key).getParameters();
         }
 
-        GGHSW13KeyParameters gghswKey = (GGHSW13KeyParameters) key;
-
-        this.pairing = gghswKey.getParameters().getPairing();
+        this.pairing = parameters.getPairing();
         this.keyBytes = pairing.getFieldAt(pairing.getDegree()).getCanonicalRepresentationLengthInBytes();
     }
 
@@ -43,13 +49,13 @@ public class GGHSW13KEMEngine extends PairingKeyEncapsulationMechanism {
             // Load the ciphertext
             PairingStreamReader reader = new PairingStreamReader(pairing, in, inOff);
 
-            String assignment = reader.readString();
+            Assignment<Boolean> assignment = new BooleanAssignment(reader.readString());
             Element gs = reader.readG1Element();
 
             // compute hamming with
             Element[] cs = new Element[sk.getParameters().getN()];
-            for (int i = 0; i < assignment.length(); i++)
-                if (assignment.charAt(i) == '1')
+            for (int i = 0; i < assignment.getLength(); i++)
+                if (assignment.getAt(i))
                     cs[i] = reader.readG1Element();
 
             // Evaluate the circuit against the ciphertext
@@ -63,7 +69,7 @@ public class GGHSW13KEMEngine extends PairingKeyEncapsulationMechanism {
 
                 switch (gate.getType()) {
                     case INPUT:
-                        gate.set(assignment.charAt(index) == '1');
+                        gate.set(assignment.getAt(index));
 
                         if (gate.get()) {
                             Element[] keys = sk.getKeyElementsAt(index);
@@ -143,9 +149,9 @@ public class GGHSW13KEMEngine extends PairingKeyEncapsulationMechanism {
                 return new byte[]{-1};
         } else {
             // Encrypt the massage under the specified attributes
-            GGHSW13EncryptionParameters encKey = (GGHSW13EncryptionParameters) key;
-            GGHSW13PublicKeyParameters publicKey = encKey.getPublicKey();
-            String assignment = encKey.getAssignment();
+            EncryptionParameters<GGHSW13PublicKeyParameters, Boolean> encKey = (EncryptionParameters<GGHSW13PublicKeyParameters, Boolean>) key;
+            GGHSW13PublicKeyParameters publicKey = encKey.getMpk();
+            Assignment<Boolean> assignment = encKey.getAssignment();
 
             ElementStreamWriter writer = new ElementStreamWriter(getOutputBlockSize());
             try {
@@ -155,11 +161,11 @@ public class GGHSW13KEMEngine extends PairingKeyEncapsulationMechanism {
                 Element mask = publicKey.getH().powZn(s);
                 writer.write(mask.toCanonicalRepresentation());
 
-                writer.write(assignment);
+                writer.write(assignment.toString());
                 writer.write(pairing.getFieldAt(1).newElement().powZn(s));
                 int n = publicKey.getParameters().getN();
                 for (int i = 0; i < n; i++) {
-                    if (assignment.charAt(i) == '1')
+                    if (assignment.getAt(i))
                         writer.write(publicKey.getHAt(i).powZn(s));
                 }
             } catch (IOException e) {

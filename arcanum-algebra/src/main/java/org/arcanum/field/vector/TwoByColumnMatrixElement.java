@@ -42,7 +42,7 @@ public class TwoByColumnMatrixElement<E extends Element> extends AbstractMatrixE
 
     @Override
     public boolean isSparse() {
-        // TODO: check this condition
+        // TODO: verify this condition
         return A.isSparse() || B.isSparse();
     }
 

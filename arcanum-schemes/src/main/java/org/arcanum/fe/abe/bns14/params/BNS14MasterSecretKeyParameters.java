@@ -1,12 +1,13 @@
 package org.arcanum.fe.abe.bns14.params;
 
 
+import org.arcanum.common.fe.params.KeyParameters;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2PrivateKeyParameters;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class BNS14MasterSecretKeyParameters extends BNS14KeyParameters {
+public class BNS14MasterSecretKeyParameters extends KeyParameters<BNS14Parameters> {
 
     private MP12HLP2PrivateKeyParameters latticeSk;
 

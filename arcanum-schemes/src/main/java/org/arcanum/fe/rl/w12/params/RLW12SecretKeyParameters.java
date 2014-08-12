@@ -1,8 +1,8 @@
 package org.arcanum.fe.rl.w12.params;
 
 import org.arcanum.Element;
-import org.arcanum.dfa.DFA;
 import org.arcanum.field.util.ElementUtils;
+import org.arcanum.program.dfa.DFA;
 
 import java.util.Map;
 

@@ -11,26 +11,13 @@ public class DefaultPermutation implements Permutation {
 
     public DefaultPermutation(int... perm) {
         this.perm = perm;
-
-        // compute inverse
-        this.invPerm = new int[perm.length];
-        for (int i = 0; i < invPerm.length; i++) {
-            this.invPerm[perm[i]] = i;
-        }
     }
 
     public DefaultPermutation(int size) {
         this.perm = new int[size];
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++)
             perm[i] = i;
-        }
-
-        // compute inverse
-        this.invPerm = new int[perm.length];
-        for (int i = 0; i < invPerm.length; i++) {
-            this.invPerm[perm[i]] = i;
-        }
     }
 
     public DefaultPermutation(Permutation... permutations) {
@@ -59,6 +46,14 @@ public class DefaultPermutation implements Permutation {
 
     @Override
     public int permuteInverse(int index) {
+        if (invPerm == null) {
+            // compute inverse
+            this.invPerm = new int[perm.length];
+            for (int i = 0; i < invPerm.length; i++) {
+                this.invPerm[perm[i]] = i;
+            }
+        }
+
         return invPerm[index];
     }
 

@@ -2,7 +2,7 @@ package org.arcanum.fe.ip.lostw10.engines;
 
 import org.arcanum.Element;
 import org.arcanum.Pairing;
-import org.arcanum.cipher.PredicateOnlyPairingAsymmetricBlockCipher;
+import org.arcanum.common.fe.engine.PredicateOnlyPairingAsymmetricBlockCipher;
 import org.arcanum.fe.ip.lostw10.params.IPLOSTW10EncryptionParameters;
 import org.arcanum.fe.ip.lostw10.params.IPLOSTW10KeyParameters;
 import org.arcanum.fe.ip.lostw10.params.IPLOSTW10PublicKeyParameters;

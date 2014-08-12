@@ -1,10 +1,10 @@
 package org.arcanum.trapdoor.mp12.engines;
 
 import org.arcanum.*;
+import org.arcanum.common.cipher.engine.AbstractElementCipher;
 import org.arcanum.field.vector.VectorField;
 import org.arcanum.sampler.SamplerFactory;
 import org.arcanum.trapdoor.mp12.params.MP12PLPublicKeyParameters;
-import org.arcanum.util.cipher.engine.AbstractElementCipher;
 
 import java.math.BigInteger;
 

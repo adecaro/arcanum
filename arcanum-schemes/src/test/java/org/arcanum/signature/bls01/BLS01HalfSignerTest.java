@@ -1,6 +1,6 @@
 package org.arcanum.signature.bls01;
 
-import org.arcanum.AbstractArcanumCryptoTest;
+import org.arcanum.AbstractTest;
 import org.arcanum.signature.bls01.engines.BLS01HalfSigner;
 import org.arcanum.signature.bls01.generators.BLS01KeyPairGenerator;
 import org.arcanum.signature.bls01.generators.BLS01ParametersGenerator;
@@ -18,7 +18,7 @@ import static org.junit.Assert.fail;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class BLS01HalfSignerTest extends AbstractArcanumCryptoTest {
+public class BLS01HalfSignerTest extends AbstractTest {
 
 
     public BLS01HalfSignerTest(boolean usePBC, String curvePath) {

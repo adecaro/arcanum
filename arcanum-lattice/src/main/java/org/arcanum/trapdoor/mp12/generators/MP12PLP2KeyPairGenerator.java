@@ -4,15 +4,15 @@ import org.arcanum.Field;
 import org.arcanum.Matrix;
 import org.arcanum.Sampler;
 import org.arcanum.Vector;
+import org.arcanum.common.cipher.generators.ElementKeyPairGenerator;
+import org.arcanum.common.cipher.params.ElementKeyGenerationParameters;
+import org.arcanum.common.cipher.params.ElementKeyPairParameters;
 import org.arcanum.field.vector.MatrixField;
 import org.arcanum.field.vector.VectorField;
 import org.arcanum.field.z.ZFieldSelector;
 import org.arcanum.sampler.SamplerFactory;
 import org.arcanum.trapdoor.mp12.params.MP12PLKeyPairGenerationParameters;
 import org.arcanum.trapdoor.mp12.params.MP12PLPublicKeyParameters;
-import org.arcanum.util.cipher.generators.ElementKeyPairGenerator;
-import org.arcanum.util.cipher.params.ElementKeyGenerationParameters;
-import org.arcanum.util.cipher.params.ElementKeyPairParameters;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

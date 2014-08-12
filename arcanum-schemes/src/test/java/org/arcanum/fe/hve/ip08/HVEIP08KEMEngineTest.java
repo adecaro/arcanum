@@ -1,12 +1,12 @@
 package org.arcanum.fe.hve.ip08;
 
-import org.arcanum.AbstractArcanumCryptoTest;
+import org.arcanum.AbstractTest;
+import org.arcanum.common.kem.KeyEncapsulationMechanism;
 import org.arcanum.fe.hve.ip08.engines.HVEIP08KEMEngine;
 import org.arcanum.fe.hve.ip08.generators.HVEIP08KeyPairGenerator;
 import org.arcanum.fe.hve.ip08.generators.HVEIP08ParametersGenerator;
 import org.arcanum.fe.hve.ip08.generators.HVEIP08SecretKeyGenerator;
 import org.arcanum.fe.hve.ip08.params.*;
-import org.arcanum.kem.KeyEncapsulationMechanism;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.CipherParameters;
 import org.bouncycastle.crypto.InvalidCipherTextException;
@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 /**
  * @author Angelo De Caro
  */
-public class HVEIP08KEMEngineTest extends AbstractArcanumCryptoTest {
+public class HVEIP08KEMEngineTest extends AbstractTest {
 
 
     public HVEIP08KEMEngineTest(boolean usePBC, String curvePath) {

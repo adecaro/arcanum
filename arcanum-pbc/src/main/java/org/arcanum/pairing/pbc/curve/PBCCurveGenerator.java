@@ -2,7 +2,7 @@ package org.arcanum.pairing.pbc.curve;
 
 import org.arcanum.Parameters;
 import org.arcanum.ParametersGenerator;
-import org.arcanum.util.parameters.PropertiesParameters;
+import org.arcanum.common.parameters.PropertiesParameters;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -1,9 +1,9 @@
 package org.arcanum.pairing.mm.clt13.parameters;
 
 import org.arcanum.Parameters;
-import org.arcanum.util.collection.LatchHashMap;
-import org.arcanum.util.io.disk.*;
-import org.arcanum.util.parameters.MapParameters;
+import org.arcanum.common.collection.LatchHashMap;
+import org.arcanum.common.io.disk.*;
+import org.arcanum.common.parameters.MapParameters;
 
 import java.io.File;
 import java.io.FileInputStream;

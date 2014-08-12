@@ -2,14 +2,14 @@ package org.arcanum.fe.abe.gghvv13.generators;
 
 import org.arcanum.Element;
 import org.arcanum.Pairing;
-import org.arcanum.circuit.BooleanCircuit;
-import org.arcanum.circuit.BooleanGate;
+import org.arcanum.common.fe.generator.SecretKeyGenerator;
 import org.arcanum.fe.abe.gghvv13.params.GGHVV13MasterSecretKeyParameters;
 import org.arcanum.fe.abe.gghvv13.params.GGHVV13PublicKeyParameters;
-import org.arcanum.fe.abe.gghvv13.params.GGHVV13SecretKeyGenerationParameters;
 import org.arcanum.fe.abe.gghvv13.params.GGHVV13SecretKeyParameters;
+import org.arcanum.program.circuit.BooleanCircuit;
+import org.arcanum.program.circuit.BooleanGate;
+import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.CipherParameters;
-import org.bouncycastle.crypto.KeyGenerationParameters;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,24 +17,20 @@ import java.util.Map;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class GGHVV13SecretKeyGenerator {
-    private GGHVV13SecretKeyGenerationParameters param;
+public class GGHVV13SecretKeyGenerator extends SecretKeyGenerator<GGHVV13PublicKeyParameters, GGHVV13MasterSecretKeyParameters, BooleanCircuit> {
 
     private Pairing pairing;
-    private BooleanCircuit circuit;
 
-    public void init(KeyGenerationParameters param) {
-        this.param = (GGHVV13SecretKeyGenerationParameters) param;
+    @Override
+    public SecretKeyGenerator<GGHVV13PublicKeyParameters, GGHVV13MasterSecretKeyParameters, BooleanCircuit> init(AsymmetricCipherKeyPair keyPair) {
+        super.init(keyPair);
 
-        this.pairing = this.param.getMasterSecretKeyParameters().getParameters().getPairing();
-        this.circuit = this.param.getCircuit();
+        this.pairing = secretKey.getParameters().getPairing();
+
+        return this;
     }
 
-    public CipherParameters generateKey() {
-        GGHVV13MasterSecretKeyParameters msk = param.getMasterSecretKeyParameters();
-        GGHVV13PublicKeyParameters pk = param.getPublicKeyParameters();
-
-        BooleanCircuit circuit = this.circuit;
+    public CipherParameters generateKey(BooleanCircuit circuit) {
         int n = circuit.getNumInputs();
 
         // sample the randomness
@@ -58,17 +54,17 @@ public class GGHVV13SecretKeyGenerator {
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                M[i+1][j] = pk.getHAt(i).duplicate().powZn(zs[j]);
+                M[i + 1][j] = publicKey.getHAt(i).duplicate().powZn(zs[j]);
                 if (i == j)
-                    M[i+1][j].mul(pairing.getG1().newElement().powZn(rs[i]));
-                M[i+1][j] = M[i+1][j].getImmutable();
+                    M[i + 1][j].mul(pairing.getG1().newElement().powZn(rs[i]));
+                M[i + 1][j] = M[i + 1][j].getImmutable();
             }
         }
 
         // encode the circuit
         Map<Integer, Element[]> keys = new HashMap<Integer, Element[]>();
 
-        Element ePrime = pairing.getFieldAt(circuit.getDepth()).newElement().powZn(msk.getAlpha().sub(rs[rs.length - 1]));
+        Element ePrime = pairing.getFieldAt(circuit.getDepth()).newElement().powZn(secretKey.getAlpha().sub(rs[rs.length - 1]));
         keys.put(-1, new Element[]{ePrime});
 
         for (BooleanGate gate : circuit) {
@@ -114,7 +110,7 @@ public class GGHVV13SecretKeyGenerator {
         }
 
         return new GGHVV13SecretKeyParameters(
-                param.getPublicKeyParameters().getParameters(), circuit, keys, M
+                publicKey.getParameters(), circuit, keys, M
         );
     }
 

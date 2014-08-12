@@ -4,6 +4,8 @@ import org.arcanum.Element;
 import org.arcanum.ElementCipherParameters;
 import org.arcanum.Field;
 import org.arcanum.Matrix;
+import org.arcanum.common.cipher.generators.ElementKeyGenerator;
+import org.arcanum.common.cipher.params.ElementKeyGenerationParameters;
 import org.arcanum.field.vector.MatrixField;
 import org.arcanum.field.vector.TwoByRowMatrixElement;
 import org.arcanum.tor.gvw13.params.TORGVW13ReKeyGenerationParameters;
@@ -13,8 +15,6 @@ import org.arcanum.trapdoor.mp12.engines.MP12HLP2Sampler;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2PublicKeyParameters;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2SampleParameters;
 import org.arcanum.trapdoor.mp12.utils.MP12P2Utils;
-import org.arcanum.util.cipher.generators.ElementKeyGenerator;
-import org.arcanum.util.cipher.params.ElementKeyGenerationParameters;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)

@@ -2,11 +2,11 @@ package org.arcanum.fe.ip.lostw10.engines;
 
 import org.arcanum.Element;
 import org.arcanum.Pairing;
+import org.arcanum.common.kem.PairingKeyEncapsulationMechanism;
 import org.arcanum.fe.ip.lostw10.params.IPLOSTW10EncryptionParameters;
 import org.arcanum.fe.ip.lostw10.params.IPLOSTW10KeyParameters;
 import org.arcanum.fe.ip.lostw10.params.IPLOSTW10PublicKeyParameters;
 import org.arcanum.fe.ip.lostw10.params.IPLOSTW10SecretKeyParameters;
-import org.arcanum.kem.PairingKeyEncapsulationMechanism;
 import org.arcanum.pairing.PairingFactory;
 import org.arcanum.pairing.product.ProductPairing;
 

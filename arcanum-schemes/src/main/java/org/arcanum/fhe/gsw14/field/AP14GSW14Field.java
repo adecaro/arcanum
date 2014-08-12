@@ -45,8 +45,6 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
                 .newField(n - 1)
                 .newElementFromSampler(lweErrorSampler);
 
-        System.out.println("s = " + s);
-
         this.sDec = new VectorExElement<Element>(
                 (AbstractVectorField) s.getField(),
                 s,

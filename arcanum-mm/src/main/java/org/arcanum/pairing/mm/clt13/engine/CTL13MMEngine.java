@@ -1,18 +1,18 @@
 package org.arcanum.pairing.mm.clt13.engine;
 
 import org.arcanum.Parameters;
+import org.arcanum.common.concurrent.ExecutorServiceUtils;
+import org.arcanum.common.concurrent.accumultor.Accumulator;
+import org.arcanum.common.concurrent.accumultor.BigIntegerAddAccumulator;
 import org.arcanum.pairing.mm.clt13.parameters.CTL13MMPublicParameters;
 import org.arcanum.pairing.mm.clt13.parameters.CTL13MMSystemParameters;
-import org.arcanum.util.concurrent.ExecutorServiceUtils;
-import org.arcanum.util.concurrent.accumultor.Accumulator;
-import org.arcanum.util.concurrent.accumultor.BigIntegerAddAccumulator;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.concurrent.Callable;
 
-import static org.arcanum.util.math.BigIntegerUtils.getRandom;
-import static org.arcanum.util.math.BigIntegerUtils.modNear;
+import static org.arcanum.common.math.BigIntegerUtils.getRandom;
+import static org.arcanum.common.math.BigIntegerUtils.modNear;
 
 
 /**
