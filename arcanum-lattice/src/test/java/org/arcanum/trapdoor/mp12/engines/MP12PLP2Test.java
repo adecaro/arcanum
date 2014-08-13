@@ -29,7 +29,7 @@ public class MP12PLP2Test {
         this.gen.init(new MP12PLKeyPairGenerationParameters(
                 random,
                 3,  // n
-                2  // k
+                24  // k
         ));
         this.pk = (MP12PLPublicKeyParameters) gen.generateKeyPair().getPublic();
     }

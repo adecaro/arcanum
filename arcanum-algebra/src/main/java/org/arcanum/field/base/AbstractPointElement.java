@@ -1,16 +1,14 @@
 package org.arcanum.field.base;
 
 import org.arcanum.Element;
-import org.arcanum.Field;
 import org.arcanum.Point;
-import org.arcanum.Vector;
 
 import java.math.BigInteger;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public abstract class AbstractPointElement<E extends Element, F extends AbstractFieldOver> extends AbstractElement<F> implements Point<E>, Vector<E> {
+public abstract class AbstractPointElement<E extends Element, F extends AbstractFieldOver> extends AbstractElement<F> implements Point<E> {
 
     protected E  x, y;
 
@@ -19,25 +17,6 @@ public abstract class AbstractPointElement<E extends Element, F extends Abstract
         super(field);
     }
 
-    public Field getTargetField() {
-        return field.getTargetField();
-    }
-
-    public int getSize() {
-        return 2;
-    }
-
-    public E getAt(int index) {
-        return (index == 0) ? x : y;
-    }
-
-    public Vector<E> setAt(int index, E element) {
-        throw new IllegalStateException("Not Implemented yet!");
-    }
-
-    public Vector<E> setAt(int index, BigInteger value) {
-        throw new IllegalStateException("Not Implemented yet!");
-    }
 
     public Element duplicate() {
         return null;
@@ -140,10 +119,6 @@ public abstract class AbstractPointElement<E extends Element, F extends Abstract
         throw new IllegalStateException("Not Implemented yet!");
     }
 
-    public Vector<E> add(Element... es) {
-        throw new IllegalStateException("Not Implemented yet!");
-    }
-
     public int getLengthInBytesX() {
         throw new IllegalStateException("Not Implemented yet!");
     }
@@ -160,19 +135,4 @@ public abstract class AbstractPointElement<E extends Element, F extends Abstract
         throw new IllegalStateException("Not Implemented yet!");
     }
 
-    public Vector<E> subVectorTo(int end) {
-        throw new IllegalStateException("Not Implemented yet!");
-    }
-
-    public Vector<E> subVectorFrom(int start) {
-        throw new IllegalStateException("Not Implemented yet!");
-    }
-
-    public Vector<E> setZeroAt(int index) {
-        throw new IllegalStateException("Not Implemented yet!");
-    }
-
-    public boolean isZeroAt(int index) {
-        throw new IllegalStateException("Not Implemented yet!");
-    }
 }

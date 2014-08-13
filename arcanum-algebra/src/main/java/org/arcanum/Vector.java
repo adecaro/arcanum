@@ -58,6 +58,18 @@ public interface Vector<E extends Element> extends Element {
      */
     Vector<E> add(Element... es);
 
+    @Override
+    Vector<E> negate();
+
+    Vector<E> add(Sampler<BigInteger> sampler);
+
+    /**
+     *
+     * @param reader
+     * @return
+     */
+    Vector<E> add(VectorReader<BigInteger> reader);
+
     /**
      *
      * @param index
@@ -73,5 +85,15 @@ public interface Vector<E extends Element> extends Element {
      * @since 1.0.0
      */
     Vector<E> subVectorFrom(int start);
+
+
+    public static interface VectorReader<E> {
+
+        int getSize();
+
+        E getAt(int index);
+
+    }
+
 
 }

@@ -176,6 +176,15 @@ public abstract class AbstractVectorElement<E extends Element, F extends Abstrac
         return this;
     }
 
+    @Override
+    public Vector<E> add(Sampler<BigInteger> sampler) {
+        for (int i = 0, n = getSize(); i < n; i++) {
+            getAt(i).add(sampler.sample());
+        }
+
+        return this;
+    }
+
     public Vector<E> add(Element e) {
         Vector<E> element = (Vector<E>) e;
 
@@ -196,6 +205,15 @@ public abstract class AbstractVectorElement<E extends Element, F extends Abstrac
                 getAt(cursor).add(element.getAt(i));
             }
 
+        }
+
+        return this;
+    }
+
+    @Override
+    public Vector<E> add(VectorReader<BigInteger> reader) {
+        for (int i = 0, n = reader.getSize(); i < n; i++) {
+            getAt(i).add(reader.getAt(i));
         }
 
         return this;
@@ -373,6 +391,21 @@ public abstract class AbstractVectorElement<E extends Element, F extends Abstrac
         return buffer.toString();
     }
     
-    
+
+
+    public static abstract class AbstractVectorReader<E> implements VectorReader<E> {
+
+        private int size;
+
+        public AbstractVectorReader(int size) {
+            this.size = size;
+        }
+
+        @Override
+        public int getSize() {
+            return size;
+        }
+
+    }
 
 }

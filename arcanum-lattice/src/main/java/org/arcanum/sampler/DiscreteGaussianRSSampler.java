@@ -69,6 +69,19 @@ public class DiscreteGaussianRSSampler implements GaussianSampler<BigInteger> {
     }
 
     public BigInteger sample(Apfloat center) {
-        throw new IllegalStateException("Not implemented yet!!!");
+        int interval = center.add(sigmaTau).ceil().subtract(center.subtract(sigmaTau).floor()).intValue() + 1;
+        long left = center.subtract(sigmaTau).floor().longValue();
+
+        while (true) {
+            long x = left + random.nextInt(interval);
+            Apfloat z = newApint(x).subtract(center);
+
+            Apfloat rhos = exp(h.multiply(square(z)));
+            Apfloat sample = uniform.sample();
+
+            if (sample.compareTo(rhos) <= 0) {
+                return BigInteger.valueOf(x);
+            }
+        }
     }
 }

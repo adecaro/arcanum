@@ -1,9 +1,6 @@
 package org.arcanum.field.poly;
 
-import org.arcanum.Element;
-import org.arcanum.Field;
-import org.arcanum.Polynomial;
-import org.arcanum.Vector;
+import org.arcanum.*;
 import org.arcanum.field.base.AbstractElement;
 import org.arcanum.field.base.AbstractFieldOver;
 
@@ -55,6 +52,15 @@ public abstract class AbstractPolyElement<E extends Element, F extends AbstractF
     }
 
     public Vector add(Element... es) {
+        throw new IllegalStateException("Not Implemented yet!");
+    }
+
+    public Vector<E> add(VectorReader<BigInteger> reader) {
+        throw new IllegalStateException("Not Implemented yet!");
+    }
+
+    @Override
+    public Vector<E> add(Sampler<BigInteger> sampler) {
         throw new IllegalStateException("Not Implemented yet!");
     }
 

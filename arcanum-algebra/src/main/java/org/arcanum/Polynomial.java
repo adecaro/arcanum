@@ -8,7 +8,7 @@ package org.arcanum;
  * @see Element
  * @see Vector
  */
-public interface Polynomial<E extends Element> extends Element, Vector {
+public interface Polynomial<E extends Element> extends Vector<E> {
 
     /**
      * Returns the degree of this polynomial.

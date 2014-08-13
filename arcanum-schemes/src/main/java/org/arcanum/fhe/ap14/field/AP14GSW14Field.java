@@ -141,18 +141,26 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
         throw new IllegalArgumentException("Value not valid. Must be 0 or 1.");
     }
 
+    public Element newEmptyElement() {
+        return newElementErrorFreeFullMatrix(0);
+    }
+
 
     public MP12PLPublicKeyParameters getPk() {
         return pk;
     }
 
+    public Vector getS() {
+        return s;
+    }
+
+    public Vector getsDec() {
+        return sDec;
+    }
 
     protected Matrix encrypt(int value) {
         // value must be in {0,1}
         Element mu = pk.getZq().newElement(value);
-
-        // Sample error
-        Element e = pk.getPreimageField().newElementFromSampler(lweErrorSampler);
 
         // Generate cts
         Matrix ct = (Matrix) pk.getG().getField().newElement();
@@ -160,7 +168,7 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
         ct.setRowsToRandom(0, ct.getN() - 1)
                 .getViewRowsAt(0, ct.getN() - 1)
                 .mulTo(s, ct.getViewRowAt(ct.getN() - 1));
-        ct.getViewRowAt(ct.getN() - 1).negate().add(e);
+        ct.getViewRowAt(ct.getN() - 1).negate().add(lweErrorSampler);
         ct.add(pk.getG().duplicate().mul(mu));
 
         return ct;
@@ -171,7 +179,7 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
             throw new IllegalStateException("Cannot decrypt ciphertext. Secret not initialized");
 
         BigInteger result = sDec.mul(value.getViewColAt(value.getM() - 2)).toBigInteger();
-//        System.out.println("res = " + result.abs());
+        System.out.println("res = " + result.abs());
 //        System.out.println("ofo = " + oneFourthOrder);
 //        System.out.println("q   = " + pk.getZq().getOrder());
         return result.abs().compareTo(oneFourthOrder) >= 0 ? BigInteger.ONE : BigInteger.ZERO;
@@ -189,7 +197,11 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
         };
     }
 
-    public Element newEmptyElement() {
-        return newElementErrorFreeFullMatrix(0);
+    public BigInteger decrypt(Element c2) {
+        BigInteger result = sDec.mul(c2).toBigInteger();
+        System.out.println("res = " + result.abs());
+//        System.out.println("ofo = " + oneFourthOrder);
+//        System.out.println("q   = " + pk.getZq().getOrder());
+        return result.abs().compareTo(oneFourthOrder) >= 0 ? BigInteger.ONE : BigInteger.ZERO;
     }
 }

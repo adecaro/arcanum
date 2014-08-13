@@ -46,6 +46,10 @@ public class ApfloatUtils {
         return new Apfloat(n, precision, radix);
     }
 
+    public static Apfloat newApfloat(BigInteger n) {
+        return new Apfloat(n, precision, radix);
+    }
+
     public static Apfloat newApfloat(String n) {
         return convert(new Apfloat(n));
     }
@@ -58,6 +62,9 @@ public class ApfloatUtils {
         return new Apint(n, radix);
     }
 
+    public static Apint newApint(long n) {
+        return new Apint(n, radix);
+    }
 
     public static Apfloat sqrt(int n) {
         return ApfloatMath.sqrt(new Apfloat(n, precision, radix));

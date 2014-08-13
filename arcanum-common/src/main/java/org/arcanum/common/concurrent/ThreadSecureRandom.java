@@ -4,6 +4,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 /**
+ * TODO: use a common factory to create securerandom
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
 public class ThreadSecureRandom {

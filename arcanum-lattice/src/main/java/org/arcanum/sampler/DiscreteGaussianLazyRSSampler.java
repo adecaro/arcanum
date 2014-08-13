@@ -22,7 +22,8 @@ public class DiscreteGaussianLazyRSSampler implements GaussianSampler<BigInteger
     protected double center;
 
     protected double h, sigmaTau, bound;
-    protected int left, interval;
+    protected long left;
+    protected int interval;
 
 
     public DiscreteGaussianLazyRSSampler(SecureRandom random, double gaussianParameter, double center) {
@@ -53,7 +54,8 @@ public class DiscreteGaussianLazyRSSampler implements GaussianSampler<BigInteger
     public DiscreteGaussianLazyRSSampler setCenter(Apfloat center) {
         this.center = center.doubleValue();
         this.interval = (int) (Math.ceil(this.center + sigmaTau) -  Math.floor(this.center - sigmaTau)) + 1;
-        this.left = (int) Math.floor(this.center - sigmaTau);
+        // TODO: It could be that we need biginteger
+        this.left = (long) Math.floor(this.center - sigmaTau);
 
         if (interval < 0) {
             System.out.println("BOOOOOOOOOO");
@@ -64,7 +66,7 @@ public class DiscreteGaussianLazyRSSampler implements GaussianSampler<BigInteger
 
     public BigInteger sample() {
         while (true) {
-            int x = left + random.nextInt(interval);
+            long x = left + random.nextInt(interval);
             double z = x - center;
 
             double rhos = Math.exp(h * z * z);
@@ -83,14 +85,17 @@ public class DiscreteGaussianLazyRSSampler implements GaussianSampler<BigInteger
 
         double center = c.doubleValue();
         int interval = (int) (Math.ceil(center + sigmaTau) -  Math.floor(center - sigmaTau)) + 1;
-        int left = (int) Math.floor(center - sigmaTau);
+        long left = (long) Math.floor(center - sigmaTau);
 
         while (true) {
-            int x = left + random.nextInt(interval);
+            long x = left + random.nextInt(interval);
             double z = x - center;
 
             double rhos = Math.exp(h * z * z);
             double sample = random.nextDouble();
+//            System.out.println("rhos = " + rhos);
+//            System.out.println("sample = " + sample);
+
 
             if (Math.abs(sample - rhos) < bound)
                 System.out.println("NOOOOO");
