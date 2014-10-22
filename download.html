@@ -67,7 +67,7 @@
     
             
   
-                   <h5>Arcanum Library</h5>
+                   <h5>Arcanum</h5>
         <ul>
               
   
@@ -189,25 +189,25 @@
               </ul>
         </li>
           </ul>
-          <h5>Pairing</h5>
+          <h5>Linear Maps</h5>
         <ul>
               
   
   <li class="none">
     
-          <a href="docs/pairing.html#initializing">Initializing</a>
+          <a href="docs/linearmaps.html#initializing">Initializing</a>
         </li>
               
   
   <li class="none">
     
-          <a href="docs/pairing.html#applying">Applying</a>
+          <a href="docs/linearmaps.html#applying">Applying</a>
         </li>
               
   
   <li class="none">
     
-          <a href="docs/pairing.html#preprocessing">Preprocessing</a>
+          <a href="docs/linearmaps.html#preprocessing">Preprocessing</a>
         </li>
               
           
@@ -504,7 +504,7 @@
                         
 <td>Arcanum</td>
                         
-<td>2.0.0</td>
+<td>1.0.0</td>
                         
 <td>Stable</td>
                         
@@ -564,17 +564,36 @@
 <h3>Arcanum Usage<a name="Arcanum_Usage"></a></h3>
                 
 <p>
-                    To use Arcanum, add to your classpath the following jars:
+                    To use Arcanum, following jars must be included in the classpath:
                     </p>
 <ol style="list-style-type: decimal">
                         
 <li>
-                            <span class="em"><tt>arcanum_2.0.0-api.jar</tt></span>
-                            and
+                            <span class="em"><tt>arcanum_1.0.0-common.jar</tt></span>: Common classes shared
+                            among the modules.
                         </li>
                         
 <li>
-                            <span class="em"><tt>arcanum_2.0.0-plaf.jar</tt></span>.
+                            <span class="em"><tt>arcanum_1.0.0-albegra.jar</tt></span>: Algebra module.
+                        </li>
+                    </ol>
+
+                    In addition, there are the following modules:
+                    
+<ol style="list-style-type: decimal">
+                        
+<li>
+                            <span class="em"><tt>arcanum_1.0.0-pairing.jar</tt></span>: Bilinear maps.
+                        </li>
+                        
+<li>
+                            <span class="em"><tt>arcanum_1.0.0-mm.jar</tt></span>:
+                            <a href="docs/pairing.html">Multilinear Maps</a>.
+                        </li>
+                        
+<li>
+                            <span class="em"><tt>arcanum_1.0.0-lattice.jar</tt></span>:
+                            <a href="docs/pairing.html">Lattice-Based Cryptography tools</a>.
                         </li>
                     </ol>
                 
@@ -596,30 +615,12 @@
 <ol style="list-style-type: decimal">
                     
 <li>
-                        <span class="em"><tt>arcanum_2.0.0-pbc.jar</tt></span>
+                        <span class="em"><tt>arcanum_1.0.0-pbc.jar</tt></span>
                         and
                     </li>
                     
 <li>
                         <span class="em"><tt>jna-3.1.0.jar</tt></span>.
-                    </li>
-                </ol>
-            </div>
-
-            
-<div class="section">
-<h3>Multilinear Maps Usage<a name="Multilinear_Maps_Usage"></a></h3>
-                
-<p>
-                    To use the
-                    <a href="docs/pairing.html">Multilinear Maps</a>,
-                    include the following jar:
-                </p>
-                
-<ol style="list-style-type: decimal">
-                    
-<li>
-                        <span class="em"><tt>arcanum_2.0.0-mm.jar</tt></span>.
                     </li>
                 </ol>
             </div>
@@ -638,7 +639,7 @@
 <ol style="list-style-type: decimal">
                     
 <li>
-                        <span class="em"><tt>arcanum-crypto-2.0.0.jar</tt></span>
+                        <span class="em"><tt>arcanum-crypto-1.0.0.jar</tt></span>
                         and
                     </li>
                     
