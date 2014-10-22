@@ -11,7 +11,7 @@
 <html>
   <head>
     <title>arcanum - 
-        Java Pairing and Lattice Based Cryptography Library : Introduction</title>
+        Java Pairing and Lattice Based Cryptography Library : Build HowTo</title>
     <style type="text/css" media="all">
       @import url("./css/maven-base.css");
       @import url("./css/maven-theme.css");
@@ -73,7 +73,7 @@
   
   <li class="none">
     
-          <strong>Introduction</strong>
+          <a href="index.html">Introduction</a>
         </li>
               
   
@@ -85,7 +85,7 @@
   
   <li class="none">
     
-          <a href="buildHowto.html">Build HowTo</a>
+          <strong>Build HowTo</strong>
         </li>
               
   
@@ -435,7 +435,7 @@
               
                 
               
-            
+      
             
       
             
@@ -443,37 +443,11 @@
             
       
               
-          
-  <li class="expanded">
+      
+  <li class="collapsed">
     
           <a href="project-info.html">Project Information</a>
-                <ul>
-                  
-  
-  <li class="none">
-    
-          <strong>About</strong>
-        </li>
-                  
-  
-  <li class="none">
-    
-          <a href="dependencies.html">Dependencies</a>
-        </li>
-                  
-  
-  <li class="none">
-    
-          <a href="license.html">Project License</a>
-        </li>
-                  
-  
-  <li class="none">
-    
-          <a href="source-repository.html">Source Repository</a>
-        </li>
-              </ul>
-        </li>
+              </li>
           </ul>
                      
                                
@@ -490,138 +464,51 @@
       <div id="contentBox">
         
     
-        <div id="downloadbox">
-            
-<div class="section">
-<div class="section">
-<div class="section">
-<h5>Get Arcanum 1.0.0 Now!!!<a name="Get_Arcanum_1.0.0_Now"></a></h5>
+        <div class="section">
+<h2>Build HowTo<a name="Build_HowTo"></a></h2>
 
             
+<div class="section">
+<h3>Where are the sources?<a name="Where_are_the_sources"></a></h3>
+                
 <p>
-                <a href="download.html">Arcanum 1.0.0</a>
-            </p>
-
-            
-<ul>
-                
-<li>
-                    <a href="download.html#requirements">System Requirements</a>
-                </li>
-                
-<li>
-                    <a href="download.html#usage">Arcanum Usage</a>
-                </li>
-                
-<li>
-                    <a href="license.html">License (LGPL)</a>
-                </li>
-                
-<li>
-                    <a href="contact.html">Contacts</a>
-                </li>
-                
-<li>
-                    <a href="faq.html">FAQ</a>
-                </li>
-            </ul>
-
-            
-<div>
-                <a class="externalLink" href="http://sourceforge.net">
-                    <img src="http://sflogo.sourceforge.net/sflogo.php?group_id=178005&amp;type=1" style="border:1px solid black" width="88" height="31" alt="SourceForge.net Logo" />
-                </a>
-
-                  <a class="externalLink" href="http://maven.apache.org/" title="Maven">
-                    <img src="./images/logos/maven-feather.png" style="border:1px solid black" alt="Maven" />
-                </a>
-
-                <a class="externalLink" href="http://crypto.stanford.edu/pbc">
-                  <img src="http://crypto.stanford.edu/pbc/pbclogo32x32.png" alt="PBC's" />
-               </a>
+                    You can obtain the sources by
+                    <a href="./download.html">downloading</a>
+                    a distro package or by
+                    <a href="source-repository.html">checking out</a>
+                    the latest head revision from the repository.
+                </p>
             </div>
-        </div>
 
-        </div></div></div>
+            
 <div class="section">
-<h2>Introduction<a name="Introduction"></a></h2>
-            
-<p>
-            Arcanum - The Java Pairing and Lattice Based Cryptography Library provides:
-            </p>
-            
-<ul>
+<h3>Build System<a name="Build_System"></a></h3>
                 
-<li>
-                    
 <p>
-                        A <span class="em">Port</span> of the
-                        <a class="externalLink" href="http://crypto.stanford.edu/pbc/">Pairing-Based Cryptography Library (PBC)</a>,
-                        library developed by <a class="externalLink" href="http://crypto.stanford.edu/~blynn/">Ben Lynn</a>,
-                        to performs the mathematical operations underlying pairing-based cryptosystems
-                        directly in Java.
-                    </p>
-                </li>
-                
-<li>
-                    
-<p>
-                        A <span class="em">Wrapper</span>
-                        that enables the delegation of the pairing computation to the
-                        <a class="externalLink" href="http://crypto.stanford.edu/pbc/">PBC</a> library
-                        to gain in performance.
-                    </p>
-                </li>
-                
-<li>
-                    
-<p>
-                        An implementation of <span class="em">Multilinear Maps</span>
-                        based on the paper
-                        <a class="externalLink" href="http://eprint.iacr.org/2013/183.pdf"><span class="em">Practical Multilinear Maps over the Integers</span></a>
-                        by <span class="em">Coron, Lepoint, and Tibouchi</span>.
-                        The implementation supports multithreading and uses memory mapped files
-                        to save in primary memory requirements.
-                    </p>
-                </li>
-            </ul>
-        </div>
+                    Arcanum is built using Maven 2. You can download it from
+                    <a class="externalLink" href="http://maven.apache.org">http://maven.apache.org</a>.
+                    <br />
+                    There are a few dependencies which are hosted on any publicly available Maven Repository so Maven
+                    will be able to resolve them automatically.
+                </p>
 
-        
-<div class="section">
-<h2>Who Uses Arcanum?<a name="Who_Uses_Arcanum"></a></h2>
-            
+                
 <p>
-            If your project uses the Arcanum library and you don&#x2019;t mind it appearing here please
-            <a href="./contact.html">contact</a>
-            me.
-            </p>
-        </div>
-
-        
-<div class="section">
-<h2>What is the appropriate way to cite Arcanum in an academic context?<a name="What_is_the_appropriate_way_to_cite_Arcanum_in_an_academic_context"></a></h2>
-            
-<p>
-                If you use Bibtex for your citations, we recommend that
-                you add the following entry in your bibtex database:
-            </p>
-            
+                    To build and install (into the local maven repository) Arcanum simply type in a shell the following:
+                </p>
+                
 <div class="source">
-<pre>@inproceedings{ISCC:DecIov11,
-    author    = {Angelo {De Caro} and Vincenzo Iovino},
-    title     = {aRCANUM: Java pairing based cryptography},
-    year      = {2011},
-    pages     = {850-855},
-    booktitle = {Proceedings of the 16th IEEE Symposium on Computers and Communications, ISCC 2011},
-    address   = {Kerkyra, Corfu, Greece, June 28 - July 1}
-    publisher = {IEEE},
-    url       = {\url{http://gas.dia.unisa.it/projects/arcanum/}},
-}
-            </pre></div>
+<pre>mvn clean package install</pre></div>
+                
+<p>
+                    To build the binary and the source distribution simply type:
+                </p>
+                
+<div class="source">
+<pre>mvn -Ddistro clean package install assembly:assembly</pre></div>
+            </div>
 
         </div>
-
     
 
       </div>

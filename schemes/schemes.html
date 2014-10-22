@@ -1,0 +1,581 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+<html>
+  <head>
+    <title>arcanum - 
+        Java Pairing and Lattice Based Cryptography Library : Schemes</title>
+    <style type="text/css" media="all">
+      @import url("../css/maven-base.css");
+      @import url("../css/maven-theme.css");
+      @import url("../css/site.css");
+    </style>
+    <link rel="stylesheet" href="../css/print.css" type="text/css" media="print" />
+          <meta name="author" content="Angelo De Caro" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="keywords" content="arcanum, jpbc, pbc, pairing, lattice, multilinear maps, bilinear maps" />
+      </head>
+  <body class="composite">
+<!--    <div id="banner">
+        <a href="http://gas.dia.unisa.it/projects/arcanum/" id="bannerLeft">
+            <img id="bannerImage" src="http://gas.dia.unisa.it/projects/arcanum/images/banners/banner_4.jpg" alt="" width="1124"/>
+        </a>
+        <div class="clear">
+        <hr/>
+      </div>
+    </div>  -->
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+            
+  
+            <div class="xleft">
+        Last Published: 2014-10-22
+                  &nbsp;| Version: 1.0.0
+                      </div>
+            <div class="xright">
+                <a href="http://crypto.stanford.edu/pbc/">PBC
+            </a>
+          |
+          <a href="https://github.com/adecaro/arcanum">GitHub
+            </a>
+            </div>
+        <div class="xcenter">
+          Java Pairing and Lattice Based Cryptography Library (Arcanum)
+        </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+            
+  
+                   <h5>Arcanum Library</h5>
+        <ul>
+              
+  
+  <li class="none">
+    
+          <a href="../index.html">Introduction</a>
+        </li>
+              
+  
+  <li class="none">
+    
+          <a href="../download.html">Download</a>
+        </li>
+              
+  
+  <li class="none">
+    
+          <a href="../buildHowto.html">Build HowTo</a>
+        </li>
+              
+  
+  <li class="none">
+    
+          <a href="../contact.html">Contact</a>
+        </li>
+              
+  
+  <li class="none">
+    
+          <a href="../faq.html">FAQ</a>
+        </li>
+              
+  
+  <li class="none">
+    
+          <a href="../java-docs/api/index.html">Java Docs</a>
+        </li>
+          </ul>
+          <h5>Basic Concepts</h5>
+        <ul>
+              
+  
+  <li class="none">
+    
+          <a href="../docs/field.html">Field</a>
+        </li>
+              
+          
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+      
+  <li class="expanded">
+    
+          <a href="../docs/element.html">Element</a>
+                <ul>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/element.html#initializing">Initializing</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/element.html#assigning">Assigning</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/element.html#arithmetic">Arithmetic</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/element.html#exponentiation">Exponentiation</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/element.html#comparing">Comparing</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/element.html#io">Import/Export</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/element.html#immutable">Immutable</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/element.html#preprocessing">Preprocessing</a>
+        </li>
+              </ul>
+        </li>
+          </ul>
+          <h5>Pairing</h5>
+        <ul>
+              
+  
+  <li class="none">
+    
+          <a href="../docs/pairing.html#initializing">Initializing</a>
+        </li>
+              
+  
+  <li class="none">
+    
+          <a href="../docs/pairing.html#applying">Applying</a>
+        </li>
+              
+  
+  <li class="none">
+    
+          <a href="../docs/pairing.html#preprocessing">Preprocessing</a>
+        </li>
+              
+          
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+                  
+      
+            
+      
+                    
+      
+  <li class="expanded">
+    
+          <a href="../docs/pg.html">Parameter Generators</a>
+                <ul>
+                  
+          
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+      
+  <li class="expanded">
+    
+          <a href="../docs/ecpg.html">Bilinear Maps</a>
+                <ul>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/ecpg.html#TypeA">Type A</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/ecpg.html#TypeA1">Type A1</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/ecpg.html#TypeD">Type D</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/ecpg.html#TypeE">Type E</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/ecpg.html#TypeF">Type F</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/ecpg.html#TypeG">Type G</a>
+        </li>
+              </ul>
+        </li>
+                  
+          
+              
+      
+              
+      
+  <li class="expanded">
+    
+          <a href="../docs/mmpg.html">Multilinear Maps</a>
+                <ul>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/mmpg.html#ctl13">Over the Integers [CTL'13]</a>
+        </li>
+              </ul>
+        </li>
+              </ul>
+        </li>
+              
+  
+  <li class="none">
+    
+          <a href="../docs/pbcwrapper.html">PBC Wrapper</a>
+        </li>
+          </ul>
+          <h5>Lattice</h5>
+        <ul>
+              
+  
+  <li class="none">
+    
+          <a href="../docs/lattice/mp12.html">Trapdoors [MP'12]</a>
+        </li>
+          </ul>
+          <h5>Schemes</h5>
+        <ul>
+              
+          
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+      
+  <li class="expanded">
+    
+          <a href="../schemes/schemes.html#fe">Functional Encryption</a>
+                <ul>
+                  
+  
+  <li class="none">
+    
+          <a href="../schemes/abe_gghsw13.html">ABE for Circuits [GGHSW'13]</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../schemes/abe_gghvv13.html">ABE for Circuits [GGHVV'13]</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../schemes/rl_w12.html">Regular Languages [W'12]</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../schemes/uhibe_lw11.html">Unbounded HIBE [LW'11]</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../schemes/ip_lostw10.html">Inner Product [LOSTW'10]</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../schemes/ahibe_dip10.html">Anonymous HIBE [DIP'10]</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../schemes/hve_ip08.html">HVE [IP'08]</a>
+        </li>
+              </ul>
+        </li>
+              
+          
+              
+      
+            
+      
+              
+      
+  <li class="expanded">
+    
+          <a href="../schemes/schemes.html#ss">Signature</a>
+                <ul>
+                  
+  
+  <li class="none">
+    
+          <a href="../schemes/ss_bls01.html">SS [BLS'01]</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../schemes/ibs_ps06.html">IBS [PS'06]</a>
+        </li>
+              </ul>
+        </li>
+              
+  
+  <li class="none">
+    
+          <a href="../schemes/kem.html">KEM</a>
+        </li>
+          </ul>
+          <h5>Project Documentation</h5>
+        <ul>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+              
+      
+  <li class="collapsed">
+    
+          <a href="../project-info.html">Project Information</a>
+              </li>
+          </ul>
+                     
+                               
+  
+
+  
+    
+            
+  
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div style="clear:right;visibility:hidden"></div>
+      <div id="contentBox">
+        
+    
+        <div class="section">
+<h2>Schemes<a name="Schemes"></a></h2>
+
+            
+<p>
+                Arcanum provides the implementation of the
+                following cryptosystems in the context of the
+                <a class="externalLink" href="http://www.bouncycastle.org/java.html">Bouncy Castle</a>
+                framework.
+            </p>
+
+            <a name="fe"></a>
+            
+<div class="section">
+<h3>Functional Encryption Schemes<a name="Functional_Encryption_Schemes"></a></h3>
+                
+<ol style="list-style-type: decimal">
+                    
+<li>
+                        <font style="font-weight: bold;color:red">
+                            <a href="./abe_gghsw13.html">[GGHSW'13]</a>
+                        </font>: S. Garg and C. Gentry and S. Halevi and A. Sahai and B. Waters,
+                        Attribute-Based Encryption for Circuits from Multilinear Maps
+                    </li>
+                    
+<li>
+                        <font style="font-weight: bold;color:red">
+                            <a href="./rl_w12.html">[W'12]</a>
+                        </font>: B. Waters, Functional Encryption for Regular Languages
+                    </li>
+                    
+<li>
+                        <font style="font-weight: bold;color:red">
+                            <a href="./uhibe_lw11.html">[LW'11]</a>
+                        </font>: A. Lewko and B. Waters, Unbounded HIBE and Attribute-Based Encryption.
+                    </li>
+                    
+<li>
+                        <font style="font-weight: bold;color:red">
+                            <a href="./ip_lostw10.html">[LOSTW'10]</a>
+                        </font>: A. Lewko and T. Okamoto and A. Sahai and K. Takashima and B. Waters, Fully Secure Functional Encryption: Attribute-Based Encryption and (Hierarchical) Inner Product Encryption.
+                    </li>
+                    
+<li>
+                        <font style="font-weight: bold;color:red">
+                            <a href="./ahibe_dip10.html">[DIP'10]</a>
+                        </font>: A. De Caro and V. Iovino and G. Persiano, Fully Secure Anonymous HIBE and Secret-Key Anonymous IBE with Short Ciphertexts.
+                    </li>
+                    
+<li>
+                        <font style="font-weight: bold;color:red">
+                            <a href="./hve_ip08.html">[IP'08]</a>
+                        </font>: V. Iovino and G. Persiano, Hidden-Vector Encryption with Groups of Prime Order.
+                    </li>
+                </ol>
+            </div>
+
+            <a name="ss"></a>
+            
+<div class="section">
+<h3>Signature Schemes<a name="Signature_Schemes"></a></h3>
+                
+<ol style="list-style-type: decimal">
+                    
+<li>
+                        <font style="font-weight: bold;color:red">
+                            <a href="./ibs_ps06.html">[IBS'06]</a>
+                        </font>: K. G. Paterson and J. C. N. Schuldt, Efficient Identity-based Signatures Secure in the Standard Model.
+                    </li>
+                    
+<li>
+                        <font style="font-weight: bold;color:red">
+                            <a href="./ss_bls01.html">[BLS'01]</a>
+                        </font>: D. Boneh, B. Lynn, and H. Shacham., Short signatures from the Weil pairing.
+                    </li>
+                </ol>
+            </div>
+
+        </div>
+    
+
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="license">
+          <a rel="license" href="http://creativecommons.org/licenses/by-nc/2.5/">
+              <img
+                  alt="Creative Commons License" src="http://creativecommons.org/images/public/somerights20.gif"
+                  id="license_image"/>
+          </a>
+          Except where otherwise noted, content on this site is
+          licensed under a
+          <a style="border-bottom-style: groove;" rel="license" href="http://creativecommons.org/licenses/by/2.5/" class="subfoot">
+              Creative Commons Attribution 2.5 License
+          </a>
+          &#169;  
+          2014
+    
+          
+  
+
+  
+    
+            
+  
+        </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,646 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+<html>
+  <head>
+    <title>arcanum - 
+        Java Pairing and Lattice Based Cryptography Library : Docs - Multilinear Maps</title>
+    <style type="text/css" media="all">
+      @import url("../css/maven-base.css");
+      @import url("../css/maven-theme.css");
+      @import url("../css/site.css");
+    </style>
+    <link rel="stylesheet" href="../css/print.css" type="text/css" media="print" />
+          <meta name="author" content="Angelo De Caro" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="keywords" content="arcanum, jpbc, pbc, pairing, lattice, multilinear maps, bilinear maps" />
+      </head>
+  <body class="composite">
+<!--    <div id="banner">
+        <a href="http://gas.dia.unisa.it/projects/arcanum/" id="bannerLeft">
+            <img id="bannerImage" src="http://gas.dia.unisa.it/projects/arcanum/images/banners/banner_4.jpg" alt="" width="1124"/>
+        </a>
+        <div class="clear">
+        <hr/>
+      </div>
+    </div>  -->
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+            
+  
+            <div class="xleft">
+        Last Published: 2014-10-22
+                  &nbsp;| Version: 1.0.0
+                      </div>
+            <div class="xright">
+                <a href="http://crypto.stanford.edu/pbc/">PBC
+            </a>
+          |
+          <a href="https://github.com/adecaro/arcanum">GitHub
+            </a>
+            </div>
+        <div class="xcenter">
+          Java Pairing and Lattice Based Cryptography Library (Arcanum)
+        </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+            
+  
+                   <h5>Arcanum Library</h5>
+        <ul>
+              
+  
+  <li class="none">
+    
+          <a href="../index.html">Introduction</a>
+        </li>
+              
+  
+  <li class="none">
+    
+          <a href="../download.html">Download</a>
+        </li>
+              
+  
+  <li class="none">
+    
+          <a href="../buildHowto.html">Build HowTo</a>
+        </li>
+              
+  
+  <li class="none">
+    
+          <a href="../contact.html">Contact</a>
+        </li>
+              
+  
+  <li class="none">
+    
+          <a href="../faq.html">FAQ</a>
+        </li>
+              
+  
+  <li class="none">
+    
+          <a href="../java-docs/api/index.html">Java Docs</a>
+        </li>
+          </ul>
+          <h5>Basic Concepts</h5>
+        <ul>
+              
+  
+  <li class="none">
+    
+          <a href="../docs/field.html">Field</a>
+        </li>
+              
+          
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+      
+  <li class="expanded">
+    
+          <a href="../docs/element.html">Element</a>
+                <ul>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/element.html#initializing">Initializing</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/element.html#assigning">Assigning</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/element.html#arithmetic">Arithmetic</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/element.html#exponentiation">Exponentiation</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/element.html#comparing">Comparing</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/element.html#io">Import/Export</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/element.html#immutable">Immutable</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/element.html#preprocessing">Preprocessing</a>
+        </li>
+              </ul>
+        </li>
+          </ul>
+          <h5>Pairing</h5>
+        <ul>
+              
+  
+  <li class="none">
+    
+          <a href="../docs/pairing.html#initializing">Initializing</a>
+        </li>
+              
+  
+  <li class="none">
+    
+          <a href="../docs/pairing.html#applying">Applying</a>
+        </li>
+              
+  
+  <li class="none">
+    
+          <a href="../docs/pairing.html#preprocessing">Preprocessing</a>
+        </li>
+              
+          
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+                  
+            
+            
+      
+                    
+          
+  <li class="expanded">
+    
+          <a href="../docs/pg.html">Parameter Generators</a>
+                <ul>
+                  
+          
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+      
+  <li class="expanded">
+    
+          <a href="../docs/ecpg.html">Bilinear Maps</a>
+                <ul>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/ecpg.html#TypeA">Type A</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/ecpg.html#TypeA1">Type A1</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/ecpg.html#TypeD">Type D</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/ecpg.html#TypeE">Type E</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/ecpg.html#TypeF">Type F</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/ecpg.html#TypeG">Type G</a>
+        </li>
+              </ul>
+        </li>
+                  
+          
+              
+      
+              
+          
+  <li class="expanded">
+    
+          <strong>Multilinear Maps</strong>
+                <ul>
+                  
+  
+  <li class="none">
+    
+          <a href="../docs/mmpg.html#ctl13">Over the Integers [CTL'13]</a>
+        </li>
+              </ul>
+        </li>
+              </ul>
+        </li>
+              
+  
+  <li class="none">
+    
+          <a href="../docs/pbcwrapper.html">PBC Wrapper</a>
+        </li>
+          </ul>
+          <h5>Lattice</h5>
+        <ul>
+              
+  
+  <li class="none">
+    
+          <a href="../docs/lattice/mp12.html">Trapdoors [MP'12]</a>
+        </li>
+          </ul>
+          <h5>Schemes</h5>
+        <ul>
+              
+          
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+      
+  <li class="expanded">
+    
+          <a href="../schemes/schemes.html#fe">Functional Encryption</a>
+                <ul>
+                  
+  
+  <li class="none">
+    
+          <a href="../schemes/abe_gghsw13.html">ABE for Circuits [GGHSW'13]</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../schemes/abe_gghvv13.html">ABE for Circuits [GGHVV'13]</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../schemes/rl_w12.html">Regular Languages [W'12]</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../schemes/uhibe_lw11.html">Unbounded HIBE [LW'11]</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../schemes/ip_lostw10.html">Inner Product [LOSTW'10]</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../schemes/ahibe_dip10.html">Anonymous HIBE [DIP'10]</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../schemes/hve_ip08.html">HVE [IP'08]</a>
+        </li>
+              </ul>
+        </li>
+              
+          
+              
+      
+            
+      
+              
+      
+  <li class="expanded">
+    
+          <a href="../schemes/schemes.html#ss">Signature</a>
+                <ul>
+                  
+  
+  <li class="none">
+    
+          <a href="../schemes/ss_bls01.html">SS [BLS'01]</a>
+        </li>
+                  
+  
+  <li class="none">
+    
+          <a href="../schemes/ibs_ps06.html">IBS [PS'06]</a>
+        </li>
+              </ul>
+        </li>
+              
+  
+  <li class="none">
+    
+          <a href="../schemes/kem.html">KEM</a>
+        </li>
+          </ul>
+          <h5>Project Documentation</h5>
+        <ul>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+              
+      
+  <li class="collapsed">
+    
+          <a href="../project-info.html">Project Information</a>
+              </li>
+          </ul>
+                     
+                               
+  
+
+  
+    
+            
+  
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div style="clear:right;visibility:hidden"></div>
+      <div id="contentBox">
+        
+    
+        <div class="section">
+<h2>Multilinear Pairing Parameters Generators<a name="Multilinear_Pairing_Parameters_Generators"></a></h2>
+
+            
+<p>
+            We currently do not have candidates for multilinear
+            maps between groups with cryptographically hard problems. However, Garg,
+            Gentry, and Halevi (henceforth GGH), in their paper
+            <a class="externalLink" href="http://eprint.iacr.org/2012/610.pdf"><span class="em">Candidate Multilinear Maps from Ideal Lattices
+            </span></a>, suggest a concrete candidate for an
+            <span class="em">approximation</span> of multilinear maps, named
+            <span class="em">graded encoding systems</span>.
+            With the GGH candidate, group elements have a randomized (and thus non-unique) representation
+            dubbed <span class="em">encoding</span>. While it is possible to extract a unique
+            <span class="em">canonical bistring</span>, it is not possible to perform further computations
+            with this extracted bitstring. An encoding can be re-randomized (e.g., to hide
+            the sequence of operations that were performed), but only at the cost of introducing an
+            artificial <span class="em">noice</span> term in the encoding. Further operation
+            on this group element cause the noise to grow; once this
+            noise grows beyond a certain bound, encodings can no longer be worked with.
+            </p>
+
+
+            <a name="ctl13"></a>
+            
+<div class="section">
+<h3>CTL13<a name="CTL13"></a></h3>
+                
+<p>
+                Arcanum provides an implementation of <span class="em">Multilinear Maps</span>
+                based on the paper
+                <a class="externalLink" href="http://eprint.iacr.org/2013/183.pdf"><span class="em">Practical Multilinear Maps over the Integers</span></a>
+                by <span class="em">Coron, Lepoint, and Tibouchi</span> (henceforth CTL).
+                They describe a different construction from the GGH one that works over the integers
+                instead of ideal lattices.
+                </p>
+                
+<p>
+                    In the CTL construction there are two sets of parameters:
+                </p>
+                
+<p>
+                    <span class="em">The System Parameters</span>:
+                    They govern the security and the correctness of the multilinear map.
+                    They must be set carefully to satisfy the constraints described in the CTL paper,
+                    Section 3.1.
+                    In Arcanum, the class <tt>CTL13MMSystemParameters</tt>
+                    models the system parameters which can be set in two different
+                    ways. The first is by passing the parameters to one
+                    of the constructors of the class as follows:
+                </p>
+                    
+<div class="source">
+<pre>import CTL13MMSystemParameters;
+
+                        CTL13MMSystemParameters toy = new CTL13MMSystemParameters(
+                        757, // eta
+                        165, // n
+                        10, // alpha
+                        160, // ell
+                        27, //rho
+                        12, // delta
+                        5, // kappa
+                        80, //beta
+                        16, // theta
+                        160 // bound
+                        );</pre></div>
+                
+<p>
+                    The system parameters can be also loaded from a file as follows:
+                </p>
+                    
+<div class="source">
+<pre>import CTL13MMSystemParameters;
+
+                        CTL13MMSystemParameters toy = new CTL13MMSystemParameters(
+                        PairingFactory.getInstance().loadParameters(&quot;./params/mm/ctl13/toy.properties&quot;)
+                        );</pre></div>
+                
+<p>
+                    Arcanum provides a set of predefined system parameters that
+                    can be found in the <tt>params/mm/ctl13</tt> folder
+                    of the distro package.
+                </p>
+                
+<p>
+                    <span class="em">The Public Parameters</span>:
+                    They describe a specific instance of a
+                    multilinear map defined by the given system parameters.
+                </p>
+                
+<p>
+                    Arcanum provides single and multithreaded generators
+                    that take in input the system parameters and generate the public parameters
+                    which are then saved in a file whose name is related to the system parameters
+                    used. For example, for <tt>CTL13MMSystemParameters.TOY</tt> the
+                    name used will be
+                    <tt>CTL13MM_eta_757_n_165_alpha_10_ell_160_rho_27_delta_12_kappa_5_beta_80_theta_16_bound_160.dat</tt>.
+                    <br />
+                    Here is an example on how to instantiate the generators.
+                </p>
+
+                
+<div class="source">
+<pre>import
+                    org.arcanum.dia.gas.plaf.arcanum.mm.clt13.generators.CTL13MMMultiThreadPublicParameterGenerator;
+                    import CTL13MMPublicParameterGenerator;
+                    import CTL13MMSystemParameters;
+
+                    // Single thread public parameter generator ...
+                    ParametersGenerator pg = new CTL13MMPublicParameterGenerator(CTL13MMSystemParameters.TOY);
+
+                    // Multithreaded public parameter generator ...
+                    ParametersGenerator mtPg = new
+                    CTL13MMMultiThreadPublicParameterGenerator(CTL13MMSystemParameters.TOY);
+                </pre></div>
+
+                
+<p>
+                    Notice that, the multithreaded generator does not have
+                    any special memory requirements. In fact, the generator uses
+                    memory mapped files to store the public parameters.
+                    Of course, the less the memory the system has
+                    the slower the generation process is.
+                </p>
+                
+<p>
+                    On the other hand, the single thread generator
+                    keeps all the public parameters in memory and only
+                    at the end of process the parameters are stored to a file.
+                    Thus, depending on the system parameters,
+                    huge quantity of memory could be required.
+                </p>
+
+                
+<p>
+                    Once the public parameters are generated they
+                    can be loaded or used to instantiate
+                    the <tt>Pairing</tt> interface by using
+                    the <tt>PairingFactory</tt> in the usual way.
+                </p>
+            </div>
+
+        </div>
+    
+
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="license">
+          <a rel="license" href="http://creativecommons.org/licenses/by-nc/2.5/">
+              <img
+                  alt="Creative Commons License" src="http://creativecommons.org/images/public/somerights20.gif"
+                  id="license_image"/>
+          </a>
+          Except where otherwise noted, content on this site is
+          licensed under a
+          <a style="border-bottom-style: groove;" rel="license" href="http://creativecommons.org/licenses/by/2.5/" class="subfoot">
+              Creative Commons Attribution 2.5 License
+          </a>
+          &#169;  
+          2014
+    
+          
+  
+
+  
+    
+            
+  
+        </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+</html>
