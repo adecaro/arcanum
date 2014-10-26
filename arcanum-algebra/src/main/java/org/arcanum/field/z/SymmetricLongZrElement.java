@@ -35,9 +35,12 @@ public class SymmetricLongZrElement<F extends SymmetricLongZrField> extends Abst
 //        this.value = ((SymmetricLongZrElement) value).value % field.order;
 //
 //        return mod();
-
-        this.value = ((SymmetricLongZrElement) value).value;
-        return this;
+        if (value instanceof SymmetricLongZrElement)
+            this.value = ((SymmetricLongZrElement) value).value;
+        else
+            this.value = value.toBigInteger().longValue();
+//        return this;
+        return mod();
     }
 
     public Element set(int value) {

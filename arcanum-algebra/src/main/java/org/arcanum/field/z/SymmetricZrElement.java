@@ -51,7 +51,8 @@ public class SymmetricZrElement<F extends SymmetricZrField> extends AbstractBigI
 //        return mod();
         this.value = ((AbstractBigIntegerZElement) value).value;
 
-        return this;
+//        return this;
+        return mod();
     }
 
     public SymmetricZrElement set(int value) {

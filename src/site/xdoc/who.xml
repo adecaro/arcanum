@@ -4,7 +4,7 @@
 <document>
     <properties>
         <title>Java Pairing and Lattice Based Cryptography Library : Who Uses Arcanum?</title>
-        <author email="adecaro@users.sourceforge.net">Angelo De Caro</author>
+        <author email="arcanumlib@gmail.com">Angelo De Caro</author>
     </properties>
 
     <body>
@@ -34,7 +34,6 @@
                 is a cryptography library written in Java, which extends Java Cryptography Architecture (JCA)
                 to support non-traditional cryptographic primitives, such as Proxy Re-Encryption.
             </subsection>
-
         </section>
 
     </body>

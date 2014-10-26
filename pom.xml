@@ -47,7 +47,6 @@
         <module>arcanum-algebra</module>
         <module>arcanum-pairing</module>
         <module>arcanum-pbc</module>
-        <module>arcanum-mm</module>
         <module>arcanum-lattice</module>
         <module>arcanum-schemes</module>
         <module>arcanum-test</module>

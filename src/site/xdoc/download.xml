@@ -37,7 +37,7 @@
 
                     <tr valign="top">
                         <td>Arcanum</td>
-                        <td>2.0.0</td>
+                        <td>1.0.0</td>
                         <td>Stable</td>
                         <td>
                             <em>
@@ -82,14 +82,29 @@
             <a name="usage"/>
             <subsection name="Arcanum Usage">
                 <p>
-                    To use Arcanum, add to your classpath the following jars:
+                    To use Arcanum, following jars must be included in the classpath:
                     <ol type="1">
                         <li>
-                            <span class="em"><code>arcanum_2.0.0-api.jar</code></span>
-                            and
+                            <span class="em"><code>arcanum_1.0.0-common.jar</code></span>: Common classes shared
+                            among the modules.
                         </li>
                         <li>
-                            <span class="em"><code>arcanum_2.0.0-plaf.jar</code></span>.
+                            <span class="em"><code>arcanum_1.0.0-albegra.jar</code></span>: Algebra module.
+                        </li>
+                    </ol>
+
+                    In addition, there are the following modules:
+                    <ol type="1">
+                        <li>
+                            <span class="em"><code>arcanum_1.0.0-pairing.jar</code></span>: Bilinear maps.
+                        </li>
+                        <li>
+                            <span class="em"><code>arcanum_1.0.0-mm.jar</code></span>:
+                            <a href="docs/pairing.html">Multilinear Maps</a>.
+                        </li>
+                        <li>
+                            <span class="em"><code>arcanum_1.0.0-lattice.jar</code></span>:
+                            <a href="docs/pairing.html">Lattice-Based Cryptography tools</a>.
                         </li>
                     </ol>
                 </p>
@@ -105,24 +120,11 @@
                 </p>
                 <ol>
                     <li>
-                        <span class="em"><code>arcanum_2.0.0-pbc.jar</code></span>
+                        <span class="em"><code>arcanum_1.0.0-pbc.jar</code></span>
                         and
                     </li>
                     <li>
                         <span class="em"><code>jna-3.1.0.jar</code></span>.
-                    </li>
-                </ol>
-            </subsection>
-
-            <subsection name="Multilinear Maps Usage">
-                <p>
-                    To use the
-                    <a href="docs/pairing.html">Multilinear Maps</a>,
-                    include the following jar:
-                </p>
-                <ol>
-                    <li>
-                        <span class="em"><code>arcanum_2.0.0-mm.jar</code></span>.
                     </li>
                 </ol>
             </subsection>
@@ -136,7 +138,7 @@
                 </p>
                 <ol>
                     <li>
-                        <span class="em"><code>arcanum-crypto-2.0.0.jar</code></span>
+                        <span class="em"><code>arcanum-crypto-1.0.0.jar</code></span>
                         and
                     </li>
                     <li>

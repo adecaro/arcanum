@@ -6,14 +6,14 @@ import org.arcanum.common.cipher.params.ElementKeyPairParameters;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public interface ElementKeyPairGenerator {
+public interface ElementKeyPairGenerator<P extends ElementKeyGenerationParameters> {
 
     /**
      * intialise the key pair generator.
      *
-     * @param param the parameters the key pair is to be initialised with.
+     * @param keyGenerationParameters the parameters the key pair is to be initialised with.
      */
-    public void init(ElementKeyGenerationParameters param);
+    public ElementKeyPairGenerator<P> init(P keyGenerationParameters);
 
     public ElementKeyPairParameters generateKeyPair();
 

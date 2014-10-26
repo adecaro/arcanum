@@ -4,7 +4,6 @@ package org.arcanum.tor.gvw13.generators;
 import org.arcanum.Field;
 import org.arcanum.common.cipher.engine.ElementCipher;
 import org.arcanum.common.cipher.generators.ElementKeyPairGenerator;
-import org.arcanum.common.cipher.params.ElementKeyGenerationParameters;
 import org.arcanum.common.cipher.params.ElementKeyPairParameters;
 import org.arcanum.tor.gvw13.params.TORGVW13KeyPairGenerationParameters;
 import org.arcanum.tor.gvw13.params.TORGVW13PublicKeyParameters;
@@ -19,14 +18,14 @@ import org.arcanum.trapdoor.mp12.params.MP12HLP2PublicKeyParameters;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class TORGVW13KeyPairGenerator implements ElementKeyPairGenerator {
+public class TORGVW13KeyPairGenerator implements ElementKeyPairGenerator<TORGVW13KeyPairGenerationParameters> {
 
     private TORGVW13KeyPairGenerationParameters params;
     private MP12HLP2KeyPairGenerator gen;
 
 
-    public void init(ElementKeyGenerationParameters keyGenerationParameters) {
-        this.params = (TORGVW13KeyPairGenerationParameters) keyGenerationParameters;
+    public ElementKeyPairGenerator<TORGVW13KeyPairGenerationParameters> init(TORGVW13KeyPairGenerationParameters keyGenerationParameters) {
+        this.params = keyGenerationParameters;
 
         // Init Lattice generator
         // TODO: k must be chosen differently
@@ -36,6 +35,8 @@ public class TORGVW13KeyPairGenerator implements ElementKeyPairGenerator {
                 params.getParameters().getN(),  // n
                 64                              // k
         ));
+
+        return this;
     }
 
     public ElementKeyPairParameters generateKeyPair() {

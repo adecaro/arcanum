@@ -23,7 +23,7 @@ public class AP14HECyclicSBSymGroupField extends AbstractVectorField<AP14GSW14Fi
 
     @Override
     public AP14HECyclicSBSymGroupElement newElement(BigInteger value) {
-        PoolExecutor executor = new PoolExecutor(ExecutorServiceUtils.getNewForAvailableProcessors());
+        PoolExecutor executor = new PoolExecutor(ExecutorServiceUtils.getCachedThreadPool());
         final AP14GSW14Element[] elements = new AP14GSW14Element[n];
 
         final int s = value.add(BigInteger.ONE).mod(BigInteger.valueOf(n)).intValue();
@@ -39,13 +39,28 @@ public class AP14HECyclicSBSymGroupField extends AbstractVectorField<AP14GSW14Fi
         return new AP14HECyclicSBSymGroupElement(this, elements);
     }
 
+    @Override
+    public AP14HECyclicSBSymGroupElement newElement(int value) {
+        return newElement(BigInteger.valueOf(value));
+    }
+
+    @Override
+    public AP14HECyclicSBSymGroupElement newOneElement() {
+        return newElement(1);
+    }
+
+    @Override
+    public AP14HECyclicSBSymGroupElement newZeroElement() {
+        return newElement(0);
+    }
+
     public AP14HECyclicSBSymGroupElement newElement(Object value) {
         if (value instanceof Permutation) {
             Permutation perm = (Permutation) value;
             if (!perm.isCyclic())
                 throw new IllegalArgumentException("Not a cyclic permutation!!!");
 
-            PoolExecutor executor = new PoolExecutor(ExecutorServiceUtils.getNewForAvailableProcessors());
+            PoolExecutor executor = new PoolExecutor(ExecutorServiceUtils.getCachedThreadPool());
             final AP14GSW14Element[] elements = new AP14GSW14Element[n];
 
             final int s = perm.permute(0);

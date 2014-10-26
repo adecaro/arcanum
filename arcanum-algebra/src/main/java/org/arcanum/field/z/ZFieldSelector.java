@@ -33,4 +33,12 @@ public class ZFieldSelector {
         } else
             return new SymmetricZrField(random, q);
     }
+
+    public Field getSymmetricZrField(SecureRandom random, BigInteger order) {
+        if (order.compareTo(BigInteger.ONE.shiftLeft(30)) <= 0) {
+            return new SymmetricLongZrField(random, order.longValue());
+        } else
+            return new SymmetricZrField(random, order);
+    }
+
 }

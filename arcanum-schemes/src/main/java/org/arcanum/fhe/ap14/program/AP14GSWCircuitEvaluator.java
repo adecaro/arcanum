@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * TODO: finish this
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
 public class AP14GSWCircuitEvaluator extends AbstractProgramEvaluator<BooleanCircuit, Element, Element> {

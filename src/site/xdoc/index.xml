@@ -4,7 +4,7 @@
 <document>
     <properties>
         <title>Java Pairing and Lattice Based Cryptography Library : Introduction</title>
-        <author email="adecaro@users.sourceforge.net">Angelo De Caro</author>
+        <author email="arcanumlib@gmail.com">Angelo De Caro</author>
     </properties>
 
     <body>
@@ -89,25 +89,6 @@
             <a href="./contact.html">contact</a>
             me.
             </p>
-        </section>
-
-        <section name="What is the appropriate way to cite Arcanum in an academic context?">
-            <p>
-                If you use Bibtex for your citations, we recommend that
-                you add the following entry in your bibtex database:
-            </p>
-            <source>@inproceedings{ISCC:DecIov11,
-    author    = {Angelo {De Caro} and Vincenzo Iovino},
-    title     = {aRCANUM: Java pairing based cryptography},
-    year      = {2011},
-    pages     = {850-855},
-    booktitle = {Proceedings of the 16th IEEE Symposium on Computers and Communications, ISCC 2011},
-    address   = {Kerkyra, Corfu, Greece, June 28 - July 1}
-    publisher = {IEEE},
-    url       = {\url{http://gas.dia.unisa.it/projects/arcanum/}},
-}
-            </source>
-
         </section>
 
     </body>

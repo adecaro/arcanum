@@ -5,7 +5,6 @@ import org.arcanum.Matrix;
 import org.arcanum.Sampler;
 import org.arcanum.Vector;
 import org.arcanum.common.cipher.generators.ElementKeyPairGenerator;
-import org.arcanum.common.cipher.params.ElementKeyGenerationParameters;
 import org.arcanum.common.cipher.params.ElementKeyPairParameters;
 import org.arcanum.field.vector.MatrixField;
 import org.arcanum.field.vector.VectorField;
@@ -22,7 +21,7 @@ import static org.arcanum.field.floating.ApfloatUtils.ITWO;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class MP12PLP2KeyPairGenerator implements ElementKeyPairGenerator {
+public class MP12PLP2KeyPairGenerator<E extends MP12PLKeyPairGenerationParameters> implements ElementKeyPairGenerator<E> {
     protected MP12PLKeyPairGenerationParameters params;
 
     protected SecureRandom random;
@@ -40,8 +39,8 @@ public class MP12PLP2KeyPairGenerator implements ElementKeyPairGenerator {
 
     protected ElementKeyPairParameters keyPair;
 
-    public void init(ElementKeyGenerationParameters keyGenerationParameters) {
-        this.params = (MP12PLKeyPairGenerationParameters) keyGenerationParameters;
+    public MP12PLP2KeyPairGenerator<E> init(E keyGenerationParameters) {
+        this.params = keyGenerationParameters;
 
         this.n = params.getParameters().getN();
         this.k = params.getK();
@@ -75,6 +74,8 @@ public class MP12PLP2KeyPairGenerator implements ElementKeyPairGenerator {
                 ),
                 null
         );
+
+        return this;
     }
 
     public ElementKeyPairParameters generateKeyPair() {

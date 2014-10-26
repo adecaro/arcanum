@@ -4,7 +4,6 @@ import org.arcanum.Element;
 import org.arcanum.Field;
 import org.arcanum.Matrix;
 import org.arcanum.Sampler;
-import org.arcanum.common.cipher.params.ElementKeyGenerationParameters;
 import org.arcanum.common.cipher.params.ElementKeyPairParameters;
 import org.arcanum.field.vector.MatrixField;
 import org.arcanum.field.vector.TwoByColumnMatrixElement;
@@ -22,15 +21,15 @@ import java.math.BigInteger;
  *
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class MP12HLP2KeyPairGenerator extends MP12PLP2KeyPairGenerator {
+public class MP12HLP2KeyPairGenerator extends MP12PLP2KeyPairGenerator<MP12HLP2KeyPairGenerationParameters> {
     private MP12HLP2KeyPairGenerationParameters params;
 
     private int barM, w, m, mInBytes;
     private Field inputField, outputField;
     private Sampler<BigInteger> hlZSampler;
 
-    public void init(ElementKeyGenerationParameters keyGenerationParameters) {
-        this.params = (MP12HLP2KeyPairGenerationParameters) keyGenerationParameters;
+    public MP12HLP2KeyPairGenerator init(MP12HLP2KeyPairGenerationParameters keyGenerationParameters) {
+        this.params = keyGenerationParameters;
 
         super.init(params);
 
@@ -46,6 +45,8 @@ public class MP12HLP2KeyPairGenerator extends MP12PLP2KeyPairGenerator {
                 random,
                 MP12P2Utils.getLWENoiseParameter(n, params.getParameters().getRandomizedRoundingParameter())
         );
+
+        return this;
     }
 
     public ElementKeyPairParameters generateKeyPair() {

@@ -6,10 +6,10 @@ import org.arcanum.common.cipher.params.ElementKeyGenerationParameters;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public interface ElementKeyGenerator {
+public interface ElementKeyGenerator<P extends ElementKeyGenerationParameters, K extends ElementCipherParameters> {
 
-    public ElementKeyGenerator init(ElementKeyGenerationParameters keyGenerationParameters);
+    public ElementKeyGenerator<P, K> init(P keyGenerationParameters);
 
-    public ElementCipherParameters generateKey();
+    public K generateKey();
 
 }
