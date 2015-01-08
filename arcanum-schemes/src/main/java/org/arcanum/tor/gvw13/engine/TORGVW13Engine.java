@@ -1,4 +1,4 @@
-package org.arcanum.tor.gvw13.engines;
+package org.arcanum.tor.gvw13.engine;
 
 import org.arcanum.Element;
 import org.arcanum.common.cipher.engine.AbstractElementCipher;
@@ -25,6 +25,11 @@ public class TORGVW13Engine extends AbstractElementCipher {
 
     @Override
     public ElementCipher init(Element key) {
+        return init(new TORGVW13EncryptParameters((TORGVW13PublicKeyParameters) param, key));
+    }
+
+    @Override
+    public ElementCipher init(ElementCipherParameters param, Element key) {
         return init(new TORGVW13EncryptParameters((TORGVW13PublicKeyParameters) param, key));
     }
 

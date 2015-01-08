@@ -1,7 +1,7 @@
 package org.arcanum.fe.abe.gvw13.generators;
 
 import org.arcanum.fe.abe.gvw13.params.GVW13Parameters;
-import org.arcanum.tor.gvw13.engines.TORGVW13Engine;
+import org.arcanum.tor.gvw13.engine.TORGVW13Engine;
 import org.arcanum.tor.gvw13.generators.TORGVW13KeyPairGenerator;
 import org.arcanum.tor.gvw13.generators.TORGVW13RecKeyGenerator;
 import org.arcanum.tor.gvw13.params.TORGVW13KeyPairGenerationParameters;

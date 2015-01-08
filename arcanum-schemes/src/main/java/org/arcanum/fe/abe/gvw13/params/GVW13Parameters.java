@@ -1,5 +1,6 @@
 package org.arcanum.fe.abe.gvw13.params;
 
+import org.arcanum.Element;
 import org.arcanum.Field;
 import org.arcanum.common.cipher.engine.ElementCipher;
 import org.arcanum.common.cipher.generators.ElementKeyGenerator;
@@ -23,16 +24,16 @@ public class GVW13Parameters implements CipherParameters {
     private int ell;
 
     private ElementCipher tor;
-    private ElementKeyPairGenerator torKeyPairGenerater;
-    private ElementKeyGenerator torReKeyPairGenerater;
+    private ElementKeyPairGenerator torKeyPairGenerator;
+    private ElementKeyGenerator torReKeyPairGenerator;
 
     private Field randomnessField;
     private int keyLengthInBytes;
 
 
     public GVW13Parameters(SecureRandom random, int strength, int ell,
-                           ElementKeyPairGenerator torKeyPairGenerater,
-                           ElementKeyGenerator torReKeyPairGenerater,
+                           ElementKeyPairGenerator torKeyPairGenerator,
+                           ElementKeyGenerator torReKeyPairGenerator,
                            ElementCipher tor,
                            Field randomnessField,
                            int keyLengthInBytes) {
@@ -40,8 +41,8 @@ public class GVW13Parameters implements CipherParameters {
         this.strength = strength;
         this.ell = ell;
 
-        this.torKeyPairGenerater = torKeyPairGenerater;
-        this.torReKeyPairGenerater = torReKeyPairGenerater;
+        this.torKeyPairGenerator = torKeyPairGenerator;
+        this.torReKeyPairGenerator = torReKeyPairGenerator;
         this.tor = tor;
         this.randomnessField = randomnessField;
         this.keyLengthInBytes = keyLengthInBytes;
@@ -55,10 +56,11 @@ public class GVW13Parameters implements CipherParameters {
         return ell;
     }
 
-    public ElementKeyGenerationParameters getReKeyPairGenerationParameters(ElementCipherParameters leftTorPK,
-                                                                    ElementCipherParameters leftTorSK,
-                                                                    ElementCipherParameters rightTorPK,
-                                                                    ElementCipherParameters targetTorPK) {
+    public ElementKeyGenerationParameters getReKeyPairGenerationParameters(
+            ElementCipherParameters leftTorPK,
+            ElementCipherParameters leftTorSK,
+            ElementCipherParameters rightTorPK,
+            ElementCipherParameters targetTorPK) {
         return new TORGVW13ReKeyGenerationParameters(
                 random, strength,
                 (TORGVW13PublicKeyParameters) leftTorPK,
@@ -68,20 +70,20 @@ public class GVW13Parameters implements CipherParameters {
         );
     }
 
-    public ElementKeyPairGenerator getTorKeyPairGenerater() {
-        return torKeyPairGenerater;
+    public ElementKeyPairGenerator getTorKeyPairGenerator() {
+        return torKeyPairGenerator;
     }
 
-    public ElementKeyGenerator getTorReKeyPairGenerater() {
-        return torReKeyPairGenerater;
+    public ElementKeyGenerator getTorReKeyPairGenerator() {
+        return torReKeyPairGenerator;
+    }
+
+    public ElementCipher<Element, ElementCipherParameters> getTor() {
+        return tor;
     }
 
     public Field getRandomnessField() {
         return randomnessField;
-    }
-
-    public ElementCipher getTor() {
-        return tor;
     }
 
     public int getKeyLengthInBytes() {

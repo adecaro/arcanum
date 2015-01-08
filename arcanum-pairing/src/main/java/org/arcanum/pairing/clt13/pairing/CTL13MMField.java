@@ -50,6 +50,10 @@ public class CTL13MMField implements Field<CTL13MMElement> {
         }
     }
 
+    public CTL13MMElement newElement(long value) {
+        return newElement((int) value);
+    }
+
     public CTL13MMElement newElement(BigInteger value) {
         if (BigInteger.ZERO.equals(value))
             return newZeroElement();

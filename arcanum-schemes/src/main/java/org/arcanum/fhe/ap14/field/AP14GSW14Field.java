@@ -85,18 +85,6 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
         throw new IllegalStateException("Not implemented yet!!!");
     }
 
-    public BigInteger getOrder() {
-        return null;
-    }
-
-    public AP14GSW14Element getNqr() {
-        return null;
-    }
-
-    public int getLengthInBytes() {
-        return 0;
-    }
-
     public AP14GSW14Element newElement(int value) {
         return new AP14GSW14Element(this, encrypt(value));
     }

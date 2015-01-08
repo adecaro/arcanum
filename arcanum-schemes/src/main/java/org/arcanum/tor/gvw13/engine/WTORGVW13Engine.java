@@ -1,4 +1,4 @@
-package org.arcanum.tor.gvw13.engines;
+package org.arcanum.tor.gvw13.engine;
 
 import org.arcanum.Element;
 import org.arcanum.common.cipher.engine.AbstractElementCipher;

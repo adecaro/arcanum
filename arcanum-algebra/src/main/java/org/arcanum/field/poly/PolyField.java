@@ -3,7 +3,6 @@ package org.arcanum.field.poly;
 import org.arcanum.Field;
 import org.arcanum.field.base.AbstractFieldOver;
 
-import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.List;
 
@@ -26,21 +25,8 @@ public class PolyField<F extends Field> extends AbstractFieldOver<F, PolyElement
         return new PolyElement(this);
     }
 
-    @Override
     public PolyElement newElement(Object value) {
         return new PolyElement(this, (List) value);
-    }
-
-    public BigInteger getOrder() {
-        throw new IllegalStateException("Not Implemented yet!");
-    }
-
-    public PolyElement getNqr() {
-        throw new IllegalStateException("Not Implemented yet!");
-    }
-
-    public int getLengthInBytes() {
-        throw new IllegalStateException("Not Implemented yet!");
     }
 
 }

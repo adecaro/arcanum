@@ -17,6 +17,11 @@ public class AbstractElementCipher<E extends Element, P extends ElementCipherPar
         throw new IllegalStateException("Not implemented yet!!!");
     }
 
+    public ElementCipher init(P param, E key) {
+        throw new IllegalStateException("Not implemented yet!!!");
+    }
+
+
     public E processBytes(byte[] buffer) {
         throw new IllegalStateException("Not implemented yet!!!");
     }

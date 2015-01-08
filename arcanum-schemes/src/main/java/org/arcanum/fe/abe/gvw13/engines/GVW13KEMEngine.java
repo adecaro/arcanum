@@ -2,6 +2,7 @@ package org.arcanum.fe.abe.gvw13.engines;
 
 import org.arcanum.Element;
 import org.arcanum.common.cipher.engine.ElementCipher;
+import org.arcanum.common.cipher.params.ElementCipherParameters;
 import org.arcanum.common.fe.params.EncryptionParameters;
 import org.arcanum.common.io.ElementStreamReader;
 import org.arcanum.common.io.ElementStreamWriter;
@@ -42,6 +43,7 @@ public class GVW13KEMEngine extends AbstractKeyEncapsulationMechanism {
         if (key instanceof GVW13SecretKeyParameters) {
             // Decrypt
             GVW13SecretKeyParameters sk = (GVW13SecretKeyParameters) key;
+            ElementCipher<Element, ElementCipherParameters> tor = sk.getParameters().getTor();
 
             // Load the ciphertext
             ElementStreamReader reader = new ElementStreamReader(in, inOff);
@@ -72,8 +74,13 @@ public class GVW13KEMEngine extends AbstractKeyEncapsulationMechanism {
                         gate.evaluate();
 
                         // Init TOR for recoding
-                        ElementCipher tor = sk.getParameters().getTor();
-                        tor.init(sk.getCipherParametersAt(index, gate.getInputAt(0).get() ? 1 : 0, gate.getInputAt(1).get() ? 1 : 0));
+                        tor.init(
+                                sk.getCipherParametersAt(
+                                        index,
+                                        gate.getInputAt(0).get() ? 1 : 0,
+                                        gate.getInputAt(1).get() ? 1 : 0
+                                )
+                        );
 
                         evaluations.put(
                                 index,
@@ -87,18 +94,16 @@ public class GVW13KEMEngine extends AbstractKeyEncapsulationMechanism {
                 }
             }
 
-            Element key = evaluations.get(circuit.getOutputGate().getIndex());
-
-            ElementCipher tor = sk.getParameters().getTor();
-            tor.init(sk.getCipherParametersOut());
-            tor.init(key);
-
-            return tor.processElementsToBytes(e);
+            return tor.init(
+                    sk.getCipherParametersOut(),
+                    evaluations.get(circuit.getOutputGate().getIndex())
+            ).processElementsToBytes(e);
         } else {
+            // Encrypt
             EncryptionParameters<GVW13PublicKeyParameters, Boolean> encKey = (EncryptionParameters<GVW13PublicKeyParameters, Boolean>) key;
             GVW13PublicKeyParameters publicKey = encKey.getMpk();
 
-            ElementCipher tor = publicKey.getParameters().getTor();
+            ElementCipher<Element, ElementCipherParameters> tor = publicKey.getParameters().getTor();
             Assignment<Boolean> assignment = encKey.getAssignment();
 
             ElementStreamWriter writer = new ElementStreamWriter(getOutputBlockSize());
@@ -111,22 +116,14 @@ public class GVW13KEMEngine extends AbstractKeyEncapsulationMechanism {
                 writer.write(bytes);
 
                 // encrypt bytes
-                tor.init(publicKey.getCipherParametersOut());
-                Element key = tor.processElements(s);
+                Element key = tor.init(publicKey.getCipherParametersOut()).processElements(s);
+                Element e = tor.init(key).processBytes(bytes);
 
-                tor.init(key);
-                Element e = tor.processBytes(bytes);
-
+                // write out
                 writer.write(assignment.toString());
                 writer.write(e);
-                for (int i = 0, n = assignment.getLength(); i < n; i++) {
-                    // init for encoding
-                    tor.init(publicKey.getCipherParametersAt(i, assignment.getAt(i)));
-
-                    // encode
-                    e = tor.processElements(s);
-                    writer.write(e);
-                }
+                for (int i = 0, n = assignment.getLength(); i < n; i++)
+                    writer.write(tor.init(publicKey.getCipherParametersAt(i, assignment.getAt(i))).processElements(s));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

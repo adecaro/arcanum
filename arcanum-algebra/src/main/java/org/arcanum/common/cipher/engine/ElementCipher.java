@@ -10,9 +10,11 @@ import org.arcanum.common.cipher.params.ElementCipherParameters;
 public interface ElementCipher<E extends Element, P extends ElementCipherParameters> {
 
 
-    public ElementCipher init(P param);
+    public ElementCipher<E, P> init(P param);
 
-    public ElementCipher init(E key);
+    public ElementCipher<E, P> init(E key);
+
+    public ElementCipher<E, P> init(P param, E key);
 
 
     public E processBytes(byte[] buffer);

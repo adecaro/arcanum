@@ -50,27 +50,6 @@ public class PolyModField<F extends Field> extends AbstractFieldOver<F, PolyModE
         init(nqr);
     }
 
-    
-    protected void init(BigInteger nqr) {
-        this.n = irreduciblePoly.getDegree();
-
-        this.order = targetField.getOrder().pow(irreduciblePoly.getDegree());
-        if (nqr != null) {
-            this.nqr = newElement();
-            this.nqr.getAt(0).set(nqr);
-        }
-
-//        if (order.compareTo(BigInteger.ZERO) != 0)
-            computeXPowers();
-
-        if (targetField.getLengthInBytes() < 0) {
-            //f->length_in_bytes = fq_length_in_bytes;
-            fixedLengthInBytes = -1;
-        } else {
-            fixedLengthInBytes = targetField.getLengthInBytes() * n;
-        }
-    } 
-    
 
     public PolyModElement newElement() {
         return new PolyModElement(this);
@@ -93,10 +72,31 @@ public class PolyModField<F extends Field> extends AbstractFieldOver<F, PolyModE
     }
 
 
-    /**
-     * compute x^n,...,x^{2n-2} mod poly
-     */
+    protected void init(BigInteger nqr) {
+        this.n = irreduciblePoly.getDegree();
+
+        this.order = targetField.getOrder().pow(irreduciblePoly.getDegree());
+        if (nqr != null) {
+            this.nqr = newElement();
+            this.nqr.getAt(0).set(nqr);
+        }
+
+        if (this.n <= 6) {
+            computeXPowers();
+
+            if (targetField.getLengthInBytes() < 0) {
+                //f->length_in_bytes = fq_length_in_bytes;
+                fixedLengthInBytes = -1;
+            } else {
+                fixedLengthInBytes = targetField.getLengthInBytes() * n;
+            }
+        }
+
+        throw new IllegalStateException("Polynomial degree not supported");
+    }
+
     protected void computeXPowers() {
+        // compute x^n,...,x^{2n-2} mod poly
         xpwr = new PolyModElement[n];
 
         for (int i = 0; i < n; i++) {

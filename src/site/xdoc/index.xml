@@ -55,29 +55,12 @@
             <ul>
                 <li>
                     <p>
-                        A <span class="em">Port</span> of the
-                        <a href="http://crypto.stanford.edu/pbc/">Pairing-Based Cryptography Library (PBC)</a>,
-                        library developed by <a href="http://crypto.stanford.edu/~blynn/">Ben Lynn</a>,
-                        to performs the mathematical operations underlying pairing-based cryptosystems
-                        directly in Java.
+                        <span class="em">Linear</span> and <span class="em">Multi-Linear Maps</span>.
                     </p>
                 </li>
                 <li>
                     <p>
-                        A <span class="em">Wrapper</span>
-                        that enables the delegation of the pairing computation to the
-                        <a href="http://crypto.stanford.edu/pbc/">PBC</a> library
-                        to gain in performance.
-                    </p>
-                </li>
-                <li>
-                    <p>
-                        An implementation of <span class="em">Multilinear Maps</span>
-                        based on the paper
-                        <a href="http://eprint.iacr.org/2013/183.pdf"><span class="em">Practical Multilinear Maps over the Integers</span></a>
-                        by <span class="em">Coron, Lepoint, and Tibouchi</span>.
-                        The implementation supports multithreading and uses memory mapped files
-                        to save in primary memory requirements.
+                        <span class="em">Lattice-Based Cryptographic Tools</span>.
                     </p>
                 </li>
             </ul>

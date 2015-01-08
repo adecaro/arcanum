@@ -27,19 +27,20 @@ public class GVW13SecretKeyGenerator extends SecretKeyGenerator<GVW13PublicKeyPa
         int qMinus1 = q - 1;
 
         // Generate key pairs
-        ElementKeyPairGenerator tor = publicKey.getParameters().getTorKeyPairGenerater();
-        ElementKeyGenerator reKeyGen = publicKey.getParameters().getTorReKeyPairGenerater();
+        ElementKeyPairGenerator torKeyPairGen = publicKey.getParameters().getTorKeyPairGenerator();
+        ElementKeyGenerator torReKeyPairGen = publicKey.getParameters().getTorReKeyPairGenerator();
 
         ElementCipherParameters[] publicKeys = new ElementCipherParameters[q * 2];
         ElementCipherParameters[] secretKeys = new ElementCipherParameters[q * 2];
 
         for (int i = 0, size = 2 * qMinus1; i < size; i++) {
-            ElementKeyPairParameters keyPair = tor.generateKeyPair();
+            ElementKeyPairParameters keyPair = torKeyPairGen.generateKeyPair();
+
             publicKeys[i] = keyPair.getPublic();
             secretKeys[i] = keyPair.getPrivate();
         }
 
-        ElementKeyPairParameters keyPair = tor.generateKeyPair();
+        ElementKeyPairParameters keyPair = torKeyPairGen.generateKeyPair();
         publicKeys[2 * qMinus1] = keyPair.getPublic();
         publicKeys[2 * qMinus1 + 1] = publicKey.getCipherParametersOut();
 
@@ -79,10 +80,11 @@ public class GVW13SecretKeyGenerator extends SecretKeyGenerator<GVW13PublicKeyPa
                                 : publicKeys[2 * (index - n) + target];
 
 
-                        recKeys[i] = reKeyGen.init(
-                                secretKey.getParameters().getReKeyPairGenerationParameters(leftTorPK, leftTorSK, rightTorPK, targetTorPK)
+                        recKeys[i] = torReKeyPairGen.init(
+                                secretKey.getParameters().getReKeyPairGenerationParameters(
+                                        leftTorPK, leftTorSK, rightTorPK, targetTorPK
+                                )
                         ).generateKey();
-
 
                         if (b1 == 0)
                             b1++;
@@ -119,8 +121,10 @@ public class GVW13SecretKeyGenerator extends SecretKeyGenerator<GVW13PublicKeyPa
                                 : publicKeys[2 * (index - n) + target];
 
 
-                        recKeys[i] = reKeyGen.init(
-                                secretKey.getParameters().getReKeyPairGenerationParameters(leftTorPK, leftTorSK, rightTorPK, targetTorPK)
+                        recKeys[i] = torReKeyPairGen.init(
+                                secretKey.getParameters().getReKeyPairGenerationParameters(
+                                        leftTorPK, leftTorSK, rightTorPK, targetTorPK
+                                )
                         ).generateKey();
 
 

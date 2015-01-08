@@ -24,6 +24,7 @@ public abstract class AbstractArcanumTest {
     @Parameterized.Parameters
     public static Collection parameters() {
         Object[][] data = {
+                {false, "org/arcanum/pairing/a/a.properties"},
                 {false, "org/arcanum/pairing/a/a_181_603.properties"},
                 {false, "org/arcanum/pairing/a1/a1_3primes.properties"},
                 {false, "org/arcanum/pairing/d/d_9563.properties"},
@@ -58,6 +59,10 @@ public abstract class AbstractArcanumTest {
 
         PairingFactory.getInstance().setUsePBCWhenPossible(usePBC);
         pairing = PairingFactory.getPairing(curvePath);
+
+        System.out.println("g size" + pairing.getG1().getLengthInBytes());
+        System.out.println("gt size" + pairing.getGT().getLengthInBytes());
+
 
         assumeTrue(pairing != null);
     }

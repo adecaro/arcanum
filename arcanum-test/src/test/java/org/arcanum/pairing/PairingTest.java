@@ -4,6 +4,8 @@ import org.arcanum.AbstractArcanumTest;
 import org.arcanum.Element;
 import org.junit.Test;
 
+import java.math.BigInteger;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -14,6 +16,23 @@ public class PairingTest extends AbstractArcanumTest {
 
     public PairingTest(boolean usePBC, String curvePath) {
         super(usePBC, curvePath);
+    }
+
+    @Test
+    public void testExp() {
+        for (int i = 0; i< 100;i++) {
+            Element g = pairing.getG1().newElement().setToRandom();
+            Element h = pairing.getG1().newElement().setToRandom();
+            BigInteger b= pairing.getZr().newRandomElement().toBigInteger();
+
+            long start = System.currentTimeMillis();
+            g.pow(b);
+            long end = System.currentTimeMillis();
+            System.out.println("(elapsed) = " + (end - start));
+        }
+
+
+
     }
 
     @Test

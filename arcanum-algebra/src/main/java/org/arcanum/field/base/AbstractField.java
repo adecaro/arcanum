@@ -29,6 +29,13 @@ public abstract class AbstractField<E extends Element> implements Field<E> {
         return e;
     }
 
+    public E newElement(long value) {
+        E e = newElement();
+        e.set(value);
+
+        return e;
+    }
+
     public E newElement(BigInteger value) {
         E e = newElement();
         e.set(value);
@@ -136,9 +143,21 @@ public abstract class AbstractField<E extends Element> implements Field<E> {
         return new AbstractElementPowPreProcessing(this, AbstractElementPowPreProcessing.DEFAULT_K, source, offset);
     }
 
+    public BigInteger getOrder() {
+        throw new IllegalStateException("Not Implemented yet!");
+    }
+
+    public E getNqr() {
+        throw new IllegalStateException("Not Implemented yet!");
+    }
+
+    public int getLengthInBytes() {
+        throw new IllegalStateException("Not Implemented yet!");
+    }
+
+
     public SecureRandom getRandom() {
         return random;
     }
-
 
 }

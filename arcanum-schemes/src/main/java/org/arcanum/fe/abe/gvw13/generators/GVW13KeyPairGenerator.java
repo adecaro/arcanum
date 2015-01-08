@@ -17,19 +17,19 @@ public class GVW13KeyPairGenerator extends KeyPairGenerator<GVW13Parameters> {
     public AsymmetricCipherKeyPair generateKeyPair() {
         GVW13Parameters parameters = params.getParameters();
 
-        ElementKeyPairGenerator tor = parameters.getTorKeyPairGenerater();
+        ElementKeyPairGenerator torKeyPairGenerater = parameters.getTorKeyPairGenerator();
         int ell = parameters.getEll();
 
         ElementCipherParameters[] publicKeys = new ElementCipherParameters[ell * 2 + 1];
         ElementCipherParameters[] secretKeys = new ElementCipherParameters[ell * 2 + 1];
 
         for (int i = 0, size = 2 * ell; i < size; i++) {
-            ElementKeyPairParameters keyPair = tor.generateKeyPair();
+            ElementKeyPairParameters keyPair = torKeyPairGenerater.generateKeyPair();
             publicKeys[i] = keyPair.getPublic();
             secretKeys[i] = keyPair.getPrivate();
         }
 
-        ElementKeyPairParameters keyPair = tor.generateKeyPair();
+        ElementKeyPairParameters keyPair = torKeyPairGenerater.generateKeyPair();
         publicKeys[2 * ell] = keyPair.getPublic();
         secretKeys[2 * ell] = keyPair.getPrivate();
 

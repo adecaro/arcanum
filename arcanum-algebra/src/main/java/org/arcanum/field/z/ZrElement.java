@@ -55,6 +55,12 @@ public class ZrElement<F extends ZrField> extends AbstractBigIntegerZElement<F> 
         return this;
     }
 
+    public ZrElement set(long value) {
+        this.value = BigInteger.valueOf(value).mod(field.order);
+
+        return this;
+    }
+
     public ZrElement set(BigInteger value) {
         this.value = value.mod(field.order);
 
