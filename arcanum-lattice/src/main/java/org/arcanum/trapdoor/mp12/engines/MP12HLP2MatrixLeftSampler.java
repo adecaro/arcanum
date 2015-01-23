@@ -3,31 +3,40 @@ package org.arcanum.trapdoor.mp12.engines;
 import org.arcanum.Element;
 import org.arcanum.Field;
 import org.arcanum.Matrix;
+import org.arcanum.common.cipher.engine.AbstractElementCipher;
 import org.arcanum.common.concurrent.ExecutorServiceUtils;
 import org.arcanum.common.concurrent.PoolExecutor;
 import org.arcanum.field.vector.MatrixField;
+import org.arcanum.trapdoor.mp12.params.MP12HLP2SampleLeftParameters;
 
 import java.util.concurrent.ExecutorService;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class MP12HLP2MatrixLeftSampler extends MP12HLP2LeftSampler {
+public class MP12HLP2MatrixLeftSampler extends AbstractElementCipher<Element, Matrix, MP12HLP2SampleLeftParameters> {
 
     protected static final ExecutorService EXECUTOR_SERVICE = ExecutorServiceUtils.getNewFixedThreadPool();
 
 
     protected MatrixField outputField;
+    protected MP12HLP2LeftSampler sampler;
 
-    public MP12HLP2MatrixLeftSampler(MatrixField outputField) {
-        this.outputField = outputField;
-    }
 
     public MP12HLP2MatrixLeftSampler() {
+        this.sampler = new MP12HLP2LeftSampler();
+    }
+
+
+    @Override
+    public MP12HLP2MatrixLeftSampler init(MP12HLP2SampleLeftParameters param) {
+        this.sampler.init(param);
+
+        return this;
     }
 
     @Override
-    public Element processElements(Element... input) {
+    public Matrix processElements(Element... input) {
         final Matrix M = (Matrix) input[0];
         final Matrix U = (Matrix) input[1];
 
@@ -36,9 +45,9 @@ public class MP12HLP2MatrixLeftSampler extends MP12HLP2LeftSampler {
             result = outputField.newElement();
         } else {
             result = new MatrixField<Field>(
-                        pk.getParameters().getRandom(),
-                        pk.getZq(),
-                        pk.getM() + M.getM(), U.getM()
+                    sampler.sampler.pk.getParameters().getRandom(),
+                    sampler.sampler.pk.getPrimitiveLatticPk().getZq(),
+                    sampler.sampler.pk.getM() + M.getM(), U.getM()
             ).newElement();
         }
 
@@ -47,7 +56,7 @@ public class MP12HLP2MatrixLeftSampler extends MP12HLP2LeftSampler {
             final int finalI = i;
             pool.submit(new Runnable() {
                 public void run() {
-                    result.setColAt(finalI, MP12HLP2MatrixLeftSampler.super.processElements(M, U.getColumnAt(finalI)));
+                    result.setColAt(finalI, sampler.processElements(M, U.getColumnAt(finalI)));
                 }
             });
         }

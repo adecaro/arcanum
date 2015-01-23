@@ -26,7 +26,7 @@ public class DiagonalMatrixElement<E extends Element> extends AbstractMatrixElem
     }
 
     @Override
-    public Element duplicate() {
+    public DiagonalMatrixElement<E> duplicate() {
         return new DiagonalMatrixElement<E>(field, (Vector) base.duplicate());
     }
 

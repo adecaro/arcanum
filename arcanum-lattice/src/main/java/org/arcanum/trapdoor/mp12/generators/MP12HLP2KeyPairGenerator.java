@@ -12,6 +12,7 @@ import org.arcanum.sampler.SamplerFactory;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2KeyPairGenerationParameters;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2PrivateKeyParameters;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2PublicKeyParameters;
+import org.arcanum.trapdoor.mp12.params.MP12PLP2PublicKeyParameters;
 import org.arcanum.trapdoor.mp12.utils.MP12P2Utils;
 
 import java.math.BigInteger;
@@ -77,9 +78,8 @@ public class MP12HLP2KeyPairGenerator extends MP12PLP2KeyPairGenerator<MP12HLP2K
         return new ElementKeyPairParameters(
                 new MP12HLP2PublicKeyParameters(
                         params.getParameters(),
-                        k, m,
-                        g, G, syndromeField, Zq, preimageField,
-                        A
+                        (MP12PLP2PublicKeyParameters) keyPair.getPublic(),
+                        A, m
                 ),
                 new MP12HLP2PrivateKeyParameters(params.getParameters(), R)
         );

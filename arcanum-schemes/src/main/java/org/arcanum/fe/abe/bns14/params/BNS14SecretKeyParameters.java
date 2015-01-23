@@ -13,6 +13,7 @@ public class BNS14SecretKeyParameters extends KeyParameters<BNS14Parameters> {
     private ArithmeticCircuit circuit;
     private Element skC;
 
+
     public BNS14SecretKeyParameters(BNS14PublicKeyParameters publicKey,
                                     ArithmeticCircuit circuit,
                                     Element skC) {
@@ -22,6 +23,7 @@ public class BNS14SecretKeyParameters extends KeyParameters<BNS14Parameters> {
         this.circuit = circuit;
         this.skC = skC;
     }
+
 
     public BNS14PublicKeyParameters getPublicKey() {
         return publicKey;
@@ -35,7 +37,4 @@ public class BNS14SecretKeyParameters extends KeyParameters<BNS14Parameters> {
         return skC;
     }
 
-    public Element getRAt(int index, int i) {
-        return null;
-    }
 }

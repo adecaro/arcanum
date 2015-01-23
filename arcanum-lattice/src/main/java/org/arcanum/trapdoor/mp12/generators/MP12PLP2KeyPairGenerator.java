@@ -10,8 +10,8 @@ import org.arcanum.field.vector.MatrixField;
 import org.arcanum.field.vector.VectorField;
 import org.arcanum.field.z.ZFieldSelector;
 import org.arcanum.sampler.SamplerFactory;
-import org.arcanum.trapdoor.mp12.params.MP12PLKeyPairGenerationParameters;
-import org.arcanum.trapdoor.mp12.params.MP12PLPublicKeyParameters;
+import org.arcanum.trapdoor.mp12.params.MP12PLP2KeyPairGenerationParameters;
+import org.arcanum.trapdoor.mp12.params.MP12PLP2PublicKeyParameters;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -21,8 +21,8 @@ import static org.arcanum.field.floating.ApfloatUtils.ITWO;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class MP12PLP2KeyPairGenerator<E extends MP12PLKeyPairGenerationParameters> implements ElementKeyPairGenerator<E> {
-    protected MP12PLKeyPairGenerationParameters params;
+public class MP12PLP2KeyPairGenerator<E extends MP12PLP2KeyPairGenerationParameters> implements ElementKeyPairGenerator<E> {
+    protected MP12PLP2KeyPairGenerationParameters params;
 
     protected SecureRandom random;
     protected int n, k;
@@ -68,7 +68,7 @@ public class MP12PLP2KeyPairGenerator<E extends MP12PLKeyPairGenerationParameter
         this.G = new MatrixField<Field>(random, Zq, n, m).newElementIdentity(g);
 
         this.keyPair = new ElementKeyPairParameters(
-                new MP12PLPublicKeyParameters(
+                new MP12PLP2PublicKeyParameters(
                         params.getParameters(), k,
                         g, G, syndromeField, Zq, preimageField
                 ),

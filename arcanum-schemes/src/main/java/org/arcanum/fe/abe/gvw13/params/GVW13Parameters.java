@@ -78,7 +78,7 @@ public class GVW13Parameters implements CipherParameters {
         return torReKeyPairGenerator;
     }
 
-    public ElementCipher<Element, ElementCipherParameters> getTor() {
+    public ElementCipher<Element, Element, ElementCipherParameters> getTor() {
         return tor;
     }
 

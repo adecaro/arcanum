@@ -8,7 +8,7 @@ import org.arcanum.common.cipher.params.ElementKeyPairParameters;
 import org.arcanum.tor.gvw13.params.TORGVW13KeyPairGenerationParameters;
 import org.arcanum.tor.gvw13.params.TORGVW13PublicKeyParameters;
 import org.arcanum.tor.gvw13.params.TORGVW13SecretKeyParameters;
-import org.arcanum.trapdoor.mp12.engines.MP12HLP2ErrorTolerantOneTimePad;
+import org.arcanum.trapdoor.mp12.engines.MP12ErrorTolerantOneTimePad;
 import org.arcanum.trapdoor.mp12.engines.MP12HLP2OneWayFunction;
 import org.arcanum.trapdoor.mp12.generators.MP12HLP2KeyPairGenerator;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2KeyPairGenerationParameters;
@@ -24,7 +24,7 @@ public class TORGVW13KeyPairGenerator implements ElementKeyPairGenerator<TORGVW1
     private MP12HLP2KeyPairGenerator gen;
 
 
-    public ElementKeyPairGenerator<TORGVW13KeyPairGenerationParameters> init(TORGVW13KeyPairGenerationParameters keyGenerationParameters) {
+    public TORGVW13KeyPairGenerator init(TORGVW13KeyPairGenerationParameters keyGenerationParameters) {
         this.params = keyGenerationParameters;
 
         // Init Lattice generator
@@ -50,7 +50,7 @@ public class TORGVW13KeyPairGenerator implements ElementKeyPairGenerator<TORGVW1
         owf.init(owfParams);
 
         // error-tolerant version of the one-time pad
-        ElementCipher otp = new MP12HLP2ErrorTolerantOneTimePad();
+        ElementCipher otp = new MP12ErrorTolerantOneTimePad();
 
         return new ElementKeyPairParameters(
                 new TORGVW13PublicKeyParameters(

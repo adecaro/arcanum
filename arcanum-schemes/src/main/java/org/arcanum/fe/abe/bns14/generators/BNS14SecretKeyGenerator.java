@@ -1,15 +1,13 @@
 package org.arcanum.fe.abe.bns14.generators;
 
 import org.arcanum.Element;
+import org.arcanum.common.cipher.engine.ElementCipher;
 import org.arcanum.common.fe.generator.SecretKeyGenerator;
 import org.arcanum.fe.abe.bns14.params.BNS14MasterSecretKeyParameters;
 import org.arcanum.fe.abe.bns14.params.BNS14PublicKeyParameters;
 import org.arcanum.fe.abe.bns14.params.BNS14SecretKeyParameters;
 import org.arcanum.program.circuit.ArithmeticCircuit;
 import org.arcanum.program.circuit.ArithmeticGate;
-import org.arcanum.trapdoor.mp12.engines.MP12HLP2MatrixLeftSampler;
-import org.arcanum.trapdoor.mp12.engines.MP12PLP2MatrixSolver;
-import org.arcanum.trapdoor.mp12.params.MP12HLP2SampleLeftParameters;
 import org.bouncycastle.crypto.CipherParameters;
 
 import java.util.HashMap;
@@ -24,8 +22,7 @@ public class BNS14SecretKeyGenerator extends SecretKeyGenerator<BNS14PublicKeyPa
         // encode the circuit
         Map<Integer, Element> keys = new HashMap<Integer, Element>();
 
-        MP12PLP2MatrixSolver solver = new MP12PLP2MatrixSolver();
-        solver.init(publicKey.getPrimitiveLatticePk());
+        ElementCipher solver = publicKey.getParameters().getFactory().newPrimitiveMatrixSolver();
 
         for (ArithmeticGate gate : circuit) {
             int index = gate.getIndex();
@@ -74,16 +71,7 @@ public class BNS14SecretKeyGenerator extends SecretKeyGenerator<BNS14PublicKeyPa
         circuit.getOutputGate().putAt(-1, keys.get(circuit.getOutputGate().getIndex()));
 
         // SampleLeft
-
-        MP12HLP2MatrixLeftSampler sampler = new MP12HLP2MatrixLeftSampler();
-        sampler.init(new MP12HLP2SampleLeftParameters(
-                        publicKey.getLatticePk(),
-                        secretKey.getLatticeSk(),
-                        publicKey.getLatticePk().getM()
-                )
-        );
-
-        Element skC = sampler.processElements(
+        Element skC = publicKey.getParameters().getFactory().createMatrixLeftSampler(secretKey.getLatticeSk()).processElements(
                 keys.get(circuit.getOutputGate().getIndex()),
                 publicKey.getD()
         );

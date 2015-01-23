@@ -15,6 +15,8 @@ import java.math.BigInteger;
 public interface Vector<E extends Element> extends Element {
 
 
+    Vector duplicate();
+
     Field getTargetField();
 
     /**
@@ -26,7 +28,6 @@ public interface Vector<E extends Element> extends Element {
     int getSize();
 
     boolean isZeroAt(int index);
-
 
     /**
      * Returns the element at the specified coordinate.

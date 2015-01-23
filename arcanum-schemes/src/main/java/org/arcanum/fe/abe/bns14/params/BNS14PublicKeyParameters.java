@@ -3,49 +3,41 @@ package org.arcanum.fe.abe.bns14.params;
 import org.arcanum.Element;
 import org.arcanum.Field;
 import org.arcanum.common.fe.params.KeyParameters;
-import org.arcanum.field.vector.MatrixField;
 import org.arcanum.field.vector.VectorField;
-import org.arcanum.trapdoor.mp12.params.MP12HLP2PublicKeyParameters;
+import org.arcanum.trapdoor.mp12.params.MP12HLPublicKeyParameters;
 import org.arcanum.trapdoor.mp12.params.MP12PLPublicKeyParameters;
+import org.arcanum.trapdoor.mp12.utils.MP12EngineFactory;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
 public class BNS14PublicKeyParameters extends KeyParameters<BNS14Parameters> {
 
-    private MP12HLP2PublicKeyParameters latticePk;
-    private MP12PLPublicKeyParameters primitiveLatticePk;
+    private MP12EngineFactory factory;
+
     private Element D;
     private Element[] Bs;
-    private VectorField secretField, randomnessField;
-    private MatrixField oneMinusOneField;
-    private int keyLengthInBytes;
-    private Element G;
 
 
     public BNS14PublicKeyParameters(BNS14Parameters parameters,
-                                    MP12HLP2PublicKeyParameters latticePk,
-                                    MP12PLPublicKeyParameters primitiveLatticePk,
                                     Element D, Element[] Bs) {
         super(false, parameters);
 
-        this.latticePk = latticePk;
-        this.primitiveLatticePk = primitiveLatticePk;
+        this.factory = parameters.getFactory();
+
         this.D = D;
         this.Bs = Bs;
-
-        this.secretField = new VectorField<Field>(latticePk.getParameters().getRandom(), latticePk.getZq(), latticePk.getParameters().getN());
-        this.randomnessField = new VectorField<Field>(latticePk.getParameters().getRandom(), latticePk.getZq(), latticePk.getM());
-        this.oneMinusOneField = new MatrixField<Field>(latticePk.getParameters().getRandom(), latticePk.getZq(), latticePk.getM());
     }
 
-    public MP12HLP2PublicKeyParameters getLatticePk() {
-        return latticePk;
+
+    public MP12HLPublicKeyParameters getLatticePk() {
+        return factory.getLatticePk();
     }
 
     public MP12PLPublicKeyParameters getPrimitiveLatticePk() {
-        return primitiveLatticePk;
+        return factory.getPrimitiveLatticePk();
     }
+
 
     public Element getD() {
         return D;
@@ -55,27 +47,31 @@ public class BNS14PublicKeyParameters extends KeyParameters<BNS14Parameters> {
         return Bs[index];
     }
 
+    public MP12EngineFactory getFactory() {
+        return factory;
+    }
+
+
     public Field getSecretField() {
-        return secretField;
+        return factory.getSecretField();
     }
 
     public VectorField getRandomnessField() {
-        return randomnessField;
+        return factory.getRandomnessField();
     }
 
     public Element sampleError() {
-        return randomnessField.newElementFromSampler(
+        return factory.getRandomnessField().newElementFromSampler(
                 getParameters().getChi()
         );
 //        return randomnessField.newZeroElement();
     }
 
     public Element sampleUniformOneMinusOneMarix() {
-        return oneMinusOneField.newElementFromSampler(getParameters().getUniformOneMinusOne());
+        return factory.getOneMinusOneField().newElementFromSampler(getParameters().getUniformOneMinusOne());
     }
 
     public int getKeyLengthInBytes() {
-        return latticePk.getmInBytes();
+        return factory.getKeyLengthInBytes();
     }
-
 }

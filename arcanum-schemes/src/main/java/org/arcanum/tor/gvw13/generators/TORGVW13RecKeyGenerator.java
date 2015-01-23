@@ -3,6 +3,7 @@ package org.arcanum.tor.gvw13.generators;
 import org.arcanum.Element;
 import org.arcanum.Field;
 import org.arcanum.Matrix;
+import org.arcanum.common.cipher.engine.ElementCipher;
 import org.arcanum.common.cipher.generators.ElementKeyGenerator;
 import org.arcanum.common.cipher.params.ElementCipherParameters;
 import org.arcanum.common.cipher.params.ElementKeyGenerationParameters;
@@ -11,7 +12,6 @@ import org.arcanum.field.vector.TwoByRowMatrixElement;
 import org.arcanum.tor.gvw13.params.TORGVW13ReKeyGenerationParameters;
 import org.arcanum.tor.gvw13.params.TORGVW13RecodeParameters;
 import org.arcanum.trapdoor.mp12.engines.MP12HLP2MatrixSampler;
-import org.arcanum.trapdoor.mp12.engines.MP12HLP2Sampler;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2PublicKeyParameters;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2SampleParameters;
 import org.arcanum.trapdoor.mp12.utils.MP12P2Utils;
@@ -34,7 +34,7 @@ public class TORGVW13RecKeyGenerator implements ElementKeyGenerator {
 
         MatrixField<Field> RField = new MatrixField<Field>(
                 latticePk.getParameters().getRandom(),
-                latticePk.getZq(),
+                latticePk.getPrimitiveLatticPk().getZq(),
                 latticePk.getM()
         );
 
@@ -55,7 +55,7 @@ public class TORGVW13RecKeyGenerator implements ElementKeyGenerator {
             );
 
             // Sample R0
-            MP12HLP2Sampler sampleD = new MP12HLP2MatrixSampler(RField);
+            ElementCipher sampleD = new MP12HLP2MatrixSampler(RField);
             sampleD.init(new MP12HLP2SampleParameters(params.getLeftPk().getPublicKeyParameters(), params.getSk().getPrivateKeyParameter()));
             R0 = (Matrix) sampleD.processElements(U);
         } else {
@@ -72,7 +72,7 @@ public class TORGVW13RecKeyGenerator implements ElementKeyGenerator {
             );
 
             // Sample R1
-            MP12HLP2Sampler sampleD = new MP12HLP2MatrixSampler(RField);
+            ElementCipher sampleD = new MP12HLP2MatrixSampler(RField);
             sampleD.init(new MP12HLP2SampleParameters(params.getLeftPk().getPublicKeyParameters(), params.getSk().getPrivateKeyParameter()));
             R1 = (Matrix) sampleD.processElements(U);
         }

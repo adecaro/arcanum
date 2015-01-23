@@ -8,7 +8,7 @@ import org.arcanum.fhe.ap14.bootstrap.params.AP14BootstrapKeyParameters;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class AP14BootstrapEngine extends AbstractElementCipher<Element, AP14BootstrapKeyParameters> {
+public class AP14BootstrapEngine extends AbstractElementCipher<Element, Element, AP14BootstrapKeyParameters> {
 
     protected AP14BootstrapKeyParameters keyParameters;
 

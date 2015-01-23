@@ -43,7 +43,7 @@ public class GVW13KEMEngine extends AbstractKeyEncapsulationMechanism {
         if (key instanceof GVW13SecretKeyParameters) {
             // Decrypt
             GVW13SecretKeyParameters sk = (GVW13SecretKeyParameters) key;
-            ElementCipher<Element, ElementCipherParameters> tor = sk.getParameters().getTor();
+            ElementCipher<Element, Element, ElementCipherParameters> tor = sk.getParameters().getTor();
 
             // Load the ciphertext
             ElementStreamReader reader = new ElementStreamReader(in, inOff);
@@ -103,7 +103,7 @@ public class GVW13KEMEngine extends AbstractKeyEncapsulationMechanism {
             EncryptionParameters<GVW13PublicKeyParameters, Boolean> encKey = (EncryptionParameters<GVW13PublicKeyParameters, Boolean>) key;
             GVW13PublicKeyParameters publicKey = encKey.getMpk();
 
-            ElementCipher<Element, ElementCipherParameters> tor = publicKey.getParameters().getTor();
+            ElementCipher<Element, Element, ElementCipherParameters> tor = publicKey.getParameters().getTor();
             Assignment<Boolean> assignment = encKey.getAssignment();
 
             ElementStreamWriter writer = new ElementStreamWriter(getOutputBlockSize());

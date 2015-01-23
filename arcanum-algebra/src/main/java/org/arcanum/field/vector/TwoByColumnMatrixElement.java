@@ -36,7 +36,7 @@ public class TwoByColumnMatrixElement<E extends Element> extends AbstractMatrixE
 
 
     @Override
-    public Element duplicate() {
+    public ArrayMatrixElement duplicate() {
         return new ArrayMatrixElement(field, this);
     }
 

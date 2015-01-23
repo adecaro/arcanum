@@ -9,8 +9,8 @@ import org.arcanum.field.vector.*;
 import org.arcanum.field.z.ZFieldSelector;
 import org.arcanum.trapdoor.mp12.engines.MP12PLP2LongSampler;
 import org.arcanum.trapdoor.mp12.generators.MP12PLP2KeyPairGenerator;
-import org.arcanum.trapdoor.mp12.params.MP12PLKeyPairGenerationParameters;
-import org.arcanum.trapdoor.mp12.params.MP12PLPublicKeyParameters;
+import org.arcanum.trapdoor.mp12.params.MP12PLP2KeyPairGenerationParameters;
+import org.arcanum.trapdoor.mp12.params.MP12PLP2PublicKeyParameters;
 import org.arcanum.trapdoor.mp12.utils.MP12P2Utils;
 
 import java.math.BigInteger;
@@ -21,7 +21,7 @@ import java.security.SecureRandom;
  */
 public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
 
-    protected MP12PLPublicKeyParameters pk;
+    protected MP12PLP2PublicKeyParameters pk;
     protected Vector s, decryptionKey;
     protected BigInteger oneFourthOrder;
     protected ElementCipher sampler;
@@ -33,9 +33,9 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
 
         // Init Micciancio-Peikert Primitive Lattice PK
         MP12PLP2KeyPairGenerator gen = new MP12PLP2KeyPairGenerator();
-        gen.init(new MP12PLKeyPairGenerationParameters(random, n, k));
+        gen.init(new MP12PLP2KeyPairGenerationParameters(random, n, k));
 
-        this.pk = (MP12PLPublicKeyParameters) gen.generateKeyPair().getPublic();
+        this.pk = (MP12PLP2PublicKeyParameters) gen.generateKeyPair().getPublic();
         this.lweErrorSampler = MP12P2Utils.getLWENoiseSampler(random, n);
 
         // Generate Secret Key
@@ -60,9 +60,9 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
 
         // Init Micciancio-Peikert Primitive Lattice PK
         MP12PLP2KeyPairGenerator gen = new MP12PLP2KeyPairGenerator();
-        gen.init(new MP12PLKeyPairGenerationParameters(random, n, k));
+        gen.init(new MP12PLP2KeyPairGenerationParameters(random, n, k));
 
-        this.pk = (MP12PLPublicKeyParameters) gen.generateKeyPair().getPublic();
+        this.pk = (MP12PLP2PublicKeyParameters) gen.generateKeyPair().getPublic();
         this.lweErrorSampler = MP12P2Utils.getLWENoiseSampler(random, n);
 
         // Import Secret Key
@@ -129,7 +129,7 @@ public class AP14GSW14Field extends AbstractField<AP14GSW14Element> {
     }
 
 
-    public MP12PLPublicKeyParameters getPk() {
+    public MP12PLP2PublicKeyParameters getPk() {
         return pk;
     }
 

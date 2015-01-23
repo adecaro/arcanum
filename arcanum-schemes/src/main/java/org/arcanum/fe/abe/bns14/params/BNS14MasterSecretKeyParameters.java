@@ -1,24 +1,24 @@
 package org.arcanum.fe.abe.bns14.params;
 
 
+import org.arcanum.common.cipher.params.ElementCipherParameters;
 import org.arcanum.common.fe.params.KeyParameters;
-import org.arcanum.trapdoor.mp12.params.MP12HLP2PrivateKeyParameters;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
 public class BNS14MasterSecretKeyParameters extends KeyParameters<BNS14Parameters> {
 
-    private MP12HLP2PrivateKeyParameters latticeSk;
+    private ElementCipherParameters latticeSk;
 
 
-    public BNS14MasterSecretKeyParameters(BNS14Parameters parameters, MP12HLP2PrivateKeyParameters latticeSk) {
+    public BNS14MasterSecretKeyParameters(BNS14Parameters parameters, ElementCipherParameters latticeSk) {
         super(true, parameters);
 
         this.latticeSk = latticeSk;
     }
 
-    public MP12HLP2PrivateKeyParameters getLatticeSk() {
+    public ElementCipherParameters getLatticeSk() {
         return latticeSk;
     }
 }

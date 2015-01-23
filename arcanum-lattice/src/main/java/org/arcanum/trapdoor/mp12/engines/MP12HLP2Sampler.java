@@ -5,7 +5,7 @@ import org.arcanum.Element;
 import org.arcanum.Matrix;
 import org.arcanum.Sampler;
 import org.arcanum.Vector;
-import org.arcanum.common.cipher.engine.ElementCipher;
+import org.arcanum.common.cipher.engine.AbstractElementCipher;
 import org.arcanum.common.cipher.params.ElementCipherParameters;
 import org.arcanum.common.cipher.params.ElementKeyPairParameters;
 import org.arcanum.common.concurrent.PoolExecutor;
@@ -31,7 +31,7 @@ import static org.arcanum.field.floating.ApfloatUtils.*;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class MP12HLP2Sampler extends MP12PLP2Sampler {
+public class MP12HLP2Sampler extends AbstractElementCipher<Element, Vector, MP12HLP2SampleParameters> {
 
     protected static Map<ElementCipherParameters, Matrix> covs = new HashMap<ElementCipherParameters, Matrix>();
 
@@ -43,34 +43,36 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
     protected Sampler<? extends Element> perturbationSampler;
     protected int matrixExtensionLength;
 
+    protected MP12PLP2Sampler plp2Sampler;
 
     public MP12HLP2Sampler() {
         this.matrixExtensionLength = 0;
+        this.plp2Sampler = new MP12PLP2Sampler();
     }
 
 
-    public ElementCipher init(ElementCipherParameters param) {
-        ElementKeyPairParameters keyPair = ((MP12HLP2SampleParameters) param).getKeyPair();
+    public MP12HLP2Sampler init(MP12HLP2SampleParameters param) {
+        ElementKeyPairParameters keyPair = param.getKeyPair();
 
         this.pk = (MP12HLP2PublicKeyParameters) keyPair.getPublic();
         this.sk = (MP12HLP2PrivateKeyParameters) keyPair.getPrivate();
         this.A = pk.getA();
 
         // Init the Primitive Lattice Sampler
-        super.init(pk);
+        plp2Sampler.init(pk.getPrimitiveLatticPk());
 
         // Init offline sampler
         perturbationSampler = new DiscreteGaussianCOVSampler(
                 sk.getParameters().getRandom(),
                 computeCoviarianceMatrix(),
                 sk.getR().getTargetField(),
-                pk.getRandomizedRoundingParameter()
+                pk.getPrimitiveLatticPk().getRandomizedRoundingParameter()
         );
 
         return this;
     }
 
-    public Element processElements(Element... input) {
+    public Vector processElements(Element... input) {
         // Offline phase
         // sample perturbation
         Element[] perturbation = samplePerturbation();
@@ -85,7 +87,7 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
         Element v = u.duplicate().sub(offset);
 
         // Compute x
-        Element z2 = super.processElements(v);
+        Element z2 = plp2Sampler.processElements(v);
         Element z1 = sk.getR().mul(z2);
 
         return ((Vector) p).add(z1, z2);
@@ -118,7 +120,7 @@ public class MP12HLP2Sampler extends MP12PLP2Sampler {
         final int m = sk.getR().getM();
         SecureRandom random = sk.getParameters().getRandom();
 
-        Apfloat rrp = pk.getRandomizedRoundingParameter();
+        Apfloat rrp = pk.getPrimitiveLatticPk().getRandomizedRoundingParameter();
         Apfloat rrpSquare = square(rrp);
         Apfloat tworrpSquare = rrpSquare.multiply(IFOUR);
 

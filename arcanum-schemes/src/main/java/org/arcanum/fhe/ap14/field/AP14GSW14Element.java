@@ -26,7 +26,7 @@ public class AP14GSW14Element extends AbstractElement<AP14GSW14Field> implements
         return false;
     }
 
-    public Element duplicate() {
+    public AP14GSW14Element duplicate() {
         return new AP14GSW14Element(field, (Matrix) value.duplicate());
     }
 
@@ -100,6 +100,13 @@ public class AP14GSW14Element extends AbstractElement<AP14GSW14Field> implements
         this.value = (Matrix) this.value.mul(
                 field.gInvert(((AP14GSW14Element) element).value)
         );
+
+        return this;
+    }
+
+    @Override
+    public AP14GSW14Element mulZn(Element z) {
+        mul(z.toBigInteger());
 
         return this;
     }

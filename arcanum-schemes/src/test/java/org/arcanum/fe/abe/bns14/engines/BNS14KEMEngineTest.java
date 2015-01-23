@@ -29,7 +29,7 @@ public class BNS14KEMEngineTest extends AbstractKEMEngineTest<ArithmeticCircuit>
     public void testEncapsDecaps() {
         // 1. (MPK,MSK) <- Setup
         setup();
-        Field Zq = ((BNS14PublicKeyParameters) keyPair.getPublic()).getLatticePk().getZq();
+        Field Zq = ((BNS14PublicKeyParameters) keyPair.getPublic()).getLatticePk().getPrimitiveLatticPk().getZq();
 
         // 2. SK <- KeyGen(MSK, circuit)
         ArithmeticCircuit circuit = new SmartArithmeticCircuitLoader().load(

@@ -10,7 +10,7 @@ import java.math.BigInteger;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class BV14DMREngine extends AbstractElementCipher<Element, BV14DMRKeyParameters> {
+public class BV14DMREngine extends AbstractElementCipher<Element, Element, BV14DMRKeyParameters> {
 
     protected BV14DMRKeyParameters parameters;
 

@@ -27,18 +27,18 @@ public class MP12HLP2OneWayFunctionParameters extends ElementKeyParameter {
                 pk.getParameters().getRandom(),
                 MP12P2Utils.getLWENoiseParameter(
                         pk.getParameters().getN(),
-                        pk.getRandomizedRoundingParameter()
+                        pk.getPrimitiveLatticPk().getRandomizedRoundingParameter()
                 )
         );
 
         this.inputField = new VectorField<Field>(
                 pk.getParameters().getRandom(),
-                pk.getZq(),
+                pk.getPrimitiveLatticPk().getZq(),
                 pk.getParameters().getN()
         );
         this.outputField = new VectorField<Field>(
                 pk.getParameters().getRandom(),
-                pk.getZq(),
+                pk.getPrimitiveLatticPk().getZq(),
                 pk.getM()
         );
     }

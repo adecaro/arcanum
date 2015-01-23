@@ -9,9 +9,8 @@ import org.arcanum.field.vector.VectorField;
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class MP12PLPublicKeyParameters extends MP12KeyParameters {
+public abstract class MP12PLPublicKeyParameters extends MP12KeyParameters {
 
-    protected int k;
     protected Vector g;
     protected Matrix G; // parity-check matrix
 
@@ -21,7 +20,6 @@ public class MP12PLPublicKeyParameters extends MP12KeyParameters {
 
 
     public MP12PLPublicKeyParameters(MP12Parameters parameters,
-                                     int k,
                                      Vector g,
                                      Matrix G,
                                      Field syndromeField,
@@ -29,16 +27,11 @@ public class MP12PLPublicKeyParameters extends MP12KeyParameters {
                                      VectorField<Field> preimageField) {
         super(false, parameters);
 
-        this.k = k;
         this.g = g;
         this.G = G;
         this.syndromeField = syndromeField;
         this.Zq = Zq;
         this.preimageField = preimageField;
-    }
-
-    public int getK() {
-        return k;
     }
 
     public Apfloat getRandomizedRoundingParameter() {
@@ -52,7 +45,6 @@ public class MP12PLPublicKeyParameters extends MP12KeyParameters {
     public Vector getPrimitiveVector() {
         return g;
     }
-
 
     public VectorField<Field> getPreimageField() {
         return preimageField;

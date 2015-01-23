@@ -2,6 +2,8 @@ package org.arcanum.fe.abe.bns14.engines;
 
 import org.arcanum.Element;
 import org.arcanum.Matrix;
+import org.arcanum.common.cipher.engine.ElementCipher;
+import org.arcanum.common.cipher.params.ElementCipherParameters;
 import org.arcanum.common.fe.params.EncryptionParameters;
 import org.arcanum.common.io.ElementStreamReader;
 import org.arcanum.common.io.ElementStreamWriter;
@@ -11,8 +13,6 @@ import org.arcanum.fe.abe.bns14.params.BNS14SecretKeyParameters;
 import org.arcanum.field.util.ElementUtils;
 import org.arcanum.program.circuit.ArithmeticCircuit;
 import org.arcanum.program.circuit.ArithmeticGate;
-import org.arcanum.trapdoor.mp12.engines.MP12HLP2ErrorTolerantOneTimePad;
-import org.arcanum.trapdoor.mp12.engines.MP12PLP2MatrixSolver;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -64,15 +64,14 @@ public class BNS14KEMEngine extends AbstractKeyEncapsulationMechanism {
             Map<Integer, Element> evaluations = new HashMap<Integer, Element>();
             Map<Integer, Element> keys = new HashMap<Integer, Element>();
 
-            MP12PLP2MatrixSolver solver = new MP12PLP2MatrixSolver();
-            solver.init(pk.getPrimitiveLatticePk());
+            ElementCipher<Element, Matrix, ElementCipherParameters> solver = pk.getFactory().newPrimitiveLatticeSolver();
 
             for (ArithmeticGate gate : sk.getCircuit()) {
                 int index = gate.getIndex();
 
                 switch (gate.getType()) {
                     case INPUT:
-                        gate.set(reader.readElement(pk.getLatticePk().getZq()));
+                        gate.set(reader.readElement(pk.getLatticePk().getPrimitiveLatticPk().getZq()));
                         evaluations.put(index, reader.readElement(pk.getRandomnessField()));
                         keys.put(index, pk.getBAt(index));
 
@@ -85,7 +84,7 @@ public class BNS14KEMEngine extends AbstractKeyEncapsulationMechanism {
                         Element B = pk.getBAt(0).getField().newZeroElement();
 
                         for (int i = 0, k = gate.getNumInputs(); i < k; i++) {
-                            Matrix R = (Matrix) solver.processElements(
+                            Matrix R = solver.processElements(
                                     pk.getPrimitiveLatticePk().getG().duplicate().mulZn(gate.getAlphaAt(i))
                             );
 
@@ -104,7 +103,7 @@ public class BNS14KEMEngine extends AbstractKeyEncapsulationMechanism {
                         cGate = evaluations.get(gate.getInputIndexAt(0)).getField().newZeroElement();
 
                         // Compute R_0 = SolveR(G, T_G, \alpha G)
-                        Element R = solver.processElements(
+                        Matrix R = solver.processElements(
                                 (gate.getAlphaAt(0).isOne()) ?
                                         pk.getPrimitiveLatticePk().getG() :
                                         pk.getPrimitiveLatticePk().getG().duplicate().mulZn(gate.getAlphaAt(0))
@@ -118,19 +117,19 @@ public class BNS14KEMEngine extends AbstractKeyEncapsulationMechanism {
 
                             // R_j = SolveR(G, T_G, - B_{j-1} R_{j-1})
                             Element symdrome = keys.get(gate.getInputIndexAt(j - 1)).mul(R).negate();
-                            Element Rnext = solver.processElements(symdrome);
+                            Matrix Rnext = solver.processElements(symdrome);
 
                             if (!x.isZero()) {
                                 if (x.isOne())
-                                    cGate.add(((Matrix) R.duplicate().mul(x)).mulFromTranspose(evaluations.get(gate.getInputIndexAt(j))));
+                                    cGate.add(R.duplicate().mulZn(x).mulFromTranspose(evaluations.get(gate.getInputIndexAt(j))));
                                 else
-                                    cGate.add(((Matrix) R).mulFromTranspose(evaluations.get(gate.getInputIndexAt(j))));
+                                    cGate.add(R.mulFromTranspose(evaluations.get(gate.getInputIndexAt(j))));
                             }
 
                             R = Rnext;
                         }
 
-                        cGate.add(((Matrix) R).mulFromTranspose(evaluations.get(gate.getInputIndexAt(gate.getNumInputs() - 1))));
+                        cGate.add(R.mulFromTranspose(evaluations.get(gate.getInputIndexAt(gate.getNumInputs() - 1))));
 
                         evaluations.put(index, cGate);
                         keys.put(index, keys.get(gate.getInputIndexAt(gate.getNumInputs() - 1)).mul(R));
@@ -141,11 +140,9 @@ public class BNS14KEMEngine extends AbstractKeyEncapsulationMechanism {
 
             Element cfPrime = ElementUtils.union(cin, cf);
 
-            MP12HLP2ErrorTolerantOneTimePad otp = new MP12HLP2ErrorTolerantOneTimePad();
+            ElementCipher<Element, Element, ElementCipherParameters> otp = pk.getFactory().newErrorTolerantOneTimePad();
             Element key = sk.getSkC().mul(cfPrime);
-
             otp.init(key);
-
             return otp.processElementsToBytes(cout);
         } else {
             // Encrypt
@@ -168,7 +165,7 @@ public class BNS14KEMEngine extends AbstractKeyEncapsulationMechanism {
                 writer.write(publicKey.getLatticePk().getA().mul(s).add(e0));
 
                 // cout
-                MP12HLP2ErrorTolerantOneTimePad otp = new MP12HLP2ErrorTolerantOneTimePad();
+                ElementCipher<Element, Element, ElementCipherParameters> otp = publicKey.getFactory().newErrorTolerantOneTimePad();
                 otp.init(publicKey.getD().mul(s).add(e1));
                 writer.write(otp.processBytes(bytes));
 
@@ -180,7 +177,7 @@ public class BNS14KEMEngine extends AbstractKeyEncapsulationMechanism {
                     writer.write(encKey.getAssignment().getAt(i));
                     writer.write(
                             publicKey.getBAt(i).duplicate()
-                                    .add(publicKey.getLatticePk().getG().duplicate().mulZn(encKey.getAssignment().getAt(i)))
+                                    .add(publicKey.getPrimitiveLatticePk().getG().duplicate().mulZn(encKey.getAssignment().getAt(i)))
                                     .mul(s)
                                     .add(ei)
                     );

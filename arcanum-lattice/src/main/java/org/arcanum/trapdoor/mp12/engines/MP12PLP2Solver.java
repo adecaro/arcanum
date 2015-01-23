@@ -3,23 +3,21 @@ package org.arcanum.trapdoor.mp12.engines;
 import org.arcanum.Element;
 import org.arcanum.Vector;
 import org.arcanum.common.cipher.engine.AbstractElementCipher;
-import org.arcanum.common.cipher.engine.ElementCipher;
-import org.arcanum.common.cipher.params.ElementCipherParameters;
-import org.arcanum.trapdoor.mp12.params.MP12PLPublicKeyParameters;
+import org.arcanum.trapdoor.mp12.params.MP12PLP2PublicKeyParameters;
 
 import java.math.BigInteger;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class MP12PLP2Solver extends AbstractElementCipher {
+public class MP12PLP2Solver extends AbstractElementCipher<Element, Vector, MP12PLP2PublicKeyParameters> {
 
-    protected MP12PLPublicKeyParameters parameters;
+    protected MP12PLP2PublicKeyParameters parameters;
     protected int n, k;
 
 
-    public ElementCipher init(ElementCipherParameters param) {
-        this.parameters = (MP12PLPublicKeyParameters) param;
+    public MP12PLP2Solver init(MP12PLP2PublicKeyParameters param) {
+        this.parameters = param;
 
         this.n = parameters.getParameters().getN();
         this.k = parameters.getK();
@@ -27,7 +25,8 @@ public class MP12PLP2Solver extends AbstractElementCipher {
         return this;
     }
 
-    public Element processElements(Element... input) {
+
+    public Vector processElements(Element... input) {
         Vector syndrome = (Vector) input[0];
         if (syndrome.getSize() != n)
             throw new IllegalArgumentException("Invalid syndrome length.");
@@ -50,7 +49,7 @@ public class MP12PLP2Solver extends AbstractElementCipher {
         return r;
     }
 
-    public Element processElementsTo(Element to, Element... input) {
+    public Vector processElementsTo(Element to, Element... input) {
         Vector syndrome = (Vector) input[0];
         if (syndrome.getSize() != n)
             throw new IllegalArgumentException("Invalid syndrome length.");

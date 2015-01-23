@@ -1,6 +1,7 @@
 package org.arcanum.fe.abe.bns14.params;
 
 import org.arcanum.Sampler;
+import org.arcanum.trapdoor.mp12.utils.MP12EngineFactory;
 import org.bouncycastle.crypto.CipherParameters;
 
 import java.math.BigInteger;
@@ -13,17 +14,20 @@ public class BNS14Parameters implements CipherParameters {
 
     private SecureRandom random;
     private int ell;
-    private int n, k;
+    private int n;
+    private MP12EngineFactory factory;
     private Sampler<BigInteger> chi;
     private Sampler<BigInteger> uniformOneMinusOne;
 
-    public BNS14Parameters(SecureRandom random, int ell, int n, int k,
+
+
+    public BNS14Parameters(SecureRandom random, int ell, int n, MP12EngineFactory factory,
                            Sampler<BigInteger> chi, Sampler<BigInteger> uniformOneMinusOne) {
         this.random = random;
         this.ell = ell;
 
         this.n = n;
-        this.k = k;
+        this.factory = factory;
         this.chi = chi;
         this.uniformOneMinusOne = uniformOneMinusOne;
     }
@@ -40,8 +44,8 @@ public class BNS14Parameters implements CipherParameters {
         return n;
     }
 
-    public int getK() {
-        return k;
+    public MP12EngineFactory getFactory() {
+        return factory;
     }
 
     public Sampler<BigInteger> getChi() {

@@ -633,7 +633,7 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
         return sb.append("]\n").toString();
     }
 
-    public Element duplicate() {
+    public Matrix<E> duplicate() {
         throw new IllegalStateException("Not implemented yet!!!");
     }
 
@@ -758,6 +758,13 @@ public abstract class AbstractMatrixElement<E extends Element, F extends Abstrac
             });
         }
         executor.awaitTermination();
+
+        return this;
+    }
+
+    @Override
+    public Matrix<E> mulZn(Element z) {
+        mul(z.toBigInteger());
 
         return this;
     }

@@ -1,42 +1,22 @@
 package org.arcanum.trapdoor.mp12.params;
 
 import org.arcanum.Element;
-import org.arcanum.Field;
-import org.arcanum.Matrix;
-import org.arcanum.Vector;
-import org.arcanum.field.vector.VectorField;
-
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class MP12HLP2PublicKeyParameters extends MP12PLPublicKeyParameters {
+public class MP12HLP2PublicKeyParameters extends MP12HLPublicKeyParameters {
 
-    protected Element A;
-    protected int m, mInBytes;
-
+    private MP12PLP2PublicKeyParameters publicKeyParameters;
 
     public MP12HLP2PublicKeyParameters(MP12Parameters parameters,
-                                       int k, int m,
-                                       Vector g, Matrix G,
-                                       Field syndromeField, Field Zq,
-                                       VectorField<Field> preimageField,
-                                       Element A) {
-        super(parameters, k, g, G, syndromeField, Zq, preimageField);
+                                       MP12PLP2PublicKeyParameters primitiveLatticPk,
+                                       Element A, int m) {
+        super(parameters, primitiveLatticPk, A, m);
 
-        this.A = A;
-        this.m = m;
-        this.mInBytes = (m + 7) / 8;
+        this.publicKeyParameters = primitiveLatticPk;
     }
 
-    public Element getA() {
-        return A;
-    }
-
-    public int getM() {
-        return m;
-    }
-
-    public int getmInBytes() {
-        return mInBytes;
+    public MP12PLP2PublicKeyParameters getPrimitiveLatticPk() {
+        return publicKeyParameters;
     }
 }

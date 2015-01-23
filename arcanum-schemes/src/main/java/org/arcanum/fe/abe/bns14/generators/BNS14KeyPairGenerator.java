@@ -1,14 +1,12 @@
 package org.arcanum.fe.abe.bns14.generators;
 
 import org.arcanum.Element;
-import org.arcanum.common.cipher.params.ElementKeyPairParameters;
+import org.arcanum.common.cipher.params.ElementCipherParameters;
 import org.arcanum.common.fe.generator.KeyPairGenerator;
 import org.arcanum.fe.abe.bns14.params.BNS14MasterSecretKeyParameters;
 import org.arcanum.fe.abe.bns14.params.BNS14Parameters;
 import org.arcanum.fe.abe.bns14.params.BNS14PublicKeyParameters;
-import org.arcanum.trapdoor.mp12.generators.MP12HLP2KeyPairGenerator;
-import org.arcanum.trapdoor.mp12.generators.MP12PLP2KeyPairGenerator;
-import org.arcanum.trapdoor.mp12.params.*;
+import org.arcanum.trapdoor.mp12.utils.MP12EngineFactory;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 
 /**
@@ -19,41 +17,25 @@ public class BNS14KeyPairGenerator extends KeyPairGenerator<BNS14Parameters> {
     public AsymmetricCipherKeyPair generateKeyPair() {
         BNS14Parameters parameters = params.getParameters();
 
-        // Generate trapdoor
-        MP12HLP2KeyPairGenerator gen = new MP12HLP2KeyPairGenerator();
-        gen.init(new MP12HLP2KeyPairGenerationParameters(
-                parameters.getRandom(),
-                parameters.getN(),
-                parameters.getK()
-        ));
-        ElementKeyPairParameters keyPair = gen.generateKeyPair();
-        MP12HLP2PublicKeyParameters latticePk = (MP12HLP2PublicKeyParameters) keyPair.getPublic();
-
-        // Generate primitive trapdoor
-        MP12PLP2KeyPairGenerator primitiveGen = new MP12PLP2KeyPairGenerator();
-        primitiveGen.init(new MP12PLKeyPairGenerationParameters(
-                parameters.getRandom(),
-                parameters.getN(),
-                parameters.getK(),
-                latticePk.getM() - (parameters.getN() * parameters.getK())
-        ));
-        ElementKeyPairParameters primitiveKeyPair = primitiveGen.generateKeyPair();
-        MP12PLPublicKeyParameters primitiveLatticePk = (MP12PLPublicKeyParameters) primitiveKeyPair.getPublic();
+        MP12EngineFactory factory = parameters.getFactory();
+        ElementCipherParameters latticeSk = factory.init();
 
         // generate public matrices
-        Element D = latticePk.getA().getField().newRandomElement();
+        Element D = factory.getPublicField().newRandomElement();
 
         Element[] Bs = new Element[parameters.getEll()];
         for (int i = 0, ell = parameters.getEll(); i < ell; i++) {
-            Bs[i] = latticePk.getA().getField().newRandomElement();
+            Bs[i] = factory.getPublicField().newRandomElement();
         }
 
         // Return the keypair
         return new AsymmetricCipherKeyPair(
-                new BNS14PublicKeyParameters(parameters, latticePk, primitiveLatticePk, D, Bs),
+                new BNS14PublicKeyParameters(
+                        parameters,
+                        D, Bs),
                 new BNS14MasterSecretKeyParameters(
                         parameters,
-                        (MP12HLP2PrivateKeyParameters) keyPair.getPrivate()
+                        latticeSk
                 )
         );
     }

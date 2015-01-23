@@ -2,31 +2,36 @@ package org.arcanum.trapdoor.mp12.engines;
 
 import org.arcanum.Element;
 import org.arcanum.Vector;
-import org.arcanum.common.cipher.engine.ElementCipher;
-import org.arcanum.common.cipher.params.ElementCipherParameters;
+import org.arcanum.common.cipher.engine.AbstractElementCipher;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2InverterParameters;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class MP12HLP2Inverter extends MP12PLP2Inverter {
+public class MP12HLP2Inverter extends AbstractElementCipher<Element, Vector, MP12HLP2InverterParameters> {
 
     protected MP12HLP2InverterParameters parameters;
+    protected MP12PLP2Inverter inverter;
 
 
-    public ElementCipher init(ElementCipherParameters param) {
-        this.parameters = (MP12HLP2InverterParameters) param;
-        super.init(parameters.getPk());
+    public MP12HLP2Inverter() {
+        this.inverter = new MP12PLP2Inverter();
+    }
+
+
+    public MP12HLP2Inverter init(MP12HLP2InverterParameters param) {
+        this.parameters = param;
+        this.inverter.init(parameters.getPk().getPrimitiveLatticPk());
 
         return this;
     }
 
-    public Element processElements(Element... input) {
+    public Vector processElements(Element... input) {
         Vector b = (Vector) input[0];
-        Vector hatB = (Vector) parameters.getSk().getR().mul(b.subVectorTo(n * 2));
-        for (int i = 0; i < n * k; i++)
-            hatB.getAt(i).add(b.getAt(2 * n + i));
+        Vector hatB = (Vector) parameters.getSk().getR().mul(b.subVectorTo(inverter.n * 2));
+        for (int i = 0, l = inverter.n * inverter.k; i < l; i++)
+            hatB.getAt(i).add(b.getAt(2 * inverter.n + i));
 
-        return super.processElements(hatB);
+        return inverter.processElements(hatB);
     }
 }

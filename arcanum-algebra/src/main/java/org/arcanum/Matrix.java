@@ -11,6 +11,11 @@ import java.math.BigInteger;
  */
 public interface Matrix <E extends Element> extends Element {
 
+    Matrix<E> duplicate();
+
+    Matrix<E> mulZn(Element z);
+
+
     Field getTargetField();
 
     int getN();

@@ -3,49 +3,51 @@ package org.arcanum.trapdoor.mp12.engines;
 import org.arcanum.Element;
 import org.arcanum.Field;
 import org.arcanum.Matrix;
-import org.arcanum.common.cipher.engine.ElementCipher;
-import org.arcanum.common.cipher.params.ElementCipherParameters;
+import org.arcanum.Vector;
+import org.arcanum.common.cipher.engine.AbstractElementCipher;
 import org.arcanum.field.vector.MatrixField;
 import org.arcanum.trapdoor.mp12.params.MP12HLP2SampleLeftParameters;
 
 /**
  * @author Angelo De Caro (arcanumlib@gmail.com)
  */
-public class MP12HLP2LeftSampler extends MP12HLP2Sampler {
+public class MP12HLP2LeftSampler extends AbstractElementCipher<Element, Vector, MP12HLP2SampleLeftParameters> {
 
 
     protected MatrixField<Field> extendedAField;
+    protected MP12HLP2Sampler sampler;
 
+    public MP12HLP2LeftSampler() {
+        this.sampler = new MP12HLP2Sampler();
+    }
 
-    public ElementCipher init(ElementCipherParameters param) {
-        MP12HLP2SampleLeftParameters params = (MP12HLP2SampleLeftParameters) param;
-
+    public MP12HLP2LeftSampler init(MP12HLP2SampleLeftParameters param) {
         // Set Extension Length
-        setMatrixExtensionLength(params.getMatrixExtensionLength());
+        sampler.setMatrixExtensionLength(param.getMatrixExtensionLength());
 
         // Setup sampler
-        super.init(params);
+        sampler.init(param);
 
         // Setup extendedAField
         this.extendedAField = new MatrixField<Field>(
-                pk.getParameters().getRandom(),
-                pk.getZq(),
-                pk.getParameters().getN(),
-                pk.getM() + matrixExtensionLength
+                sampler.pk.getParameters().getRandom(),
+                sampler.pk.getPrimitiveLatticPk().getZq(),
+                sampler.pk.getParameters().getN(),
+                sampler.pk.getM() + sampler.matrixExtensionLength
         );
 
         return this;
     }
 
     @Override
-    public Element processElements(Element... input) {
+    public Vector processElements(Element... input) {
         Matrix M = (Matrix) input[0];
         Element u = input[1].duplicate();
 
         // Extend matrix A with M
-        this.A = extendedAField.newTwoByColMatrix(pk.getA(), M);
+        sampler.A = extendedAField.newTwoByColMatrix(sampler.pk.getA(), M);
 
         // Process u
-        return super.processElements(u);
+        return sampler.processElements(u);
     }
 }

@@ -3,8 +3,8 @@ package org.arcanum.trapdoor.mp12.engines;
 import org.arcanum.Element;
 import org.arcanum.Matrix;
 import org.arcanum.trapdoor.mp12.generators.MP12PLP2KeyPairGenerator;
-import org.arcanum.trapdoor.mp12.params.MP12PLKeyPairGenerationParameters;
-import org.arcanum.trapdoor.mp12.params.MP12PLPublicKeyParameters;
+import org.arcanum.trapdoor.mp12.params.MP12PLP2KeyPairGenerationParameters;
+import org.arcanum.trapdoor.mp12.params.MP12PLP2PublicKeyParameters;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,19 +19,19 @@ public class MP12PLP2Test {
 
     protected SecureRandom random;
     protected MP12PLP2KeyPairGenerator gen;
-    protected MP12PLPublicKeyParameters pk;
+    protected MP12PLP2PublicKeyParameters pk;
 
     @Before
     public void setUp() throws Exception {
         this.random = SecureRandom.getInstance("SHA1PRNG");
 
         this.gen = new MP12PLP2KeyPairGenerator();
-        this.gen.init(new MP12PLKeyPairGenerationParameters(
+        this.gen.init(new MP12PLP2KeyPairGenerationParameters(
                 random,
                 3,  // n
                 24  // k
         ));
-        this.pk = (MP12PLPublicKeyParameters) gen.generateKeyPair().getPublic();
+        this.pk = (MP12PLP2PublicKeyParameters) gen.generateKeyPair().getPublic();
     }
 
 
@@ -63,13 +63,13 @@ public class MP12PLP2Test {
     @Test
     public void testSampleDMatrix() throws Exception {
         // Compute U
-        Matrix U = (Matrix) pk.getG().duplicate().mulZn(pk.getZq().newRandomElement());
+        Matrix U = pk.getG().duplicate().mulZn(pk.getZq().newRandomElement());
 
         // Sample
         MP12PLP2MatrixSampler sampleD = new MP12PLP2MatrixSampler();
         sampleD.init(pk);
 
-        Matrix R0 = (Matrix) sampleD.processElements(U);
+        Matrix R0 = sampleD.processElements(U);
 
         // Decode
         MP12PLDecoder decoder = new MP12PLDecoder();
@@ -92,13 +92,13 @@ public class MP12PLP2Test {
     @Test
     public void testSolverMatrix() throws Exception {
         // Compute U
-        Matrix U = (Matrix) pk.getG().duplicate().mulZn(pk.getZq().newRandomElement());
+        Matrix U = pk.getG().duplicate().mulZn(pk.getZq().newRandomElement());
 
         // Sample
         MP12PLP2MatrixSolver sampleD = new MP12PLP2MatrixSolver();
         sampleD.init(pk);
 
-        Matrix R0 = (Matrix) sampleD.processElements(U);
+        Matrix R0 = sampleD.processElements(U);
         System.out.println("R0 = " + R0);
 
         // Decode

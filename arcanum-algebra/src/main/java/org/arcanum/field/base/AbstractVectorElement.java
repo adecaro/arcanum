@@ -26,7 +26,7 @@ public abstract class AbstractVectorElement<E extends Element, F extends Abstrac
         return field.getTargetField();
     }
 
-    public Element duplicate() {
+    public AbstractVectorElement<E, F> duplicate() {
         throw new IllegalStateException("Not implemented yet!!!");
     }
 

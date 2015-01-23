@@ -21,7 +21,7 @@ public class ZeroMatrixElement<E extends Element> extends AbstractMatrixElement<
     }
 
     @Override
-    public Element duplicate() {
+    public ZeroMatrixElement<E> duplicate() {
         return new ZeroMatrixElement<E>(field);
     }
 

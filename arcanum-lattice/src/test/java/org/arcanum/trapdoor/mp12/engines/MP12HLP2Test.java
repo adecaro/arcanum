@@ -55,7 +55,7 @@ public class MP12HLP2Test {
     @Test
     public void testSampleD() throws Exception {
         // Sample
-        Element syndrome = pk.getSyndromeField().newRandomElement();
+        Element syndrome = pk.getPrimitiveLatticPk().getSyndromeField().newRandomElement();
         System.out.println("syndrome = " + syndrome);
 
         MP12HLP2Sampler sampler = new MP12HLP2Sampler();
@@ -68,7 +68,7 @@ public class MP12HLP2Test {
         System.out.println("x = " + x);
 
         // Decode
-        MP12HLP2Decoder decoder = new MP12HLP2Decoder();
+        ElementCipher decoder = new MP12HLP2Decoder();
         decoder.init(keyPair.getPublic());
         Element syndromePrime = decoder.processElements(x);
         System.out.println("syndromePrime = " + syndromePrime);
@@ -78,7 +78,7 @@ public class MP12HLP2Test {
 
     @Test
     public void testSampleDMatrix() throws Exception {
-        MatrixField<Field> RField = new MatrixField<Field>(pk.getParameters().getRandom(), pk.getZq(), pk.getM());
+        MatrixField<Field> RField = new MatrixField<Field>(pk.getParameters().getRandom(), pk.getPrimitiveLatticPk().getZq(), pk.getM());
         // Compute U
         Matrix U = (Matrix) pk.getA().getField().newRandomElement();
 
@@ -93,7 +93,7 @@ public class MP12HLP2Test {
 //        System.out.println("R0 = " + R0);
 
         // Decode
-        MP12HLP2Decoder decoder = new MP12HLP2Decoder();
+        ElementCipher decoder = new MP12HLP2Decoder();
         decoder.init(keyPair.getPublic());
 
         Matrix U1 = (Matrix) U.getField().newElement();
@@ -148,7 +148,7 @@ public class MP12HLP2Test {
         Element key = owf.processElements(owfParams.getInputField().newRandomElement());
 
         // Init OTP
-        ElementCipher otp = new MP12HLP2ErrorTolerantOneTimePad();
+        ElementCipher otp = new MP12ErrorTolerantOneTimePad();
         otp.init(key);
 
         byte[] bytes = new byte[gen.getMInBytes()];
@@ -169,7 +169,7 @@ public class MP12HLP2Test {
         sampler.init(new MP12HLP2SampleLeftParameters(keyPair, pk.getM()));
 
         Element A1 = pk.getA().getField().newRandomElement();
-        Element u = VectorField.newRandomElement(pk.getZq(), pk.getParameters().getN());
+        Element u = VectorField.newRandomElement(pk.getPrimitiveLatticPk().getZq(), pk.getParameters().getN());
 
         Element F = new TwoByColumnMatrixElement((Matrix) pk.getA(), (Matrix) A1);
 
@@ -185,7 +185,7 @@ public class MP12HLP2Test {
         sampler.init(new MP12HLP2SampleLeftParameters(keyPair, pk.getM()));
 
         Element A1 = pk.getA().getField().newRandomElement();
-        Element U = new MatrixField<Field>(pk.getParameters().getRandom(), pk.getZq(), pk.getParameters().getN(), pk.getM()).newRandomElement();
+        Element U = new MatrixField<Field>(pk.getParameters().getRandom(), pk.getPrimitiveLatticPk().getZq(), pk.getParameters().getN(), pk.getM()).newRandomElement();
         Element R = sampler.processElements(A1, U);
 
         Element F = new TwoByColumnMatrixElement((Matrix) pk.getA(), (Matrix) A1);
