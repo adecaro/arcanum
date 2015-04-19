@@ -68,7 +68,11 @@ public class PolyElement<E extends Element> extends AbstractPolyElement<E, PolyF
     }
 
     public PolyElement<E> setToRandom() {
-        throw new IllegalStateException("Not Implemented yet!");
+        for (E coefficient : coefficients) {
+            coefficient.setToRandom();
+        }
+
+        return this;
     }
 
     public PolyElement<E> setFromHash(byte[] source, int offset, int length) {
@@ -193,31 +197,29 @@ public class PolyElement<E extends Element> extends AbstractPolyElement<E, PolyF
     public PolyElement<E> mul(Element e) {
         PolyElement<E> element = (PolyElement<E>) e;
 
-        int fcount = coefficients.size();
-        int gcount = element.coefficients.size();
-        int i, j, n;
-        PolyElement prod;
-        Element e0;
+        int fDegree = coefficients.size();
+        int gDegree = element.coefficients.size();
 
-        if (fcount == 0 || gcount == 0) {
+        if (fDegree == 0 || gDegree == 0) {
             setToZero();
             return this;
         }
 
-        prod = (PolyElement) field.newElement();
-        n = fcount + gcount - 1;
-        prod.ensureSize(n);
+        int n = fDegree + gDegree - 1;
+        PolyElement prod = field.newElement().ensureSize(n);
 
-        e0 = field.getTargetField().newElement();
-        for (i = 0; i < n; i++) {
+        Element e0 = field.getTargetField().newElement();
+        for (int i = 0; i < n; i++) {
             Element x = prod.getAt(i);
             x.setToZero();
-            for (j = 0; j <= i; j++) {
-                if (j < fcount && i - j < gcount) {
+
+            for (int j = 0; j <= i; j++) {
+                if (j < fDegree && i - j < gDegree) {
                     e0.set(coefficients.get(j)).mul(element.coefficients.get(i - j));
                     x.add(e0);
                 }
             }
+
         }
         prod.removeLeadingZeroes();
         set(prod);
@@ -332,7 +334,7 @@ public class PolyElement<E extends Element> extends AbstractPolyElement<E, PolyF
         return buffer.toString();
     }
 
-    public void ensureSize(int size) {
+    public PolyElement<E> ensureSize(int size) {
         int k = coefficients.size();
         while (k < size) {
             coefficients.add((E) field.getTargetField().newElement());
@@ -342,6 +344,8 @@ public class PolyElement<E extends Element> extends AbstractPolyElement<E, PolyF
             k--;
             coefficients.remove(coefficients.size() - 1);
         }
+
+        return this;
     }
 
     public void setCoefficient1(int n) {

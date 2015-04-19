@@ -13,8 +13,10 @@ import java.security.SecureRandom;
 public class BNS14Parameters implements CipherParameters {
 
     private SecureRandom random;
+
     private int ell;
     private int n;
+
     private MP12EngineFactory factory;
     private Sampler<BigInteger> chi;
     private Sampler<BigInteger> uniformOneMinusOne;
@@ -32,6 +34,7 @@ public class BNS14Parameters implements CipherParameters {
         this.uniformOneMinusOne = uniformOneMinusOne;
     }
 
+
     public SecureRandom getRandom() {
         return random;
     }
@@ -44,9 +47,11 @@ public class BNS14Parameters implements CipherParameters {
         return n;
     }
 
+
     public MP12EngineFactory getFactory() {
         return factory;
     }
+
 
     public Sampler<BigInteger> getChi() {
         return chi;

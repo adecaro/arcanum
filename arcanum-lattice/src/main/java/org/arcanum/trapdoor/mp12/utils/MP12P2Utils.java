@@ -92,11 +92,6 @@ public class MP12P2Utils {
         return SamplerFactory.getInstance().getDiscreteGaussianSampler(random, getLWENoiseParameter(n));
     }
 
-    protected static Apfloat getLWENoiseParameter(int n) {
-        return SQRT_TWO.multiply(
-                ITWO.multiply(sqrt(newApfloat(n)))
-        ).multiply(RRP_SQUARE).multiply(RRP);
-    }
 
     public static Apfloat getLWENoiseParameter(int n, Apfloat rrp) {
         return SQRT_TWO.multiply(
@@ -111,9 +106,17 @@ public class MP12P2Utils {
         ).divide(SQRT_2PI);
     }
 
+    protected static Apfloat getLWENoiseParameter(int n) {
+        return SQRT_TWO.multiply(
+                ITWO.multiply(sqrt(newApfloat(n)))
+        ).multiply(RRP_SQUARE).multiply(RRP);
+    }
+
     protected static Apfloat getSqrtS1RSquarePlusOne(int n, int m) {
         return sqrt(square(getS1R(getLWENoiseParameter(n), n, m)).add(IONE));
     }
+
+
 
     public static void testLWENoiseSampler(int n, int k) {
         int barM = 2 * n;
